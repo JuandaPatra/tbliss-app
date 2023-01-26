@@ -23,6 +23,18 @@ Route::get('/', function () {
     return view('web.home.index');
 });
 
+Route::get('/details', function(){
+    return view('web.details.index');
+});
+
+Route::get('/detail-trip', function(){
+    return view('web.detailtrip.index');
+});
+
+Route::get('/coba', function () {
+    return view('web.details.coba');
+});
+
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

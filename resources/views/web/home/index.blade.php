@@ -1,94 +1,510 @@
 @extends('web.layouts.app')
 
-<div class="header">
-    <div class="flex flex-wrap">
-        <div class="basis-full lg:basis-1/3">
-            <div class="d-flex justify-content-center pt-2">
-                <img src="{{ asset('images/header/gift.png') }}" alt="" style="height: 18px;width:18px">
-                <h5 class="me-3 text-5xl">Gift an Adventure</h5>
-
+@section('container')
+<div>
+    @include('web.components.presentational.header')
+    <div class="banner-slider">
+        <div class="relative ">
+            <div class="absolute xl:top-[120px] lg:top-[40px] left-0 right-0 text-white">
+                <div class="flex justify-center ">
+                    <h1 class="text-center text-[60px] w-[710px] xl:w-[700px]  font-bely">
+                        "Masa sih seromantis itu kotanya?"
+                    </h1>
+                </div>
+                <div class="flex justify-center mt-[20px]">
+                    <h1 class="text-center text-[20px]  w-[500px] font-normal">
+                        Katanya kalau nonton drakor sama aselinya itu beda banget! Bedanya apa, ya harus lihat sendiri!
+                    </h1>
+                </div>
             </div>
+            <!-- <div class="absolute top-[50%] left-0 right-0 text-white">
+                <div class="flex justify-center ">
+                    <h1 class="text-center text-[20px] w-full font-normal">
+                        Katanya kalau nonton drakor sama aselinya itu beda banget! Bedanya apa, ya harus lihat sendiri!
+                    </h1>
+                </div>
+            </div> -->
+            <picture>
+                <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
+                <source media="(min-width:320px)" srcset="img_white_flower.jpg">
+                <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full">
+            </picture>
         </div>
-        <div class="basis-full lg:basis-1/3">
-            <h5>
-                Boleh kakak kami bantu buat itinerari seru! hubungi kami!
-            </h5>
+        <div class="relative ">
+            <div class="absolute xl:top-[120px] lg:top-[40px] left-0 right-0 text-white">
+                <div class="flex justify-center ">
+                    <h1 class="text-center text-[60px] w-[710px] xl:w-[700px] font-bely">
+                        "Ingin punya banyak waktu kosong untuk berjalan berdua"
+                    </h1>
+                </div>
+                <div class="flex justify-center mt-[20px]">
+                    <h1 class="text-center text-[20px]  w-[500px] font-normal">
+                        Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy
+                    </h1>
+                </div>
+            </div>
+            <picture>
+                <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg-1.jpg') }}">
+                <source media="(min-width:320px)" srcset="img_white_flower.jpg">
+                <img src="{{ asset('images/title/korea-bg-1.jpg') }}" alt="Flowers" class="w-full">
+            </picture>
         </div>
-        <div class="basis-full lg:basis-1/3">
-            <h5>
-                Masuk | Daftar
-            </h5>
+        <div class="relative">
+            <div class="absolute xl:top-[120px] lg:top-[40px] left-0 right-0 text-white">
+                <div class="flex justify-center ">
+                    <h1 class="text-center text-[60px] w-[710px] xl:w-[700px] font-bely">
+                        "Emang Oppa-nya bening-bening "
+                    </h1>
+                </div>
+                <div class="flex justify-center mt-[20px]">
+                    <h1 class="text-center text-[20px]  w-[500px] font-normal">
+                        Katanya standar ganteng di Korea itu beda, di jalan atau di kereta sering ketemu cowok bening. Percaya gak?
+                    </h1>
+                </div>
+            </div>
+            <picture>
+                <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg-2.jpg') }}">
+                <source media="(min-width:320px)" srcset="img_white_flower.jpg">
+                <img src="{{ asset('images/title/korea-bg-2.jpg') }}" alt="Flowers" class="w-full">
+            </picture>
         </div>
     </div>
 
-    <div class="container-full">
-        <div class="d-flex justify-content-center">
-            <img src="{{ asset('images/title/logo.png') }}" alt="">
+    <div class="absolute top-[640px] xl:top-[730px] left-0 right-0 text-white">
+        <div class="flex flex-wrap justify-center">
+            <div class="w-[650px] h-[97px] bg-[#4A5CEDcc] pt-2.5  rounded-xl ">
+                <h3 class="text-center mb-2">
+                    Langsung cek jadwal trip :
+                </h3>
+                <div class="flex justify-center mx-auto">
+                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Destinasi Korea" required>
+                    <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <option>Peserta</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                    </select>
+                    <div class="relative max-w-sm">
+                        <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <input datepicker datepicker-orientation="bottom right" datepicker-autohide datepicker-format="dd/mm/yyyy" type="text" class="bg-gray-50 border border-gray-300 rounded-none text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  " placeholder="Select date">
+                    </div>
+                    <button class="focus:outline-none  text-white bg-tbliss w-[40px] rounded-r-lg px-2">
+                        <img src="{{ asset('images/title/search.png') }}" alt="" class="">
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- <div class="banner-slider">
+        <div class="relative">
+            <div class="absolute -z-10 top-0 left-0 right-0">
+                <picture>
+                    <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
+                    <source media="(min-width:320px)" srcset="img_white_flower.jpg">
+                    <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full h-full">
+                </picture>
+            </div>
+            <div class="flex justify-center pt-28  xl:pt-40">
+                <h1 class="text-center text-[60px] w-[860px] text-white font-bely">
+                    "Ingin punya banyak waktu kosong untuk jalan berdua? "
+                </h1>
+            </div>
+            <div class="flex justify-center mt-[45px]">
+                <p class="text-white text-[20px] w-[500px] text-center">
+                    Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy
+                </p>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute -z-10 top-0 left-0 right-0">
+                <picture>
+                    <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
+                    <source media="(min-width:320px)" srcset="img_white_flower.jpg">
+                    <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full ">
+                </picture>
+            </div>
+            <div class="flex justify-center pt-28  xl:pt-40">
+                <h1 class="text-center text-[60px] w-[860px] text-white font-bely">
+                    "Ingin punya banyak waktu kosong untuk jalan berdua? "
+                </h1>
+            </div>
+            <div class="flex justify-center mt-[45px]">
+                <p class="text-white text-[20px] w-[500px] text-center">
+                    Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy
+                </p>
+            </div>
+        </div>
+        <div class="relative">
+            <div class="absolute -z-10 top-0 left-0 right-0">
+                <picture>
+                    <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
+                    <source media="(min-width:320px)" srcset="img_white_flower.jpg">
+                    <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full ">
+                </picture>
+            </div>
+            <div class="flex justify-center pt-28  xl:pt-40">
+                <h1 class="text-center text-[60px] w-[860px] text-white font-bely">
+                    "Ingin punya banyak waktu kosong untuk jalan berdua? "
+                </h1>
+            </div>
+            <div class="flex justify-center mt-[45px]">
+                <p class="text-white text-[20px] w-[500px] text-center">
+                    Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy
+                </p>
+            </div>
+        </div>
+    </div> -->
+</div>
+
+<div class="container mt-[53px]">
+    <div class="flex justify-center">
+        <h3 class=" text-center text-[30px] w-[50%] font-normal font-interRegular">
+            Memang kalau gak berkunjung yah gak akan tau. Buktikan langsung Aja!
+        </h3>
+
+    </div>
+    <div class="flex justify-center mt-[69px] mb-[119px]">
+        <div>
+            <div class=" flex justify-center mb-3">
+                <img src="{{ asset('images/title/bp.png') }}" alt="" class="border border-gray-200 rounded-lg shadow p-3 h-[120px]">
+            </div>
+            <div class="flex justify-center mb-4 h-[100px]">
+                <h1 class="w-[45%] text-center text-[30px]">Baru rencana, mohon dibantu Kak!</h1>
+            </div>
+            <a href="" class="text-footer text-[20px] block text-center">Baiklah, sini Kami bantu! <span><img src="{{ asset('images/title/arrow.png') }}" alt="" class="w-[20px] inline"></span></a>
+        </div>
+
+    </div>
+</div>
+
+<section>
+    <div class="container-lg pb-[164px]">
+        <h1 class="text-[30px]">
+            Mari, Pilih trip perjalanan Korea kak!
+        </h1>
+        <div class="flex flex-wrap">
+            <div class="basis-4/12 p-3">
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
+                    </a>
+                    <div class="mt-3 ">
+                        <div class="flex ">
+                            <h5 class="text-blueTbliss mr-3">
+                                3 seats left
+                            </h5>
+                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                        </div>
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">Culinary Trip in Korea</h5>
+                        </a>
+                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                            6H5M
+                        </span>
+                        <span>
+                            |
+                        </span>
+                        <span class="ml-3 text-[16px]">
+                            23 - 28 APR 2023
+                        </span>
+                        <p class="text-redTbliss font-bold text-[19px]">
+                            Rp. 9.500.000
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="basis-4/12 p-3">
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img src="{{ asset('images/trip/trip-1.jpg') }}" alt="" class="w-full">
+                    </a>
+                    <div class="mt-3 ">
+                        <div class="flex ">
+                            <h5 class="text-blueTbliss mr-3">
+                                3 seats left
+                            </h5>
+                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                        </div>
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">Cultural Walk in Korea</h5>
+                        </a>
+                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                            6H5M
+                        </span>
+                        <span>
+                            |
+                        </span>
+                        <span class="ml-3 text-[16px]">
+                            23 - 28 APR 2023
+                        </span>
+                        <p class="text-redTbliss font-bold text-[19px]">
+                            Rp. 9.500.000
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="basis-4/12 p-3">
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img src="{{ asset('images/trip/trip-2.jpg') }}" alt="" class="w-full">
+                    </a>
+                    <div class="mt-3 ">
+                        <div class="flex ">
+                            <h5 class="text-blueTbliss mr-3">
+                                3 seats left
+                            </h5>
+                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                        </div>
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">Korea 101 Trip</h5>
+                        </a>
+                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                            6H5M
+                        </span>
+                        <span>
+                            |
+                        </span>
+                        <span class="ml-3 text-[16px]">
+                            23 - 28 APR 2023
+                        </span>
+                        <p class="text-redTbliss font-bold text-[19px]">
+                            Rp. 9.500.000
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="p-4">
+    <div class="container-lg">
+        <h1 class="text-[30px] text-greyTbliss font-bold ml-10">
+            Hidden Gems di Korea
+        </h1>
+        <div class="flex flex-wrap">
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-0.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">K-Drama Shooting Location</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">57.6 views</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-1.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Insta-worthy Pohan Space Walk</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">635 views</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-2.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Iconic Canola Flower Field</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">5.49 k views</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-3.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Overnight Jeonju Hanok Villa</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">232 views</p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-4.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Best Family Friendly Activities in Korea</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">43 k views</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-5.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Top 10 Bimbibab on Seoul</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">484 views</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-6.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Cultural Walk at Jeon Hun-Street</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">156 views</p>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="#">
+                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-7.jpg') }}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Date Ideas at Famous Picnic Dinner</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">60.7 k views</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="p-4 bg-[#f6e0ea]">
+    <div class="container-lg pt-[100px] pb-[90px]">
+        <h1 class="font-bold w-[25%] text-[30px]">
+            Kesan yang pernah ikut t'bliss
+        </h1>
+        <div class="flex flex-wrap justify-end">
+            <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="">
+        </div>
+        <div class="relative">
+            <div class="absolute top-[-470px] left-[15%] bg-white w-[45%]  p-5">
+                <img src="{{ asset('images/testimoni/svg.png') }}" alt="" class="">
+                <h1 class="bold mb-3 text-[30px] font-semibold">
+                    The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
+                </h1>
+                <p class="text-[20px]">
+                    - Dian Wijaya, Jakarta
+                </p>
+            </div>
+            <div class="absolute top-[-130px] left-[15%] w-[5%] mt-3">
+                <div class="flex justify-between ">
+                    <img src="{{ asset('images/testimoni/left-arrow.png') }}" alt="" class="mr-4 hover:cursor-pointer">
+                    <img src="{{ asset('images/testimoni/right-arrow.png') }}" alt="" class="hover:cursor-pointer">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="p-4">
+    <div class="container-lg">
+        <div class="flex justify-center">
+            <h1 class="mr-3 font-bold font-interRegular text-[26px]">
+                Bersama kami di Instagram
+            </h1>
+            <img src="{{ asset('images/instagram/ig.png') }}" alt="" class="">
+        </div>
+        <div class="flex justify-center mb-4 text-[15px]">
+            <p>
+                Ikuti cerita perjalanan kami di
+            </p>
+            <a href="" class="text-[#2EC4DD] ml-2 font-interRegular"> @travelibiss</a>
+        </div>
+        <div class="flex flex-wrap">
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-1.jpg') }}" alt="" class="">
+            </div>
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-2.jpg') }}" alt="" class="">
+            </div>
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-3.jpg') }}" alt="" class="">
+            </div>
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-4.jpg') }}" alt="" class="">
+            </div>
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-5.jpg') }}" alt="" class="">
+            </div>
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-6.jpg') }}" alt="" class="">
+            </div>
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-7.jpg') }}" alt="" class="">
+            </div>
+            <div class="basis-3/12 mb-3">
+                <img src="{{ asset('images/instagram/ig-8.jpg') }}" alt="" class="">
+            </div>
         </div>
     </div>
 
-    <div class="container-full">
-        <div class="d-flex justify-content-center">
-            <div class="menu">
-                <a href="">DESTINASI</a>
-                <a href="">BANTUAN</a>
-                <a href="">KORPORAT</a>
-                <a href="">CERITA KAMI</a>
-                <a href="">FAQ</a>
-                <a href="">KONTAK KAMI</a>
-            </div>
-        </div>
-    </div>
+</section>
 
 
-    <div id="accordion-collapse" data-accordion="collapse">
-        <h2 id="accordion-collapse-heading-1">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 rounded-t-xl focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-collapse-body-1" aria-expanded="true" aria-controls="accordion-collapse-body-1">
-                <span>What is Flowbite?</span>
-                <svg data-accordion-icon class="w-6 h-6 rotate-180 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </h2>
-        <div id="accordion-collapse-body-1" class="hidden" aria-labelledby="accordion-collapse-heading-1">
-            <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700 dark:bg-gray-900">
-                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is an open-source library of interactive components built on top of Tailwind CSS including buttons, dropdowns, modals, navbars, and more.</p>
-                <p class="text-gray-500 dark:text-gray-400">Check out this guide to learn how to <a href="/docs/getting-started/introduction/" class="text-blue-600 dark:text-blue-500 hover:underline">get started</a> and start developing websites even faster with components on top of Tailwind CSS.</p>
-            </div>
-        </div>
-        <h2 id="accordion-collapse-heading-2">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-b-0 border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-collapse-body-2" aria-expanded="false" aria-controls="accordion-collapse-body-2">
-                <span>Is there a Figma file available?</span>
-                <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </h2>
-        <div id="accordion-collapse-body-2" class="hidden" aria-labelledby="accordion-collapse-heading-2">
-            <div class="p-5 font-light border border-b-0 border-gray-200 dark:border-gray-700">
-                <p class="mb-2 text-gray-500 dark:text-gray-400">Flowbite is first conceptualized and designed using the Figma software so everything you see in the library has a design equivalent in our Figma file.</p>
-                <p class="text-gray-500 dark:text-gray-400">Check out the <a href="https://flowbite.com/figma/" class="text-blue-600 dark:text-blue-500 hover:underline">Figma design system</a> based on the utility classes from Tailwind CSS and components from Flowbite.</p>
-            </div>
-        </div>
-        <h2 id="accordion-collapse-heading-3">
-            <button type="button" class="flex items-center justify-between w-full p-5 font-medium text-left text-gray-500 border border-gray-200 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-800 dark:border-gray-700 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-collapse-body-3" aria-expanded="false" aria-controls="accordion-collapse-body-3">
-                <span>What are the differences between Flowbite and Tailwind UI?</span>
-                <svg data-accordion-icon class="w-6 h-6 shrink-0" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                </svg>
-            </button>
-        </h2>
-        <div id="accordion-collapse-body-3" class="hidden" aria-labelledby="accordion-collapse-heading-3">
-            <div class="p-5 font-light border border-t-0 border-gray-200 dark:border-gray-700">
-                <p class="mb-2 text-gray-500 dark:text-gray-400">The main difference is that the core components from Flowbite are open source under the MIT license, whereas Tailwind UI is a paid product. Another difference is that Flowbite relies on smaller and standalone components, whereas Tailwind UI offers sections of pages.</p>
-                <p class="mb-2 text-gray-500 dark:text-gray-400">However, we actually recommend using both Flowbite, Flowbite Pro, and even Tailwind UI as there is no technical reason stopping you from using the best of two worlds.</p>
-                <p class="mb-2 text-gray-500 dark:text-gray-400">Learn more about these technologies:</p>
-                <ul class="pl-5 text-gray-500 list-disc dark:text-gray-400">
-                    <li><a href="https://flowbite.com/pro/" class="text-blue-600 dark:text-blue-500 hover:underline">Flowbite Pro</a></li>
-                    <li><a href="https://tailwindui.com/" rel="nofollow" class="text-blue-600 dark:text-blue-500 hover:underline">Tailwind UI</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
+@include('web.components.presentational.footer')
+
+
+
 
 </div>
+@endsection
+
+@push('javascript-internal')
+<script>
+    $(document).ready(function() {
+        $('.banner-slider').slick({
+            dots: false,
+            infinite: true,
+            slidesToShow: 1,
+            autoplay: false,
+            // autoplaySpeed: 2000,
+        });
+        $('.banner-slider').not('.slick-initialized').slick();
+
+
+
+    });
+</script>
+@endpush
