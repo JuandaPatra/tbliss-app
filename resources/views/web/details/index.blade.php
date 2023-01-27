@@ -1,5 +1,7 @@
 @extends('web.layouts.app')
 
+@section('container')
+
 <div class="header">
     @include('web.components.presentational.header')
     <div class="flex flex-wrap">
@@ -12,9 +14,9 @@
                     <div class="flex">
                         <select id="countries" class="bg-gray-50 border border-gray-300 rounded-l-lg text-greyDetTbliss font-interRegular text-[13px]  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>Korea</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
+                            <option>Jepang</option>
+                            <option>Prancis</option>
+                            <option>Norwegia</option>
                         </select>
                         <button class="focus:outline-none  text-white bg-tbliss w-[46px] rounded-r-lg px-2">
                             <img src="{{ asset('images/title/search.png') }}" alt="" class="">
@@ -63,7 +65,7 @@
                 <h1 class="my-3 text-[#102448] text-[20px] mt-4 mb-3">
                     Aktivitas yang ingin dilakukan
                 </h1>
-                <div class="w-[90%] mb-8">
+                <div class="w-[90%] lg:w-[100%] mb-8">
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#EnjoyK-pop</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#From the Sea, From the River</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Flavors of the City</button>
@@ -417,3 +419,58 @@
     </div>
     @include('web.components.presentational.footer')
 </div>
+
+@endsection
+
+
+
+
+@push('javascript-internal')
+<script>
+    $(document).ready(function() {
+        $('.banner-slider').slick({
+            dots: false,
+            infinite: true,
+            slidesToShow: 1,
+            autoplay: false,
+            // autoplaySpeed: 2000,
+        });
+        $('.banner-slider').not('.slick-initialized').slick();
+
+        $('.dropdown-cls').each(function() {
+            $(this).on('click', function(e) {
+                let dataDropdown = $(this).data("drop")
+                $('.dropdownMenu').toggleClass('hidden')
+                // $('.dropdownMenu').removeClass('hidden')
+                
+                $('.dropdownMenu').toggleClass('opacity-5')
+                $('.dropdownMenu').toggleClass('hide')
+                $('.search-box').toggleClass('active') 
+                $(this).toggleClass('active')
+                $(this).siblings().removeClass('active')
+                $('.dropMenu').each(function(){
+                    let menu = $(this).data('menu')
+                    console.log(menu)
+                    if(menu==dataDropdown){
+                        // alert($(this).data('menu') )
+                        $(this).toggleClass('hidden')
+                        // $(this).siblings().removeClass('hidden')
+                        // $(this).removeClass('hidden')
+                    }
+                })
+            })
+        })
+
+        // $('.dropMenu').click(function(e){
+        //     if(!$(e.target).closest('.dropdownMenu').length){
+        //         console.log(e)
+        //     }
+        // })
+
+
+        
+
+
+    });
+</script>
+@endpush

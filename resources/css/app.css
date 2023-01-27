@@ -18,3 +18,25 @@
   top: 770px !important;
 }
 
+.dropdown-cls.active{
+  color: #BF1E5F;
+}
+
+
+.dropdownMenu {
+  opacity: 1;
+  transition: opacity 0.5s linear;
+}
+
+.dropdownMenu.hide {
+  opacity: 0;
+}
+
+/* 
+.search-box{
+  top: 720px;
+}
+
+.search-box.active{
+  top: 1000px;
+} */
