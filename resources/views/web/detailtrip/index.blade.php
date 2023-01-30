@@ -201,7 +201,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
         <div class="col-span-1"></div>
         <div class="col-span-2">
-            <div class="ml-[70px]">
+            <div class="ml-[70px] mt-[60px]">
                 <img src="{{ asset('images/detailtrip/busan-map.png') }}" alt="">
                 <h1 class="mt-4 uppercase font-bold text-[16px]">Busan</h1>
             </div>
@@ -224,7 +224,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
         <div class="col-span-1"></div>
         <div class="col-span-2">
-            <div class="ml-[70px]">
+            <div class="ml-[70px] mt-[60px] ">
                 <img src="{{ asset('images/detailtrip/pohang-map.png') }}" alt="">
                 <h1 class="mt-4 uppercase font-bold text-[16px]">Pohang</h1>
             </div>
@@ -247,7 +247,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
         <div class="col-span-1"></div>
         <div class="col-span-2">
-            <div class="ml-[70px]">
+            <div class="ml-[70px] mt-[60px]">
                 <img src="{{ asset('images/detailtrip/jeounju-map.png') }}" alt="">
                 <h1 class="mt-4 uppercase font-bold text-[16px]">Jeounju</h1>
             </div>
@@ -270,7 +270,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
         <div class="col-span-1"></div>
         <div class="col-span-2">
-            <div class="ml-[70px]">
+            <div class="ml-[70px] mt-[60px]">
                 <img src="{{ asset('images/detailtrip/seoul-map.png') }}" alt="">
                 <h1 class="mt-4 uppercase font-bold text-[16px]">Seoul</h1>
             </div>
@@ -471,10 +471,29 @@
         <div class="sm:flex sm:items-center sm:justify-between">
             <span class="text-sm text-white sm:text-center">© <a href="https://flowbite.com/" class="hover:underline">Travel Bliss</a> 2022 Privacy Terms.
             </span>
-
         </div>
     </div>
 </footer>
+
+<div class="bg-[#ff5055] h-[73px] w-full text-white fixed  bottom-0 z-20 ">
+    <div class="container-lg pt-3">
+        <div class="flex flex-wrap justify-between">
+            <div class="basis-1/2 pt-2">
+                <span class="font-bold">
+                    Harga Rp.12.000.000 / pax
+                </span>
+                <span class=" ml-4">
+                    Open Trip 6 Hari 5 Malam
+                </span>
+            </div>
+            <div class="basis-1/2 text-[15px]">
+                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline" ></span></button>
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline" ></span></button>
+            </div>
+        </div>
+    </div>
+
+</div>
 
 
 </div>
@@ -514,8 +533,8 @@
         });
         $('.city-slider-3').not('.slick-initialized').slick();
 
-        
-       
+
+
     });
 </script>
 @endpush

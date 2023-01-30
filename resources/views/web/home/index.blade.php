@@ -21,7 +21,7 @@
                 </div>
                 <picture>
                     <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
-                    <source media="(min-width:320px)" srcset="img_white_flower.jpg">
+                    <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile.jpg') }}">
                     <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
             </div>
@@ -72,8 +72,13 @@
                         Langsung cek jadwal trip :
                     </h3>
                     <div class="flex justify-center mx-auto">
-                        <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-l-lg focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Destinasi Korea" required>
                         <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option>Korea</option>
+                            <option>Seoul</option>
+                            <option>Busan</option>
+                            <option>Jeonju</option>
+                        </select>
+                        <select id="seats" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>Peserta</option>
                             <option>1</option>
                             <option>2</option>
@@ -105,7 +110,7 @@
         <div class="flex justify-center mt-[69px] mb-[119px]">
             <div>
                 <div class=" flex justify-center mb-3">
-                    <img src="{{ asset('images/title/bp.png') }}" alt="" class="border border-gray-200 rounded-lg shadow p-3 h-[120px]">
+                    <img src="{{ asset('images/title/bp.png') }}" alt="" class="  p-3 h-[120px]">
                 </div>
                 <div class="flex justify-center mb-4 h-[100px]">
                     <h1 class="w-[45%] text-center text-[30px]">Baru rencana, mohon dibantu Kak!</h1>
@@ -119,11 +124,11 @@
 
 <section>
     <div class="container-lg pb-[164px]">
-        <h1 class="text-[30px]">
+        <h1 class="text-[30px] ml-[15px]">
             Mari, Pilih trip perjalanan Korea kak!
         </h1>
         <div class="flex flex-wrap">
-            <div class="basis-4/12 p-3">
+            <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
@@ -153,7 +158,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-4/12 p-3">
+            <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-1.jpg') }}" alt="" class="w-full">
@@ -183,7 +188,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-4/12 p-3">
+            <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-2.jpg') }}" alt="" class="w-full">
@@ -219,11 +224,11 @@
 
 <section class="p-4">
     <div class="container-lg">
-        <h1 class="text-[30px] text-greyTbliss font-bold ml-10">
+        <h1 class="text-[30px] text-greyTbliss font-bold mb-4 ml-[15px]">
             Hidden Gems di Korea
         </h1>
         <div class="flex flex-wrap">
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-0.jpg') }}" alt="" />
@@ -237,7 +242,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-1.jpg') }}" alt="" />
@@ -251,7 +256,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-2.jpg') }}" alt="" />
@@ -265,7 +270,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-3.jpg') }}" alt="" />
@@ -279,7 +284,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-4.jpg') }}" alt="" />
@@ -294,7 +299,7 @@
                 </div>
             </div>
 
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-5.jpg') }}" alt="" />
@@ -309,7 +314,7 @@
                 </div>
             </div>
 
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-6.jpg') }}" alt="" />
@@ -324,7 +329,7 @@
                 </div>
             </div>
 
-            <div class="basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-7.jpg') }}" alt="" />
@@ -344,7 +349,7 @@
 
 <section class="p-4 bg-[#f6e0ea]">
     <div class="container-lg pt-[100px] pb-[90px]">
-        <h1 class="font-bold w-[25%] text-[30px]">
+        <h1 class="font-bold w-full lg:w-[25%] text-[30px]">
             Kesan yang pernah ikut t'bliss
         </h1>
         <div class="flex flex-wrap justify-end">

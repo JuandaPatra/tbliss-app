@@ -1,22 +1,22 @@
 <header>
-    <div class="flex flex-wrap bg-[#102448] h-[48px] text-white text-sm ">
+    <div class="flex flex-wrap bg-[#102448] h-[100px] lg:h-[48px] text-white text-sm ">
         <div class="basis-full lg:basis-3/12">
-            <div class="flex flex-wrap ml-7 mt-3">
+            <div class="flex flex-wrap ml-0 mt-[3px] justify-center lg:justify-start lg:ml-7 lg:mt-3">
                 <img src="{{ asset('images/header/gift.png') }}" alt="" style="height: 18px;width:18px" class="me-2">
                 <h5>Gift an Adventure</h5>
             </div>
         </div>
         <div class="basis-full lg:basis-6/12 bg-footer flex justify-center">
             <div class="flex justify-items-center mt-3 text-center">
-                <h5 class="me-2 text-sm">
+                <h5 class="me-2  text-sm">
                     Boleh kakak kami bantu buat itinerari seru! hubungi kami!
                 </h5>
                 <img src="{{ asset('images/header/whatsapp.png') }}" alt="" style="height: 18px;width:18px">
             </div>
         </div>
         <div class="basis-full lg:basis-3/12 ">
-            <div class="ml-[40%] mt-3">
-                <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline"></span>
+            <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
+                <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
                 <a href="/login">Login</a>
                 <span class="mr-5 ml-5">|</span>
                 <a href="/register">Register</a>
