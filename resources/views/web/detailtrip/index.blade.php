@@ -1,8 +1,8 @@
 @extends('web.layouts.app')
 
 @section('container')
+@include('web.components.presentational.header')
 <div class="header">
-    @include('web.components.presentational.header')
     <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="" class="w-full">
 </div>
 
@@ -487,8 +487,8 @@
                 </span>
             </div>
             <div class="basis-1/2 text-[15px]">
-                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline" ></span></button>
-                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline" ></span></button>
+                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
             </div>
         </div>
     </div>
@@ -532,6 +532,19 @@
             slidesToShow: 2.5,
         });
         $('.city-slider-3').not('.slick-initialized').slick();
+
+        $('.dropdown-cls').each(function() {
+            $(this).on('click', function() {
+                $(this).toggleClass('active')
+                $(this).siblings().removeClass('active')
+                let dataDropdown = $(this).data("drop")
+                $('.dropdownMenu').each(function() {
+                    $(this).toggleClass('hidden')
+                    // $('.dropdownMenu').removeClass('hidden')
+                    $(`.${dataDropdown}`).siblings().addClass('hidden')
+                })
+            })
+        })
 
 
 

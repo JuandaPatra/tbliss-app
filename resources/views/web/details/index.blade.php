@@ -2,8 +2,12 @@
 
 @section('container')
 
+@include('web.components.presentational.header')
+<section>
+
+</section>
 <div class="header">
-    @include('web.components.presentational.header')
+
     <div class="flex flex-wrap">
         <div class="basis-full order-1 lg:basis-1/2 bg-[#FAF8ED]">
             <div class="container-lg py-11 pl-5 lg:pl-11 pr-5 lg:pr-10  ">
@@ -409,7 +413,7 @@
             </div>
         </div>
     </section>
-    
+
     @include('web.components.presentational.footer')
 </div>
 
@@ -456,25 +460,14 @@
         // $('.destination-slider').not('.slick-initialized').slick();
 
         $('.dropdown-cls').each(function() {
-            $(this).on('click', function(e) {
-                let dataDropdown = $(this).data("drop")
-                $('.dropdownMenu').toggleClass('hidden')
-                // $('.dropdownMenu').removeClass('hidden')
-
-                $('.dropdownMenu').toggleClass('opacity-5')
-                $('.dropdownMenu').toggleClass('hide')
-                $('.search-box').toggleClass('active')
+            $(this).on('click', function() {
                 $(this).toggleClass('active')
                 $(this).siblings().removeClass('active')
-                $('.dropMenu').each(function() {
-                    let menu = $(this).data('menu')
-                    console.log(menu)
-                    if (menu == dataDropdown) {
-                        // alert($(this).data('menu') )
-                        $(this).toggleClass('hidden')
-                        // $(this).siblings().removeClass('hidden')
-                        // $(this).removeClass('hidden')
-                    }
+                let dataDropdown = $(this).data("drop")
+                $('.dropdownMenu').each(function() {
+                    $(this).toggleClass('hidden')
+                    // $('.dropdownMenu').removeClass('hidden')
+                    $(`.${dataDropdown}`).siblings().addClass('hidden')
                 })
             })
         })
