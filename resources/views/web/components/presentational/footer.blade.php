@@ -22,7 +22,7 @@
 
                 </div>
             </div>
-            <div class="grid grid-cols-3 gap-12 sm:gap-6 sm:grid-cols-3">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-2 sm:gap-6 sm:grid-cols-3">
                 <div>
                     <h2 class="mb-[10px] text-lg font-semibold text-white text-[15px] font-interRegular">t'Bliss</h2>
                     <ul class="text-white text-[13px] font-interRegular">

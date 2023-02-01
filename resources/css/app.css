@@ -16,6 +16,13 @@
 .datepicker{
   position: absolute !important;
   top: 770px !important;
+
+}
+
+@media screen and (max-width: 1024px) {
+  .datepicker {
+    top: 900px !important;
+  }
 }
 
 .dropdown-cls.active{

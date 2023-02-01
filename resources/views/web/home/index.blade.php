@@ -7,14 +7,14 @@
     <div class="relative">
         <div class="banner-slider">
             <div class="relative ">
-                <div class="absolute xl:top-[120px] top-[120px] left-0 right-0 text-white">
+                <div class="absolute top-[150px] lg:top-[120px] left-0 right-0 text-white">
                     <div class="flex justify-center ">
-                        <h1 class="text-center text-[60px] w-[710px] xl:w-[700px]  font-bely">
+                        <h1 class="text-center text-[30px] lg:text-[60px] w-[710px] xl:w-[700px]  font-bely">
                             "Ingin punya banyak waktu kosong untuk jalan berdua"
                         </h1>
                     </div>
                     <div class="flex justify-center mt-[20px]">
-                        <h1 class="text-center text-[20px]  w-[500px] font-normal">
+                        <h1 class="text-center text-[15px] lg:text-[20px]  w-[500px] font-normal">
                             Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy.
                         </h1>
                     </div>
@@ -67,7 +67,7 @@
 
         <div class="absolute search-box  left-0 right-0 top-[430px] text-white">
             <div class="flex flex-wrap justify-center">
-                <div class="w-[650px] h-[97px] bg-[#4A5CEDcc] pt-2.5  rounded-xl ">
+                <div class="w-[90%] lg:w-[650px] h-[97px] bg-[#4A5CEDcc] pt-2.5 px-[10px] lg:px-0 rounded-xl ">
                     <h3 class="text-center mb-2">
                         Langsung cek jadwal trip :
                     </h3>
@@ -103,11 +103,11 @@
 
     <div class="container mt-[53px]">
         <div class="flex justify-center">
-            <h3 class=" text-center text-[30px] w-[50%] font-normal font-interRegular">
+            <h3 class=" text-center text-[30px] w-full lg:w-[50%] font-normal font-interRegular">
                 Memang kalau gak berkunjung yah gak akan tau. Buktikan langsung Aja!
             </h3>
         </div>
-        <div class="flex justify-center mt-[69px] mb-[119px]">
+        <div class="flex justify-center mt-[40px] lg:mt-[69px] mb-[70px] lg:mb-[119px]">
             <div>
                 <div class=" flex justify-center mb-3">
                     <img src="{{ asset('images/title/bp.png') }}" alt="" class="  p-3 h-[120px]">
@@ -123,7 +123,7 @@
 </section>
 
 <section>
-    <div class="container-lg pb-[164px]">
+    <div class="container-lg pb-[50px] lg:pb-[164px]">
         <h1 class="text-[30px] ml-[15px]">
             Mari, Pilih trip perjalanan Korea kak!
         </h1>
@@ -347,25 +347,25 @@
     </div>
 </section>
 
-<section class="p-4 bg-[#f6e0ea]">
-    <div class="container-lg pt-[100px] pb-[90px]">
-        <h1 class="font-bold w-full lg:w-[25%] text-[30px]">
+<section class="p-4 bg-[#f6e0ea] h-[900px] lg:h-auto">
+    <div class="container-lg pt-[20px] lg:pt-[100px] pb-[90px]">
+        <h1 class="font-bold w-full lg:w-[25%] text-[30px] mb-3 lg:mb-0">
             Kesan yang pernah ikut t'bliss
         </h1>
         <div class="flex flex-wrap justify-end">
             <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="">
         </div>
         <div class="relative">
-            <div class="absolute top-[-470px] left-[15%] bg-white w-[45%]  p-5">
+            <div class="absolute top-[0px] lg:top-[-470px] left-0 lg:left-[15%] bg-white w-full lg:w-[45%] p-6  lg:p-5">
                 <img src="{{ asset('images/testimoni/svg.png') }}" alt="" class="">
-                <h1 class="bold mb-3 text-[30px] font-semibold">
+                <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
                     The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
                 </h1>
-                <p class="text-[20px]">
+                <p class="text-[15px] lg:text-[20px]">
                     - Dian Wijaya, Jakarta
                 </p>
             </div>
-            <div class="absolute top-[-130px] left-[15%] w-[5%] mt-3">
+            <div class="absolute top-[240px] lg:top-[-130px] left-0 lg:left-[15%] w-[15%] lg:w-[5%] mt-3">
                 <div class="flex justify-between ">
                     <img src="{{ asset('images/testimoni/left-arrow.png') }}" alt="" class="mr-4 hover:cursor-pointer">
                     <img src="{{ asset('images/testimoni/right-arrow.png') }}" alt="" class="hover:cursor-pointer">

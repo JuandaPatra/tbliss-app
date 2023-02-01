@@ -4,12 +4,8 @@
 
 @include('web.components.presentational.header')
 <section>
-
-</section>
-<div class="header">
-
-    <div class="flex flex-wrap">
-        <div class="basis-full order-1 lg:basis-1/2 bg-[#FAF8ED]">
+    <div class="flex flex-wrap flex-col-reverse md:flex-row lg:flex-row">
+        <div class="basis-full  lg:basis-1/2 bg-[#FAF8ED]">
             <div class="container-lg py-11 pl-5 lg:pl-11 pr-5 lg:pr-10  ">
                 <div class="w-full lg:w-[80%] bg-blueTbliss p-4 text-white border rounded-[10px] ">
                     <h1 class="font-interRegular text-[15px] mb-2 ml-3">
@@ -84,7 +80,7 @@
                 </a>
             </div>
         </div>
-        <div class="basis-full order-2 lg:order-2 lg:basis-1/2">
+        <div class="basis-full  lg:basis-1/2">
             <img src="{{ asset('images/details/korea-top.jpg') }}" alt="" class="w-full h-full">
             <div class="relative z-10">
                 <div class="absolute top-[-220px] lg:top-[-190px] left-30 w-full px-4 text-white">
@@ -106,6 +102,11 @@
         </div>
 
     </div>
+
+</section>
+
+<div>
+
     <!-- <div class="flex ">
         <div class="basis-full">
             <div class="container-lg p-4 pl-10 bg-[#FAF8ED]">
@@ -155,9 +156,9 @@
                 Bingung? Gak mau repot? Kakak bisa pilih paket yang sudah tersedia
             </h1>
         </div>
-        <div class="flex flex-wrap">
-            <div class="basis-full lg:basis-1/2 ">
-                <div class="container-lg pl-[10%] lg:pl-[20%]">
+        <div class="flex flex-wrap flex-col-reverse md:flex-row">
+            <div class="basis-full lg:basis-1/2 lg:order-first">
+                <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Autumn in Korea</h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
@@ -200,18 +201,17 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-full lg:basis-1/2 ">
+            <div class="basis-full lg:basis-1/2 lg:order-last">
                 <img src="{{ asset('images/details/korea-1.jpg') }}" alt="" class="h-[450px] w-full">
-
             </div>
-
+        </div>
+        <div class="flex flex-wrap">
             <!-- batas antar gambar dan tujuan perjalanan -->
-
-            <div class="basis-1/2">
+            <div class="basis-full lg:basis-1/2">
                 <img src="{{ asset('images/details/korea-2.jpg') }}" alt="" class="h-[450px] w-full">
             </div>
-            <div class="basis-1/2 bg-[#FAF8ED]">
-                <div class="container-lg pl-[20%] ">
+            <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
+                <div class="container-lg pl-[10%]  lg:pl-[20%] mb-[40px] lg:mb-0 ">
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Explore Culinary in Korea</h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
@@ -255,9 +255,11 @@
                 </div>
             </div>
 
+        </div>
+        <div class="flex flex-wrap flex-col-reverse md:flex-row">
             <!-- batas antar gambar dan tujuan perjalanan -->
-            <div class="basis-1/2">
-                <div class="container-lg pl-[20%]">
+            <div class="basis-full lg:basis-1/2">
+                <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Cultural Walk in Korea</h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
@@ -300,16 +302,18 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-1/2">
+            <div class="basis-full lg:basis-1/2">
                 <img src="{{ asset('images/details/korea-3.jpg') }}" alt="" class="h-[450px] w-full">
             </div>
 
+        </div>
+        <div class="flex flex-wrap">
             <!-- batas gambar dan tujuan perjalanan -->
-            <div class="basis-1/2">
+            <div class="basis-full lg:basis-1/2 ">
                 <img src="{{ asset('images/details/korea-4.jpg') }}" alt="" class="h-[450px] w-full">
             </div>
-            <div class="basis-1/2 bg-[#FAF8ED]">
-                <div class="container-lg pl-[20%] ">
+            <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
+                <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0 ">
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Korean 101 Trip </h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
@@ -354,6 +358,8 @@
             </div>
         </div>
     </section>
+
+
     <section class="container-lg pt-[121px]">
         <h1 class="text-[#414141] text-[30px]">
             Yuk, eksplor Destinasi di <span>Korea</span> !

@@ -7,13 +7,13 @@
 </div>
 
 <section class="container-lg ">
-    <div class="flex justify-between mt-[42px]">
-        <div class="w-1/2">
-            <h1 class="text-[18px]">
+    <div class="flex flex-col lg:flex-row justify-between mt-[42px]">
+        <div class="w-full lg:w-1/2">
+            <h1 class="text-[15px] lg:text-[18px]">
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed enim mi. Nam posuere vel massa ac ultricies. Nullam sodales diam vitae libero pharetra, in mattis neque iaculis. Vestibulum vitae scelerisque est. Etiam consequat auctor sagittis. Nam eu mi ac justo suscipit interdum at maximus metus. Pellentesque pretium mi ipsum, eu congue diam vestibulum ac.
             </h1>
         </div>
-        <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl ">
+        <div class="flex flex-row lg:flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl mt-[30px] lg:mt-0  ">
             <div class="flex flex-col justify-start px-4 py-1 leading-normal border-l-2 border-gray-200 w-1/2 mt-[-55px]">
                 <div class="flex">
                     <span class="font-bold text-[30px] inline-block">5.0</span>
@@ -58,7 +58,7 @@
         </div>
     </div>
     <div class="flex flex-wrap mt-20 border-b-4 border-gray-200 pb-4">
-        <div class="basis-1/2">
+        <div class="basis-full lg:basis-1/2">
             <h3 class="text-[18px] text-[#414141]">
                 Open Trip 6 Hari 5 Malam
             </h3>
@@ -109,8 +109,8 @@
 
 
         </div>
-        <div class="basis-1/2">
-            <div class="flex flex-col items-center">
+        <div class="basis-full lg:basis-1/2">
+            <div class="flex flex-col items-center mt-[22px] lg:mt-">
                 <div class="flex justify-between w-1/2 border-b-4 pb-4 mb-5">
                     <img src="{{ asset('images/detailtrip/cov.png') }}" alt="" class=" inline-block h-[42px] w-[42px]">
                     <div class="ml-5">
@@ -153,7 +153,7 @@
                 </div>
             </div>
         </div>
-        <div class="basis-1/2">
+        <div class="basis-full lg:basis-1/2">
             <h3 class="mb-4 text-[28px]">
                 Sudah termasuk
             </h3>
@@ -171,7 +171,7 @@
             </div>
 
         </div>
-        <div class="basis-1/2">
+        <div class="basis-full lg:basis-1/2">
             <h3 class="mb-4 text-[28px]">
                 Tidak termasuk
             </h3>
@@ -298,7 +298,7 @@
             Eksplor Trip Lainnya
         </h1>
         <div class="flex flex-wrap">
-            <div class="basis-4/12 p-3">
+            <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
@@ -328,7 +328,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-4/12 p-3">
+            <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-1.jpg') }}" alt="" class="w-full">
@@ -358,7 +358,7 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-4/12 p-3">
+            <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-2.jpg') }}" alt="" class="w-full">
@@ -392,88 +392,8 @@
     </div>
 </section>
 
-<footer class="p-4 bg-[#BF1E5F] sm:p-6 dark:bg-gray-900">
-    <div class="container-lg">
-        <div class="md:flex mt-[48px]">
-            <div class="mb-6 md:mb-0 md:mr-[90px]">
-                <h2 class="text-white  mb-[10px]">
-                    SAYA MAU PROMO!
-                </h2>
-                <p class="text-white mb-4">
-                    Kirimkan saya email kalau ada promosi, berita dan topik menarik!
-                </p>
-                <div class="flex">
-                    <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email Anda">
-                    <button class="focus:outline-none  text-white bg-[#102448] w-[150px] rounded-none px-2 py-3">
-                        Subscribe
-                    </button>
-                </div>
 
-                <div class="flex mt-4">
-                    <img src="{{ asset('images/footer/fb.png') }}" alt="" class="mr-3">
-                    <img src="{{ asset('images/footer/ig.png') }}" alt="">
-
-
-                </div>
-            </div>
-            <div class="grid grid-cols-3 gap-12 sm:gap-6 sm:grid-cols-3">
-                <div>
-                    <h2 class="mb-[10px] text-lg font-semibold text-white">t'Bliss</h2>
-                    <ul class="text-white">
-                        <li class="mb-3">
-                            <a href="https://flowbite.com/" class="hover:underline">Our Story</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Our Founders CSS</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Quality Standards</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Covid Policies</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Sitemap</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 class="mb-[10px] text-lg font-semibold text-white">Discover More</h2>
-                    <ul class="text-white">
-                        <li class="mb-3">
-                            <a href="https://flowbite.com/" class="hover:underline">Corporate Experiences</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Invite a Friend</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Current Promotions</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Redeem Gift Experinces</a>
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <h2 class="mb-[10px] text-lg font-semibold text-white uppercase">Get in Touch</h2>
-                    <ul class="text-white">
-                        <li class="mb-3">
-                            <a href="https://flowbite.com/" class="hover:underline">Contact Us</a>
-                        </li>
-                        <li class="mb-3">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Become our Creators</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="sm:flex sm:items-center sm:justify-between">
-            <span class="text-sm text-white sm:text-center">© <a href="https://flowbite.com/" class="hover:underline">Travel Bliss</a> 2022 Privacy Terms.
-            </span>
-        </div>
-    </div>
-</footer>
+@include('web.components.presentational.footer')
 
 <div class="bg-[#ff5055] h-[73px] w-full text-white fixed  bottom-0 z-20 ">
     <div class="container-lg pt-3">

@@ -32,12 +32,12 @@
     </div>
     <div class="container-lg bg-white mx-auto">
         <div class=" container flex flex-wrap justify-center mb-[33px]">
-            <button data-drop="destinasi" class="mr-16 dropdown-cls">DESTINASI</button>
-            <button data-drop="bantuan" class="mr-16 dropdown-cls">BANTUAN</button>
-            <button data-drop="korporat" class="mr-16 dropdown-cls">KORPORAT</button>
-            <button data-drop="cerita" class="mr-16 dropdown-cls">CERITA KAMI</button>
-            <button data-drop="faq" class="mr-16 dropdown-cls">FAQ</button>
-            <button data-drop="kontak" class="mr-16 dropdown-cls">KONTAK KAMI</button>
+            <button data-drop="destinasi" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">DESTINASI</button>
+            <button data-drop="bantuan" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">BANTUAN</button>
+            <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">KORPORAT</button>
+            <button data-drop="cerita" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">CERITA KAMI</button>
+            <button data-drop="faq" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">FAQ</button>
+            <button data-drop="kontak" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">KONTAK KAMI</button>
         </div>
     </div>
     <div>
