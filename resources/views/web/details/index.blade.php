@@ -420,6 +420,66 @@
         </div>
     </section>
 
+    <!-- <section class="container-lg pt-[121px]">
+        <h1 class="text-[#414141] text-[30px]">
+            Yuk, eksplor Destinasi di <span>Korea</span> !
+        </h1>
+        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 pt-[54px] destination-slider">
+            <div>
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img class="w-full" src="{{ asset('images/details/korea-btm-1.jpg') }}" alt="" />
+                    </a>
+                    <div class="pt-4">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Seoul</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">498 options</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img class="w-full" src="{{ asset('images/details/korea-btm-2.jpg') }}" alt="" />
+                    </a>
+                    <div class="pt-4">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Busan</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">490 options</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img class="w-full" src="{{ asset('images/details/korea-btm-3.jpg') }}" alt="" />
+                    </a>
+                    <div class="pt-4">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Jeju-si</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">164 options</p>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img class="w-full" src="{{ asset('images/details/korea-btm-4.jpg') }}" alt="" />
+                    </a>
+                    <div class="pt-4">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Daegu</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">68 options</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
     @include('web.components.presentational.footer')
 </div>
 
@@ -441,29 +501,29 @@
         $('.banner-slider').not('.slick-initialized').slick();
 
 
-        // $('.destination-slider').slick({
-        //     dots: false,
-        //     infinite: true,
-        //     slidesToShow: 4,
-        //     autoplay: false,
-        //     // autoplaySpeed: 2000,
-        //     responsive: [{
-        //             breakpoint: 1024,
-        //             settings: {
-        //                 slidesToShow: 4,
-        //             }
-        //         },
-        //         {
-        //             breakpoint: 1023,
-        //             settings: {
-        //                 slidesToShow: 1,
-        //                 slidesToScroll: 1
-        //             }
-        //         },
-        //     ]
-        // });
+        $('.destination-slider').slick({
+            dots: false,
+            infinite: true,
+            slidesToShow: 4,
+            autoplay: false,
+            // autoplaySpeed: 2000,
+            responsive: [{
+                    breakpoint: 1024,
+                    settings: {
+                        slidesToShow: 4,
+                    }
+                },
+                {
+                    breakpoint: 1023,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                },
+            ]
+        });
 
-        // $('.destination-slider').not('.slick-initialized').slick();
+        $('.destination-slider').not('.slick-initialized').slick();
 
         $('.dropdown-cls').each(function() {
             $(this).on('click', function() {

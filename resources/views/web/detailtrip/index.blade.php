@@ -395,24 +395,23 @@
 
 @include('web.components.presentational.footer')
 
-<div class="bg-[#ff5055] h-[73px] w-full text-white fixed  bottom-0 z-20 ">
-    <div class="container-lg pt-3">
+<div class="bg-[#ff5055]  lg:h-[73px] w-full text-white fixed  bottom-0 z-20 ">
+    <div class="container-lg pt-3 pb-3 lg:pb-0">
         <div class="flex flex-wrap justify-between">
-            <div class="basis-1/2 pt-2">
-                <span class="font-bold">
-                    Harga Rp.12.000.000 / pax
+            <div class="basis-full lg:basis-1/2 pt-2 mb-[30px] lg:mb-0">
+                <span class="font-bold font-interRegular text-[14px]">
+                    Harga Rp.<span>12.000.000</span> / pax
                 </span>
-                <span class=" ml-4">
+                <span class=" ml-4 font-interRegular text-[14px]">
                     Open Trip 6 Hari 5 Malam
                 </span>
             </div>
-            <div class="basis-1/2 text-[15px]">
-                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
-                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
+            <div class="basis-full lg:basis-1/2 text-[15px]">
+                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
             </div>
         </div>
     </div>
-
 </div>
 
 

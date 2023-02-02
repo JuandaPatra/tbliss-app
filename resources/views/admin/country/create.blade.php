@@ -8,10 +8,10 @@ Slider Add
 @section('content')
 <div class="row">
    <div class="col-md-11">
-      <form action="{{  route('slider.store') }}" method="POST">
+      <form action="{{  route('country.store') }}" method="POST">
          @csrf
          <div class="card mb-4">
-            <h5 class="card-header">Banner Add</h5>
+            <h5 class="card-header">Tambah Negara</h5>
             <div class="card-body">
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Title</label>
@@ -22,70 +22,22 @@ Slider Add
                   </span>
                   @enderror
                </div>
-               <!-- Images For Desktop -->
-               <div class="mb-3">
-                  <label for="input_post_thumbnail" class="form-label">Images For Desktop</label>
-                  <div class="input-group">
-                     <button id="button_post_imagesDesktop" data-input="input_post_imagesDesktop" class="btn btn-outline-primary" type="button">Browse >
-                     </button>
-                     <input id="input_post_imagesDesktop" name="image_desktop" value="{{ old('image_desktop') }}" type="text" class="form-control" placeholder="" readonly />
-                  </div>
+                <!-- slug -->
+                <div class="mb-3">
+                  <label for="input_post_slug" class="form-label">Slug</label>
+                  <input id="input_post_slug" 
+                     name="slug" 
+                     type="text" 
+                     class="form-control @error('slug') is-invalid @enderror" 
+                     readonly  
+                     value="{{ old('slug') }}" 
+                  />
+                     @error('slug')
+                        <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                        </span>
+                     @enderror
                </div>
-               <!-- Images For Mobile -->
-               <div class="mb-3">
-                  <label for="input_post_thumbnail" class="form-label">Images For Mobile</label>
-                  <div class="input-group">
-                     <button id="button_post_imagesMobile" data-input="input_post_imagesMobile" class="btn btn-outline-primary" type="button">Browse >
-                     </button>
-                     <input id="input_post_imagesMobile" name="image_mobile" value="{{ old('image_mobile') }}" type="text" class="form-control" placeholder="" readonly />
-                  </div>
-               </div>
-               <!-- deskripsi -->
-               <div class="mb-3">
-                  <label for="input_post_title" class="form-label">Caption</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                  @error('description')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <!-- deskripsi 2 -->
-               <div class="mb-3">
-                  <label for="input_post_description_2" class="form-label">Deskripsi</label>
-                  <input id="input_post_description_2" name="description2" type="text" placeholder="" class="form-control @error('description2') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                  @error('description2')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <!-- Link -->
-               <div class="mb-3">
-                  <label for="input_post_link" class="form-label">Link</label>
-                  <input id="input_post_link" name="link" type="text" placeholder="" class="form-control @error('link') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                  @error('link')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <!-- order -->
-               <div class="mb-3">
-                  <label for="input_post_title" class="form-label">Order</label>
-                  <select id="select_post_status" name="s_order" class="form-select @error('s_order') is-invalid @enderror">
-                     <option value="">Please Select</option>
-                     @foreach ($orders as $key =>$value)
-                     <option value="{{ $key }}" {{ old('order') == $key ? "selected" : null }}> {{ $value }}</option>
-                     @endforeach
-                  </select>
-                  @error('order')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-
                <div class="mb-3">
                   <label for="exampleFormControlSelect1" class="form-label">Publish</label>
                   <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">

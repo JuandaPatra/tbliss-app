@@ -369,9 +369,7 @@
                 <div class="flex justify-between ">
                     <img src="{{ asset('images/testimoni/left-arrow.png') }}" alt="" class="mr-4 hover:cursor-pointer">
                     <img src="{{ asset('images/testimoni/right-arrow.png') }}" alt="" class="hover:cursor-pointer">
-
                 </div>
-
             </div>
         </div>
     </div>
