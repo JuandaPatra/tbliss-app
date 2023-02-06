@@ -5,9 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Slider extends Model
+class hidden_gem_hashtag extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'image_desktop', 'image_mobile', 's_order', 'description', 'description2', 'status'];
+    protected $fillable = ['hidden_gem_id', 'hashtag_id'];
 }

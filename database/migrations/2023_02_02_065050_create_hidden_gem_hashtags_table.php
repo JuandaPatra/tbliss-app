@@ -13,16 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sliders', function (Blueprint $table) {
+        Schema::create('hidden_gem_hashtags', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('image_desktop');
-            $table->string('image_mobile');
-            $table->string('description');
-            $table->string('description2');
-            $table->string('link')->nullable();
-            $table->string('s_order')->default(1);
-            $table->string('status');
+            $table->integer('hidden_gem_id');
+            $table->integer('hashtag_id');
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sliders');
+        Schema::dropIfExists('hidden_gem_hashtags');
     }
 };

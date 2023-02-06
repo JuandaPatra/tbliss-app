@@ -17,9 +17,9 @@
         <div class="basis-full lg:basis-3/12 ">
             <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
                 <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
-                <a href="/login">Login</a>
+                <a href="{{ route('login') }}">Login</a>
                 <span class="mr-5 ml-5">|</span>
-                <a href="/register">Register</a>
+                <a href="{{ route('register') }}">Register</a>
             </div>
         </div>
     </div>

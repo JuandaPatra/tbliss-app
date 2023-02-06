@@ -17,12 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('description');
-            $table->string('images');
-            $table->string('images2');
-            $table->string('images3');
+            $table->string('description')->nullable();
+            $table->string('images')->nullable();
+            $table->string('images2')->nullable();
+            $table->string('images3')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->string('status');
-            $table->integer('parent_id');
             $table->timestamps();
         });
     }

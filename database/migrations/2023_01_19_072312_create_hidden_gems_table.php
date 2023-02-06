@@ -17,9 +17,12 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->string('description');
-            $table->string('hashtag_id');
-            $table->string('image');
+            $table->string('description1')->nullable();
+            $table->string('description2')->nullable();
+            $table->string('description3')->nullable();
+            $table->string('description4')->nullable();
+            $table->string('image_desktop')->nullable();
+            $table->string('image_mobile')->nullable();
             $table->integer('places_id');
             $table->string('status');
             $table->timestamps();

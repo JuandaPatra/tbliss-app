@@ -3,13 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Slider;
+use App\Models\Place_categories;
 use Illuminate\Http\Request;
+
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
-class SliderController extends Controller
+
+class ContinentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +20,9 @@ class SliderController extends Controller
      */
     public function index()
     {
-        $datas = Slider::all();
-        return view('admin.sliders.index', compact('datas'));
+        $datas = Place_categories::onlyParent()->with('descendants')->get();
+        return $datas;
+        return view('admin.continent.index', compact('datas'));
     }
 
     /**
@@ -29,7 +32,7 @@ class SliderController extends Controller
      */
     public function create()
     {
-        return view('admin.sliders.create', [
+        return view('admin.continent.create', [
             'statuses' => $this->statuses(),
             'orders' => $this->orders()
         ]);
@@ -43,16 +46,11 @@ class SliderController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'image_desktop' => 'required',
-                'image_mobile' => 'required',
-                's_order' => 'required|unique:sliders,s_order',
-                'description' => 'required',
-                'description2' => 'required',
+                'slug' => 'required|string|unique:place_categories,slug',
                 'status' => 'required'
             ]
         );
@@ -64,22 +62,17 @@ class SliderController extends Controller
 
         DB::beginTransaction();
         try {
-            $post = Slider::create([
+            $post = Place_categories::create([
                 'title' => $request->title,
-                'image_desktop' => $request->image_desktop,
-                'image_mobile' => $request->image_mobile,
-                's_order' => $request->s_order,
-                'description' => $request->description,
-                'description2' => $request->description2,
+                'slug' => $request->slug,
                 'status' => $request->status,
-                'link' => $request->link
             ]);
 
-            Alert::success('Tambah Career', 'Berhasil');
-            return redirect()->route('slider.index');
+            Alert::success('Tambah Benua', 'Berhasil');
+            return redirect()->route('continent.index');
         } catch (\throwable $th) {
             DB::rollBack();
-            Alert::error('Tambah Career', 'error' . $th->getMessage());
+            Alert::error('Tambah Benua', 'error' . $th->getMessage());
             return redirect()->back()->withInput($request->all());
         } finally {
             DB::commit();
@@ -105,15 +98,13 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
-        $slider = Slider::where('id', '=', $id)->get();
-        // return $slider;
-        return view('admin.sliders.edit', [
-            'slider' => $slider[0],
+        $continent = Place_categories::where('id', '=', $id)->get();
+
+        return view('admin.continent.edit', [
+            'continent' => $continent[0],
             'orders' => $this->orders(),
             'statuses' => $this->statuses()
         ]);
-
-        // return $slider;
     }
 
     /**
@@ -125,7 +116,7 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+        //
     }
 
     /**
@@ -134,13 +125,13 @@ class SliderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Slider $slider)
+    public function destroy(Place_categories $place_categories)
     {
         try {
-            $slider->delete();
-            Alert::success('Delete Slider', 'Berhasil');
+            $place_categories->delete();
+            Alert::success('Delete Continent', 'Berhasil');
         } catch (\throwable $th){
-            Alert::error('Delete Slider', 'error'.$th->getMessage()); 
+            Alert::error('Delete Continent', 'error'.$th->getMessage()); 
         }
         return redirect()->back();
     }

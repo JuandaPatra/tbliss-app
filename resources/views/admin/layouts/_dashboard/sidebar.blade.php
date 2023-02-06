@@ -65,12 +65,24 @@
       </ul>
     </li>
 
-    <!-- <li class="menu-item ">
-      <a href="{{ route('product.index') }}" class="menu-link">
-        <i class="menu-icon bx bxs-city"></i>
-        <div data-i18n="Tables">Product</div>
+    <li class="menu-item  ">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon bx bxs-compass"></i>
+        <div data-i18n="Layouts">Benua</div>
       </a>
-    </li> -->
+      <ul class="menu-sub">
+        <li class="menu-item ">
+          <a href="{{ route('continent.index') }}" class="menu-link">
+            <div data-i18n="Without menu">List</div>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a href="{{ route('continent.create') }}" class="menu-link">
+            <div data-i18n="Without navbar">Create</div>
+          </a>
+        </li>
+      </ul>
+    </li>
 
     <li class="menu-item  ">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -79,12 +91,12 @@
       </a>
       <ul class="menu-sub">
         <li class="menu-item ">
-          <a href="{{ route('product.index') }}" class="menu-link">
+          <a href="{{ route('country.index') }}" class="menu-link">
             <div data-i18n="Without menu">List</div>
           </a>
         </li>
         <li class="menu-item">
-          <a href="{{ route('product.create') }}" class="menu-link">
+          <a href="{{ route('country.create') }}" class="menu-link">
             <div data-i18n="Without navbar">Create</div>
           </a>
         </li>
@@ -110,7 +122,7 @@
       </ul>
     </li>
 
-    
+
 
     <li class="menu-item  ">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -131,7 +143,7 @@
       </ul>
     </li>
 
-    
+
     <li class="menu-item  {{ set_active(['news.index','news.create', 'news.edit']) }} {{ set_open(['news.index','news.create', 'news.edit']) }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon bx bx-hash"></i>
@@ -151,7 +163,7 @@
       </ul>
     </li>
 
-   <li class="menu-item {{ set_active(['news.index','news.create', 'news.edit']) }} {{ set_open(['news.index','news.create', 'news.edit']) }}">
+    <li class="menu-item {{ set_active(['news.index','news.create', 'news.edit']) }} {{ set_open(['news.index','news.create', 'news.edit']) }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon bx bx-news"></i>
         <div data-i18n="Layouts">News</div>
@@ -168,7 +180,7 @@
           </a>
         </li>
       </ul>
-    </li> 
+    </li>
 
 
     <li class="menu-header small text-uppercase">
