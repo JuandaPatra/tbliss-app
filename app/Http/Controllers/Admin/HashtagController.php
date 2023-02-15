@@ -3,15 +3,15 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Place_categories;
+use App\Models\Hashtag;
 use Illuminate\Http\Request;
-
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use App\Models\Place_categories;
 
-class ContinentController extends Controller
+class HashtagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,8 +20,8 @@ class ContinentController extends Controller
      */
     public function index()
     {
-        $datas = Place_categories::onlyParent()->with('descendants')->get();
-        return view('admin.continent.index', compact('datas'));
+        $datas = Hashtag::all();
+        return view('admin.hashtag.index', compact('datas'));
     }
 
     public function select(Request $request)
@@ -35,7 +35,6 @@ class ContinentController extends Controller
             $categories = Place_categories::select('id', 'title')->onlyParent()->limit(6)->get();
         }
         return response()->json($categories);
-
     }
 
     /**
@@ -45,13 +44,11 @@ class ContinentController extends Controller
      */
     public function create()
     {
-        return view('admin.continent.create', [
+        return view('admin.hashtag.create', [
             'statuses' => $this->statuses(),
             'orders' => $this->orders()
         ]);
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -65,7 +62,7 @@ class ContinentController extends Controller
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:place_categories,slug',
+                'slug' => 'required|string|unique:hashtags,slug',
                 'status' => 'required'
             ]
         );
@@ -77,18 +74,18 @@ class ContinentController extends Controller
 
         DB::beginTransaction();
         try {
-            $post = Place_categories::create([
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'parent_id' =>$request->destination,
-                'status' => $request->status,
+            $post = Hashtag::create([
+                'title'         => $request->title,
+                'slug'          => $request->slug,
+                'description'   => $request->description,
+                'status'        => $request->status,
             ]);
 
-            Alert::success('Tambah Benua', 'Berhasil');
-            return redirect()->route('continent.index');
+            Alert::success('Tambah Hashtag', 'Berhasil');
+            return redirect()->route('hashtag.index');
         } catch (\throwable $th) {
             DB::rollBack();
-            Alert::error('Tambah Benua', 'error' . $th->getMessage());
+            Alert::error('Tambah Hashtag', 'error' . $th->getMessage());
             return redirect()->back()->withInput($request->all());
         } finally {
             DB::commit();
@@ -114,13 +111,7 @@ class ContinentController extends Controller
      */
     public function edit($id)
     {
-        $continent = Place_categories::where('id', '=', $id)->get();
-
-        return view('admin.continent.edit', [
-            'continent' => $continent[0],
-            'orders' => $this->orders(),
-            'statuses' => $this->statuses()
-        ]);
+        //
     }
 
     /**
@@ -141,19 +132,10 @@ class ContinentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Place_categories $place_categories)
+    public function destroy($id)
     {
-        try {
-            $place_categories->delete();
-            Alert::success('Delete Continent', 'Berhasil');
-        } catch (\throwable $th) {
-            Alert::error('Delete Continent', 'error' . $th->getMessage());
-        }
-        return redirect()->back();
+        //
     }
-
-
-
     private function statuses()
     {
 

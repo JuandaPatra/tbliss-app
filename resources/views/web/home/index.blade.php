@@ -21,7 +21,7 @@
                 </div>
                 <picture>
                     <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
-                    <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile.jpg') }}">
+                    <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile-1.jpg') }}">
                     <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
             </div>
@@ -227,7 +227,7 @@
         <h1 class="text-[30px] text-greyTbliss font-bold mb-4 ml-[15px]">
             Hidden Gems di Korea
         </h1>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap hg-slider">
             <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
@@ -450,6 +450,29 @@
         });
         $('.banner-slider').not('.slick-initialized').slick();
 
+
+
+        const options = {
+            mobileFirst: true,
+            responsive: [{
+                breakpoint: 450,
+                settings: "unslick"
+            }]
+        };
+       
+        var slicky = $('.hg-slider');
+        slicky.slick(options);
+
+        $(window).resize(function() {
+
+            setTimeout(function() {
+
+                if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
+                    slicky.slick(options);
+                }
+            }, 100);
+        });
+        // $('.hg-slider').not('.slick-initialized').slick();
 
         // $('.dropdown-cls').each(function() {
         //     $(this).on('click', function(e) {

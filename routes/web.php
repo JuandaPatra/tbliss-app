@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ContinentController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\HashtagController;
+use App\Http\Controllers\Admin\HiddenGemController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
@@ -52,11 +54,17 @@ Route::resource('slider', SliderController::class);
 
 Route::resource('categories', CategoriesController::class);
 
+Route::get('/continent/select', [ContinentController::class, 'select'])->name('continent.select');
 Route::resource('continent', ContinentController::class);
+
 
 Route::resource('country', CountryController::class);
 
 Route::resource('city', CityController::class);
+
+Route::resource('hashtag', HashtagController::class);
+
+Route::resource('activities', HiddenGemController::class);
 
 Route::get('contact', [ContactController::class,'index'])->name('contact');
 

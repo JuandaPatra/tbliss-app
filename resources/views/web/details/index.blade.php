@@ -162,17 +162,17 @@
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Autumn in Korea</h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
-                            <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
+                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
                                 6H5M
                             </span>
                             <span>
                                 |
                             </span>
-                            <span class="ml-3 text-[16px]">
+                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
                                 23 - 28 APR 2023
                             </span>
                         </div>
-                        <span class="ml-20 text-end text-[#FF5055] font-bold text-[19px] ">
+                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
                             Rp. 12.000.000
                         </span>
                     </div>
@@ -187,7 +187,7 @@
                         <p>Picnic Dinner</p>
                         <p>K-drama Shooting Location</p>
                     </div>
-                    <div class="flex justify-between w-[90%]">
+                    <div class="flex justify-between w-full lg:w-[90%]">
                         <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
@@ -202,30 +202,30 @@
                 </div>
             </div>
             <div class="basis-full lg:basis-1/2 lg:order-last">
-                <img src="{{ asset('images/details/korea-1.jpg') }}" alt="" class="h-[450px] w-full">
+                <img src="{{ asset('images/details/korea-1.jpg') }}" alt="" class="h-[450px] w-full object-cover">
             </div>
         </div>
         <div class="flex flex-wrap">
             <!-- batas antar gambar dan tujuan perjalanan -->
             <div class="basis-full lg:basis-1/2">
-                <img src="{{ asset('images/details/korea-2.jpg') }}" alt="" class="h-[450px] w-full">
+                <img src="{{ asset('images/details/korea-2.jpg') }}" alt="" class="h-[450px] w-full object-cover">
             </div>
             <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
                 <div class="container-lg pl-[10%]  lg:pl-[20%] mb-[40px] lg:mb-0 ">
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Explore Culinary in Korea</h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
-                            <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
+                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
                                 6H5M
                             </span>
                             <span>
                                 |
                             </span>
-                            <span class="ml-3 text-[16px]">
+                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
                                 23 - 28 APR 2023
                             </span>
                         </div>
-                        <span class="ml-20 text-end text-[#FF5055] font-bold text-[19px] ">
+                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
                             Rp. 12.000.000
                         </span>
                     </div>
@@ -240,7 +240,7 @@
                         <p>Picnic Dinner</p>
                         <p>K-drama Shooting Location</p>
                     </div>
-                    <div class="flex justify-between w-[90%]">
+                    <div class="flex justify-between w-full lg:w-[90%]">
                         <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
@@ -263,17 +263,17 @@
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Cultural Walk in Korea</h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
-                            <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
+                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
                                 6H5M
                             </span>
                             <span>
                                 |
                             </span>
-                            <span class="ml-3 text-[16px]">
+                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
                                 23 - 28 APR 2023
                             </span>
                         </div>
-                        <span class="ml-20 text-end text-[#FF5055] font-bold text-[19px] ">
+                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
                             Rp. 12.000.000
                         </span>
                     </div>
@@ -288,7 +288,7 @@
                         <p>Picnic Dinner</p>
                         <p>K-drama Shooting Location</p>
                     </div>
-                    <div class="flex justify-between w-[90%]">
+                    <div class="flex justify-between w-full lg:w-[90%]">
                         <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
@@ -303,31 +303,31 @@
                 </div>
             </div>
             <div class="basis-full lg:basis-1/2">
-                <img src="{{ asset('images/details/korea-3.jpg') }}" alt="" class="h-[450px] w-full">
+                <img src="{{ asset('images/details/korea-3.jpg') }}" alt="" class="h-[450px] w-full object-cover">
             </div>
 
         </div>
         <div class="flex flex-wrap">
             <!-- batas gambar dan tujuan perjalanan -->
             <div class="basis-full lg:basis-1/2 ">
-                <img src="{{ asset('images/details/korea-4.jpg') }}" alt="" class="h-[450px] w-full">
+                <img src="{{ asset('images/details/korea-4.jpg') }}" alt="" class="h-[450px] w-full object-cover">
             </div>
             <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
                 <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0 ">
                     <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Korean 101 Trip </h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
-                            <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
+                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
                                 6H5M
                             </span>
                             <span>
                                 |
                             </span>
-                            <span class="ml-3 text-[16px]">
+                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
                                 23 - 28 APR 2023
                             </span>
                         </div>
-                        <span class="ml-20 text-end text-[#FF5055] font-bold text-[19px] ">
+                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
                             Rp. 12.000.000
                         </span>
                     </div>
@@ -342,7 +342,7 @@
                         <p>Picnic Dinner</p>
                         <p>K-drama Shooting Location</p>
                     </div>
-                    <div class="flex justify-between w-[90%]">
+                    <div class="flex justify-between w-full lg:w-[90%]">
                         <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
@@ -501,29 +501,50 @@
         $('.banner-slider').not('.slick-initialized').slick();
 
 
-        $('.destination-slider').slick({
-            dots: false,
-            infinite: true,
-            slidesToShow: 4,
-            autoplay: false,
-            // autoplaySpeed: 2000,
+        // $('.destination-slider').slick({
+        //     dots: false,
+        //     infinite: true,
+        //     slidesToShow: 4,
+        //     autoplay: false,
+        //     // autoplaySpeed: 2000,
+        //     responsive: [{
+        //             breakpoint: 1024,
+        //             settings: {
+        //                 slidesToShow: 4,
+        //             }
+        //         },
+        //         {
+        //             breakpoint: 1023,
+        //             settings: {
+        //                 slidesToShow: 1,
+        //                 slidesToScroll: 1
+        //             }
+        //         },
+        //     ]
+        // });
+
+        const options = {
+            mobileFirst: true,
             responsive: [{
-                    breakpoint: 1024,
-                    settings: {
-                        slidesToShow: 4,
-                    }
-                },
-                {
-                    breakpoint: 1023,
-                    settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                    }
-                },
-            ]
+                breakpoint: 450,
+                settings: "unslick"
+            }]
+        };
+       
+        var slicky = $('.destination-slider');
+        slicky.slick(options);
+
+        $(window).resize(function() {
+
+            setTimeout(function() {
+
+                if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
+                    slicky.slick(options);
+                }
+            }, 100);
         });
 
-        $('.destination-slider').not('.slick-initialized').slick();
+        // $('.destination-slider').not('.slick-initialized').slick();
 
         $('.dropdown-cls').each(function() {
             $(this).on('click', function() {

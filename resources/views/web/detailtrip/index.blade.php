@@ -297,9 +297,9 @@
         <h1 class="text-[30px]">
             Eksplor Trip Lainnya
         </h1>
-        <div class="flex flex-wrap">
-            <div class="basis-full lg:basis-4/12 p-3">
-                <div class="max-w-sm bg-white ">
+        <div class="flex flex-wrap hg-slider">
+            <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
+                <div class="max-w-md lg:max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
                     </a>
@@ -328,8 +328,8 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-full lg:basis-4/12 p-3">
-                <div class="max-w-sm bg-white ">
+            <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
+                <div class="max-w-md lg:max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-1.jpg') }}" alt="" class="w-full">
                     </a>
@@ -358,8 +358,8 @@
                     </div>
                 </div>
             </div>
-            <div class="basis-full lg:basis-4/12 p-3">
-                <div class="max-w-sm bg-white ">
+            <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
+                <div class="max-w-md lg:max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-2.jpg') }}" alt="" class="w-full">
                     </a>
@@ -395,6 +395,24 @@
 
 @include('web.components.presentational.footer')
 
+<!-- <div class="bg-[#ff5055] h-[73px] w-full text-white fixed  bottom-0 z-20 ">
+    <div class="container-lg py-1 lg:pb-0 ">
+        <div class="flex flex-wrap justify-between ">
+            <div class="basis-full lg:basis-1/2 pt-2  mb-[20px] lg:mb-[20] mt-0 lg:mt-[100px]">
+                <span class="font-bold font-interRegular text-[14px]">
+                    Harga Rp.<span>12.000.000</span> / pax
+                </span>
+                <span class=" ml-4 font-interRegular text-[14px]">
+                    Open Trip 6 Hari 5 Malam
+                </span>
+            </div>
+            <div class="basis-full lg:basis-1/2 text-[15px]">
+                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
+            </div>
+        </div>
+    </div>
+</div> -->
 <div class="bg-[#ff5055]  lg:h-[73px] w-full text-white fixed  bottom-0 z-20 ">
     <div class="container-lg pt-3 pb-3 lg:pb-0">
         <div class="flex flex-wrap justify-between">
@@ -464,6 +482,28 @@
                 })
             })
         })
+
+        const options = {
+            mobileFirst: true,
+            responsive: [{
+                breakpoint: 450,
+                settings: "unslick"
+            }]
+        };
+        // $('.hg-slider').not('.slick-initialized').slick();
+        var slicky = $('.hg-slider');
+        slicky.slick(options);
+
+        $(window).resize(function() {
+
+            setTimeout(function() {
+
+                if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
+                    slicky.slick(options);
+                }
+            }, 100);
+        });
+
 
 
 

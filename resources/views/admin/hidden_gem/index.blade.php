@@ -7,24 +7,41 @@ Sliders
 @endsection
 @section('content')
 <div class="card">
-  <h5 class="card-header">List Destinasi</h5>
+  <h5 class="card-header">List Hidden Gems / Activities</h5>
   <div class="table-responsive text-nowrap">
     <table class="table">
       <thead>
         <tr>
           <th>Title</th>
-          {{-- <th>Images Desktop</th> --}}
-          {{-- <th>Images Mobile</th> --}}
           <th>Status</th>
           <th>Actions</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @include('admin.continent._category-list',[
-          'categories' => $datas,
-          'count' => 0
-        ])
-        
+        @foreach ($datas as $row)
+        <tr>
+          <td><strong>{{ $row->title }}</strong></td>
+          <td>{{ $row->status }}</td> 
+          <td>
+            <div class="dropdown">
+              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('slider.edit',['slider'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                
+                <form action="{{ route('slider.destroy',['slider'=>$row]) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
+                  <i class="bx bx-trash me-1"></i>Delete
+                </a>
+                </form> 
+              </div>
+            </div>
+          </td>
+        </tr>
+        @endforeach
       </tbody>
     </table>
   </div>
