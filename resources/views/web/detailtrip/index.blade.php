@@ -470,18 +470,6 @@
         });
         $('.city-slider-3').not('.slick-initialized').slick();
 
-        $('.dropdown-cls').each(function() {
-            $(this).on('click', function() {
-                $(this).toggleClass('active')
-                $(this).siblings().removeClass('active')
-                let dataDropdown = $(this).data("drop")
-                $('.dropdownMenu').each(function() {
-                    $(this).toggleClass('hidden')
-                    // $('.dropdownMenu').removeClass('hidden')
-                    $(`.${dataDropdown}`).siblings().addClass('hidden')
-                })
-            })
-        })
 
         const options = {
             mobileFirst: true,

@@ -188,10 +188,10 @@
                         <p>K-drama Shooting Location</p>
                     </div>
                     <div class="flex justify-between w-full lg:w-[90%]">
-                        <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
+                        <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
-                        <div class="flex ">
+                        <div class="flex pt-[11px] lg:pt-0">
                             <h5 class="text-[#4A5CED] mr-3">
                                 3 seats left
                             </h5>
@@ -244,7 +244,7 @@
                         <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
-                        <div class="flex ">
+                        <div class="flex pt-[11px] lg:pt-0">
                             <h5 class="text-[#4A5CED] mr-3">
                                 3 seats left
                             </h5>
@@ -292,7 +292,7 @@
                         <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
-                        <div class="flex ">
+                        <div class="flex pt-[11px] lg:pt-0">
                             <h5 class="text-[#4A5CED] mr-3">
                                 3 seats left
                             </h5>
@@ -346,7 +346,7 @@
                         <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                             <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                         </a>
-                        <div class="flex ">
+                        <div class="flex pt-[11px] lg:pt-0">
                             <h5 class="text-[#4A5CED] mr-3">
                                 3 seats left
                             </h5>
@@ -479,7 +479,8 @@
             </div>
         </div>
     </section> -->
-
+    @include('web.components.presentational.login')
+    @include('web.components.presentational.whatsapp')
     @include('web.components.presentational.footer')
 </div>
 
@@ -546,18 +547,6 @@
 
         // $('.destination-slider').not('.slick-initialized').slick();
 
-        $('.dropdown-cls').each(function() {
-            $(this).on('click', function() {
-                $(this).toggleClass('active')
-                $(this).siblings().removeClass('active')
-                let dataDropdown = $(this).data("drop")
-                $('.dropdownMenu').each(function() {
-                    $(this).toggleClass('hidden')
-                    // $('.dropdownMenu').removeClass('hidden')
-                    $(`.${dataDropdown}`).siblings().addClass('hidden')
-                })
-            })
-        })
     });
 </script>
 @endpush
