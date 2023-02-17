@@ -74,7 +74,7 @@
             </div>
         </div>
 
-        <div class="sm:flex sm:items-center sm:justify-between mt-[30px]">
+        <div class="sm:flex sm:items-center sm:justify-between mt-[30px] text-center lg:text-start">
             <span class="text-sm text-white sm:text-center">© <a href="https://flowbite.com/" class="hover:underline">Travel Bliss</a> 2022 Privacy Terms.
             </span>
 

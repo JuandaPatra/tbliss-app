@@ -39,6 +39,16 @@
   opacity: 0;
 }
 
+
+.sidenav{
+  left: -100%;
+  transition: ease-in-out 0.1s;
+}
+
+.sidenav.active{
+  /* left: 0%; */
+  transform: translateX(100%);
+}
 /* 
 .search-box{
   top: 720px;

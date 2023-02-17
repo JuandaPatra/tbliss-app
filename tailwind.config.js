@@ -13,7 +13,8 @@ module.exports = {
             redTbliss  : '#FF5055',
             footer     : '#BF1E5F',
             tbliss     : '#102448',
-            greyDetTbliss : '#6A6A6A'
+            greyDetTbliss : '#6A6A6A',
+            greyRgba    : 'rgba(65,65,65,0.5)'
 
         },
         extend: {

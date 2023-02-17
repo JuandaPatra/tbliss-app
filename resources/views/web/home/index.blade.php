@@ -21,7 +21,7 @@
                 </div>
                 <picture>
                     <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
-                    <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile-1.jpg') }}">
+                    <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile-2.jpg') }}">
                     <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
             </div>
@@ -113,7 +113,7 @@
                     <img src="{{ asset('images/title/bp.png') }}" alt="" class="  p-3 h-[120px]">
                 </div>
                 <div class="flex justify-center mb-4 h-[100px]">
-                    <h1 class="w-[45%] text-center text-[30px]">Baru rencana, mohon dibantu Kak!</h1>
+                    <h1 class="w-[60%] lg:w-[45%] text-center text-[30px]">Baru rencana, mohon dibantu Kak!</h1>
                 </div>
                 <a href="" class="text-footer text-[20px] block text-center">Baiklah, sini Kami bantu! <span><img src="{{ asset('images/title/arrow.png') }}" alt="" class="w-[20px] inline"></span></a>
             </div>
@@ -451,6 +451,36 @@
         $('.banner-slider').not('.slick-initialized').slick();
 
 
+        $('.hamburger-menu').on('click', function() {
+            // $('.sidenav').css("transform","translateX(-100%)");
+
+            $('.sidenav').toggleClass('active')
+            // $('body').addClass('overflow-y-hidden')
+            $('html, body').addClass('overflow-y-hidden')
+        })
+
+        $('.sidenav__btn').on('click', function() {
+            $('html ,body').removeClass('overflow-y-hidden')
+            $('.sidenav').removeClass('active')
+        })
+
+        $('.back-dashboard').on('click', function() {
+            $('.sidenav__dashboard').removeClass('hidden')
+            $('.all').siblings().addClass('hidden')
+        })
+
+
+
+
+        $('.menu-destination').on('click', function() {
+            let destinasi = $(this).data("hamburger")
+            let findParent = $(` .${destinasi}`)
+            findParent.removeClass('hidden')
+            findParent.siblings().removeClass('hidden')
+            findParent.siblings().addClass('hidden')
+        })
+
+
 
         const options = {
             mobileFirst: true,
@@ -459,7 +489,7 @@
                 settings: "unslick"
             }]
         };
-       
+
         var slicky = $('.hg-slider');
         slicky.slick(options);
 
@@ -525,6 +555,24 @@
 
 
 
+
+
     });
+</script>
+
+<script>
+    $(window).on('scroll', function() {
+        if (window.scrollY > 50) {
+            $('.header-top').removeClass('fixed')
+            $('.header-top').removeClass('top-0')
+            $('header.top').addClass('absolute')
+            $('header.top').addClass('top-[-30px]')
+        } else {
+            $('header.top').removeClass('absolute')
+            $('header.top').removeClass('top-[-30px]')
+            $('.header-top').addClass('fixed')
+            $('.header-top').addClass('top-0')
+        }
+    })
 </script>
 @endpush
