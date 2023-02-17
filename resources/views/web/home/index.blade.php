@@ -378,16 +378,16 @@
 <section class="p-4">
     <div class="container-lg">
         <div class="flex justify-center  mt-[59px]">
-            <h1 class="mr-3 font-bold font-interRegular text-[15px] lg:text-[26px]">
+            <h1 class=" mr-1 lg:mr-3 font-bold font-interRegular text-[15px] lg:text-[26px]">
                 Bersama kami di Instagram
             </h1>
-            <img src="{{ asset('images/instagram/ig.png') }}" alt="" class="">
+            <img src="{{ asset('images/instagram/ig.png') }}" alt="" class="w-[31px] h-[31px]">
         </div>
         <div class="flex justify-center mb-7 text-[15px]">
-            <p>
+            <p class=" text-[14px] lg:text-[15px]">
                 Ikuti cerita perjalanan kami di
             </p>
-            <a href="" class="text-[#2EC4DD] ml-2 font-interRegular"> @travelibiss</a>
+            <a href="" class="text-[#2EC4DD] ml-2 font-interRegular text-[14px] lg:text-[15px]"> @travelibiss</a>
         </div>
         <div class="grid grid-cols-4 gap-x-2 gap-y-3 mb-[111px]">
             <div><img src="{{ asset('images/instagram/ig-1.jpg') }}" alt="" class="w-full"></div>
