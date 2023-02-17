@@ -377,13 +377,13 @@
 
 <section class="p-4">
     <div class="container-lg">
-        <div class="flex justify-center mt-[59px]">
-            <h1 class="mr-3 font-bold font-interRegular text-[26px]">
+        <div class="flex justify-start lg:justify-center  mt-[59px]">
+            <h1 class="mr-3 font-bold font-interRegular text-[15px] lg:text-[26px]">
                 Bersama kami di Instagram
             </h1>
             <img src="{{ asset('images/instagram/ig.png') }}" alt="" class="">
         </div>
-        <div class="flex justify-center mb-7 text-[15px]">
+        <div class="flex justify-start lg:justify-center mb-7 text-[15px]">
             <p>
                 Ikuti cerita perjalanan kami di
             </p>
