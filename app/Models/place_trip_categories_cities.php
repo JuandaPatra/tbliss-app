@@ -16,5 +16,10 @@ class place_trip_categories_cities extends Model
         return $this->belongsTo(Place_categories::class);
     }
 
+    public function pick_hidden_gem()
+    {
+        return $this->hasMany(PickHiddenGem::class,'place_categories_categories_cities_id', 'id');
+    }
+
     
 }

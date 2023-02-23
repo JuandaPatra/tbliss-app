@@ -32,31 +32,31 @@ $postId = last(request()->segments());
                                     </tr>
                                 </thead>
                                 <tbody class="table-border-bottom-0">
-                                    {{--@forelse ($includes as $row)
+                                    @forelse ($city->pick_hidden_gem as $row)
                                     <tr>
-                                        <td><img src="{{ $row->icon_image }}" alt=""></td>
-                                    <td><strong>{{ $row->title }}</strong></td>
-                                    <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" role="button" id="edit-item" data-item-id="{{ $row->id }}" data-item-images="{{ $row->icon_image }}" data-item-title="{{ $row->title }}" data-item-slug="{{ $row->slug }}"></i> Edit</a>
+                                        <td><img src="{{ $row->hidden_gems->image_desktop }}" alt="" style="height:100px"></td>
+                                        <td><strong>{{ $row->hidden_gems->title }}</strong></td>
+                                        <td>
+                                            <div class="dropdown">
+                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu">
+                                                    <!-- <a class="dropdown-item" role="button" id="edit-item" data-item-id="{{ $row->id }}" data-item-images="{{ $row->icon_image }}" data-item-title="{{ $row->title }}" data-item-slug="{{ $row->slug }}"></i> Edit</a> -->
 
-                                                <form action="{{ route('includes.destroy',$row->id) }}" method="post">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
-                                                        <i class="bx bx-trash me-1"></i>Delete
-                                                    </a>
-                                                </form>
+                                                    <form action="{{ route('pick-hidden-gem.destroy',$row->hidden_gems->id) }}" method="post">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
+                                                            <i class="bx bx-trash me-1"></i>Delete
+                                                        </a>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    @empty
-                                    <td>Includes Tidak Tersedia</td>
-                                    @endforelse --}}
+                                        </td>
+                                        @empty
+                                        <td colspan="3" class="text-center">Hidden Gems/Activities Tidak Tersedia</td>
+                                        @endforelse
                                     </tr>
                                 </tbody>
                             </table>
@@ -68,9 +68,10 @@ $postId = last(request()->segments());
                 <div class="col-4">
                     <div class="card mb-4 px-3 pb-3" id="includes-add">
                         <h5 class="card-header">Add Hidden Gems/Activities</h5>
-                        <form action="{{route('includes.store')}}" method="POST">
+                        <form action="{{route('pick-hidden-gem.store')}}" method="POST">
                             @csrf
-                            <input type="hidden" name="trip_cat_id" class="form-control" value="{{ $slug }}">
+                            <input type="hidden" name="place_categories_categories_cities_id" class="form-control" value="{{ $city->id }}">
+                            <input type="hidden" name="place_categories_id" class="form-control" value="{{ $city->place_categories_id }}">
                             <div class="card accordion-item mb-4">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne-{{$city->id}}" aria-expanded="false" aria-controls="accordionOne">

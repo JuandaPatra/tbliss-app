@@ -182,7 +182,28 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+        // return $request;
+        return $request->hashtags[0];
+
+        DB::beginTransaction();
+        try {
+            $post = Categories::create([
+                'title' => $request->title,
+                'slug' => $request->slug,
+                'description' => $request->description,
+                'image' => $request->image,
+                'status' => $request->status
+            ]);
+
+            Alert::success('Tambah Kategori', 'Berhasil');
+            return redirect()->route('categories.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Tambah Kategori', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
     }
 
     /**
@@ -211,10 +232,13 @@ class ProductController extends Controller
     public function pick_hidden_gem(Request $request, $slug)
     {
         // return $slug;
-        $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop'])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
+        // $cities = place_trip_categories_cities::with(['place_categories:id,title','place_categories.hidden_gem:places_id,id,title,image_desktop','pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gems_id','pick_hidden_gem.hidden_gems:id,title,image_desktop' ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
+        // $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop','pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id', ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
         
         // $cities = place_trip_categories_cities::all();
-        return $cities;
+        $cities = place_trip_categories_cities::with(['place_categories:id,title','place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id','pick_hidden_gem.hidden_gems:id,title,image_desktop' ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
+        
+        // return $cities;
         return view('admin.products.pickhiddengem', compact('cities', 'slug'));
     }
     private function statuses(){

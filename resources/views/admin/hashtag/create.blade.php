@@ -33,7 +33,7 @@ Slider Add
                   @enderror
                </div>
                <!-- deskripsi 2 -->
-               <div class="mb-3">
+               {{--<div class="mb-3">
                   <label for="input_post_descriptions" class="form-label">Deskripsi</label>
                   <input id="input_post_descriptions" name="description" type="text" placeholder="" class="form-control @error('description2') is-invalid @enderror" name="title" value="{{ old('title') }}" />
                   @error('description2')
@@ -41,7 +41,7 @@ Slider Add
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
-               </div>
+               </div>--}}
                <div class="mb-3">
                   <label for="exampleFormControlSelect1" class="form-label">Publish</label>
                   <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">

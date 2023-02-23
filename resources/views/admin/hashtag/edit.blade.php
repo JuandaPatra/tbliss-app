@@ -36,7 +36,7 @@ Slider Edit
                   @enderror
                </div>
                <!-- deskripsi 2 -->
-               <div class="mb-3">
+               {{--<div class="mb-3">
                   <label for="input_post_descriptions" class="form-label">Deskripsi</label>
                   <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description', $hashtag->description) }}" />
                   @error('description')
@@ -44,7 +44,7 @@ Slider Edit
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
-               </div>
+               </div>--}}
 
                <div class="mb-3">
                   <label for="select_post_status" class="form-label">Status</label>

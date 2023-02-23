@@ -20,4 +20,33 @@ class Hidden_gem extends Model
     {
         return $this->hasMany(hidden_gem_hashtag::class);
     }
+
+    // public function pick_hidden_gem()
+    // {
+    //     // return $this->hasOne(PickHiddenGem::class, 'pick_hidden_gems_id');
+    //     // return $this->belongsTo(PickHiddenGem::class);
+    //     return $this->belongsTo(PickHiddenGem::class,);
+    //     // return $this->belongsTo(PickHiddenGem::class);
+    //     // return $this->belongsTo(Hidden_gem::class);
+    // }
+
+    // public function pick_hidden_gem()
+    // {
+    //     return $this->belongsTo(PickHiddenGem::class,'hidden_gems_id','id');
+    // }
+
+    public function pick_hidden_gem()
+    {
+        return $this->belongsTo(PickHiddenGem::class);
+    }
+
+    // public function pick_hidden_gem()
+    // {
+    //     return $this->belongsTo(PickHiddenGem::class,'hidden_gem_id');
+    // }
+
+    // public function pick_hidden_gem()
+    // {
+    //     return $this->hasOne(PickHiddenGem::class,'hidden_gems_id','id');
+    // }
 }

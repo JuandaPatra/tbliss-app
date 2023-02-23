@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('pick_hidden_gems', function (Blueprint $table) {
             $table->id();
+            $table->integer('place_categories_id');
+            $table->integer('place_categories_categories_cities_id');
+            $table->integer('hidden_gem_id');
             $table->timestamps();
         });
     }

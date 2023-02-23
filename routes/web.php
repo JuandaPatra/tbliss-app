@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\ExcludesController;
 use App\Http\Controllers\Admin\HashtagController;
 use App\Http\Controllers\Admin\HiddenGemController;
 use App\Http\Controllers\Admin\IncludesController;
+use App\Http\Controllers\Admin\PickHiddenGemsController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
@@ -74,6 +75,8 @@ Route::resource('activities', HiddenGemController::class);
 Route::resource('includes', IncludesController::class);
 
 Route::resource('excludes', ExcludesController::class);
+
+Route::resource('pick-hidden-gem', PickHiddenGemsController::class);
 
 Route::get('contact', [ContactController::class,'index'])->name('contact');
 
