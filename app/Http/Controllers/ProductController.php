@@ -2,7 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hashtag;
+use App\Models\Place_categories;
 use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Alert;
+use App\Models\Hidden_gem;
+use App\Models\Place_trip_categories;
+use App\Models\place_trip_categories_cities;
+use App\Models\Trip_categories;
+use App\Models\Trip_exclude;
+use App\Models\Trip_includes;
 
 class ProductController extends Controller
 {
@@ -13,7 +25,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        return view('admin.products.index');
+        $datas = Trip_categories::all();
+        return view('admin.products.index', compact('datas'));
     }
 
     /**
@@ -23,8 +36,18 @@ class ProductController extends Controller
      */
     public function create()
     {
+        // $negara = Place_categories::with(['children'])->get();
+        $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
+        // $negara = Place_categories::onlyParent()->get(['id', 'title']);
+        // $negara = Place_categories::where('parent_id','=',4)->get();
+        // $negara = Place_categories::where('parent_id','!=', null)->get();
+        // return $negara;
+
+        $hashtags = Hashtag::all(['id', 'title']);
         return view('admin.products.create', [
             'statuses' => $this->statuses(),
+            'destinations' => $negara,
+            'hashtags' => $hashtags 
         ]);
     }
 
@@ -36,7 +59,96 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // return $request;
+        $b = str_replace( '.', '', $request->price );
+        $int_value = (int) $b;
+        // return $int_value;
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'title'         =>  'required|string|max:100',
+                'slug'          =>  'required|string|unique:trip_categories,slug',
+                'description'     =>  'required',
+                'thumbnail'     =>  'required',
+                'itinerary'     =>  'required',
+                'price'         =>  'required',
+                'day'           =>  'required',
+                'night'         =>  'required',
+                'link_g_drive'  =>  'required',
+                'date_from'     =>  'required',
+                'date_to'       =>  'required',
+                'status'        =>  'required'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        // proses insert
+
+        DB::beginTransaction();
+        try {
+            $post = Trip_categories::create([
+                'title'         =>  $request->title,
+                'slug'          =>  $request->slug,
+                'thumbnail'     =>  $request->thumbnail,
+                'description'   =>  $request->description,
+                'itinerary'     =>  $request->itinerary,
+                'price'         =>  $int_value,
+                'day'           =>  $request->day,
+                'night'         =>  $request->night,
+                'seat'          =>  $request->seat,
+                'link_g_drive'  =>  $request->link_g_drive,
+                'date_from'     =>  $request->date_from,
+                'date_to'       =>  $request->date_to,
+                'status'        =>  $request->status,
+            ]);
+            DB::commit();
+            $trip = Trip_categories::where('title', '=', $request->title)->get();
+
+            foreach($request->countries as $inputCountry){
+                try {
+                    $post = Place_trip_categories::create([
+                        'trip_categories_id'                => $trip[0]->id,
+                        'place_categories_id'               => $inputCountry,
+                    ]);
+                } catch (\throwable $th) {
+                    DB::rollBack();
+                    Alert::error('Tambah Negara Tujuan Trip', 'error' . $th->getMessage());
+                    return redirect()->back()->withInput($request->all());
+                } finally {
+                    DB::commit();
+                }
+            }
+
+            foreach($request->cities as $inputCity){
+                try {
+                    $post = place_trip_categories_cities::create([
+                        'trip_categories_id'                => $trip[0]->id,
+                        'place_categories_id'               => $inputCity,
+                    ]);
+                } catch (\throwable $th) {
+                    DB::rollBack();
+                    Alert::error('Tambah Kota Tujuan Trip', 'error' . $th->getMessage());
+                    return redirect()->back()->withInput($request->all());
+                } finally {
+                    DB::commit();
+                }
+            }
+
+            
+
+
+            Alert::success('Tambah Benua', 'Berhasil');
+            return redirect()->route('continent.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Tambah Benua', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
     }
 
     /**
@@ -70,7 +182,7 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        return $request;
     }
 
     /**
@@ -84,6 +196,27 @@ class ProductController extends Controller
         //
     }
 
+    public function include(Request $request, $slug)
+    {
+        $datas          =   Trip_categories::all();
+        $includes       =   Trip_includes::all();
+        $excludes       =   Trip_exclude::all();
+        $slug           = $slug;
+        return view('admin.products.includes', compact('datas', 'includes', 'excludes', 'slug'));
+    }
+    public function images(Request $request)
+    {
+        return $request;
+    }
+    public function pick_hidden_gem(Request $request, $slug)
+    {
+        // return $slug;
+        $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop'])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
+        
+        // $cities = place_trip_categories_cities::all();
+        return $cities;
+        return view('admin.products.pickhiddengem', compact('cities', 'slug'));
+    }
     private function statuses(){
 
         return [

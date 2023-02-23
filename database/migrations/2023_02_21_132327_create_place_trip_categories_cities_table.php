@@ -13,12 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('trip_includes', function (Blueprint $table) {
+        Schema::create('place_trip_categories_cities', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->string('icon_image');
-            $table->integer('trip_cat_id');
+            $table->integer('trip_categories_id');
+            $table->integer('place_categories_id');
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trip_includes');
+        Schema::dropIfExists('place_trip_categories_cities');
     }
 };

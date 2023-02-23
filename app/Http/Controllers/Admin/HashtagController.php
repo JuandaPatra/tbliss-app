@@ -111,7 +111,13 @@ class HashtagController extends Controller
      */
     public function edit($id)
     {
-        //
+        $hashtag = Hashtag::whereId($id)->get();
+        // return $hashtag[0];
+
+        return view('admin.hashtag.edit',[
+            'hashtag'   => $hashtag[0],
+            'statuses'  => $this->statuses(),
+        ]);
     }
 
     /**
@@ -123,7 +129,38 @@ class HashtagController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'title' => 'required|string|max:100',
+                'slug' => 'required',
+                'status' => 'required'
+            ]
+        );
+        if ($validator->fails()){
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        DB::beginTransaction();
+
+        try {
+            $post = Hashtag::where('id', '=', $id);
+
+            $post->update([
+                'title'         => $request->title,
+                'slug'          => $request->slug,
+                'description'   => $request->description,
+                'status'        => $request->status,
+            ]);
+
+            Alert::success('Edit Hashtag', 'Berhasil');
+            return redirect()->route('hashtag.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Edit Hashtag', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
     }
 
     /**
@@ -132,9 +169,15 @@ class HashtagController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Hashtag $hashtag)
     {
-        //
+        try {
+            $hashtag->delete();
+            Alert::success('Delete Hashtag', 'Berhasil');
+        } catch (\throwable $th){
+            Alert::error('Delete Hashtag', 'error'.$th->getMessage()); 
+        }
+        return redirect()->back();
     }
     private function statuses()
     {

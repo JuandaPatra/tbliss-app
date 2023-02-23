@@ -10,4 +10,9 @@ class hidden_gem_hashtag extends Model
     use HasFactory;
 
     protected $fillable = ['hidden_gem_id', 'hashtag_id'];
+
+    public function hidden_gem()
+    {
+        return $this->belongsTo(Hidden_gem::class);
+    }
 }

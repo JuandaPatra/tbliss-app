@@ -8,15 +8,25 @@ Slider Add
 @section('content')
 <div class="row">
    <div class="col-md-11">
-      <form action="{{  route('slider.store') }}" method="POST">
+      <form action="{{  route('activities.store') }}" method="POST">
          @csrf
          <div class="card mb-4">
-            <h5 class="card-header">Banner Add</h5>
+            <h5 class="card-header">Hidden Gems/Activities Add</h5>
             <div class="card-body">
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Title</label>
                   <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
                   @error('title')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+               <!-- slug -->
+               <div class="mb-3">
+                  <label for="input_post_slug" class="form-label">Slug</label>
+                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
+                  @error('slug')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
@@ -42,49 +52,74 @@ Slider Add
                </div>
                <!-- deskripsi -->
                <div class="mb-3">
-                  <label for="input_post_title" class="form-label">Caption</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('title') }}" />
+                  <label for="input_post_title" class="form-label">Description</label>
+                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('description') }}" />
                   @error('description')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
                </div>
-               <!-- deskripsi 2 -->
+
                <div class="mb-3">
-                  <label for="input_post_description_2" class="form-label">Deskripsi</label>
-                  <input id="input_post_description_2" name="description2" type="text" placeholder="" class="form-control @error('description2') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                  @error('description2')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <!-- Link -->
-               <div class="mb-3">
-                  <label for="input_post_link" class="form-label">Link</label>
-                  <input id="input_post_link" name="link" type="text" placeholder="" class="form-control @error('link') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                  @error('link')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <!-- order -->
-               <div class="mb-3">
-                  <label for="input_post_title" class="form-label">Order</label>
-                  <select id="select_post_status" name="s_order" class="form-select @error('s_order') is-invalid @enderror">
+                  <label for="exampleFormControlSelect1" class="form-label">Kota</label>
+                  <select id="select_post_status" name="destination" class="form-select @error('status') is-invalid @enderror">
                      <option value="">Please Select</option>
-                     @foreach ($orders as $key =>$value)
-                     <option value="{{ $key }}" {{ old('order') == $key ? "selected" : null }}> {{ $value }}</option>
-                     @endforeach
+                     <option value="">Psssst</option>
+                     {{-- @if (old('parent_id'))
+                     <option value="{{ old('parent_id') }}" {{ old('parent_id') == $key ? "selected" : null }}> {{ old('title') }}</option>
+                     @endif --}}
+
+                     {{-- @foreach ($statuses as $key =>$value)
+                     <option value="{{ $key }}" {{ old('status') == $key ? "selected" : null }}> {{ $value }}</option>
+                     @endforeach --}}
                   </select>
-                  @error('order')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
                </div>
+
+               <div class="card-body">
+                  <div class="row gy-3">
+                     <div class="col-md">
+                        <small class="text-light fw-semibold">Checkboxes</small>
+                        @foreach($checkboxes as $checkbox)
+                        <div class="form-check mt-3">
+                           <input class="form-check-input" type="checkbox" value="{{$checkbox->id}}" id="defaultCheck1" name="hashtag[]">
+                           <label class="form-check-label" for="defaultCheck1">
+                              {{$checkbox->title}}
+                           </label>
+                        </div>
+                        @endforeach
+                        
+                     </div>
+                     {{-- <div class="col-md">
+                        <small class="text-light fw-semibold">Radio</small>
+                        <div class="form-check mt-3">
+                           <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1">
+                           <label class="form-check-label" for="defaultRadio1">
+                              Unchecked
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2" checked="">
+                           <label class="form-check-label" for="defaultRadio2">
+                              Checked
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" value="" id="disabledRadio1" disabled="">
+                           <label class="form-check-label" for="disabledRadio1">
+                              Disabled unchecked
+                           </label>
+                        </div>
+                        <div class="form-check">
+                           <input class="form-check-input" type="radio" value="" id="disabledRadio2" disabled="" checked="">
+                           <label class="form-check-label" for="disabledRadio2">
+                              Disabled checkbox
+                           </label>
+                        </div>
+                     </div> --}}
+                  </div>
+               </div>
+
 
                <div class="mb-3">
                   <label for="exampleFormControlSelect1" class="form-label">Publish</label>
@@ -101,26 +136,16 @@ Slider Add
          </div>
       </form>
    </div>
-   <!-- <div class="col-lg-4 col-md-4 order-1">
-   <div class="card mb-4">
-      <div class="card-body">
-         <div class="mb-3">
-            <label for="input_post_title" class="form-label">Order</label>
-            <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-            @error('title')
-            <span class="invalid-feedback" role="alert">
-               <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-         </div>
-      </div>
-   </div>
-</div> -->
    @endsection
+   @push('css-external')
+   <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2-bootstrap4.min.css') }}">
+   @endpush
    @push('javascript-external')
    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
    <script src="{{ asset('vendor/tinymce5/jquery.tinymce.min.js') }}"></script>
    <script src="{{ asset('vendor/tinymce5/tinymce.min.js') }}"></script>
+   <script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
    @endpush
    @push('javascript-internal')
    <script>
@@ -140,8 +165,31 @@ Slider Add
          $('#button_post_imagesDesktop').filemanager('image');
          $('#button_post_imagesMobile').filemanager('image');
 
+         //select2 parent_category
+         $('#select_post_status').select2({
+            theme: 'bootstrap4',
+            language: "",
+            allowClear: true,
+            ajax: {
+               url: "{{ route('continent.select') }}",
+               dataType: 'json',
+               delay: 250,
+               processResults: function(data) {
+                  return {
+                     results: $.map(data, function(item) {
+                        return {
+                           text: item.title,
+                           id: item.id
+                        }
+                     })
+                  };
+               }
+            }
+         });
+
+
          // event :  description
-         $("#input_post_descriptions").tinymce({
+         $("#input_post_description").tinymce({
             relative_urls: false,
             language: "en",
             plugins: [

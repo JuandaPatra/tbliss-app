@@ -38,6 +38,14 @@ Slider Edit
                   @enderror
                </div>
                <div class="mb-3">
+                  <label for="exampleFormControlSelect1" class="form-label">Benua/Negara</label>
+                  <select id="select_post_status" name="destination" class="form-select @error('status') is-invalid @enderror">
+                     @if (old('parent_id', $continent->parent_id))
+                     <option value="{{ old('parent_id', $continent->parent->id) }}" selected>{{ old('parent_id',$continent->parent->title)}}</option>
+                     @endif 
+                  </select>
+               </div>
+               <div class="mb-3">
                   <label for="select_post_status" class="form-label">Status</label>
                   <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
                      <option value="">Please Select ..</option>
@@ -59,10 +67,15 @@ Slider Edit
    </div>
 </div>
 @endsection
+@push('css-external')
+   <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
+   <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2-bootstrap4.min.css') }}">
+   @endpush
 @push('javascript-external')
 <script src="{{ asset ('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
 <script src="{{ asset('vendor/tinymce5/jquery.tinymce.min.js') }}"></script>
 <script src="{{ asset('vendor/tinymce5/tinymce.min.js') }}"></script>
+<script src="{{ asset('vendor/select2/js/select2.min.js') }}"></script>
 @endpush
 @push('javascript-internal')
 <script>
@@ -80,6 +93,27 @@ Slider Edit
       // event : input thumbnail with file manager
       $('#button_post_imagesDesktop').filemanager('image');
       $('#button_post_imagesMobile').filemanager('image');
+
+      $('#select_post_status').select2({
+         theme: 'bootstrap4',
+         language: "",
+         allowClear: true,
+         ajax: {
+            url: "{{ route('continent.select') }}",
+            dataType: 'json',
+            delay: 250,
+            processResults: function(data) {
+               return {
+                  results: $.map(data, function(item) {
+                     return {
+                        text: item.title,
+                        id: item.id
+                     }
+                  })
+               };
+            }
+         }
+      });
 
       // tiny mce for description 
       $("#input_post_description").tinymce({

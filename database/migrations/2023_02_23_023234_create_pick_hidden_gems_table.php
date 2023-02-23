@@ -13,12 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('trip_includes', function (Blueprint $table) {
+        Schema::create('pick_hidden_gems', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('slug');
-            $table->string('icon_image');
-            $table->integer('trip_cat_id');
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('trip_includes');
+        Schema::dropIfExists('pick_hidden_gems');
     }
 };

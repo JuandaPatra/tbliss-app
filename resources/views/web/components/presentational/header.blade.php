@@ -18,7 +18,7 @@
             <div class="hidden lg:block basis-full lg:basis-3/12 ">
                 <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
                     <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
-                    <a href="{{ route('login') }}">Login</a>
+                    <a href="{{ route('login') }}" data-modal-target="authentication-modal">Login</a>
                     <span class="mr-5 ml-5">|</span>
                     <a href="{{ route('register') }}">Register</a>
                 </div>
@@ -37,7 +37,7 @@
             <a href="/" class="block ">
                 <img src="{{ asset('images/title/logo.png') }}" alt="" class="w-[145px] h-[40px] lg:w-[231px] lg:h-[61px]">
             </a>
-            <a  data-modal-target="authentication-modal" data-modal-toggle="authentication-modal" class="block lg:hidden p-2 mt-[12px]">
+            <a   data-modal-toggle="authentication-modal" class="block lg:hidden p-2 mt-[12px]">
                 <img src="{{ asset('images/header/user_black.png') }}" alt="" class="w-[20px] h-[20px]">
             </a>
         </div>
@@ -128,7 +128,6 @@
 
                             </div>
                             <div class=" p-3 border-gray-300  border-t-2 border-b-2 flex items-center ">
-                                <!-- <img src="{{ asset('images/header/gift.png') }}" alt="" style="height: 18px;width:18px" class="me-2"> -->
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="tw-mr-1 tw-text-black tw-align-top">
                                     <path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"></path>
                                 </svg>

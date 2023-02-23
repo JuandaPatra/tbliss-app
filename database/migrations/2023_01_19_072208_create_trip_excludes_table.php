@@ -18,9 +18,7 @@ return new class extends Migration
             $table->string('title');
             $table->string('slug');
             $table->string('icon_image');
-            $table->string('description')->nullable();
             $table->integer('trip_cat_id');
-            $table->string('status');
             $table->timestamps();
         });
     }

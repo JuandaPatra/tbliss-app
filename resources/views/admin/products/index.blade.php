@@ -12,19 +12,45 @@
 <!-- Basic Bootstrap Table -->
 <div class="card">
    <h5 class="card-header">List Product</h5>
-   <div class="table-responsive text-nowrap">
+   <div class="table-responsive text-nowrap" style="height:1000px">
      <table class="table">
        <thead>
          <tr>
            <th>Title</th>
            <th>Category</th>
-           <th>Status</th>
+           <!-- <th>Status</th> -->
            <th>Actions</th>
          </tr>
        </thead>
        <tbody class="table-border-bottom-0">
-         
-       </tbody>
+        @foreach ($datas as $row)
+        <tr>
+          <td><strong>{{ $row->title }}</strong></td>
+          <td>{{ $row->status }}</td> 
+          <td>
+            <div class="dropdown">
+              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                <i class="bx bx-dots-vertical-rounded"></i>
+              </button>
+              <div class="dropdown-menu">
+                <a class="dropdown-item" href="{{ route('product.edit',['product'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                <a class="dropdown-item" href="{{ route('product.include',$row) }}"><i class="bx bx-edit-alt me-1"></i> Includes/Excludes</a>
+                <a class="dropdown-item" href="{{ route('product.images',['product'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
+                <a class="dropdown-item" href="{{ route('product.pick',$row) }}"><i class="bx bx-edit-alt me-1"></i> Choose Hidden Gems</a>
+                
+                <form action="{{ route('hashtag.destroy',['hashtag'=>$row]) }}" method="post">
+                @csrf
+                @method('DELETE')
+                <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
+                  <i class="bx bx-trash me-1"></i>Delete
+                </a>
+                </form> 
+              </div>
+            </div>
+          </td>
+        </tr>
+        @endforeach
+      </tbody>
      </table>
    </div>
  </div>

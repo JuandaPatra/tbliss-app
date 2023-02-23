@@ -11,13 +11,20 @@
       <div class="dropdown-menu">
         <a class="dropdown-item" href="{{ route('continent.edit',['continent'=>$categori]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
 
-        <form action="{{ route('continent.destroy',['continent'=>$categori]) }}" method="post">
+        <form action="{{ route('continent.destroy',['continent'=>$categori]) }}" method="P0ST">
           @csrf
           @method('DELETE')
           <a class="dropdown-item" href="{{ route('continent.destroy',['continent'=>$categori]) }}" , role="alert" alert-text="{{ $categori->title }}" onclick="this.closest('form').submit();return false;">
             <i class="bx bx-trash me-1"></i>Delete
           </a>
-        </form>
+        </form> 
+        {{--<form action="{{ route('continent.destroy',['continent'=>$categori]) }}" method="P0ST">
+        @csrf
+        @method('DELETE')
+        <button type="submit" class="btn btn-sm btn-danger">
+          <i class="bx bx-trash me-1"></i>
+        </button>
+      </form>--}}
       </div>
     </div>
   </td>

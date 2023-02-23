@@ -25,6 +25,9 @@ class DatabaseSeeder extends Seeder
         $this->call(CitySeeder::class);
         $this->call(HashtagSeeder::class);
         $this->call(HiddenGemSeeder::class);
+        $this->call(PlaceTripCategoriesSeeder::class);
+        $this->call(PlaceTripCategoriesCitiesSeeder::class);
+        $this->call(TripCategoriesSeeder::class);
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

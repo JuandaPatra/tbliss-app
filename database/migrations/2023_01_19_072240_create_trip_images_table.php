@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('trip_images', function (Blueprint $table) {
             $table->id();
-            $table->string('image');
+            $table->string('image_desktop')->nullable();
+            $table->string('image_mobile')->nullable();
             $table->integer('trip_cat_id');
             $table->string('status');
             $table->timestamps();

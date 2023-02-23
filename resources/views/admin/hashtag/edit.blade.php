@@ -8,64 +8,50 @@ Slider Edit
 @section('content')
 <div class="row">
    <div class="col-md-11">
-      <form action="{{  route('slider.update', ['slider'=>$slider]) }}" method="POST">
-
+      <form action="{{  route('hashtag.update', ['hashtag'=>$hashtag]) }}" method="POST"> 
          @csrf
          @method('PUT')
          <div class="card mb-4">
-            <h5 class="card-header">Banner Edit</h5>
+            <h5 class="card-header">Edit Hashtag</h5>
             <div class="card-body">
                <!-- title -->
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Title</label>
-                  <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $slider->title) }}" />
+                  <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $hashtag->title) }}" />
                   @error('title')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
                </div>
-               <div class="mb-3">
-                  <label for="input_post_thumbnail" class="form-label">Images For Desktop</label>
-                  <div class="input-group">
-                     <button id="button_post_imagesDesktop" data-input="input_post_imagesDesktop" class="btn btn-outline-primary" type="button">
-                        Browse >
-                     </button>
-                     <input id="input_post_imagesDesktop" name="image_desktop" value="{{ old('image_desktop',asset($slider->image_desktop) ) }}" type="text" class="form-control" placeholder="" readonly />
-                  </div>
-               </div>
-               <!-- thumbnail -->
-               <div class="mb-3">
-                  <label for="input_post_imagesMobile" class="form-label">Images For Mobile</label>
-                  <div class="input-group">
-                     <button id="button_post_imagesMobile" data-input="input_post_imagesMobile" class="btn btn-outline-primary" type="button">Browse >
-                     </button>
-                     <input id="input_post_imagesMobile" name="image_mobile" value="{{ old('image_mobile',asset($slider->image_mobile) ) }}" type="text" class="form-control" placeholder="" readonly />
-                  </div>
-               </div>
-               <div class="mb-3">
-                  <label for="input_post_title" class="form-label">Order</label>
-                  <select id="select_post_status" name="s_order" class="form-select @error('s_order') is-invalid @enderror">
-                     <option value="">Please Select</option>
-                     @foreach ($orders as $key =>$value)
-                     <option value="{{ $key }}" {{ old('s_order', $slider->s_order) == $key ? "selected" : null }}> {{ $value }}</option>
-                     @endforeach
 
-
-                  </select>
-
-                  @error('s_order')
+               <!-- slug -->
+               <div class="mb-3">
+                  <label for="input_post_slug" class="form-label">Slug</label>
+                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug', $hashtag->slug) }}" />
+                  @error('slug')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
                </div>
+               <!-- deskripsi 2 -->
+               <div class="mb-3">
+                  <label for="input_post_descriptions" class="form-label">Deskripsi</label>
+                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description', $hashtag->description) }}" />
+                  @error('description')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+
                <div class="mb-3">
                   <label for="select_post_status" class="form-label">Status</label>
                   <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
                      <option value="">Please Select ..</option>
                      @foreach ($statuses as $key =>$value)
-                     <option value="{{ $key }}" {{ old('status',  $slider->status) == $key ? "selected" : null }}> {{ $value }}</option>
+                     <option value="{{ $key }}" {{ old('status',  $hashtag->status) == $key ? "selected" : null }}> {{ $value }}</option>
                      @endforeach
                   </select>
                   @error('status')

@@ -125,7 +125,47 @@ class SliderController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'title' => 'required|string|max:100',
+                'image_desktop' => 'required',
+                'image_mobile' => 'required',
+                // 's_order' => 'required|unique:sliders,s_order',
+                'status' => 'required'
+            ]
+        );
+        if ($validator->fails()){
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        DB::beginTransaction();
+
+        try {
+            $post = Slider::where('id', '=', $id);
+
+            $post->update([
+                'title' => $request->title,
+                'image_desktop' => $request->image_desktop,
+                'image_mobile' => $request->image_mobile,
+                's_order' => $request->s_order,
+                'status' => $request->status,
+                'description' => $request->description,
+                'description2' => $request->description2,
+                'status' => $request->status,
+                'link' => $request->link
+            ]);
+
+            Alert::success('Edit Slider', 'Berhasil');
+            return redirect()->route('slider.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Edit Slider', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
+
+        
     }
 
     /**

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Place_trip_categories extends Model
+class place_trip_categories_cities extends Model
 {
     use HasFactory;
 
@@ -15,4 +15,6 @@ class Place_trip_categories extends Model
     {
         return $this->belongsTo(Place_categories::class);
     }
+
+    
 }

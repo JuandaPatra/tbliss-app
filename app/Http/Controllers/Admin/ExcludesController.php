@@ -3,15 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Place_categories;
 use Illuminate\Http\Request;
-
 
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use App\Models\Trip_exclude;
 
-class ContinentController extends Controller
+class ExcludesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -20,22 +19,7 @@ class ContinentController extends Controller
      */
     public function index()
     {
-        $datas = Place_categories::onlyParent()->with('descendants')->get();
-        return view('admin.continent.index', compact('datas'));
-    }
-
-    public function select(Request $request)
-    {
-        $categories = [];
-        if ($request->has('q')) {
-            $search = $request->q;
-            // $categories = CategoryProducts::select('id', 'title')->where('title', 'LIKE', "%$search%")->limit(6)->get();
-            $categories = Place_categories::select('id', 'title')->where('title', 'LIKE', "%$search%")->limit(6)->get();
-        } else {
-            $categories = Place_categories::select('id', 'title')->onlyParent()->limit(6)->get();
-        }
-        return response()->json($categories);
-
+        //
     }
 
     /**
@@ -45,13 +29,8 @@ class ContinentController extends Controller
      */
     public function create()
     {
-        return view('admin.continent.create', [
-            'statuses' => $this->statuses(),
-            'orders' => $this->orders()
-        ]);
+        //
     }
-
-
 
     /**
      * Store a newly created resource in storage.
@@ -61,12 +40,13 @@ class ContinentController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:place_categories,slug',
-                'status' => 'required'
+                'slug' => 'required|string|unique:trip_excludes,slug',
+                'thumbnail2' => 'required'
             ]
         );
 
@@ -77,18 +57,18 @@ class ContinentController extends Controller
 
         DB::beginTransaction();
         try {
-            $post = Place_categories::create([
+            $post = Trip_exclude::create([
                 'title' => $request->title,
                 'slug' => $request->slug,
-                'parent_id' =>$request->destination,
-                'status' => $request->status,
+                'icon_image' => $request->thumbnail2,
+                'trip_cat_id' => $request->product,
             ]);
 
-            Alert::success('Tambah Benua', 'Berhasil');
-            return redirect()->route('continent.index');
+            Alert::success('Tambah excludes', 'Berhasil');
+            return redirect()->back();
         } catch (\throwable $th) {
             DB::rollBack();
-            Alert::error('Tambah Benua', 'error' . $th->getMessage());
+            Alert::error('Tambah Includes', 'error' . $th->getMessage());
             return redirect()->back()->withInput($request->all());
         } finally {
             DB::commit();
@@ -114,13 +94,7 @@ class ContinentController extends Controller
      */
     public function edit($id)
     {
-        $continent = Place_categories::where('id', '=', $id)->get();
-
-        return view('admin.continent.edit', [
-            'continent' => $continent[0],
-            'orders' => $this->orders(),
-            'statuses' => $this->statuses()
-        ]);
+        //
     }
 
     /**
@@ -137,35 +111,34 @@ class ContinentController extends Controller
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:place_categories,slug',
-                'status' => 'required'
+                'slug' => 'required|string|unique:trip_excludes,slug',
+                'thumbnail2' => 'required'
             ]
         );
-        if ($validator->fails()){
+
+        if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
+        // proses insert
+
         DB::beginTransaction();
-
         try {
-            $post = Place_categories::where('id', '=', $id);
-
+            $post = Trip_exclude::whereId($id);
             $post->update([
                 'title' => $request->title,
                 'slug' => $request->slug,
-                'parent_id' =>$request->destination,
-                'status' => $request->status,
+                'icon_image' => $request->thumbnail2,
+                'trip_cat_id' => $request->trip_cat_id,
             ]);
-
-            Alert::success('Edit Destinasi', 'Berhasil');
-            return redirect()->route('continent.index');
+            Alert::success('Edit excludes', 'Berhasil');
+            return redirect()->back();
         } catch (\throwable $th) {
             DB::rollBack();
-            Alert::error('Edit Destinasi', 'error' . $th->getMessage());
+            Alert::error('Edit Excludes', 'error' . $th->getMessage());
             return redirect()->back()->withInput($request->all());
         } finally {
             DB::commit();
         }
-
     }
 
     /**
@@ -174,35 +147,15 @@ class ContinentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Place_categories $place_categories)
+    public function destroy($id)
     {
+        $excludes = Trip_exclude::whereId($id); 
         try {
-            $place_categories->delete();
-            Alert::success('Delete Continent', 'Berhasil');
-        } catch (\throwable $th) {
-            Alert::error('Delete Continent', 'error' . $th->getMessage());
+            $excludes->delete();
+            Alert::success('Delete Exclude', 'Berhasil');
+        } catch (\throwable $th){
+            Alert::error('Delete Exclude', 'error'.$th->getMessage()); 
         }
         return redirect()->back();
-    }
-
-
-
-    private function statuses()
-    {
-
-        return [
-            'draft' => 'draft',
-            'publish' => 'publish',
-        ];
-    }
-
-    private function orders()
-    {
-        return [
-            1 => 1,
-            2 => 2,
-            3 => 3,
-            4 => 4
-        ];
     }
 }

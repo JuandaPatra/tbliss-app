@@ -28,7 +28,8 @@ Sliders
                 <i class="bx bx-dots-vertical-rounded"></i>
               </button>
               <div class="dropdown-menu">
-                <a class="dropdown-item" href="{{ route('slider.edit',['slider'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                {{--<a class="dropdown-item" href="{{ route('slider.edit',['slider'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>--}}
+                <a class="dropdown-item" href="{{ route('activities.edit',['activity'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                 
                 <form action="{{ route('slider.destroy',['slider'=>$row]) }}" method="post">
                 @csrf

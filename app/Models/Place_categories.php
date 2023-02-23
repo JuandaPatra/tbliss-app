@@ -25,4 +25,22 @@ class Place_categories extends Model
     public function descendants(){
         return $this->children()->with('descendants');
     }
+
+    public function hidden_gem()
+    {
+        return $this->hasMany(Hidden_gem::class, 'places_id', 'id');
+    }
+
+    public function cities()
+    {
+        return $this->hasMany(place_trip_categories_cities::class);
+    }
+
+    public function region()
+    {
+        return $this->hasMany(Place_trip_categories::class);
+    }
+
+   
+
 }

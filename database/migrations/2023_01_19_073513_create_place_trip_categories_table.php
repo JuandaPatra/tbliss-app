@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('place_trip_categories', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->integer('place_cat_id');
+            $table->integer('trip_categories_id');
+            $table->integer('place_categories_id');
             $table->timestamps();
         });
     }

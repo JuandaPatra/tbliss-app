@@ -43,6 +43,37 @@ Slider Edit
                      <input id="input_post_imagesMobile" name="image_mobile" value="{{ old('image_mobile',asset($slider->image_mobile) ) }}" type="text" class="form-control" placeholder="" readonly />
                   </div>
                </div>
+                <!-- deskripsi -->
+                <div class="mb-3">
+                  <label for="input_post_title" class="form-label">Caption</label>
+                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title "value="{{ old('description', $slider->description) }}" />
+                  @error('description')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+               <!-- deskripsi 2 -->
+               <div class="mb-3">
+                  <label for="input_post_description_2" class="form-label">Deskripsi</label>
+                  <input id="input_post_description_2" name="description2" type="text" placeholder="" class="form-control @error('description2') is-invalid @enderror" name="title" value="{{ old('description2', $slider->description2) }}" />
+                  @error('description2')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+               <!-- Link -->
+               <div class="mb-3">
+                  <label for="input_post_link" class="form-label">Link</label>
+                  <input id="input_post_link" name="link" type="text" placeholder="" class="form-control @error('link') is-invalid @enderror" name="title" value="{{ old('link', $slider->link) }}"/>
+                  @error('link')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+               
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Order</label>
                   <select id="select_post_status" name="s_order" class="form-select @error('s_order') is-invalid @enderror">

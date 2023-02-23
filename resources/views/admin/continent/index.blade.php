@@ -30,6 +30,9 @@ Sliders
   </div>
 </div>
 @endsection
+@push('javascript-external')
+<script src="{{ asset ('vendor/sweetalert/sweetalert.all.js') }}"></script>
+@endpush
 @push('javascript-internal')
 <script>
   $(document).ready(function() {

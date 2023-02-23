@@ -4,8 +4,10 @@ use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ContinentController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\ExcludesController;
 use App\Http\Controllers\Admin\HashtagController;
 use App\Http\Controllers\Admin\HiddenGemController;
+use App\Http\Controllers\Admin\IncludesController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
@@ -44,6 +46,9 @@ Auth::routes();
 
 Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('product/includes/{product}', [ProductController::class, 'include'])->name('product.include');
+Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
+Route::get('product/images', [ProductController::class, 'images'])->name('product.images');
 Route::resource('product', ProductController::class);
 
 Route::resource('news', NewsController::class);
@@ -65,6 +70,10 @@ Route::resource('city', CityController::class);
 Route::resource('hashtag', HashtagController::class);
 
 Route::resource('activities', HiddenGemController::class);
+
+Route::resource('includes', IncludesController::class);
+
+Route::resource('excludes', ExcludesController::class);
 
 Route::get('contact', [ContactController::class,'index'])->name('contact');
 
