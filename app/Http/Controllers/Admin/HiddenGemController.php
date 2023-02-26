@@ -126,8 +126,9 @@ class HiddenGemController extends Controller
      */
     public function edit($id)
     {
+        
         // $hiddem_gem = Hidden_gem::whereId($id)->get();
-        $hiddem_gem = Hidden_gem::whereId($id)->with(['place', 'hidden_hashtag'])->get();
+        $hiddem_gem = Hidden_gem::whereId($id)->with(['place', 'hidden_hashtag'])->get(['id','title','slug','description1','image_desktop','image_mobile', 'places_id','status']);
         // return $hiddem_gem;
         // return $this->checkbox();
 

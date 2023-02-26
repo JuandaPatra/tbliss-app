@@ -4,6 +4,9 @@ use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ContinentController;
 use App\Http\Controllers\Admin\CountryController;
+use App\Http\Controllers\Admin\EditCitiesController;
+use App\Http\Controllers\Admin\EditCountriesController;
+use App\Http\Controllers\Admin\EditHashtagTripController;
 use App\Http\Controllers\Admin\ExcludesController;
 use App\Http\Controllers\Admin\HashtagController;
 use App\Http\Controllers\Admin\HiddenGemController;
@@ -49,6 +52,7 @@ Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])-
 
 Route::get('product/includes/{product}', [ProductController::class, 'include'])->name('product.include');
 Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
+Route::get('product/choose/{product}', [ProductController::class, 'choose'])->name('product.choose');
 Route::get('product/images', [ProductController::class, 'images'])->name('product.images');
 Route::resource('product', ProductController::class);
 
@@ -63,12 +67,14 @@ Route::resource('categories', CategoriesController::class);
 Route::get('/continent/select', [ContinentController::class, 'select'])->name('continent.select');
 Route::resource('continent', ContinentController::class);
 
-
 Route::resource('country', CountryController::class);
+Route::resource('edit-country', EditCountriesController::class);
 
 Route::resource('city', CityController::class);
+Route::resource('edit-city', EditCitiesController::class);
 
 Route::resource('hashtag', HashtagController::class);
+Route::resource('edit-hashtag-trip', EditHashtagTripController::class);
 
 Route::resource('activities', HiddenGemController::class);
 

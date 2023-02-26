@@ -13,6 +13,7 @@ $postId = last(request()->segments());
 
 <!-- Basic Bootstrap Table -->
 <div class="">
+    <h5 class="card-header">Add Country</h5>
     <h5 class="card-header">Select Hidden Gems/Activities</h5>
     @forelse($cities as $city)
     <div class="row">

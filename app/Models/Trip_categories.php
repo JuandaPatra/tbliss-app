@@ -30,4 +30,9 @@ class Trip_categories extends Model
     {
         return $this->hasMany(Place_trip_categories::class);
     }
+
+    public function hashtag_place_trip()
+    {
+        return $this->hasMany(Hashtag_place_trip::class);
+    }
 }
