@@ -85,7 +85,7 @@ class CountryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        return $id;
     }
     private function statuses()
     {

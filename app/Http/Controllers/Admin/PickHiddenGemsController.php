@@ -41,7 +41,23 @@ class PickHiddenGemsController extends Controller
     public function store(Request $request)
     {
         // return $request;
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'hashtag' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        } 
+        // return $request;
         foreach ($request->hashtag as $index) {
+            $checkHiddenGem = PickHiddenGem::where('hidden_gem_id','=', $index)->where('place_categories_categories_cities_id','=',$request->place_categories_categories_cities_id)->get();
+            if(count($checkHiddenGem)>=1){
+                Alert::error('Tambah Hidden Gem', 'Hidden Gem Telah Dipilih' );
+                return redirect()->back()->withInput($request->all());
+            }
             // return $index;
             DB::beginTransaction();
             try {

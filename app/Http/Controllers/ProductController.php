@@ -243,7 +243,15 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // return $id;
+        try {
+            $product = Trip_categories::whereId($id);
+            $product->delete();
+            Alert::success('Delete Product', 'Berhasil');
+        } catch (\throwable $th){
+            Alert::error('Delete Product', 'error'.$th->getMessage()); 
+        }
+        return redirect()->back();
     }
 
     public function include(Request $request, $slug)

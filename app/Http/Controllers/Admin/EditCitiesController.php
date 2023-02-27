@@ -55,6 +55,11 @@ class EditCitiesController extends Controller
         DB::beginTransaction();
         foreach($request->cities as $inputCity){
             try {
+                $checkCity = place_trip_categories_cities::where('place_categories_id','=', $inputCity)->where('trip_categories_id','=',$request->trip_categories_id)->get();
+                if(count($checkCity)>=1){
+                    Alert::error('Tambah Kota Tujuan Trip', 'Kota Telah Dipilih' );
+                    return redirect()->back()->withInput($request->all());
+                }
                 $post = place_trip_categories_cities::create([
                     'trip_categories_id'                => $request->trip_categories_id,
                     'place_categories_id'               => $inputCity,

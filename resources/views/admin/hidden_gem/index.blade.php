@@ -12,6 +12,7 @@ Sliders
     <table class="table">
       <thead>
         <tr>
+          <th>No.</th>
           <th>Title</th>
           <th>Status</th>
           <th>Actions</th>
@@ -20,6 +21,7 @@ Sliders
       <tbody class="table-border-bottom-0">
         @foreach ($datas as $row)
         <tr>
+          <td>{{$loop->iteration}}</td>
           <td><strong>{{ $row->title }}</strong></td>
           <td>{{ $row->status }}</td> 
           <td>
@@ -31,7 +33,7 @@ Sliders
                 {{--<a class="dropdown-item" href="{{ route('slider.edit',['slider'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>--}}
                 <a class="dropdown-item" href="{{ route('activities.edit',['activity'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                 
-                <form action="{{ route('slider.destroy',['slider'=>$row]) }}" method="post">
+                <form action="{{ route('activities.destroy',['activity'=>$row]) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">

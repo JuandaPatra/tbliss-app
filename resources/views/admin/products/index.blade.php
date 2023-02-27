@@ -16,6 +16,7 @@
      <table class="table">
        <thead>
          <tr>
+          <th>No.</th>
            <th>Title</th>
            <th>Category</th>
            <!-- <th>Status</th> -->
@@ -25,6 +26,9 @@
        <tbody class="table-border-bottom-0">
         @foreach ($datas as $row)
         <tr>
+         <td>
+           {{$loop->iteration}}
+         </td> 
           <td><strong>{{ $row->title }}</strong></td>
           <td>{{ $row->status }}</td> 
           <td>
@@ -37,9 +41,8 @@
                 <a class="dropdown-item" href="{{ route('product.include',$row) }}"><i class="bx bx-edit-alt me-1"></i> Includes/Excludes</a>
                 <a class="dropdown-item" href="{{ route('product.images',['product'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
                 <a class="dropdown-item" href="{{ route('product.pick',$row) }}"><i class="bx bx-edit-alt me-1"></i> Choose Hidden Gems</a>
-                <a class="dropdown-item" href="{{ route('product.choose',$row) }}"><i class="bx bx-edit-alt me-1"></i> Choose City</a>
                 
-                <form action="{{ route('hashtag.destroy',['hashtag'=>$row]) }}" method="post">
+                <form action="{{ route('product.destroy',['product'=>$row]) }}" method="post">
                 @csrf
                 @method('DELETE')
                 <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">

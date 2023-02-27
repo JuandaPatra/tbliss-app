@@ -213,7 +213,15 @@ class HiddenGemController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // return $id;
+        try {
+            $hiddem_gem = Hidden_gem::whereId($id);
+            $hiddem_gem->delete();
+            Alert::success('Delete Hidden Gem /Activity', 'Berhasil');
+        } catch (\throwable $th){
+            Alert::error('Delete Hidden Gem /Activity', 'error'.$th->getMessage()); 
+        }
+        return redirect()->back();
     }
 
     private function statuses()

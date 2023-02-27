@@ -54,10 +54,15 @@ class EditHashtagTripController extends Controller
         // proses insert
         DB::beginTransaction();
         foreach($request->hashtag as $hashtag){
+            $checkHashtag = Hashtag_place_trip::where('hashtag_id','=', $hashtag)->where('trip_categories_id','=',$request->trip_categories_id)->get();
+            if(count($checkHashtag)>=1){
+                Alert::error('Tambah Hashtag', 'Hashtag Telah Dipilih' );
+                return redirect()->back()->withInput($request->all());
+            }
             try {
                 $post = Hashtag_place_trip::create([
                     'trip_categories_id'                => $request->trip_categories_id,
-                    'hashtag_id'               => $hashtag,
+                    'hashtag_id'                        => $hashtag,
                 ]);
             } catch (\throwable $th) {
                 DB::rollBack();

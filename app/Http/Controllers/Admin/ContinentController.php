@@ -74,13 +74,21 @@ class ContinentController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
         // proses insert
+        $destination = null;
+        if($request->destination){
+            $destination = $request->destination;
+        }
+
+        // return $destination;
+
+
 
         DB::beginTransaction();
         try {
             $post = Place_categories::create([
                 'title' => $request->title,
                 'slug' => $request->slug,
-                'parent_id' =>$request->destination,
+                'parent_id' =>$destination,
                 'status' => $request->status,
             ]);
 
@@ -176,6 +184,7 @@ class ContinentController extends Controller
      */
     public function destroy(Place_categories $place_categories)
     {
+        // return $place_categories;
         try {
             $place_categories->delete();
             Alert::success('Delete Continent', 'Berhasil');

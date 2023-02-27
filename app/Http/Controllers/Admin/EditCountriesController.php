@@ -44,7 +44,7 @@ class EditCountriesController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'countries'         =>  'required',
+                'countries'         =>  'required|' ,
             ]
         );
 
@@ -52,8 +52,15 @@ class EditCountriesController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
         // proses insert
+
+        // return $request->countries[0];
         DB::beginTransaction();
         foreach($request->countries as $inputCountry){
+            $checkCountry = Place_trip_categories::where('place_categories_id','=', $inputCountry)->where('trip_categories_id','=',$request->trip_categories_id)->get();
+            if(count($checkCountry)>=1){
+                Alert::error('Tambah Negara Tujuan Trip', 'Negara Telah Dipilih' );
+                return redirect()->back()->withInput($request->all());
+            }
             try {
                 $post = Place_trip_categories::create([
                     'trip_categories_id'                => $request->trip_categories_id,
