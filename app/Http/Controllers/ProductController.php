@@ -260,6 +260,7 @@ class ProductController extends Controller
         $includes       =   Trip_includes::all();
         $excludes       =   Trip_exclude::all();
         $slug           = $slug;
+        // return $includes;
         return view('admin.products.includes', compact('datas', 'includes', 'excludes', 'slug'));
     }
     public function images(Request $request)

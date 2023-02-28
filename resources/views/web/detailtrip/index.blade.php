@@ -60,11 +60,11 @@
     <div class="flex flex-wrap mt-20 border-b-4 border-gray-200 pb-4">
         <div class="basis-full lg:basis-1/2">
             <h3 class="text-[18px] text-[#414141]">
-                Open Trip 6 Hari 5 Malam
+                {{$detailTrip->description}}
             </h3>
 
             <h1 class="text-[#102448] text-[40px] font-bely">
-                Autumn in Korea
+                {{$detailTrip->title}}
             </h1>
 
             <p class="text-[#4A5CED] text-[20px] mt-2">
@@ -73,28 +73,29 @@
 
             <p class="text-[#BF1E5F] text-[20px] mt-2">
                 Harga
-                Rp.
-                <span>
-                    12.000.000
-                </span>
+                @currency($detailTrip->price)
                 / pax
             </p>
 
             <div class="text-[18px] pt-3 pb-3">
                 <h1 class="font-bold uppercase">
-                    Busan - Pohang - Jeonju - Seoul
+                    @foreach($detailTrip->place_trip_categories_cities as $city)
+                    {{$city->place_categories->title}}
+                    @endforeach
+                    <!-- Busan - Pohang - Jeonju - Seoul -->
                 </h1>
-                <p>Pohang Space Walk</p>
+                {!! $detailTrip->itinerary !!}
+                <!-- <p>Pohang Space Walk</p>
                 <p>Canola Flower Field</p>
                 <p>Haeundae Blue Line Park</p>
                 <p>Overnight Jeonju Hanok Village </p>
                 <p>Picnic Dinner</p>
-                <p>K-drama Shooting Location</p>
+                <p>K-drama Shooting Location</p> -->
             </div>
 
             <div class="flex mb-3">
                 <img src="{{ asset('images/detailtrip/itin.png') }}" alt="" class="inline w-[34px] h-[34px] mr-3">
-                <a href="" class="underline text-blue-500">Unduh detail itinerary</a>
+                <a href="{{$detailTrip->link_g_drive}}" class="underline text-blue-500">Unduh detail itinerary</a>
             </div>
 
             <ul class="list-inside list-disc">
@@ -197,8 +198,34 @@
     </div>
 
 
-
+    @foreach($detailTrip->place_trip_categories_cities as $city)
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
+        <div class="col-span-1"></div>
+        <div class="col-span-2">
+            <div class="ml-[70px] mt-[60px]">
+                <img src="{{ asset('images/detailtrip/busan-map.png') }}" alt="">
+                <h1 class="mt-4 uppercase font-bold text-[16px]">{{$city->place_categories->title}}</h1>
+            </div>
+        </div>
+        <div class="col-span-9">
+            <ul class="city-slider-{{$city->place_categories->id}}">
+                @foreach($city->pick_hidden_gem as $hidden_gem)
+                <li>
+                    <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
+                </li>
+                <!-- <li>
+                    <img src="{{ asset('images/detailtrip/busan-2.jpg') }}" alt="" class="w-[98%]">
+                </li>
+                <li>
+                    <img src="{{ asset('images/detailtrip/busan-3.jpg') }}" alt="" class="w-[98%]">
+                </li> -->
+                @endforeach
+            </ul>
+        </div>
+    </div>
+    @endforeach
+
+    <!-- <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
         <div class="col-span-1"></div>
         <div class="col-span-2">
             <div class="ml-[70px] mt-[60px]">
@@ -288,7 +315,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </div> -->
 
 </section>
 
@@ -298,7 +325,40 @@
             Eksplor Trip Lainnya
         </h1>
         <div class="flex flex-wrap hg-slider">
+            @foreach($otherTrips as $trip)
             <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
+                <div class="max-w-md lg:max-w-sm bg-white ">
+                    <a href="{{route('home.detail' ,['id'=>encrypt($id),'trip'=>encrypt($trip->id)])}}">
+                        <img src="{{$trip->thumbnail}}" alt="" class="w-full">
+                    </a>
+                    <div class="mt-3 ">
+                        <div class="flex ">
+                            <h5 class="text-[#4A5CED] mr-3">
+                                {{$trip->seat}} seats left
+                            </h5>
+                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                        </div>
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">{{$trip->title}}</h5>
+                        </a>
+                        <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
+                            {{$trip->day}} H {{$trip->night}} M
+                        </span>
+                        <span>
+                            |
+                        </span>
+                        <span class="ml-3 text-[16px]">
+                            23 - 28 APR 2023
+                        </span>
+                        <p class="text-[#FF5055] font-bold text-[19px]">
+                            @currency($trip->price)
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            @endforeach
+            <!-- <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
                 <div class="max-w-md lg:max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
@@ -387,7 +447,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -469,6 +529,28 @@
             slidesToShow: 2.5,
         });
         $('.city-slider-3').not('.slick-initialized').slick();
+
+        $('.city-slider-7').slick({
+            dots: false,
+            infinite: false,
+            slidesToShow: 2.5,
+        });
+        $('.city-slider-7').not('.slick-initialized').slick();
+
+        $('.city-slider-9').slick({
+            dots: false,
+            infinite: false,
+            slidesToShow: 2.5,
+        });
+        $('.city-slider-9').not('.slick-initialized').slick();
+
+
+        $('.city-slider-13').slick({
+            dots: false,
+            infinite: false,
+            slidesToShow: 2.5,
+        });
+        $('.city-slider-13').not('.slick-initialized').slick();
 
 
         const options = {

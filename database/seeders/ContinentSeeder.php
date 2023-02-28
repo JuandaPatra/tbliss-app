@@ -30,5 +30,15 @@ class ContinentSeeder extends Seeder
             'slug'      => 'afrika',
             'status'    => 'publish'
         ]);
+        Place_categories::create([
+            'title'     => 'Amerika',
+            'slug'      => 'amerika',
+            'status'    => 'publish'
+        ]);
+        Place_categories::create([
+            'title'     => 'Australia',
+            'slug'      => 'australia',
+            'status'    => 'publish'
+        ]);
     }
 }

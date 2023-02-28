@@ -39,5 +39,11 @@ class CitySeeder extends Seeder
             'parent_id' => '4',
             'status'    => 'publish'
         ]);
+        Place_categories::create([
+            'title'     => 'Busan',
+            'slug'      => 'busan',
+            'parent_id' => '4',
+            'status'    => 'publish'
+        ]);
     }
 }

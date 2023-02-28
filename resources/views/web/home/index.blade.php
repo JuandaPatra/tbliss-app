@@ -125,10 +125,42 @@
 <section>
     <div class="container-lg pb-[50px] lg:pb-[164px]">
         <h1 class="text-[30px] ml-[15px]">
-            Mari, Pilih trip perjalanan Korea kak!
+            Mari, Pilih trip perjalanan {{$country->title}} kak!
         </h1>
         <div class="flex flex-wrap">
+            @foreach($trips as $trip)
             <div class="basis-full lg:basis-4/12 p-3">
+                <div class="max-w-sm bg-white ">
+                    <a href="{{route('home.detail' ,['id'=>encrypt($country->id),'trip'=>encrypt($trip->id)])}}">
+                        <img src="{{$trip->thumbnail}}" alt="" class="w-full">
+                    </a>
+                    <div class="mt-3 ">
+                        <div class="flex ">
+                            <h5 class="text-blueTbliss mr-3">
+                                {{$trip->seat}} seats left
+                            </h5>
+                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                        </div>
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">{{$trip->title}}</h5>
+                        </a>
+                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                            {{$trip->day}}H{{$trip->night}}M
+                        </span>
+                        <span>
+                            |
+                        </span>
+                        <span class="ml-3 text-[16px]">
+                        {{ date('d', strtotime($trip->date_form)) }} - {{ date('d M y', strtotime($trip->date_to)) }}
+                        </span>
+                        <p class="text-redTbliss font-bold text-[19px]">
+                        @currency($trip->price)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            @endforeach 
+            <!-- <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
@@ -217,7 +249,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>
@@ -225,7 +257,7 @@
 <section class="p-4">
     <div class="container-lg">
         <h1 class="text-[30px] text-greyTbliss font-bold mb-4 ml-[15px]">
-            Hidden Gems di Korea
+            Hidden Gems di {{$country->title}}
         </h1>
         <div class="flex flex-wrap hg-slider">
             <div class="basis-full lg:basis-3/12 gap-8 p-3">

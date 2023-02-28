@@ -17,6 +17,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SosmedController;
+use App\Http\Controllers\Web\HomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -30,9 +31,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('web.home.index');
-});
+// Route::get('/', function () {
+//     return view('web.home.index');
+// });
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::get('/countries/{id}', [HomeController::class, 'country'])->name('home.country');
+Route::get('/countries/{id}/detail/{trip}', [HomeController::class, 'detail'])->name('home.detail');
 
 Route::get('/details', function(){
     return view('web.details.index');

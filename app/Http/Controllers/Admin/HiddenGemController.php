@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
 use App\Models\Hashtag;
 use App\Models\Hidden_gem;
 use App\Models\hidden_gem_hashtag;
@@ -215,7 +216,11 @@ class HiddenGemController extends Controller
     {
         // return $id;
         try {
+            // return $id;
             $hiddem_gem = Hidden_gem::whereId($id);
+            $hiddem_gem->hidden_hashtag()->detach();
+            $hiddem_gem->pick_hidden_gem()->detach();
+            
             $hiddem_gem->delete();
             Alert::success('Delete Hidden Gem /Activity', 'Berhasil');
         } catch (\throwable $th){
