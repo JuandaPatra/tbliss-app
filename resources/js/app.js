@@ -1,6 +1,37 @@
 import "./bootstrap";
 
-console.log("res");
+import {DetailPages} from './modules'
+
+// console.log("res");
+
+(function(yourcode) {
+
+    // The global jQuery object is passed as a parameter
+    yourcode(jQuery, document);
+
+    }(function($, document) {
+        // The $ is now locally scoped
+        $(function() {
+            const Window = (window )
+
+
+            // The DOM is ready!
+            console.log('The DOM is ready!')
+
+            /**
+             * Home Modules
+             */
+
+            const detailPages = new DetailPages();
+           detailPages.searchButton()
+           detailPages.hashtag()
+        });
+        console.log('The DOM may not be ready!')
+
+        // The rest of your code goes here!
+
+    }
+));
 
 $(window).on("scroll", function () {
     if (window.scrollY > 50) {
@@ -54,3 +85,10 @@ $(".dropdown-cls").each(function () {
         });
     });
 });
+
+
+// $('.city-7').on('click', function(){
+//     console.log(
+//         'coba'
+//     )
+// })

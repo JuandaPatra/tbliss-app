@@ -15,4 +15,9 @@ class Hashtag extends Model
     {
         return $this->hasMany(Hashtag_place_trip::class);
     }
+
+    public function hidden_gem_hashtag()
+    {
+        return $this->hasMany(hidden_gem_hashtag::class);
+    }
 }

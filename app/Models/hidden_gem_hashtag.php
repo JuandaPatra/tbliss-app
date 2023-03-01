@@ -15,4 +15,9 @@ class hidden_gem_hashtag extends Model
     {
         return $this->belongsTo(Hidden_gem::class);
     }
+
+    public function hashtag()
+    {
+        return $this->belongsTo(Hashtag::class);
+    }
 }
