@@ -40,6 +40,7 @@ Route::get('/countries/{id}', [HomeController::class, 'country'])->name('home.co
 Route::get('/countries/{id}/detail/{trip}', [HomeController::class, 'detail'])->name('home.detail');
 Route::get('/search', [SearchTripController::class,'index'])->name('search');
 Route::get('/cities/{id}', [SearchTripController::class,'getCities'])->name('search.cities');
+Route::get('/search-hashtag/{id}', [SearchTripController::class, 'getHashtag'])->name('search.hashtag');
 
 Route::get('/details', function(){
     return view('web.details.index');

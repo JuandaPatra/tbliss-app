@@ -13,6 +13,7 @@
                     </h1>
                     <div class="flex">
                         <select id="countries" class="bg-gray-50 border border-gray-300 rounded-l-lg text-greyDetTbliss font-interRegular text-[13px]  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="">Pilih Kota</option>
                             @foreach($result as $choice)
                             @foreach($choice->children as $select)
                             <option value="{{$select->id}}">{{$select->title}}</option>
@@ -65,7 +66,7 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-                
+
                 <!-- <div class="grid grid-cols-1 lg:grid-cols-4 w-[60%] gap-3">
                     <div class="col-span-2">
                         <button type="button" class="text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">Seoul</button>
@@ -93,15 +94,15 @@
                         <span class="sr-only">Loading...</span>
                     </div>
                 </div>
-                <div class="w-full lg:w-[100%] mb-8">
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#EnjoyK-pop</button>
+                <div class="hashtag-row w-full lg:w-[100%] mb-8">
+                    <!-- <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#EnjoyK-pop</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#From the Sea, From the River</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Flavors of the City</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#convenientTravelServices</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#History / Traditional Tour</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Only in Korea</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Healing in Nature</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Food Trip</button>
+                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Food Trip</button> -->
                 </div>
                 <a type="button" class="text-white bg-[#BF1E5F] hover:bg-[#BF1E5F] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Lihat hasil itinerari kakak
                     <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
@@ -552,6 +553,8 @@
         //     ]
         // });
 
+
+
         const options = {
             mobileFirst: true,
             responsive: [{
@@ -574,6 +577,15 @@
         });
 
         // $('.destination-slider').not('.slick-initialized').slick();
+
+        // $(".cityX").each(function (e) {
+        //     console.log($(e))
+        //     $(this).on("click", function (e) {
+        //         let id = $(e.target).attr("pickCity");
+        //         // $(this).addClass('bg-red')
+        //         console.log(id);
+        //     });
+        // });
 
     });
 </script>
