@@ -20,7 +20,7 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleSeeder::class);
         $this->call(UserSeeder::class);
         // $this->call(CategorySeeder::class);
-        // $this->call(ContinentSeeder::class);
+        $this->call(ContinentSeeder::class);
         // $this->call(CountrySeeder::class);
         // $this->call(CitySeeder::class);
         $this->call(HashtagSeeder::class);

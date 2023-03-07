@@ -41,6 +41,7 @@ Route::get('/countries/{id}/detail/{trip}', [HomeController::class, 'detail'])->
 Route::get('/search', [SearchTripController::class,'index'])->name('search');
 Route::get('/cities/{id}', [SearchTripController::class,'getCities'])->name('search.cities');
 Route::get('/search-hashtag/{id}', [SearchTripController::class, 'getHashtag'])->name('search.hashtag');
+Route::post('/searchtrip', [SearchTripController::class,  'searchtrip'])->name('search.trip');
 
 Route::get('/details', function(){
     return view('web.details.index');

@@ -12,6 +12,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use App\Models\PickHiddenGem;
+use App\Models\Trip_cities_hidden_gem_hashtag;
 
 class HiddenGemController extends Controller
 {
@@ -214,16 +216,51 @@ class HiddenGemController extends Controller
      */
     public function destroy($id)
     {
-        // return $id;
         try {
-            // return $id;
+            /// temukan list hidden_gem_hashtag dengan id yang dikirimkan parameter
+            $findHidden_gemHashtagId = hidden_gem_hashtag::where('hidden_gem_id', $id)->get(['id'])->pluck('id');
+
+            //// jika ada lebih dari sama dengan 1 data maka hapus 
+            if(count($findHidden_gemHashtagId)>=1){
+                hidden_gem_hashtag::whereIn('id', $findHidden_gemHashtagId)->delete();
+            }
+
+            /// selanjutnya
+
+            //// mendapatkan list pickHiddenGem dengan id yang dikirimkan parameter
+            $findPickHiddenGemId = PickHiddenGem::where('hidden_gem_id', $id)->get(['id'])->pluck('id');
+            // return $findPickHiddenGemId;
+
+            //// jika data yang didapatkan lebih dari 1 maka hapus 
+            if(count($findHidden_gemHashtagId) >= 1){
+                PickHiddenGem::whereIn('id', $findPickHiddenGemId)->delete();
+            }
+
+            /// selanjutnya
+
+            //// mendapatkan data trip_cities_hidden_gem_hastag sesuai id yang dikirimkan parameter
+            $findTrip_cities_hidden_hashtagId = Trip_cities_hidden_gem_hashtag::where('hidden_gem_id', $id)->get(['id'])->pluck('id');
+            // return $findTrip_cities_hidden_hashtagId;
+
+            //// jika data yang didapat lebih dari 1 maka hapus data trip_cities_hidden_gem_hashtag
+            if(count($findTrip_cities_hidden_hashtagId)>=1){
+                Trip_cities_hidden_gem_hashtag::whereIn('id', $findTrip_cities_hidden_hashtagId)->delete();
+            }
+            
+            ///selanjutnya
+
+            //// hapus data hidden_gem
             $hiddem_gem = Hidden_gem::whereId($id);
-            $hiddem_gem->hidden_hashtag()->detach();
-            $hiddem_gem->pick_hidden_gem()->detach();
             
             $hiddem_gem->delete();
+
+            /// selanjutnya
+
+            //// kirim alert success 
             Alert::success('Delete Hidden Gem /Activity', 'Berhasil');
         } catch (\throwable $th){
+
+            //// jika gagal kirim alert error
             Alert::error('Delete Hidden Gem /Activity', 'error'.$th->getMessage()); 
         }
         return redirect()->back();

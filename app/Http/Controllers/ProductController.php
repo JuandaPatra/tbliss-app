@@ -140,20 +140,20 @@ class ProductController extends Controller
                 }
             }
 
-            foreach($request->hashtag as $inputHashtag){
-                try {
-                    $post = Hashtag_place_trip::create([
-                        'trip_categories_id'                => $trip[0]->id,
-                        'hashtag_id'                        => $inputHashtag,
-                    ]);
-                } catch (\throwable $th) {
-                    DB::rollBack();
-                    Alert::error('Tambah Kota Tujuan Trip', 'error' . $th->getMessage());
-                    return redirect()->back()->withInput($request->all());
-                } finally {
-                    DB::commit();
-                }
-            }
+            // foreach($request->hashtag as $inputHashtag){
+            //     try {
+            //         $post = Hashtag_place_trip::create([
+            //             'trip_categories_id'                => $trip[0]->id,
+            //             'hashtag_id'                        => $inputHashtag,
+            //         ]);
+            //     } catch (\throwable $th) {
+            //         DB::rollBack();
+            //         Alert::error('Tambah Kota Tujuan Trip', 'error' . $th->getMessage());
+            //         return redirect()->back()->withInput($request->all());
+            //     } finally {
+            //         DB::commit();
+            //     }
+            // }
 
             
 
@@ -257,7 +257,8 @@ class ProductController extends Controller
     public function include(Request $request, $slug)
     {
         $datas          =   Trip_categories::all();
-        $includes       =   Trip_includes::all();
+        $includes       =   Trip_includes::where('trip_cat_id', '=', $slug)->get();
+        // return $includes;
         $excludes       =   Trip_exclude::all();
         $slug           = $slug;
         // return $includes;

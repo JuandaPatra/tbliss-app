@@ -7,6 +7,7 @@ use App\Models\Hidden_gem;
 use App\Models\Place_categories;
 use App\Models\Place_trip_categories;
 use App\Models\Trip_categories;
+use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 
@@ -29,19 +30,39 @@ class HomeController extends Controller
         // return $country;
         // return view('web.home.index',compact('trips','country'));
         
-        $id = encrypt(6);
+        ///// negara default adalah korea 
+        $id = 'korea';
+
+        ///// kirim id ke halaman home
         return redirect()->route('home.country', $id);
     }
 
     public function country($id)
     {
-        $slug = decrypt($id);
-        $country = Place_categories::whereId($slug)->where('status','publish')->first();
-        $trips = Trip_categories::all(['id','title','slug','price', 'day', 'night', 'date_from', 'date_to','thumbnail','seat']);
-        // return $country;
+        $slug = $id;
+        
+        ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
+        $country = Place_categories::whereSlug($slug)->where('status','publish')->first();
+        
+        //// mendapatkan trip berdasarkan negara
+        $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function(Builder $query) use($country){
+            $query->where('place_categories_id',$country->id);
+        })->get(['id','title','slug','price', 'day', 'night', 'date_from', 'date_to','thumbnail','seat', ]);
 
-        $coba = Place_trip_categories::with(['place_categories'])->where('place_categories_id', $slug)->get();
-        return view('web.home.index',compact('trips','country'));
+
+        //// mendapatkan list negara di halaman home
+        $hiddenGemId = Place_categories::where('parent_id','=', $country->id)->get(['id','title','parent_id']);
+
+        //// mendapatkan list hidden gem di halaman home
+        $hiddenGems = Hidden_gem::whereIn('places_id', $hiddenGemId->pluck('id'))->where('status', 'publish')->get([
+            'title',
+            'slug',
+            'image_desktop',
+            'image_mobile',
+            'places_id'
+        ]);
+        // return $hiddenGems;
+        return view('web.home.index',compact('trips','country','hiddenGems', 'hiddenGemId'));
     }
 
     public function detail($id, $trip)

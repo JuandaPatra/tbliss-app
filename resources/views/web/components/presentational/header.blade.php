@@ -194,7 +194,7 @@
                     <div class="flex flex-wrap justify-start mx-auto text-[14px] pl-[86px] xl:pl-[340px]">
                         <ul class="py-2 text-sm text-gray-700 dark:text-gray-200 mr-16" aria-labelledby="dropdownDefaultButton">
                             <li>
-                                <a href="#" class="block  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white uppercase">Korea</a>
+                                <a href="{{route('search')}}" class="block  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white uppercase">Korea</a>
                             </li>
                             <li>
                                 <a href="#" class="block  py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white uppercase">Jepang</a>

@@ -26,7 +26,6 @@ $postId = last(request()->segments());
                                     <tr>
                                         <th>Icon</th>
                                         <th>Title</th>
-                                        <!-- <th>Status</th> -->
                                         <th>Actions</th>
                                     </tr>
                                 </thead>

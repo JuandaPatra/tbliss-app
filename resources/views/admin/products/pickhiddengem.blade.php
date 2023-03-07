@@ -27,7 +27,6 @@ $postId = last(request()->segments());
                                     <tr>
                                         <th>Image</th>
                                         <th>Title</th>
-                                        <!-- <th>Status</th> -->
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -47,6 +46,7 @@ $postId = last(request()->segments());
                                                     <form action="{{ route('pick-hidden-gem.destroy',$row->id) }}" method="post">
                                                         @csrf
                                                         @method('DELETE')
+                                                        <input type="hidden" name="trip_categories_id" class="form-control" value="{{ $slug }}">
                                                         <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
                                                             <i class="bx bx-trash me-1"></i>Delete
                                                         </a>
@@ -72,6 +72,7 @@ $postId = last(request()->segments());
                             @csrf
                             <input type="hidden" name="place_categories_categories_cities_id" class="form-control" value="{{ $city->id }}">
                             <input type="hidden" name="place_categories_id" class="form-control" value="{{ $city->place_categories_id }}">
+                            <input type="hidden" name="trip_categories_id" class="form-control" value="{{ $slug }}">
                             <div class="card accordion-item mb-4">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne-{{$city->id}}" aria-expanded="false" aria-controls="accordionOne">

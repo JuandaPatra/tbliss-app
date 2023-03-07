@@ -23,6 +23,8 @@ import { DetailPages } from "./modules";
         detailPages.selectCountry();
         detailPages.searchButton();
         detailPages.hashtag();
+        detailPages.saveHashtag();
+        detailPages.searchItinerary();
     });
     console.log("The DOM may not be ready!");
 

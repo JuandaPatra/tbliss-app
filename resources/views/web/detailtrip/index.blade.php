@@ -502,6 +502,9 @@
 <script>
     $(document).ready(function() {
 
+        let allSlider = ('.city-slider').length;
+        console.log(allSlider)
+
         $('.city-slider-0').slick({
             dots: false,
             infinite: false,

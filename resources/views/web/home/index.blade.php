@@ -74,9 +74,9 @@
                     <div class="flex justify-center mx-auto">
                         <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>Korea</option>
-                            <option>Seoul</option>
-                            <option>Busan</option>
-                            <option>Jeonju</option>
+                            @foreach($hiddenGemId as $cities)
+                            <option value="{{$cities->id}}">{{$cities->title}}</option>
+                            @endforeach
                         </select>
                         <select id="seats" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>Peserta</option>
@@ -260,7 +260,23 @@
             Hidden Gems di {{$country->title}}
         </h1>
         <div class="flex flex-wrap hg-slider">
+            @foreach($hiddenGems as $hiddenGem)
             <div class="basis-full lg:basis-3/12 gap-8 p-3">
+                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
+                    <a href="{{$hiddenGem->slug}}">
+                        <img class=" w-full" src="{{$hiddenGem->image_desktop}}" alt="" />
+                    </a>
+                    <div class="p-3">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$hiddenGem->title}}</h5>
+                        </a>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">57.6 views</p>
+
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            <!-- <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="#">
                         <img class=" w-full" src="{{ asset('images/hidden-gem/hg-0.jpg') }}" alt="" />
@@ -374,7 +390,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </section>

@@ -8,7 +8,9 @@ use App\Models\PickHiddenGem;
 use App\Models\Place_categories;
 use App\Models\place_trip_categories_cities;
 use App\Models\Trip_categories;
+use App\Models\Trip_cities_hidden_gem_hashtag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class SearchTripController extends Controller
 {
@@ -18,7 +20,47 @@ class SearchTripController extends Controller
         // $region = Place_categories::with(['children'])->get();
         // return $region;
         // $result = Place_categories::with(['children:id,title,slug,parent_id'])->whereId(6)->get(['id','title']);
+
+        //// list negara
         $result = Place_categories::with(['children'])->where('parent_id', '=', null)->get();
+
+        //// list trip berdasarkan kota
+        // $citiesTrip = place_trip_categories_cities::groupBy('place_categories_id')->selectRaw('count(*) as total')->with(['place_categories'])->get();
+        // $citiesTrip = place_trip_categories_cities::with(['place_categories'])->groupBy('place_categories_id')->get();
+
+        // $citiesTrip = place_trip_categories_cities::select([
+
+        //     // 'place_trip_categories_cities.*',
+
+        //     DB::raw('count(place_trip_categories_cities.trip_categories_id) as total',),
+
+        // ]
+        //     // 'place_trip_categories_cities.*',
+
+
+        // )
+        // ->leftJoin('place_categories', 'place_categories.id','=','place_trip_categories_cities.place_categories_id')
+        // ->where('place_categories.parent_id', 6)
+        // ->groupBy('place_categories_id')
+        // ->get();
+
+        // $citiesTrip = DB::table('place_trip_categories_cities')
+        //     ->leftJoin('place_categories', 'place_categories.id', '=', 'place_trip_categories_cities.place_categories_id')
+        //     ->select(DB::raw('count(place_trip_categories_cities.trip_categories_id) as total'))
+        //     ->where('place_categories.parent_id', 6)
+        //     ->groupBy('place_categories_id')
+        //     ->get();
+        // $citiesTrip = DB::select(DB::raw('select *, count(trip_categories_id) from place_trip_categories_cities  ptcc
+        // join place_categories pc on
+        // ptcc.place_categories_id = pc.id
+        // where pc.parent_id=6
+        // group by place_categories_id
+        // ;'));
+        // return $citiesTrip;
+
+
+
+
 
         // $cobaHashtag = Hashtag::with(['hidden_gem_hashtag','hidden_gem_hashtag.hidden_gem'])->whereId(1)->get();
         // return $cobaHashtag;
@@ -85,15 +127,36 @@ class SearchTripController extends Controller
         // return $resultfilter;
         // return response()->json('tes');
 
-        return response()->json($resultfilter);
+        return response()->json($result);
 
         // return $hashtag;
     }
 
-    public function searchTrip()
+    public function searchtrip(Request $request)
     {
-        $trip = DB::table('trip')
-                ->join('')
+        // return response()->json($request->post);
+        $trips = DB::table('trip_cities_hidden_gem_hashtags')
+            ->leftJoin('trip_categories', 'trip_cities_hidden_gem_hashtags.trip_categories_id', '=', 'trip_categories.id')
+            // ->leftJoin('place_trip_categories_cities', 'trip_categories.id', '=', 'place_trip_categories_cities.trip_categories_id')
+            // ->select(['trip_cities_hidden_gem_hashtags.*', 'trip_categories.title', 'trip_categories.slug', 'trip_categories.price','trip_categories.seat','trip_categories.day','trip_categories.night', 'trip_categories.thumbnail', 'trip_categories.itinerary'])
+            // ->select(['trip_cities_hidden_gem_hashtags.id'])
+            ->whereIn('hashtag_id', $request->post)
+            ->get();
+        $trips->unique('trip_categories_id');
+        // $getArray = (array) $trips->unique('trip_categories_id');
+
+        // $allTrip = Trip_cities_hidden_gem_hashtag::whereIn('hashtag_id', $request->post)->get();
+
+        $cobaTrip = [];
+        foreach ($trips->unique('trip_categories_id') as $tes) {
+            array_push($cobaTrip, $tes->id);
+        }
+
+        // return $cobaTrip;
+        $allTrip = Trip_categories::with(['place_trip_categories_cities', 'place_trip_categories_cities.place_categories'])->whereIn('id', $cobaTrip)->get();
+
+        return response()->json($allTrip);
+        // return response()->json($trips->unique('trip_categories_id'));
         $shares = DB::table('shares')
             ->join('users', 'users.id', '=', 'shares.user_id')
             ->join('followers', 'followers.user_id', '=', 'users.id')

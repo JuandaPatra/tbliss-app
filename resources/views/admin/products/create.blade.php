@@ -217,7 +217,7 @@ Category Add
                      </div>
                   </div>
                </div>
-               <div class="card accordion-item">
+              {{-- <div class="card accordion-item">
                   <h2 class="accordion-header" id="headingThree">
                      <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionThree" aria-expanded="false" aria-controls="accordionThree">
                         #hashtag
@@ -239,7 +239,7 @@ Category Add
                         </div>
                      </div>
                   </div>
-               </div>
+               </div> --}}
             </div>
             </form>
          </div>

@@ -42,7 +42,7 @@
                     <button type="button" class="w-[150px] text-gray-900 bg-white border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Gyengju</button>
                 </div> -->
                 <div class="row-button w-[80%]">
-                    <!-- <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Seoul</button>
+                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Seoul</button>
                     <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Busan</button>
                     <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Jeju Island</button>
                     <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Gyeongju</button>
@@ -53,11 +53,11 @@
                     <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Chuncheon</button>
                     <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Paju</button>
                     <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Inje</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Other</button> -->
+                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Other</button>
                 </div>
 
 
-                <div class="loading-animation text-center">
+                <!-- <div class="loading-animation text-center">
                     <div role="status">
                         <svg aria-hidden="true" class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -65,7 +65,7 @@
                         </svg>
                         <span class="sr-only">Loading...</span>
                     </div>
-                </div>
+                </div> -->
 
                 <!-- <div class="grid grid-cols-1 lg:grid-cols-4 w-[60%] gap-3">
                     <div class="col-span-2">
@@ -85,7 +85,7 @@
                 <h1 class="my-3 text-[#102448] text-[20px] mt-4 mb-3">
                     Aktivitas yang ingin dilakukan
                 </h1>
-                <div class="loading-animation text-center">
+                <!-- <div class="loading-animation text-center">
                     <div role="status">
                         <svg aria-hidden="true" class="inline w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" />
@@ -93,18 +93,18 @@
                         </svg>
                         <span class="sr-only">Loading...</span>
                     </div>
-                </div>
+                </div> -->
                 <div class="hashtag-row w-full lg:w-[100%] mb-8">
-                    <!-- <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#EnjoyK-pop</button>
+                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#EnjoyK-pop</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#From the Sea, From the River</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Flavors of the City</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#convenientTravelServices</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#History / Traditional Tour</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Only in Korea</button>
                     <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Healing in Nature</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Food Trip</button> -->
+                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Food Trip</button>
                 </div>
-                <a type="button" class="text-white bg-[#BF1E5F] hover:bg-[#BF1E5F] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2">Lihat hasil itinerari kakak
+                <a type="button" class="text-white bg-[#BF1E5F] hover:bg-[#BF1E5F] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2" id="searchTrip">Lihat hasil itinerari kakak
                     <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                 </a>
             </div>
@@ -185,206 +185,209 @@
                 Bingung? Gak mau repot? Kakak bisa pilih paket yang sudah tersedia
             </h1>
         </div>
-        <div class="flex flex-wrap flex-col-reverse md:flex-row">
-            <div class="basis-full lg:basis-1/2 lg:order-first">
-                <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
-                    <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Autumn in Korea</h1>
-                    <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
-                        <div>
-                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                6H5M
-                            </span>
-                            <span>
-                                |
-                            </span>
-                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                23 - 28 APR 2023
+        <div class="trip-search">
+            <div class="flex flex-wrap flex-col-reverse md:flex-row">
+                <div class="basis-full lg:basis-1/2 lg:order-first">
+                    <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
+                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Autumn in Korea</h1>
+                        <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
+                            <div>
+                                <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
+                                    6H5M
+                                </span>
+                                <span>
+                                    |
+                                </span>
+                                <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
+                                    23 - 28 APR 2023
+                                </span>
+                            </div>
+                            <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
+                                Rp. 12.000.000
                             </span>
                         </div>
-                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                            Rp. 12.000.000
-                        </span>
-                    </div>
-                    <div class="text-[18px] pt-3 pb-3">
-                        <h1 class="font-bold uppercase">
-                            Busan - Pohang - Jeonju - Seoul
-                        </h1>
-                        <p>Pohang Space Walk</p>
-                        <p>Canola Flower Field</p>
-                        <p>Haeundae Blue Line Park</p>
-                        <p>Overnight Jeonju Hanok Village </p>
-                        <p>Picnic Dinner</p>
-                        <p>K-drama Shooting Location</p>
-                    </div>
-                    <div class="flex justify-between w-full lg:w-[90%]">
-                        <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                            <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
-                        </a>
-                        <div class="flex pt-[11px] lg:pt-0">
-                            <h5 class="text-[#4A5CED] mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
+                        <div class="text-[18px] pt-3 pb-3">
+                            <h1 class="font-bold uppercase">
+                                Busan - Pohang - Jeonju - Seoul
+                            </h1>
+                            <p>Pohang Space Walk</p>
+                            <p>Canola Flower Field</p>
+                            <p>Haeundae Blue Line Park</p>
+                            <p>Overnight Jeonju Hanok Village </p>
+                            <p>Picnic Dinner</p>
+                            <p>K-drama Shooting Location</p>
                         </div>
-
+                        <div class="flex justify-between w-full lg:w-[90%]">
+                            <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
+                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
+                            </a>
+                            <div class="flex pt-[11px] lg:pt-0">
+                                <h5 class="text-[#4A5CED] mr-3">
+                                    3 seats left
+                                </h5>
+                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="basis-full lg:basis-1/2 lg:order-last">
+                    <img src="{{ asset('images/details/korea-1.jpg') }}" alt="" class="h-[450px] w-full object-cover">
+                </div>
+            </div>
+            <div class="flex flex-wrap">
+                <!-- batas antar gambar dan tujuan perjalanan -->
+                <div class="basis-full lg:basis-1/2">
+                    <img src="{{ asset('images/details/korea-2.jpg') }}" alt="" class="h-[450px] w-full object-cover">
+                </div>
+                <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
+                    <div class="container-lg pl-[10%]  lg:pl-[20%] mb-[40px] lg:mb-0 ">
+                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Explore Culinary in Korea</h1>
+                        <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
+                            <div>
+                                <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
+                                    6H5M
+                                </span>
+                                <span>
+                                    |
+                                </span>
+                                <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
+                                    23 - 28 APR 2023
+                                </span>
+                            </div>
+                            <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
+                                Rp. 12.000.000
+                            </span>
+                        </div>
+                        <div class="text-[18px] pt-3 pb-3">
+                            <h1 class="font-bold uppercase">
+                                Busan - Pohang - Jeonju - Seoul
+                            </h1>
+                            <p>Pohang Space Walk</p>
+                            <p>Canola Flower Field</p>
+                            <p>Haeundae Blue Line Park</p>
+                            <p>Overnight Jeonju Hanok Village </p>
+                            <p>Picnic Dinner</p>
+                            <p>K-drama Shooting Location</p>
+                        </div>
+                        <div class="flex justify-between w-full lg:w-[90%]">
+                            <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
+                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
+                            </a>
+                            <div class="flex pt-[11px] lg:pt-0">
+                                <h5 class="text-[#4A5CED] mr-3">
+                                    3 seats left
+                                </h5>
+                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+    
+            </div>
+            <div class="flex flex-wrap flex-col-reverse md:flex-row">
+                <!-- batas antar gambar dan tujuan perjalanan -->
+                <div class="basis-full lg:basis-1/2">
+                    <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
+                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Cultural Walk in Korea</h1>
+                        <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
+                            <div>
+                                <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
+                                    6H5M
+                                </span>
+                                <span>
+                                    |
+                                </span>
+                                <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
+                                    23 - 28 APR 2023
+                                </span>
+                            </div>
+                            <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
+                                Rp. 12.000.000
+                            </span>
+                        </div>
+                        <div class="text-[18px] pt-3 pb-3">
+                            <h1 class="font-bold uppercase">
+                                Busan - Pohang - Jeonju - Seoul
+                            </h1>
+                            <p>Pohang Space Walk</p>
+                            <p>Canola Flower Field</p>
+                            <p>Haeundae Blue Line Park</p>
+                            <p>Overnight Jeonju Hanok Village </p>
+                            <p>Picnic Dinner</p>
+                            <p>K-drama Shooting Location</p>
+                        </div>
+                        <div class="flex justify-between w-full lg:w-[90%]">
+                            <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
+                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
+                            </a>
+                            <div class="flex pt-[11px] lg:pt-0">
+                                <h5 class="text-[#4A5CED] mr-3">
+                                    3 seats left
+                                </h5>
+                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
+                            </div>
+    
+                        </div>
+                    </div>
+                </div>
+                <div class="basis-full lg:basis-1/2">
+                    <img src="{{ asset('images/details/korea-3.jpg') }}" alt="" class="h-[450px] w-full object-cover">
+                </div>
+    
+            </div>
+            <div class="flex flex-wrap">
+                <!-- batas gambar dan tujuan perjalanan -->
+                <div class="basis-full lg:basis-1/2 ">
+                    <img src="{{ asset('images/details/korea-4.jpg') }}" alt="" class="h-[450px] w-full object-cover">
+                </div>
+                <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
+                    <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0 ">
+                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Korean 101 Trip </h1>
+                        <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
+                            <div>
+                                <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
+                                    6H5M
+                                </span>
+                                <span>
+                                    |
+                                </span>
+                                <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
+                                    23 - 28 APR 2023
+                                </span>
+                            </div>
+                            <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
+                                Rp. 12.000.000
+                            </span>
+                        </div>
+                        <div class="text-[18px] pt-3 pb-3">
+                            <h1 class="font-bold uppercase">
+                                Busan - Pohang - Jeonju - Seoul
+                            </h1>
+                            <p>Pohang Space Walk</p>
+                            <p>Canola Flower Field</p>
+                            <p>Haeundae Blue Line Park</p>
+                            <p>Overnight Jeonju Hanok Village </p>
+                            <p>Picnic Dinner</p>
+                            <p>K-drama Shooting Location</p>
+                        </div>
+                        <div class="flex justify-between w-full lg:w-[90%]">
+                            <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
+                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
+                            </a>
+                            <div class="flex pt-[11px] lg:pt-0">
+                                <h5 class="text-[#4A5CED] mr-3">
+                                    3 seats left
+                                </h5>
+                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
+                            </div>
+    
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="basis-full lg:basis-1/2 lg:order-last">
-                <img src="{{ asset('images/details/korea-1.jpg') }}" alt="" class="h-[450px] w-full object-cover">
-            </div>
-        </div>
-        <div class="flex flex-wrap">
-            <!-- batas antar gambar dan tujuan perjalanan -->
-            <div class="basis-full lg:basis-1/2">
-                <img src="{{ asset('images/details/korea-2.jpg') }}" alt="" class="h-[450px] w-full object-cover">
-            </div>
-            <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
-                <div class="container-lg pl-[10%]  lg:pl-[20%] mb-[40px] lg:mb-0 ">
-                    <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Explore Culinary in Korea</h1>
-                    <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
-                        <div>
-                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                6H5M
-                            </span>
-                            <span>
-                                |
-                            </span>
-                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                23 - 28 APR 2023
-                            </span>
-                        </div>
-                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                            Rp. 12.000.000
-                        </span>
-                    </div>
-                    <div class="text-[18px] pt-3 pb-3">
-                        <h1 class="font-bold uppercase">
-                            Busan - Pohang - Jeonju - Seoul
-                        </h1>
-                        <p>Pohang Space Walk</p>
-                        <p>Canola Flower Field</p>
-                        <p>Haeundae Blue Line Park</p>
-                        <p>Overnight Jeonju Hanok Village </p>
-                        <p>Picnic Dinner</p>
-                        <p>K-drama Shooting Location</p>
-                    </div>
-                    <div class="flex justify-between w-full lg:w-[90%]">
-                        <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                            <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
-                        </a>
-                        <div class="flex pt-[11px] lg:pt-0">
-                            <h5 class="text-[#4A5CED] mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
-                        </div>
 
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="flex flex-wrap flex-col-reverse md:flex-row">
-            <!-- batas antar gambar dan tujuan perjalanan -->
-            <div class="basis-full lg:basis-1/2">
-                <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
-                    <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Cultural Walk in Korea</h1>
-                    <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
-                        <div>
-                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                6H5M
-                            </span>
-                            <span>
-                                |
-                            </span>
-                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                23 - 28 APR 2023
-                            </span>
-                        </div>
-                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                            Rp. 12.000.000
-                        </span>
-                    </div>
-                    <div class="text-[18px] pt-3 pb-3">
-                        <h1 class="font-bold uppercase">
-                            Busan - Pohang - Jeonju - Seoul
-                        </h1>
-                        <p>Pohang Space Walk</p>
-                        <p>Canola Flower Field</p>
-                        <p>Haeundae Blue Line Park</p>
-                        <p>Overnight Jeonju Hanok Village </p>
-                        <p>Picnic Dinner</p>
-                        <p>K-drama Shooting Location</p>
-                    </div>
-                    <div class="flex justify-between w-full lg:w-[90%]">
-                        <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                            <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
-                        </a>
-                        <div class="flex pt-[11px] lg:pt-0">
-                            <h5 class="text-[#4A5CED] mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-1/2">
-                <img src="{{ asset('images/details/korea-3.jpg') }}" alt="" class="h-[450px] w-full object-cover">
-            </div>
-
-        </div>
-        <div class="flex flex-wrap">
-            <!-- batas gambar dan tujuan perjalanan -->
-            <div class="basis-full lg:basis-1/2 ">
-                <img src="{{ asset('images/details/korea-4.jpg') }}" alt="" class="h-[450px] w-full object-cover">
-            </div>
-            <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
-                <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0 ">
-                    <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Korean 101 Trip </h1>
-                    <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
-                        <div>
-                            <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                6H5M
-                            </span>
-                            <span>
-                                |
-                            </span>
-                            <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                23 - 28 APR 2023
-                            </span>
-                        </div>
-                        <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                            Rp. 12.000.000
-                        </span>
-                    </div>
-                    <div class="text-[18px] pt-3 pb-3">
-                        <h1 class="font-bold uppercase">
-                            Busan - Pohang - Jeonju - Seoul
-                        </h1>
-                        <p>Pohang Space Walk</p>
-                        <p>Canola Flower Field</p>
-                        <p>Haeundae Blue Line Park</p>
-                        <p>Overnight Jeonju Hanok Village </p>
-                        <p>Picnic Dinner</p>
-                        <p>K-drama Shooting Location</p>
-                    </div>
-                    <div class="flex justify-between w-full lg:w-[90%]">
-                        <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                            <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
-                        </a>
-                        <div class="flex pt-[11px] lg:pt-0">
-                            <h5 class="text-[#4A5CED] mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 

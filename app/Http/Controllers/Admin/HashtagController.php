@@ -9,7 +9,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use App\Models\hidden_gem_hashtag;
 use App\Models\Place_categories;
+use App\Models\Trip_cities_hidden_gem_hashtag;
 
 class HashtagController extends Controller
 {
@@ -172,9 +174,36 @@ class HashtagController extends Controller
     public function destroy(Hashtag $hashtag)
     {
         try {
+            //// mendapatkan list hidden_gem_hashtag dengan id yang dikirimkan parameter
+            $findId = hidden_gem_hashtag::where('hashtag_id', $hashtag->id)->get(['id'])->pluck('id');
+
+            //// jika data lebih dari 1 maka hapus list hidden_gem_hashtag
+            if(count($findId) >= 1){
+                hidden_gem_hashtag::whereIn('id', $findId)->delete();
+            }
+            
+            // selanjutnya
+
+            //// temukan list trip_cities_hidden_gem_hashtag dengan id yang dikirimkan parameter
+            $findTripHiddenHashtag = Trip_cities_hidden_gem_hashtag::where('hashtag_id', $hashtag->id)->get(['id'])->pluck('id');
+            
+            ///// hapus tabel trip cities hidden_gem_hashtag yang memuat hashtag 
+            if(count($findTripHiddenHashtag) >= 1 ){
+                $findTripHiddenHashtag->delete();
+            }
+
+            /// selanjutnya
+
+            //// hapus hashtag dengan id sesuai dengan parameter yang dikirim
             $hashtag->delete();
+
+            /// selanjutnya
+
+            //// kirim pemberitahuan dan kembali ke halaman sebelumnya 
             Alert::success('Delete Hashtag', 'Berhasil');
         } catch (\throwable $th){
+            
+            //// fail akses hidden gem
             Alert::error('Delete Hashtag', 'error'.$th->getMessage()); 
         }
         return redirect()->back();
