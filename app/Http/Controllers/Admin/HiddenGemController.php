@@ -151,8 +151,6 @@ class HiddenGemController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $id;
-
         $validator = Validator::make(
             $request->all(),
             [
@@ -165,7 +163,7 @@ class HiddenGemController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
-        // proses insert
+        //// proses insert
         // return $request;
         DB::beginTransaction();
         try {
@@ -182,6 +180,14 @@ class HiddenGemController extends Controller
 
             DB::commit();
             $hidden_gem_id = Hidden_gem::where('title', '=', $request->title)->get();
+            
+           ///  fungsi belum jalan
+            // $result=hidden_gem_hashtag::whereIn('id',$request->invisible)->get()->pluck('hashtag_id');
+            // return $result;
+
+            // $trip_cities_hashtag = Trip_cities_hidden_gem_hashtag::whereIn('hashtag_id',$result)->get();
+            // return $trip_cities_hashtag;
+
             $result=hidden_gem_hashtag::whereIn('id',$request->invisible)->delete();
             foreach($request->hashtag as $updates){
                 try {

@@ -208,7 +208,7 @@
             </div>
         </div>
         <div class="col-span-9">
-            <ul class="city-slider-{{$city->place_categories->id}}">
+            <ul class="city-slider-{{$city->place_categories->id}} slider" data-slider="{{$city->place_categories->id}}">
                 @foreach($city->pick_hidden_gem as $hidden_gem)
                 <li>
                     <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
@@ -225,97 +225,7 @@
     </div>
     @endforeach
 
-    <!-- <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
-        <div class="col-span-1"></div>
-        <div class="col-span-2">
-            <div class="ml-[70px] mt-[60px]">
-                <img src="{{ asset('images/detailtrip/busan-map.png') }}" alt="">
-                <h1 class="mt-4 uppercase font-bold text-[16px]">Busan</h1>
-            </div>
-        </div>
-        <div class="col-span-9">
-            <ul class="city-slider-0">
-                <li>
-                    <img src="{{ asset('images/detailtrip/busan-1.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/busan-2.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/busan-3.jpg') }}" alt="" class="w-[98%]">
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
-        <div class="col-span-1"></div>
-        <div class="col-span-2">
-            <div class="ml-[70px] mt-[60px] ">
-                <img src="{{ asset('images/detailtrip/pohang-map.png') }}" alt="">
-                <h1 class="mt-4 uppercase font-bold text-[16px]">Pohang</h1>
-            </div>
-        </div>
-        <div class="col-span-9">
-            <ul class="city-slider-1">
-                <li>
-                    <img src="{{ asset('images/detailtrip/pohang-1.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/pohang-2.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/pohang-3.jpg') }}" alt="" class="w-[98%]">
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
-        <div class="col-span-1"></div>
-        <div class="col-span-2">
-            <div class="ml-[70px] mt-[60px]">
-                <img src="{{ asset('images/detailtrip/jeounju-map.png') }}" alt="">
-                <h1 class="mt-4 uppercase font-bold text-[16px]">Jeounju</h1>
-            </div>
-        </div>
-        <div class="col-span-9">
-            <ul class="city-slider-2">
-                <li>
-                    <img src="{{ asset('images/detailtrip/jeounju-1.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/jeounju-2.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/jeounju-3.jpg') }}" alt="" class="w-[98%]">
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
-        <div class="col-span-1"></div>
-        <div class="col-span-2">
-            <div class="ml-[70px] mt-[60px]">
-                <img src="{{ asset('images/detailtrip/seoul-map.png') }}" alt="">
-                <h1 class="mt-4 uppercase font-bold text-[16px]">Seoul</h1>
-            </div>
-        </div>
-        <div class="col-span-9">
-            <ul class="city-slider-3">
-                <li>
-                    <img src="{{ asset('images/detailtrip/seoul-1.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/seoul-2.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/seoul-3.jpg') }}" alt="" class="w-[98%]">
-                </li>
-            </ul>
-        </div>
-    </div> -->
+    
 
 </section>
 
@@ -455,24 +365,6 @@
 
 @include('web.components.presentational.footer')
 
-<!-- <div class="bg-[#ff5055] h-[73px] w-full text-white fixed  bottom-0 z-20 ">
-    <div class="container-lg py-1 lg:pb-0 ">
-        <div class="flex flex-wrap justify-between ">
-            <div class="basis-full lg:basis-1/2 pt-2  mb-[20px] lg:mb-[20] mt-0 lg:mt-[100px]">
-                <span class="font-bold font-interRegular text-[14px]">
-                    Harga Rp.<span>12.000.000</span> / pax
-                </span>
-                <span class=" ml-4 font-interRegular text-[14px]">
-                    Open Trip 6 Hari 5 Malam
-                </span>
-            </div>
-            <div class="basis-full lg:basis-1/2 text-[15px]">
-                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
-                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
-            </div>
-        </div>
-    </div>
-</div> -->
 <div class="bg-[#ff5055]  lg:h-[73px] w-full text-white fixed  bottom-0 z-20 ">
     <div class="container-lg pt-3 pb-3 lg:pb-0">
         <div class="flex flex-wrap justify-between">
@@ -505,56 +397,20 @@
         let allSlider = ('.city-slider').length;
         console.log(allSlider)
 
-        $('.city-slider-0').slick({
+        $('.slider').each(function(item,index){
+            // let dataIndex = (this).data("slider")
+            let dataIndex =$(this).data("slider") 
+            console.log(dataIndex)
+
+            $(`.city-slider-${dataIndex}`).slick({
             dots: false,
             infinite: false,
             slidesToShow: 2.5,
         });
-        $('.city-slider-0').not('.slick-initialized').slick();
+        $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();
 
-        $('.city-slider-1').slick({
-            dots: false,
-            infinite: false,
-            slidesToShow: 2.5,
-        });
-        $('.city-slider-1').not('.slick-initialized').slick();
-
-        $('.city-slider-2').slick({
-            dots: false,
-            infinite: false,
-            slidesToShow: 2.5,
-        });
-        $('.city-slider-2').not('.slick-initialized').slick();
-
-        $('.city-slider-3').slick({
-            dots: false,
-            infinite: false,
-            slidesToShow: 2.5,
-        });
-        $('.city-slider-3').not('.slick-initialized').slick();
-
-        $('.city-slider-7').slick({
-            dots: false,
-            infinite: false,
-            slidesToShow: 2.5,
-        });
-        $('.city-slider-7').not('.slick-initialized').slick();
-
-        $('.city-slider-9').slick({
-            dots: false,
-            infinite: false,
-            slidesToShow: 2.5,
-        });
-        $('.city-slider-9').not('.slick-initialized').slick();
-
-
-        $('.city-slider-13').slick({
-            dots: false,
-            infinite: false,
-            slidesToShow: 2.5,
-        });
-        $('.city-slider-13').not('.slick-initialized').slick();
-
+    
+        })
 
         const options = {
             mobileFirst: true,

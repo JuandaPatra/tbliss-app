@@ -63,7 +63,6 @@ class PickHiddenGemsController extends Controller
             } else if(count($checkHiddenGem) <1) {
 
                 /////////// input tabel Trip_cities_hidden_gem_hashtag
-                // return $index;
                 $getAllHashtag = hidden_gem_hashtag::where('hidden_gem_id', '=', $index)->get();
                 // return $getAllHashtag;
                 foreach ($getAllHashtag as $hashtagInput) {

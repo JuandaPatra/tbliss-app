@@ -58,6 +58,12 @@ class SearchTripController extends Controller
         // ;'));
         // return $citiesTrip;
 
+        $searchTrips = Trip_categories::with(['place_trip_categories_cities', 'place_trip_categories_cities.place_categories'])->get();
+        // $searchTrips = Trip_categories::whereHas('place_trip_categories_cities',function($query){
+        //     $query->where('place_categories_id',8);
+        // })->get();
+        return $searchTrips;
+
 
 
 
