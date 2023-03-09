@@ -397,7 +397,22 @@
             Yuk, eksplor Destinasi di <span>Korea</span> !
         </h1>
         <div class="flex flex-wrap pt-[54px] destination-slider">
+            @foreach($tripByCity as $trip)
             <div class="basis-full lg:basis-3/12 p-3">
+                <div class="max-w-sm bg-white ">
+                    <a href="#">
+                        <img class="w-full" src="{{ asset('images/details/korea-btm-1.jpg') }}" alt="" />
+                    </a>
+                    <div class="pt-4">
+                        <a href="#">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$trip->place_categories->title}}</h5>
+                        </a>
+                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{$trip->user_count}} options</p>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+            <!-- <div class="basis-full lg:basis-3/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
                         <img class="w-full" src="{{ asset('images/details/korea-btm-1.jpg') }}" alt="" />
@@ -448,7 +463,7 @@
                         <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">68 options</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 

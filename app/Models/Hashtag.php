@@ -20,4 +20,5 @@ class Hashtag extends Model
     {
         return $this->hasMany(hidden_gem_hashtag::class);
     }
+    
 }
