@@ -29,7 +29,6 @@ class ContinentController extends Controller
         $categories = [];
         if ($request->has('q')) {
             $search = $request->q;
-            // $categories = CategoryProducts::select('id', 'title')->where('title', 'LIKE', "%$search%")->limit(6)->get();
             $categories = Place_categories::select('id', 'title')->where('title', 'LIKE', "%$search%")->limit(6)->get();
         } else {
             $categories = Place_categories::select('id', 'title')->onlyParent()->limit(6)->get();
@@ -64,9 +63,9 @@ class ContinentController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:place_categories,slug',
-                'status' => 'required'
+                'title'         => 'required|string|max:100',
+                'slug'          => 'required|string|unique:place_categories,slug',
+                'status'        => 'required'
             ]
         );
 
@@ -79,17 +78,15 @@ class ContinentController extends Controller
             $destination = $request->destination;
         }
 
-        // return $destination;
-
-
-
         DB::beginTransaction();
         try {
             $post = Place_categories::create([
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'parent_id' =>$destination,
-                'status' => $request->status,
+                'title'             => $request->title,
+                'slug'              => $request->slug,
+                'parent_id'         => $destination,
+                'status'            => $request->status,
+                'images'            => $request->images,
+                'images2'           => $request->images2
             ]);
 
             Alert::success('Tambah Benua', 'Berhasil');
@@ -125,9 +122,9 @@ class ContinentController extends Controller
         $continent = Place_categories::where('id', '=', $id)->get();
 
         return view('admin.continent.edit', [
-            'continent' => $continent[0],
-            'orders' => $this->orders(),
-            'statuses' => $this->statuses()
+            'continent'         => $continent[0],
+            'orders'            => $this->orders(),
+            'statuses'          => $this->statuses()
         ]);
     }
 
@@ -144,9 +141,9 @@ class ContinentController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:place_categories,slug',
-                'status' => 'required'
+                'title'             => 'required|string|max:100',
+                'slug'              => 'required|string|',
+                'status'            => 'required'
             ]
         );
         if ($validator->fails()){
@@ -158,10 +155,12 @@ class ContinentController extends Controller
             $post = Place_categories::where('id', '=', $id);
 
             $post->update([
-                'title' => $request->title,
-                'slug' => $request->slug,
-                'parent_id' =>$request->destination,
-                'status' => $request->status,
+                'title'             => $request->title,
+                'slug'              => $request->slug,
+                'parent_id'         =>$request->destination,
+                'status'            => $request->status,
+                'images'            => $request->images,
+                'images2'           => $request->images2
             ]);
 
             Alert::success('Edit Destinasi', 'Berhasil');

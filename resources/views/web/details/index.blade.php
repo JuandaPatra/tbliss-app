@@ -401,7 +401,8 @@
             <div class="basis-full lg:basis-3/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
-                        <img class="w-full" src="{{ asset('images/details/korea-btm-1.jpg') }}" alt="" />
+                        <!-- <img class="w-full" src="{{ asset('images/details/korea-btm-1.jpg') }}" alt="" /> -->
+                        <img class="w-full" src="{{$trip->place_categories->images2}}" alt="" />
                     </a>
                     <div class="pt-4">
                         <a href="#">

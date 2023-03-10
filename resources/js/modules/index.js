@@ -1,8 +1,12 @@
 import { data } from "autoprefixer";
 
 let base_url = window.location.origin;
+let host = window.location.host;
+console.log(host)
 let allData = [];
 let allHashtag = [];
+
+let allCities = [];
 
 export class DetailPages {
     selectCountry() {
@@ -153,7 +157,7 @@ export class DetailPages {
 
     searchItinerary() {
         $("#searchTrip").on("click", function (e) {
-            console.log(allHashtag);
+            // console.log(allHashtag);
             let post = allHashtag;
 
             $.ajax({
@@ -179,43 +183,77 @@ export class DetailPages {
                     }
                 },
                 success: function (data) {
-                    console.log(data);
+                    // console.log(data);
                     let result = data;
                     // $(`.row-button`).empty();
                     // $(`.loading-animation`).addClass("hidden");
                     // // if(result = 0){
                     // //     console.log('nol datanya')
                     // // }
-                    $('.trip-search').empty();
-                    
-                    for(let i =0;i<=result.length;i++){
-                        if(i%2===0){
-                            for(let j =0;j<=result[i].place_trip_categories_cities.length;j++){
-                                if(j=0){
-                                    $(`city-${i}`).append(
-                                        `${j} -` 
-                                    )
+                    $(".trip-search").empty();
+
+                    for (let i = 0; i <= result.length; i++) {
+                        let data = [];
+                        allCities.push(data);
+                        // console.log(result);
+
+                        if (i % 2 === 0) {
+                            // console.log(result)
+                            // console.log(result[i].place_trip_categories_cities)
+                            // console.log(result[i].place_trip_categories_cities.length)
+                            // for(let k= 0;k<=result[i].place_trip_categories_cities.length;k++){
+                            //     // console.log(`k adalah ${place_trip_categories_cities[k]}`)
+                            // }
+
+                            // console.log(result[i].place_trip_categories_cities)
+                            // for(let x=0;x<result[i].place_trip_categories_cities.length;x++ ){
+                            //     console.log(result[i].place_trip_categories_cities[x].place_categories.title)
+                            // }
+                            // $(`city-${i}`).append(
+                            //     );
+                            result[i].place_trip_categories_cities.forEach(
+                                function (item, index) {
+                                    // console.log(
+                                    //     item.place_categories.title
+                                    //     );
+                                    // item.place_categories.title;
+                                    allCities[i].push(
+                                        item.place_categories.title
+                                    );
                                 }
-                                else if(j = result[i].place_trip_categories_cities){
-                                    $(`city-${i}`).append(
-                                        `${j}`
-                                    )
-                                }
-                                else{
-                                    $(`city-${i}`).append(
-                                        `${place_categories[j].title} -`
-                                    )
-                                }
-                            }
-                            $('.trip-search').append(
+                            );
+
+                            console.log(allCities);
+                            // for(let j =0;j<=result[i].place_trip_categories_cities.length;j++){
+                            //     if(j=0){
+                            //         $(`city-${i}`).append(
+                            //             `${j} -`
+                            //             )
+                            //     }
+                            //     else if(j = result[i].place_trip_categories_cities){
+                            //         $(`city-${i}`).append(
+                            //             `${j}`
+                            //         )
+                            //     }
+                            //     else{
+                            //         $(`city-${i}`).append(
+                            //             `${place_categories[j].title} -`
+                            //         )
+                            //     }
+                            // }
+                            $(".trip-search").append(
                                 ` <div class="flex flex-wrap flex-col-reverse md:flex-row">
                                 <div class="basis-full lg:basis-1/2 lg:order-first">
                                     <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
-                                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">${result[i].title}</h1>
+                                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">
+                                        ${result[i].title}
+                                        </h1>
                                         <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                                             <div>
                                                 <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                                    ${result[i].day}H${result[i].night}M ${result[i].place_trip_categories_cities[0].place_categories.title}
+                                                    ${result[i].day}H${
+                                    result[i].night
+                                }M
                                                 </span>
                                                 <span>
                                                     |
@@ -225,13 +263,25 @@ export class DetailPages {
                                                 </span>
                                             </div>
                                             <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                                                Rp. ${result[i].price.toLocaleString()}
+                                                Rp. ${result[
+                                                    i
+                                                ].price.toLocaleString()}
                                             </span>
                                         </div>
                                         <div class="text-[18px] pt-3 pb-3">
                                             <h1 class="font-bold uppercase city-${i}">
-                                                Busan - Pohang - Jeonju - Seoul
+
+
+                                            
+                                            ${result[
+                                                i
+                                            ].place_trip_categories_cities[0].place_categories.title.toUpperCase()}-${result[
+                                    i
+                                ].place_trip_categories_cities[1].place_categories.title.toUpperCase()} -${result[
+                                    i
+                                ].place_trip_categories_cities[2].place_categories.title.toUpperCase()}                                             
                                             </h1>
+                                            
                                             <p>Pohang Space Walk</p>
                                             <p>Canola Flower Field</p>
                                             <p>Haeundae Blue Line Park</p>
@@ -241,40 +291,46 @@ export class DetailPages {
                                         </div>
                                         <div class="flex justify-between w-full lg:w-[90%]">
                                             <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
+                                                <img src="/images/details/arrow.png" alt="" class="h-[10px] w-[10px] inline-block ">
                                             </a>
                                             <div class="flex pt-[11px] lg:pt-0">
                                                 <h5 class="text-[#4A5CED] mr-3">
                                                     ${result[i].seat} seats left
                                                 </h5>
-                                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
+                                                <img src="/images/trip/seat.png" alt="" class="inline h-5">
                                             </div>
                     
                                         </div>
                                     </div>
                                 </div>
                                 <div class="basis-full lg:basis-1/2 lg:order-last">
-                                    <img src="${result[i].thumbnail}" alt="" class="h-[450px] w-full object-cover">
+                                    <img src="${
+                                        result[i].thumbnail
+                                    }" alt="" class="h-[450px] w-full object-cover">
                                 </div>
                             </div>
                                                 `
-                            )
-                            
-                        }
-                        else{
-                            $('.trip-search').append(
+                            );
+                        } else {
+                            $(".trip-search").append(
                                 `<div class="flex flex-wrap">
                                 <!-- batas antar gambar dan tujuan perjalanan -->
                                 <div class="basis-full lg:basis-1/2">
-                                    <img src="${result[i].thumbnail}" alt="" class="h-[450px] w-full object-cover">
+                                    <img src="${
+                                        result[i].thumbnail
+                                    }" alt="" class="h-[450px] w-full object-cover">
                                 </div>
                                 <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
                                     <div class="container-lg pl-[10%]  lg:pl-[20%] mb-[40px] lg:mb-0 ">
-                                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">${result[i].title}</h1>
+                                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">${
+                                            result[i].title
+                                        }</h1>
                                         <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                                             <div>
                                                 <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                                    ${result[i].day}H${result[i].night}M
+                                                    ${result[i].day}H${
+                                    result[i].night
+                                }M
                                                 </span>
                                                 <span>
                                                     |
@@ -284,13 +340,17 @@ export class DetailPages {
                                                 </span>
                                             </div>
                                             <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                                                Rp. ${result[i].price.toLocaleString()}
+                                                Rp. ${result[
+                                                    i
+                                                ].price.toLocaleString()}
                                             </span>
                                         </div>
                                         <div class="text-[18px] pt-3 pb-3">
                                             <h1 class="font-bold uppercase">
                                                 
-                                                Busan - Pohang - Jeonju - Seoul
+                                                Busan - Pohang - Jeonju - Seoul  ${result[
+                                                    i
+                                                ].place_trip_categories_cities[0].place_categories.title.toUpperCase()}
                                             </h1>
                                             ${result[i].itinerary}
                                             <p>Pohang Space Walk</p>
@@ -302,13 +362,13 @@ export class DetailPages {
                                         </div>
                                         <div class="flex justify-between w-full lg:w-[90%]">
                                             <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
+                                                <img src="/images/details/arrow.png" alt="" class="h-[10px] w-[10px] inline-block ">
                                             </a>
                                             <div class="flex pt-[11px] lg:pt-0">
                                                 <h5 class="text-[#4A5CED] mr-3">
                                                     3 seats left
                                                 </h5>
-                                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
+                                                <img src="/images/trip/seat.png" alt="" class="inline h-5">
                                             </div>
                     
                                         </div>
@@ -316,7 +376,7 @@ export class DetailPages {
                                 </div>
                     
                             </div>`
-                            )
+                            );
                         }
                     }
 
@@ -326,7 +386,9 @@ export class DetailPages {
                             <div class="flex flex-wrap flex-col-reverse md:flex-row">
             <div class="basis-full lg:basis-1/2 lg:order-first">
                 <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
-                    <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">${value.title}</h1>
+                    <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">${
+                        value.title
+                    }</h1>
                     <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                         <div>
                             <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
@@ -364,7 +426,9 @@ export class DetailPages {
                 </div>
             </div>
             <div class="basis-full lg:basis-1/2 lg:order-last">
-                <img src="${value.thumbnail}" alt="" class="h-[450px] w-full object-cover">
+                <img src="${
+                    value.thumbnail
+                }" alt="" class="h-[450px] w-full object-cover">
             </div>
         </div>
                             `

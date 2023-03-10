@@ -32,6 +32,34 @@ Slider Add
                   </span>
                   @enderror
                </div>
+               <!-- Images map -->
+               <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">Map</label>
+                  <div class="input-group">
+                     <button id="button_post_images" data-input="input_post_images" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_images" name="images" value="{{ old('images') }}" type="text" class="form-control" placeholder="" readonly />
+                     @error('images')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+               </div>
+               <!-- Images map -->
+               <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">Images</label>
+                  <div class="input-group">
+                     <button id="button_post_images2" data-input="input_post_images2" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_images2" name="images2" value="{{ old('images2') }}" type="text" class="form-control" placeholder="" readonly />
+                     @error('images2')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+               </div>
                <div class="mb-3">
                   <label for="exampleFormControlSelect1" class="form-label">Benua/Negara</label>
                   <select id="select_post_status" name="destination" class="form-select @error('status') is-invalid @enderror">
@@ -55,6 +83,7 @@ Slider Add
                      @endforeach
                   </select>
                </div>
+
                <a class="btn btn-warning px-4" href="">Back</a>
                <button type="submit" class="btn btn-primary px-4">Save</button>
             </div>
@@ -144,8 +173,8 @@ Slider Add
          });
          // event : input thumbnail with file manager and description
 
-         $('#button_post_imagesDesktop').filemanager('image');
-         $('#button_post_imagesMobile').filemanager('image');
+         $('#button_post_images').filemanager('image');
+         $('#button_post_images2').filemanager('image');
 
          // event :  description
          $("#input_post_descriptions").tinymce({

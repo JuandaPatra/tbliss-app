@@ -37,12 +37,40 @@ Slider Edit
                   </span>
                   @enderror
                </div>
+               <!-- Images map -->
+               <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">Map</label>
+                  <div class="input-group">
+                     <button id="button_post_images" data-input="input_post_images" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_images" name="images" value="{{ old('images',asset($continent->images)) }}"   type="text" class="form-control" placeholder="" readonly />
+                     @error('images')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+               </div>
+               <!-- Images map -->
+               <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">Images</label>
+                  <div class="input-group">
+                     <button id="button_post_images2" data-input="input_post_images2" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_images2" name="images2" value="{{ old('images2',asset($continent->images2)) }}"   type="text" class="form-control" placeholder="" readonly />
+                     @error('images2')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+               </div>
                <div class="mb-3">
                   <label for="exampleFormControlSelect1" class="form-label">Benua/Negara</label>
                   <select id="select_post_status" name="destination" class="form-select @error('status') is-invalid @enderror">
                      @if (old('parent_id', $continent->parent_id))
                      <option value="{{ old('parent_id', $continent->parent->id) }}" selected>{{ old('parent_id',$continent->parent->title)}}</option>
-                     @endif 
+                     @endif
                   </select>
                </div>
                <div class="mb-3">
@@ -68,9 +96,9 @@ Slider Edit
 </div>
 @endsection
 @push('css-external')
-   <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
-   <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2-bootstrap4.min.css') }}">
-   @endpush
+<link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">
+<link rel="stylesheet" href="{{ asset('vendor/select2/css/select2-bootstrap4.min.css') }}">
+@endpush
 @push('javascript-external')
 <script src="{{ asset ('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
 <script src="{{ asset('vendor/tinymce5/jquery.tinymce.min.js') }}"></script>
@@ -91,8 +119,8 @@ Slider Edit
          );
       });
       // event : input thumbnail with file manager
-      $('#button_post_imagesDesktop').filemanager('image');
-      $('#button_post_imagesMobile').filemanager('image');
+      $('#button_post_images').filemanager('image');
+      $('#button_post_images2').filemanager('image');
 
       $('#select_post_status').select2({
          theme: 'bootstrap4',

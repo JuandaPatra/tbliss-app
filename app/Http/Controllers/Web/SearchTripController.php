@@ -72,7 +72,7 @@ class SearchTripController extends Controller
 
         $tripByCity = place_trip_categories_cities::select(DB::raw('count(*) as user_count'),'place_categories_id')
                ->with([
-                'place_categories:id,title,slug,images,parent_id'
+                'place_categories:id,title,slug,images,parent_id,images2'
                ])
               ->groupBy('place_categories_id')
               ->inRandomOrder()
