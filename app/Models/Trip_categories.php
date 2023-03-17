@@ -13,12 +13,12 @@ class Trip_categories extends Model
 
     public function trip_include()
     {
-        return $this->hasMany(Trip_includes::class);
+        return $this->hasMany(Trip_includes::class,'trip_cat_id','id');
     }
 
     public function trip_exclude()
     {
-        return $this->hasMany(Trip_exclude::class);
+        return $this->hasMany(Trip_exclude::class,'trip_cat_id','id');
     }
     
     public function place_trip_categories_cities()

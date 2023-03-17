@@ -25,44 +25,7 @@
                     <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
             </div>
-            <!-- <div class="relative ">
-                <div class="absolute top-[120px] xl:top-[120px] lg:top-[40px] left-0 right-0 text-white">
-                    <div class="flex justify-center ">
-                        <h1 class="text-center text-[60px] w-[710px] xl:w-[700px] font-bely">
-                            "Ingin punya banyak waktu kosong untuk jalan berdua"
-                        </h1>
-                    </div>
-                    <div class="flex justify-center mt-[20px]">
-                        <h1 class="text-center text-[20px]  w-[500px] font-normal">
-                            Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy
-                        </h1>
-                    </div>
-                </div>
-                <picture>
-                    <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg-1.jpg') }}">
-                    <source media="(min-width:320px)" srcset="img_white_flower.jpg">
-                    <img src="{{ asset('images/title/korea-bg-1.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
-                </picture>
-            </div>
-            <div class="relative">
-                <div class="absolute xl:top-[120px] lg:top-[40px] left-0 right-0 text-white">
-                    <div class="flex justify-center ">
-                        <h1 class="text-center text-[60px] w-[710px] xl:w-[700px] font-bely">
-                            "Emang Oppa-nya bening-bening "
-                        </h1>
-                    </div>
-                    <div class="flex justify-center mt-[20px]">
-                        <h1 class="text-center text-[20px]  w-[500px] font-normal">
-                            Katanya standar ganteng di Korea itu beda, di jalan atau di kereta sering ketemu cowok bening. Percaya gak?
-                        </h1>
-                    </div>
-                </div>
-                <picture>
-                    <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg-2.jpg') }}">
-                    <source media="(min-width:320px)" srcset="img_white_flower.jpg">
-                    <img src="{{ asset('images/title/korea-bg-2.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
-                </picture>
-            </div> -->
+
         </div>
 
         <div class="absolute search-box  left-0 right-0 top-[430px] text-white">
@@ -131,7 +94,7 @@
             @foreach($trips as $trip)
             <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
-                    <a href="{{route('home.detail' ,['id'=>encrypt($country->id),'trip'=>encrypt($trip->id)])}}">
+                    <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}">
                         <img src="{{$trip->thumbnail}}" alt="" class="w-full">
                     </a>
                     <div class="mt-3 ">
@@ -151,105 +114,17 @@
                             |
                         </span>
                         <span class="ml-3 text-[16px]">
-                        {{ date('d', strtotime($trip->date_form)) }} - {{ date('d M y', strtotime($trip->date_to)) }}
+                            
+                            {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }} 
                         </span>
                         <p class="text-redTbliss font-bold text-[19px]">
-                        @currency($trip->price)
+                            @currency($trip->price)
                         </p>
                     </div>
                 </div>
             </div>
-            @endforeach 
-            <!-- <div class="basis-full lg:basis-4/12 p-3">
-                <div class="max-w-sm bg-white ">
-                    <a href="#">
-                        <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
-                    </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-blueTbliss mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                        </div>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">Culinary Trip in Korea</h5>
-                        </a>
-                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-                            6H5M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
-                        </span>
-                        <p class="text-redTbliss font-bold text-[19px]">
-                            Rp. 9.500.000
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-4/12 p-3">
-                <div class="max-w-sm bg-white ">
-                    <a href="#">
-                        <img src="{{ asset('images/trip/trip-1.jpg') }}" alt="" class="w-full">
-                    </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-blueTbliss mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                        </div>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">Cultural Walk in Korea</h5>
-                        </a>
-                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-                            6H5M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
-                        </span>
-                        <p class="text-redTbliss font-bold text-[19px]">
-                            Rp. 9.500.000
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-4/12 p-3">
-                <div class="max-w-sm bg-white ">
-                    <a href="#">
-                        <img src="{{ asset('images/trip/trip-2.jpg') }}" alt="" class="w-full">
-                    </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-blueTbliss mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                        </div>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">Korea 101 Trip</h5>
-                        </a>
-                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-                            6H5M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
-                        </span>
-                        <p class="text-redTbliss font-bold text-[19px]">
-                            Rp. 9.500.000
-                        </p>
-                    </div>
-                </div>
-            </div> -->
+            @endforeach
+
         </div>
     </div>
 </section>
@@ -263,11 +138,11 @@
             @foreach($hiddenGems as $hiddenGem)
             <div class="basis-full lg:basis-3/12 gap-8 p-3">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="{{$hiddenGem->slug}}">
+                    <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->slug])}}">
                         <img class=" w-full" src="{{$hiddenGem->image_desktop}}" alt="" />
                     </a>
                     <div class="p-3">
-                        <a href="#">
+                        <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->slug])}}">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$hiddenGem->title}}</h5>
                         </a>
                         <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">57.6 views</p>
@@ -276,121 +151,7 @@
                 </div>
             </div>
             @endforeach
-            <!-- <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-0.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">K-Drama Shooting Location</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">57.6 views</p>
 
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-1.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Insta-worthy Pohan Space Walk</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">635 views</p>
-
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-2.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Iconic Canola Flower Field</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">5.49 k views</p>
-
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-3.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Overnight Jeonju Hanok Villa</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">232 views</p>
-
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-4.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Best Family Friendly Activities in Korea</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">43 k views</p>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-5.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Top 10 Bimbibab on Seoul</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">484 views</p>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-6.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Cultural Walk at Jeon Hun-Street</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">156 views</p>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
-                <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="#">
-                        <img class=" w-full" src="{{ asset('images/hidden-gem/hg-7.jpg') }}" alt="" />
-                    </a>
-                    <div class="p-3">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Date Ideas at Famous Picnic Dinner</h5>
-                        </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">60.7 k views</p>
-
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
@@ -406,17 +167,38 @@
         <div class="relative">
             <div class="absolute top-[0px] lg:top-[-470px] left-0 lg:left-[15%] bg-white w-full lg:w-[45%] p-6  lg:p-5">
                 <img src="{{ asset('images/testimoni/svg.png') }}" alt="" class="">
-                <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
-                    The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
-                </h1>
-                <p class="text-[15px] lg:text-[20px]">
-                    - Dian Wijaya, Jakarta
-                </p>
+                <div class="testimoni-slider">
+                    <div>
+                        <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
+                            The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
+                        </h1>
+                        <p class="text-[15px] lg:text-[20px]">
+                            - Dian Wijaya, Jakarta
+                        </p>
+                    </div>
+                    <div>
+                        <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
+                            The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
+                        </h1>
+                        <p class="text-[15px] lg:text-[20px]">
+                            - Dian Wijaya, Jakarta
+                        </p>
+                    </div>
+                    <div>
+                        <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
+                            The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
+                        </h1>
+                        <p class="text-[15px] lg:text-[20px]">
+                            - Dian Wijaya, Jakarta
+                        </p>
+                    </div>
+
+                </div>
             </div>
             <div class="absolute top-[240px] lg:top-[-130px] left-0 lg:left-[15%] w-[15%] lg:w-[5%] mt-3">
                 <div class="flex justify-between ">
-                    <img src="{{ asset('images/testimoni/left-arrow.png') }}" alt="" class="mr-4 hover:cursor-pointer">
-                    <img src="{{ asset('images/testimoni/right-arrow.png') }}" alt="" class="hover:cursor-pointer">
+                    <img src="{{ asset('images/testimoni/left-arrow.png') }}" alt="" class="mr-4 hover:cursor-pointer left-testimoni-arrow">
+                    <img src="{{ asset('images/testimoni/right-arrow.png') }}" alt="" class="hover:cursor-pointer right-testimoni-arrow">
                 </div>
             </div>
         </div>
@@ -499,6 +281,18 @@
             // autoplaySpeed: 2000,
         });
         $('.banner-slider').not('.slick-initialized').slick();
+
+        
+        $('.testimoni-slider').slick({
+            dots: false,
+            infinite: true,
+            slidesToShow: 1,
+            autoplay: false,
+            arrows: true,
+            prevArrow : '.left-testimoni-arrow',
+            nextArrow : '.right-testimoni-arrow',
+        });
+        $('.testimoni-slider').not('.slick-initialized').slick();
 
         const options = {
             mobileFirst: true,

@@ -40,12 +40,11 @@ class ExcludesController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:trip_excludes,slug',
+                // 'slug' => 'required|string|unique:trip_excludes,slug',
                 'thumbnail2' => 'required'
             ]
         );
@@ -61,7 +60,7 @@ class ExcludesController extends Controller
                 'title' => $request->title,
                 'slug' => $request->slug,
                 'icon_image' => $request->thumbnail2,
-                'trip_cat_id' => $request->product,
+                'trip_cat_id' => $request->trip_cat_id,
             ]);
 
             Alert::success('Tambah excludes', 'Berhasil');
@@ -106,12 +105,12 @@ class ExcludesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
+        return $request;
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:trip_excludes,slug',
+                // 'slug' => 'required|string|unique:trip_excludes,slug',
                 'thumbnail2' => 'required'
             ]
         );

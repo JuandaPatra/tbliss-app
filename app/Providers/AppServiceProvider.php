@@ -36,5 +36,15 @@ class AppServiceProvider extends ServiceProvider
         Blade::directive('formatDate', function ($date) {
             return "<?php echo ($date)->format('d').'  '.($date)->timezone('Asia/Jakarta'); ?>";
         });
+
+        Blade::directive('formatDate', function($dateFrom){
+            $time = strtotime($dateFrom);
+            return "<?php echo ($time)->format('d').'  '.($time)->timezone('Asia/Jakarta'); ?>";
+        });
+
+        Blade::directive('formatDateTo', function($dateTo){
+            $time = strtotime($dateTo);
+            return "<?php echo ($time)->format('d M Y').'  '.($time)->timezone('Asia/Jakarta'); ?>";
+        });
     }
 }

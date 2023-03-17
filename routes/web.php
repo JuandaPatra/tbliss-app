@@ -19,6 +19,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\SearchTripController;
+use App\Http\Controllers\Web\UserLoginController;
+use App\Http\Controllers\Web\UserRegisterController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +34,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('web.home.index');
-// });
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/countries/{id}', [HomeController::class, 'country'])->name('home.country');
 Route::get('/countries/{id}/detail/{trip}', [HomeController::class, 'detail'])->name('home.detail');
@@ -42,58 +41,67 @@ Route::get('/search', [SearchTripController::class,'index'])->name('search');
 Route::get('/cities/{id}', [SearchTripController::class,'getCities'])->name('search.cities');
 Route::get('/search-hashtag/{id}', [SearchTripController::class, 'getHashtag'])->name('search.hashtag');
 Route::post('/searchtrip', [SearchTripController::class,  'searchtrip'])->name('search.trip');
+Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
+Route::get('/cerita-kami',[HomeController::class, 'cerita'])->name('home.cerita');
+Route::get('/hidden-gem/{id}/hidden/{slug}', [HomeController::class,'hiddemGem'])->name('home.hiddenGems');
 
-Route::get('/details', function(){
-    return view('web.details.index');
-});
+Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities']);
+Route::resource('signup', UserRegisterController::class);
+Route::resource('signin', UserLoginController::class);
 
-Route::get('/detail-trip', function(){
-    return view('web.detailtrip.index');
-});
 
-Route::get('/coba', function () {
-    return view('web.details.coba');
-});
+Route::get('/google-sign-in', [UserLoginController::class,'google'])->name('sign.google');
+Route::get('/auth/google/callback', [UserLoginController::class, 'handleGoogleCallback']);
+// Route::get('/signin', function(){
+//     return view('web.login.index');
+// })->name('login.user');
+
+// Route::get('/signup', function(){
+//     return view('web.register.index');
+// })->name('register.user');
+
 
 Auth::routes();
+Route::group(['middleware'=>'auth'], function(){
 
-Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-Route::get('product/includes/{product}', [ProductController::class, 'include'])->name('product.include');
-Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
-Route::get('product/choose/{product}', [ProductController::class, 'choose'])->name('product.choose');
-Route::get('product/images', [ProductController::class, 'images'])->name('product.images');
-Route::resource('product', ProductController::class);
-
-Route::resource('news', NewsController::class);
-
-Route::resource('sosmed', SosmedController::class);
-
-Route::resource('slider', SliderController::class);
-
-Route::resource('categories', CategoriesController::class);
-
-Route::get('/continent/select', [ContinentController::class, 'select'])->name('continent.select');
-Route::resource('continent', ContinentController::class);
-
-Route::resource('country', CountryController::class);
-Route::resource('edit-country', EditCountriesController::class);
-
-Route::resource('city', CityController::class);
-Route::resource('edit-city', EditCitiesController::class);
-
-Route::resource('hashtag', HashtagController::class);
-Route::resource('edit-hashtag-trip', EditHashtagTripController::class);
-
-Route::resource('activities', HiddenGemController::class);
-
-Route::resource('includes', IncludesController::class);
-
-Route::resource('excludes', ExcludesController::class);
-
-Route::resource('pick-hidden-gem', PickHiddenGemsController::class);
-
-Route::get('contact', [ContactController::class,'index'])->name('contact');
+    Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isAdmin');
+    
+    Route::get('product/includes/{product}', [ProductController::class, 'include'])->name('product.include');
+    Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
+    Route::get('product/choose/{product}', [ProductController::class, 'choose'])->name('product.choose');
+    Route::get('product/images', [ProductController::class, 'images'])->name('product.images');
+    Route::resource('product', ProductController::class);
+    
+    Route::resource('news', NewsController::class);
+    
+    
+    Route::resource('sosmed', SosmedController::class);
+    Route::resource('slider', SliderController::class);
+    
+    Route::resource('categories', CategoriesController::class);
+    
+    Route::get('/continent/select', [ContinentController::class, 'select'])->name('continent.select');
+    Route::resource('continent', ContinentController::class);
+    
+    Route::resource('country', CountryController::class);
+    Route::resource('edit-country', EditCountriesController::class);
+    
+    Route::resource('city', CityController::class);
+    Route::resource('edit-city', EditCitiesController::class);
+    
+    Route::resource('hashtag', HashtagController::class);
+    Route::resource('edit-hashtag-trip', EditHashtagTripController::class);
+    
+    Route::resource('activities', HiddenGemController::class);
+    
+    Route::resource('includes', IncludesController::class);
+    
+    Route::resource('excludes', ExcludesController::class);
+    
+    Route::resource('pick-hidden-gem', PickHiddenGemsController::class);
+    
+    Route::get('contact', [ContactController::class,'index'])->name('contact');
+});
 
 Route::get('/clear-cache', function() {
     $exitCode = Artisan::call('cache:clear');

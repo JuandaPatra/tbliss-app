@@ -7,6 +7,7 @@ use App\Models\Hidden_gem;
 use App\Models\Place_categories;
 use App\Models\Place_trip_categories;
 use App\Models\Trip_categories;
+use App\Models\Trip_cities_hidden_gem_hashtag;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
@@ -40,7 +41,20 @@ class HomeController extends Controller
     public function country($id)
     {
         $slug = $id;
+
+        $now    =   date("Y-m-d", strtotime('2023-06-16'));
+        $to     =   date("Y-m-d", strtotime('2023-06-23'));
+        $seat   =   3 ;
+        // return $now;
+
+
+        $reservations = Trip_categories::where('date_from', '>=', $now)
+                           ->where('date_to', '<=', $to)
+                           ->where('seat', '>=', $seat)
+                           ->get();
         
+        // return $reservations;
+
         ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
         $country = Place_categories::whereSlug($slug)->where('status','publish')->first();
         
@@ -68,14 +82,42 @@ class HomeController extends Controller
     public function detail($id, $trip)
     {
         // return $trip;
-        $trueId = decrypt($id);
-        $trueTrip = decrypt($trip);
+        // $trueId = decrypt($id);
+        // $trueTrip = decrypt($trip);
         // return $trueTrip;
-        $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id','place_trip_categories.place_categories:id,title,slug','place_trip_categories_cities:id,trip_categories_id,place_categories_id','place_trip_categories_cities.place_categories:id,title','place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id','place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip',])->whereId($trueTrip)->where('status','publish')->first(['id','title','slug', 'thumbnail','description','itinerary','price','day','night','seat','link_g_drive','date_from','date_to']);
+        $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id','place_trip_categories.place_categories:id,title,slug','place_trip_categories_cities:id,trip_categories_id,place_categories_id','place_trip_categories_cities.place_categories:id,title','place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id','place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip','trip_include:title,icon_image,trip_cat_id','trip_exclude:title,icon_image,trip_cat_id'])->where('slug','=',$trip)->where('status','publish')->first(['id','title','slug', 'thumbnail','description','itinerary','price','day','night','seat','link_g_drive','date_from','date_to']);
         // return $detailTrip;
 
-        $otherTrips = Trip_categories::where('id','!=',$trueTrip)->get(['id','title','slug','price', 'day', 'night', 'date_from', 'date_to','thumbnail','seat']);
+        $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug','!=',$trip)->get(['id','title','slug','price', 'day', 'night', 'date_from', 'date_to','thumbnail','seat']);
         // return $otherTrips;
+        // return $detailTrip;
         return view('web.detailtrip.index',compact('detailTrip', 'otherTrips', 'id', 'trip'));
+    }
+
+    public function search(Request $request)
+    {
+        return $request;
+    }
+
+    public function faq()
+    {
+        return view('web.faq.index');
+    }
+
+    public function cerita()
+    {
+        return view('web.cerita.index');
+    }
+
+    public function hiddemGem($id, $slug)
+    {
+        $hiddenGem = Hidden_gem::where('slug', $slug)->first(['id','title', 'slug', 'description1', 'image_desktop']);
+
+        $tripHiddenGems = Trip_cities_hidden_gem_hashtag::where('hidden_gem_id', '=', $hiddenGem->id)->get(['trip_categories_id']);
+        $tripUnique = $tripHiddenGems->unique('trip_categories_id')->pluck('trip_categories_id');
+
+        $tripHiddenGemsResult = Trip_categories::where('id','=', $tripUnique)->get(['slug','title','thumbnail','price','day','night','seat','date_from', 'date_to']);
+
+        return view('web.hidden.index', compact('tripHiddenGemsResult', 'hiddenGem'));
     }
 }

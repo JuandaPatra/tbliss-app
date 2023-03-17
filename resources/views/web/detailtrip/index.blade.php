@@ -3,14 +3,19 @@
 @section('container')
 @include('web.components.presentational.header')
 <div class="header">
-    <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="" class="w-full">
+    <!-- <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="" class="w-full"> -->
+    <picture>
+        <source media="(min-width:1000px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">
+        <source media="(min-width:320px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">
+        <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="Flowers" class="w-full">
+    </picture>
 </div>
 
 <section class="container-lg ">
     <div class="flex flex-col lg:flex-row justify-between mt-[42px]">
         <div class="w-full lg:w-1/2">
             <h1 class="text-[15px] lg:text-[18px]">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sed enim mi. Nam posuere vel massa ac ultricies. Nullam sodales diam vitae libero pharetra, in mattis neque iaculis. Vestibulum vitae scelerisque est. Etiam consequat auctor sagittis. Nam eu mi ac justo suscipit interdum at maximus metus. Pellentesque pretium mi ipsum, eu congue diam vestibulum ac.
+                {{$detailTrip->description}}
             </h1>
         </div>
         <div class="flex flex-row lg:flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl mt-[30px] lg:mt-0  ">
@@ -68,7 +73,7 @@
             </h1>
 
             <p class="text-[#4A5CED] text-[20px] mt-2">
-                23 -28 APR 2023
+            {{ date('d', strtotime($detailTrip->date_from)) }} - {{ date('d M Y', strtotime($detailTrip->date_to)) }} 
             </p>
 
             <p class="text-[#BF1E5F] text-[20px] mt-2">
@@ -82,15 +87,8 @@
                     @foreach($detailTrip->place_trip_categories_cities as $city)
                     {{$city->place_categories->title}}
                     @endforeach
-                    <!-- Busan - Pohang - Jeonju - Seoul -->
                 </h1>
                 {!! $detailTrip->itinerary !!}
-                <!-- <p>Pohang Space Walk</p>
-                <p>Canola Flower Field</p>
-                <p>Haeundae Blue Line Park</p>
-                <p>Overnight Jeonju Hanok Village </p>
-                <p>Picnic Dinner</p>
-                <p>K-drama Shooting Location</p> -->
             </div>
 
             <div class="flex mb-3">
@@ -158,7 +156,12 @@
             <h3 class="mb-4 text-[28px]">
                 Sudah termasuk
             </h3>
+            @foreach($detailTrip->trip_include as $include)
             <div class="mb-3">
+                <span><img src="{{$include->icon_image}}" alt="" class="mr-12 inline">{{$include->title}}</span>
+            </div>
+            @endforeach
+            <!-- <div class="mb-3">
                 <span><img src="{{ asset('images/detailtrip/hotel-btm.png') }}" alt="" class="mr-12 inline"> Hotel *3 (1 kamar berdua)</span>
             </div>
             <div class="mb-3">
@@ -169,14 +172,19 @@
             </div>
             <div class="mb-3">
                 <span><img src="{{ asset('images/detailtrip/foto-btm.png') }}" alt="" class="mr-12 inline"> Dokumentasi perjalanan</span>
-            </div>
+            </div> -->
 
         </div>
         <div class="basis-full lg:basis-1/2">
             <h3 class="mb-4 text-[28px]">
                 Tidak termasuk
             </h3>
+            @foreach($detailTrip->trip_exclude as $exclude)
             <div class="mb-3">
+                <span><img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline"> {{$exclude->title}}</span>
+            </div>
+            @endforeach
+            <!-- <div class="mb-3">
                 <span><img src="{{ asset('images/detailtrip/visa-btm.png') }}" alt="" class="mr-12 inline"> Visa Korea single entry (Rp. 1.200.000)</span>
             </div>
             <div class="mb-3">
@@ -184,7 +192,7 @@
             </div>
             <div class="mb-3">
                 <span><img src="{{ asset('images/detailtrip/asuransi-btm.png') }}" alt="" class="mr-12 inline"> Asuransi perjalanan (500.000/orang)</span>
-            </div>
+            </div> -->
 
         </div>
     </div>
@@ -225,7 +233,7 @@
     </div>
     @endforeach
 
-    
+
 
 </section>
 
@@ -238,7 +246,7 @@
             @foreach($otherTrips as $trip)
             <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
                 <div class="max-w-md lg:max-w-sm bg-white ">
-                    <a href="{{route('home.detail' ,['id'=>encrypt($id),'trip'=>encrypt($trip->id)])}}">
+                    <a href="{{route('home.detail' ,['id'=>$trip->slug,'trip'=>$trip->slug])}}">
                         <img src="{{$trip->thumbnail}}" alt="" class="w-full">
                     </a>
                     <div class="mt-3 ">
@@ -397,19 +405,19 @@
         let allSlider = ('.city-slider').length;
         console.log(allSlider)
 
-        $('.slider').each(function(item,index){
+        $('.slider').each(function(item, index) {
             // let dataIndex = (this).data("slider")
-            let dataIndex =$(this).data("slider") 
+            let dataIndex = $(this).data("slider")
             console.log(dataIndex)
 
             $(`.city-slider-${dataIndex}`).slick({
-            dots: false,
-            infinite: false,
-            slidesToShow: 2.5,
-        });
-        $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();
+                dots: false,
+                infinite: false,
+                slidesToShow: 2.5,
+            });
+            $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();
 
-    
+
         })
 
         const options = {

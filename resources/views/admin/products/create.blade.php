@@ -84,6 +84,19 @@ Category Add
                   @enderror
                </div>
                <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">PDF itinerary</label>
+                  <div class="input-group">
+                     <button id="button_post_pdf" data-input="input_post_pdf" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_pdf" name="link_g_drive" value="{{ old('link_g_drive') }}" type="text" class="form-control" placeholder="" readonly />
+                     @error('link_g_drive')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+               </div>
+               {{--<div class="mb-3">
                   <label for="input_post_seat" class="form-label">Link Google Drive</label>
                   <input id="input_post_seat" name="link_g_drive" type="text" placeholder="" class="form-control @error('link_g_drive') is-invalid @enderror" name="link_g_drive" value="{{ old('link_g_drive') }}" />
                   @error('link_g_drive')
@@ -91,7 +104,7 @@ Category Add
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
-               </div>
+               </div>--}}
                <div class="mb-3">
                   <div class="row">
                      <div class="col-6">
@@ -217,7 +230,7 @@ Category Add
                      </div>
                   </div>
                </div>
-              {{-- <div class="card accordion-item">
+               {{-- <div class="card accordion-item">
                   <h2 class="accordion-header" id="headingThree">
                      <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionThree" aria-expanded="false" aria-controls="accordionThree">
                         #hashtag
@@ -230,134 +243,135 @@ Category Add
                               @foreach($hashtags as $hashtag)
                               <div class="form-check mt-3">
                                  <input class="form-check-input" type="checkbox" value="{{$hashtag->id}}" id="defaultCheck1" name="hashtag[]">
-                                 <label class="form-check-label" for="defaultCheck1">
-                                    {{$hashtag->title}}
-                                 </label>
-                              </div>
-                              @endforeach
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div> --}}
+               <label class="form-check-label" for="defaultCheck1">
+                  {{$hashtag->title}}
+               </label>
             </div>
-            </form>
+            @endforeach
          </div>
       </div>
-      @endsection
-      @push('javascript-external')
-      <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
-      <script src="{{ asset('vendor/tinymce5/jquery.tinymce.min.js') }}"></script>
-      <script src="{{ asset('vendor/easy-number-separator-master/easy-number-separator.js') }}"></script>
-      <script src="{{ asset('vendor/tinymce5/tinymce.min.js') }}"></script>
-      @endpush
-      @push('javascript-internal')
-      <script>
-         $(document).ready(function() {
-            $("#input_post_title").change(function(event) {
-               $("#input_post_slug").val(
-                  event.target.value
-                  .trim()
-                  .toLowerCase()
-                  .replace(/[^a-z\d-]/gi, "-")
-                  .replace(/-+/g, "-")
-                  .replace(/^-|-$/g, "")
-               );
-            });
-            // event : input thumbnail with file manager and description
-            $('#button_post_thumbnail').filemanager('image');
-            $('#button_post_image').filemanager('image');
-            // event :  description
+   </div>
+</div>
+</div> --}}
+</div>
+</form>
+</div>
+</div>
+@endsection
+@push('javascript-external')
+<script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
+<script src="{{ asset('vendor/tinymce5/jquery.tinymce.min.js') }}"></script>
+<script src="{{ asset('vendor/easy-number-separator-master/easy-number-separator.js') }}"></script>
+<script src="{{ asset('vendor/tinymce5/tinymce.min.js') }}"></script>
+@endpush
+@push('javascript-internal')
+<script>
+   $(document).ready(function() {
+      $("#input_post_title").change(function(event) {
+         $("#input_post_slug").val(
+            event.target.value
+            .trim()
+            .toLowerCase()
+            .replace(/[^a-z\d-]/gi, "-")
+            .replace(/-+/g, "-")
+            .replace(/^-|-$/g, "")
+         );
+      });
+      // event : input thumbnail with file manager and description
+      $('#button_post_thumbnail').filemanager('image');
+      $('#button_post_image').filemanager('image');
+      $('#button_post_pdf').filemanager('application');
+      // event :  description
 
-            easyNumberSeparator({
-               selector: '#input_post_price',
-               separator: '.'
-            })
+      easyNumberSeparator({
+         selector: '#input_post_price',
+         separator: '.'
+      })
 
-            // tinymce for content
-            $("#input_post_content").tinymce({
-               relative_urls: false,
-               language: "en",
-               plugins: [
-                  "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                  "searchreplace wordcount visualblocks visualchars code fullscreen",
-                  "insertdatetime media nonbreaking save table directionality",
-                  "emoticons template paste textpattern",
-               ],
-               forced_root_block: '',
-               toolbar1: "fullscreen preview",
-               toolbar2: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-               file_picker_callback: function(callback, value, meta) {
-                  let x = window.innerWidth || document.documentElement.clientWidth || document
-                     .getElementsByTagName('body')[0].clientWidth;
-                  let y = window.innerHeight || document.documentElement.clientHeight || document
-                     .getElementsByTagName('body')[0].clientHeight;
+      // tinymce for content
+      $("#input_post_content").tinymce({
+         relative_urls: false,
+         language: "en",
+         plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table directionality",
+            "emoticons template paste textpattern",
+         ],
+         forced_root_block: '',
+         toolbar1: "fullscreen preview",
+         toolbar2: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+         file_picker_callback: function(callback, value, meta) {
+            let x = window.innerWidth || document.documentElement.clientWidth || document
+               .getElementsByTagName('body')[0].clientWidth;
+            let y = window.innerHeight || document.documentElement.clientHeight || document
+               .getElementsByTagName('body')[0].clientHeight;
 
-                  let cmsURL = "{{ route('unisharp.lfm.show') }}" + '?editor=' + meta.fieldname;
-                  if (meta.filetype == 'image') {
-                     cmsURL = cmsURL + "&type=Images";
-                  } else {
-                     cmsURL = cmsURL + "&type=Files";
-                  }
-                  tinyMCE.activeEditor.windowManager.openUrl({
-                     url: cmsURL,
-                     title: 'Filemanager',
-                     width: x * 0.8,
-                     height: y * 0.8,
-                     resizable: "yes",
-                     close_previous: "no",
-                     onMessage: (api, message) => {
-                        callback(message.content);
-                     }
-                  });
+            let cmsURL = "{{ route('unisharp.lfm.show') }}" + '?editor=' + meta.fieldname;
+            if (meta.filetype == 'image') {
+               cmsURL = cmsURL + "&type=Images";
+            } else {
+               cmsURL = cmsURL + "&type=Files";
+            }
+            tinyMCE.activeEditor.windowManager.openUrl({
+               url: cmsURL,
+               title: 'Filemanager',
+               width: x * 0.8,
+               height: y * 0.8,
+               resizable: "yes",
+               close_previous: "no",
+               onMessage: (api, message) => {
+                  callback(message.content);
                }
             });
+         }
+      });
 
-            $("#input_post_content1").tinymce({
-               relative_urls: false,
-               language: "en",
-               plugins: [
-                  "advlist autolink lists link image charmap print preview hr anchor pagebreak",
-                  "searchreplace wordcount visualblocks visualchars code fullscreen",
-                  "insertdatetime media nonbreaking save table directionality",
-                  "emoticons template paste textpattern",
-               ],
-               forced_root_block: '',
-               toolbar1: "fullscreen preview",
-               toolbar2: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
-               file_picker_callback: function(callback, value, meta) {
-                  let x = window.innerWidth || document.documentElement.clientWidth || document
-                     .getElementsByTagName('body')[0].clientWidth;
-                  let y = window.innerHeight || document.documentElement.clientHeight || document
-                     .getElementsByTagName('body')[0].clientHeight;
+      $("#input_post_content1").tinymce({
+         relative_urls: false,
+         language: "en",
+         plugins: [
+            "advlist autolink lists link image charmap print preview hr anchor pagebreak",
+            "searchreplace wordcount visualblocks visualchars code fullscreen",
+            "insertdatetime media nonbreaking save table directionality",
+            "emoticons template paste textpattern",
+         ],
+         forced_root_block: '',
+         toolbar1: "fullscreen preview",
+         toolbar2: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image media",
+         file_picker_callback: function(callback, value, meta) {
+            let x = window.innerWidth || document.documentElement.clientWidth || document
+               .getElementsByTagName('body')[0].clientWidth;
+            let y = window.innerHeight || document.documentElement.clientHeight || document
+               .getElementsByTagName('body')[0].clientHeight;
 
-                  let cmsURL = "{{ route('unisharp.lfm.show') }}" + '?editor=' + meta.fieldname;
-                  if (meta.filetype == 'image') {
-                     cmsURL = cmsURL + "&type=Images";
-                  } else {
-                     cmsURL = cmsURL + "&type=Files";
-                  }
-                  tinyMCE.activeEditor.windowManager.openUrl({
-                     url: cmsURL,
-                     title: 'Filemanager',
-                     width: x * 0.8,
-                     height: y * 0.8,
-                     resizable: "yes",
-                     close_previous: "no",
-                     onMessage: (api, message) => {
-                        callback(message.content);
-                     }
-                  });
+            let cmsURL = "{{ route('unisharp.lfm.show') }}" + '?editor=' + meta.fieldname;
+            if (meta.filetype == 'image') {
+               cmsURL = cmsURL + "&type=Images";
+            } else {
+               cmsURL = cmsURL + "&type=Files";
+            }
+            tinyMCE.activeEditor.windowManager.openUrl({
+               url: cmsURL,
+               title: 'Filemanager',
+               width: x * 0.8,
+               height: y * 0.8,
+               resizable: "yes",
+               close_previous: "no",
+               onMessage: (api, message) => {
+                  callback(message.content);
                }
             });
+         }
+      });
 
-            $("#btn-add-post-images").click(function() {
-               var hmtl = $(".clone").html();
-               $(".increment").after(hmtl);
-            });
-            $("body").on("click", ".btn-danger", function() {
-               $(this).parents(".control-group").remove();
-            });
-         });
-      </script>
-      @endpush
+      $("#btn-add-post-images").click(function() {
+         var hmtl = $(".clone").html();
+         $(".increment").after(hmtl);
+      });
+      $("body").on("click", ".btn-danger", function() {
+         $(this).parents(".control-group").remove();
+      });
+   });
+</script>
+@endpush

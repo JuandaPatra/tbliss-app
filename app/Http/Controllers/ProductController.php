@@ -257,11 +257,9 @@ class ProductController extends Controller
     public function include(Request $request, $slug)
     {
         $datas          =   Trip_categories::all();
-        $includes       =   Trip_includes::where('trip_cat_id', '=', $slug)->get();
-        // return $includes;
-        $excludes       =   Trip_exclude::all();
-        $slug           = $slug;
-        // return $includes;
+        $includes       =   Trip_includes::where('trip_cat_id', '=', $slug)->get(['id','title','slug', 'icon_image','trip_cat_id']);
+        $excludes       =   Trip_exclude::where('trip_cat_id', '=', $slug)->get(['id','title','slug', 'icon_image','trip_cat_id']);
+        $slug           =   $slug;
         return view('admin.products.includes', compact('datas', 'includes', 'excludes', 'slug'));
     }
     public function images(Request $request)

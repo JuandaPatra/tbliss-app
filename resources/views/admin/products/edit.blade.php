@@ -83,15 +83,21 @@ Category Add
                         </span>
                         @enderror
                     </div>
+                    
                     <div class="mb-3">
-                        <label for="input_post_seat" class="form-label">Link Google Drive</label>
-                        <input id="input_post_seat" name="link_g_drive" type="text" placeholder="" class="form-control @error('link_g_drive') is-invalid @enderror" name="link_g_drive" value="{{ old('link_g_drive', $trip->link_g_drive) }}" />
-                        @error('link_g_drive')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
+                        <label for="input_post_thumbnail" class="form-label">PDF itinerary</label>
+                        <div class="input-group">
+                            <button id="button_post_pdf" data-input="input_post_pdf" class="btn btn-outline-primary" type="button">Browse >
+                            </button>
+                            <input id="input_post_pdf" name="link_g_drive" value="{{ old('link_g_drive', $trip->link_g_drive) }}" type="text" class="form-control" placeholder="" readonly />
+                            @error('link_g_drive')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
                     </div>
+
                     <div class="mb-3">
                         <div class="row">
                             <div class="col-6">
@@ -311,7 +317,7 @@ Category Add
         </div>
     </div>
 
-    
+
     <div class="card-body city-add d-none">
         <div class="accordion mt-3 mb-4" id="accordionExample">
             <form action="{{ route('edit-city.store') }}" method="post">
@@ -393,7 +399,7 @@ Category Add
         </div>
 
 
-        
+
 
     </div>
 </div>
@@ -527,6 +533,7 @@ Category Add
         // event : input thumbnail with file manager and description
         $('#button_post_thumbnail').filemanager('image');
         $('#button_post_image').filemanager('image');
+        $('#button_post_pdf').filemanager('application');
         // event :  description
 
         easyNumberSeparator({

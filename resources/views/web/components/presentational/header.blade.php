@@ -15,20 +15,64 @@
                     <img src="{{ asset('images/header/whatsapp.png') }}" alt="" style="height: 18px;width:18px">
                 </div>
             </div>
+            @guest
             <div class="hidden lg:block basis-full lg:basis-3/12 ">
                 <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
                     <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
-                    <a href="{{ route('login') }}" data-modal-target="authentication-modal">Login</a>
+                    <a href="{{ route('signin.index') }}" data-modal-target="authentication-modal">Login</a>
                     <span class="mr-5 ml-5">|</span>
-                    <a href="{{ route('register') }}">Register</a>
+                    <a href="{{ route('signup.index') }}">Register</a>
                 </div>
             </div>
+            @endguest
+            @auth
+
+            <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-whit bg-transparent  font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center ml-[150px]" type="button"><img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
+                <span class="p-1">{{Auth::user()->name}}</span></button>
+            <!-- Dropdown menu -->
+            <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cart</a>
+                    </li>
+                    
+                    <li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="hidden lg:block basis-full lg:basis-3/12 ">
+                <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
+                    <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
+                    @if(Auth::user()->name )
+                    <a href="" data-modal-target="authentication-modal">{{Auth::user()->name}}</a>
+                    @endif
+                    <span class="mr-5 ml-5">|</span>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                </div>
+            </div>
+            @endauth
         </div>
     </div>
 
     <div class="container-full mt-[57px] mb-[79px]">
         <div class="d-flex justify-between lg:justify-center px-[3px] lg:px-0">
-            <button  type="button" class="hamburger-menu inline-flex lg:hidden items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 mt-[12px]" aria-controls="navbar-hamburger" aria-expanded="false">
+            <button type="button" class="hamburger-menu inline-flex lg:hidden items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 mt-[12px]" aria-controls="navbar-hamburger" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
@@ -37,7 +81,7 @@
             <a href="/" class="block ">
                 <img src="{{ asset('images/title/logo.png') }}" alt="" class="w-[145px] h-[40px] lg:w-[231px] lg:h-[61px]">
             </a>
-            <a   data-modal-toggle="authentication-modal" class="block lg:hidden p-2 mt-[12px]">
+            <a data-modal-toggle="authentication-modal" class="block lg:hidden p-2 mt-[12px]">
                 <img src="{{ asset('images/header/user_black.png') }}" alt="" class="w-[20px] h-[20px]">
             </a>
         </div>
@@ -53,7 +97,7 @@
             </div>
             <div class="sidenav__content w-[320px] h-full bg-white overflow-y-auto">
                 <div class="sidenav__dashboard hidden asia" data-hamburger-open="asia">
-                    <div class="pt-3 px-3  cursor-pointer text-sm flex w-[100px] back-dashboard"> 
+                    <div class="pt-3 px-3  cursor-pointer text-sm flex w-[100px] back-dashboard">
                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-2" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
@@ -81,7 +125,7 @@
                     </div>
                 </div>
                 <div class="sidenav__dashboard hidden eropa" data-hamburger-open="eropa">
-                    <div class="pt-3 px-3  cursor-pointer text-sm flex w-[100px] back-dashboard"> 
+                    <div class="pt-3 px-3  cursor-pointer text-sm flex w-[100px] back-dashboard">
                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" class="mr-2" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
                             <polyline points="15 18 9 12 15 6"></polyline>
                         </svg>
@@ -117,8 +161,7 @@
                                             <polyline points="9 18 15 12 9 6"></polyline>
                                         </svg>
                                     </div>
-                                    <div class="flex items-center justify-between py-2 cursor-pointer menu-destination"
-                                    data-hamburger="eropa">
+                                    <div class="flex items-center justify-between py-2 cursor-pointer menu-destination" data-hamburger="eropa">
                                         <span>Eropa</span>
                                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
                                             <polyline points="9 18 15 12 9 6"></polyline>
@@ -166,8 +209,8 @@
             <button data-drop="destinasi" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">DESTINASI</button>
             <button data-drop="bantuan" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">BANTUAN</button>
             <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">KORPORAT</button>
-            <button data-drop="cerita" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">CERITA KAMI</button>
-            <button data-drop="faq" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">FAQ</button>
+            <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">CERITA KAMI</a>
+            <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">FAQ</a>
             <button data-drop="kontak" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">KONTAK KAMI</button>
         </div>
     </div>

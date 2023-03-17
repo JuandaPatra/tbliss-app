@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.6.0/slick-theme.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
+    <script src='https://www.google.com/recaptcha/api.js'></script>
     @vite(['resources/css/app.css'])
     @vite(['resources/js/app.js'])
 </head>

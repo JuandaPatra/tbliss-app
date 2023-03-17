@@ -64,11 +64,11 @@
             <div class="card-body">
               <div class="card-title d-flex align-items-start justify-content-between">
                 <div class="avatar flex-shrink-0">
-                  <i class='bx bx-user bx-lg '></i>
+                  <i class='bx bx-trip bx-lg '></i>
                 </div>
               </div>
-              <span class="fw-semibold d-block mb-1">User Register</span>
-              <h3 class="card-title mb-2">344</h3>
+              <span class="fw-semibold d-block mb-1">Paket Trip</span>
+              <h3 class="card-title mb-2">3</h3>
             </div>
           </div>
         </div>

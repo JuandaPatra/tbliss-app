@@ -22,6 +22,12 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'telephone',
+        'google_id',
+        'alamat',
+        'provinsi',
+        'kota',
+        'kelurahan'
     ];
 
     /**

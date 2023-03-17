@@ -50,6 +50,7 @@ Slider Add
                      <input id="input_post_imagesMobile" name="image_mobile" value="{{ old('image_mobile') }}" type="text" class="form-control" placeholder="" readonly />
                   </div>
                </div>
+               
                <!-- deskripsi -->
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Description</label>
@@ -164,6 +165,7 @@ Slider Add
 
          $('#button_post_imagesDesktop').filemanager('image');
          $('#button_post_imagesMobile').filemanager('image');
+         
 
          //select2 parent_category
          $('#select_post_status').select2({

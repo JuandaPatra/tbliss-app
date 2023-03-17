@@ -45,7 +45,7 @@ class IncludesController extends Controller
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:trip_includes,slug',
+                // 'slug' => 'required|string|unique:trip_includes,slug',
                 'thumbnail' => 'required'
             ]
         );
@@ -111,7 +111,7 @@ class IncludesController extends Controller
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:trip_includes,slug',
+                // 'slug' => 'required|string|unique:trip_includes,slug',
                 'thumbnail' => 'required'
             ]
         );

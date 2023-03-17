@@ -51,5 +51,6 @@ class CountrySeeder extends Seeder
             'parent_id' => 2,
             'status'    => 'publish'
         ]);
+        
     }
 }
