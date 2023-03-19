@@ -21,8 +21,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         // $this->call(CategorySeeder::class);
         $this->call(ContinentSeeder::class);
-        // $this->call(CountrySeeder::class);
-        // $this->call(CitySeeder::class);
+        $this->call(CountrySeeder::class);
+        $this->call(CitySeeder::class);
         $this->call(HashtagSeeder::class);
         $this->call(IndoRegionSeeder::class);
         $this->call(CartSeeder::class);

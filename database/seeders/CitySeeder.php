@@ -18,31 +18,25 @@ class CitySeeder extends Seeder
         Place_categories::create([
             'title'     => 'Seoul',
             'slug'      => 'seoul',
-            'parent_id' => '4',
-            'status'    => 'publish'
-        ]);
-        Place_categories::create([
-            'title'     => 'Incheon',
-            'slug'      => 'incheon',
-            'parent_id' => '4',
-            'status'    => 'publish'
-        ]);
-        Place_categories::create([
-            'title'     => 'Pohang',
-            'slug'      => 'pohang',
-            'parent_id' => '4',
-            'status'    => 'publish'
-        ]);
-        Place_categories::create([
-            'title'     => 'Jeounju',
-            'slug'      => 'jeounju',
-            'parent_id' => '4',
+            'parent_id' => '6',
             'status'    => 'publish'
         ]);
         Place_categories::create([
             'title'     => 'Busan',
             'slug'      => 'busan',
-            'parent_id' => '4',
+            'parent_id' => '6',
+            'status'    => 'publish'
+        ]);
+        Place_categories::create([
+            'title'     => 'Pohang',
+            'slug'      => 'pohang',
+            'parent_id' => '6',
+            'status'    => 'publish'
+        ]);
+        Place_categories::create([
+            'title'     => 'Jeounju',
+            'slug'      => 'jeounju',
+            'parent_id' => '6',
             'status'    => 'publish'
         ]);
     }

@@ -27,30 +27,30 @@ class CountrySeeder extends Seeder
             'parent_id' => 1,
             'status'    => 'publish'
         ]);
-        Place_categories::create([
-            'title'     => 'Thailand',
-            'slug'      => 'thailand',
-            'parent_id' => 1,
-            'status'    => 'publish'
-        ]);
-        Place_categories::create([
-            'title'     => 'Prancis',
-            'slug'      => 'prancis',
-            'parent_id' => 2,
-            'status'    => 'publish'
-        ]);
-        Place_categories::create([
-            'title'     => 'Belanda',
-            'slug'      => 'belanda',
-            'parent_id' => 2,
-            'status'    => 'publish'
-        ]);
-        Place_categories::create([
-            'title'     => 'Swiss',
-            'slug'      => 'swiss',
-            'parent_id' => 2,
-            'status'    => 'publish'
-        ]);
+        // Place_categories::create([
+        //     'title'     => 'Thailand',
+        //     'slug'      => 'thailand',
+        //     'parent_id' => 1,
+        //     'status'    => 'publish'
+        // ]);
+        // Place_categories::create([
+        //     'title'     => 'Prancis',
+        //     'slug'      => 'prancis',
+        //     'parent_id' => 2,
+        //     'status'    => 'publish'
+        // ]);
+        // Place_categories::create([
+        //     'title'     => 'Belanda',
+        //     'slug'      => 'belanda',
+        //     'parent_id' => 2,
+        //     'status'    => 'publish'
+        // ]);
+        // Place_categories::create([
+        //     'title'     => 'Swiss',
+        //     'slug'      => 'swiss',
+        //     'parent_id' => 2,
+        //     'status'    => 'publish'
+        // ]);
         
     }
 }
