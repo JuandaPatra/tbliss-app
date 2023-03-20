@@ -2,8 +2,8 @@
 
 @section('container')
 @include('web.components.presentational.header')
-<div class="flex items-center px-4 bg-white lg:justify-center">
-  <h1 class=" font-bely text-footer text-[30px]">Register</h1>
+<div class="flex items-center px-4 bg-white justify-center">
+  <h1 class=" font-bely text-footer text-[45px]">Register</h1>
 </div>
 <div class="flex items-center h-[680px] px-4 py-2 bg-white lg:justify-center">
   <div class="flex flex-col overflow-hidden bg-white  max md:flex-row md:flex-1 lg:max-w-screen-md">
@@ -36,7 +36,7 @@
               <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
           </div>
-          <input type="email" id="input-group-1" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('email')  errorForm @enderror" placeholder="Email" name="email" value="{{ old('email') }}">
+          <input type="email" id="input-group-2" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('email')  errorForm @enderror" placeholder="Email" name="email" value="{{ old('email') }}">
           @error('email')
           <span class="invalid-feedback" role="alert">
             <strong>Email Already Exist</strong>
@@ -50,7 +50,7 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
           </div>
-          <input type="password" id="input-group-1" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Password" name="password"
+          <input type="password" id="input-group-3" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Password" name="password"
           value="{{ old('password') }}">
           @error('password')
           <span class="invalid-feedback" role="alert">
@@ -65,7 +65,7 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
           </div>
-          <input type="password" id="input-group-1" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Confirm password" name="confirmPassword" value="{{ old('confirmPassword') }}">
+          <input type="password" id="input-group-4" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Confirm password" name="confirmPassword" value="{{ old('confirmPassword') }}">
           @error('password')
           <span class="invalid-feedback" role="alert">
             <strong>Please check your password</strong>
@@ -97,9 +97,6 @@
   </div>
 </div>
 
-@include('web.components.presentational.login')
-@include('web.components.presentational.register')
-@include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
 @endsection
 

@@ -27,7 +27,7 @@
             @endguest
             @auth
 
-            <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-whit bg-transparent  font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center ml-[150px]" type="button"><img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
+            <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-whit bg-transparent  font-medium rounded-lg text-sm px-4 py-2.5 text-center hidden lg:inline-flex items-center ml-[150px]  " type="button"><img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
                 <span class="p-1">{{Auth::user()->name}}</span></button>
             <!-- Dropdown menu -->
             <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -35,7 +35,7 @@
                     <li>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cart</a>
                     </li>
-                    
+
                     <li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -71,7 +71,7 @@
     </div>
 
     <div class="container-full mt-[57px] mb-[79px]">
-        <div class="d-flex justify-between lg:justify-center px-[3px] lg:px-0">
+        <div class="d-flex justify-between mr-2 lg:justify-center px-[3px] lg:px-0">
             <button type="button" class="hamburger-menu inline-flex lg:hidden items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 mt-[12px]" aria-controls="navbar-hamburger" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
                 <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -81,9 +81,37 @@
             <a href="/" class="block ">
                 <img src="{{ asset('images/title/logo.png') }}" alt="" class="w-[145px] h-[40px] lg:w-[231px] lg:h-[61px]">
             </a>
-            <a data-modal-toggle="authentication-modal" class="block lg:hidden p-2 mt-[12px]">
+            @guest
+            <a href="{{ route('signin.index') }}" class="block lg:hidden p-2 mt-[12px]">
                 <img src="{{ asset('images/header/user_black.png') }}" alt="" class="w-[20px] h-[20px]">
             </a>
+
+            @endguest
+            @auth
+            <a  class="block lg:hidden mt-[12px]" id="dropdownHoverButtonX" data-dropdown-toggle="dropdownHoverX">
+                <img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
+            </a>
+            <!-- Dropdown menu -->
+            <div id="dropdownHoverX" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButtonX">
+                    <li>
+                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cart</a>
+                    </li>
+
+                    <li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            @endauth
         </div>
     </div>
 

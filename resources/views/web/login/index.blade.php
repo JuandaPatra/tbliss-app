@@ -2,45 +2,14 @@
 
 @section('container')
 @include('web.components.presentational.header')
-<div class="flex items-center px-4 bg-white lg:justify-center">
-    <h1 class=" font-bely text-footer text-[30px]">Login</h1>
+<div class="flex items-center px-4 bg-white justify-center">
+    <h1 class=" font-bely text-footer text-[45px]">Login</h1>
 </div>
 <div class="flex items-center h-[550px] px-4 py-2 bg-white lg:justify-center">
-    <div class="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md">
-        <!-- <div class="p-4 py-6 text-white bg-blue-500 md:w-80 md:flex-shrink-0 md:flex md:flex-col md:items-center md:justify-evenly">
-            <div class="my-3 text-4xl font-bold tracking-wider text-center">
-                <a href="#">K-WD</a>
-            </div>
-            <p class="mt-6 font-normal text-center text-gray-300 md:mt-0">
-                With the power of K-WD, you can now focus only on functionaries for your digital products, while leaving the
-                UI design on us!
-            </p>
-            <p class="flex flex-col items-center justify-center mt-10 text-center">
-                <span>Don't have an account?</span>
-                <a href="#" class="underline">Get Started!</a>
-            </p>
-            <p class="mt-6 text-sm text-center text-gray-300">
-                Read our <a href="#" class="underline">terms</a> and <a href="#" class="underline">conditions</a>
-            </p>
-        </div> -->
-        <div class="p-5  bg-white md:flex-1">
+    <div class="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md w-100 md:w-auto">
+        <div class="p-5  bg-white  md:flex-1">
             <form action="{{route('login')}}" method="post" class="flex flex-col space-y-5">
                 @csrf
-                <!-- <div class="flex flex-col space-y-1">
-                    <label for="email" class="text-sm font-semibold text-gray-500">Email address</label>
-                    <div class="input-group ">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user tw-stroke-2">
-                                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                    <circle cx="12" cy="7" r="4"></circle>
-                                </svg>
-                            </span>
-                        </div>
-                        <input placeholder="Name" class="form-control" id="js-input-signup-name" autocomplete="name" type="text" name="user[name]" fdprocessedid="v3as9">
-                    </div>
-                    <input type="email" id="email" autofocus class="px-4 py-2 transition duration-300 border border-gray-300 rounded focus:border-transparent focus:outline-none focus:ring-4 focus:ring-blue-200" name="email" />
-                </div> -->
                 <div class="relative mb-6">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user tw-stroke-2">
@@ -48,7 +17,7 @@
                             <circle cx="12" cy="7" r="4"></circle>
                         </svg>
                     </div>
-                    <input type="email" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" name="email">
+                    <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email" name="email">
                 </div>
                 <div class="relative mb-6">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -57,7 +26,7 @@
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                         </svg>
                     </div>
-                    <input type="password" id="input-group-1" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="password" name="password">
+                    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="password" name="password">
                 </div>
                 <!-- <div class="flex flex-col space-y-1">
                     <div class="flex items-center justify-between">
@@ -100,7 +69,7 @@
                     <div class="flex flex-col space-y-4">
                         <div class="pt-3 tw-border-t tw-border-grey-lighter tw-border-solid text-center">
                             Don't have an account?
-                            <a href="{{route('signup.index')}}">Sign up</a>
+                            <a href="{{route('signup.index')}}" class=" text-authbutton">Sign up</a>
                         </div>
                     </div>
                 </div>
@@ -109,9 +78,6 @@
     </div>
 </div>
 
-@include('web.components.presentational.login')
-@include('web.components.presentational.register')
-@include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
 
 
