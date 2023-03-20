@@ -89,7 +89,14 @@ class UserLoginController extends Controller
     public function google()
     {
         // return 'google';
-       return Socialite::driver('google')->stateless()->redirect();
+        try {
+            // return Socialite::driver($driver)->redirect();
+            return Socialite::driver('google')->stateless()->redirect();
+        } catch (Exception $e) {
+            // You should show something simple fail message
+            return $this->sendFailedResponse($e->getMessage());
+        }
+        
     }
 
     public function handleGoogleCallback()

@@ -44,19 +44,23 @@ class UserRegisterController extends Controller
     public function store(Request $request)
     {
         // return $request;
-        // $validator = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'name'      => ['required', 'string', 'max:255'],
-        //         'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-        //         'password'  => ['required', 'string', 'min:8', 'confirmed'],
-        //         'g-recaptcha-response' => 'recaptcha',
-        //     ]
-        // );
+        $validator = Validator::make(
+            $request->all(),
+            [
+                // 'name'      => ['required', 'string', 'max:255'],
+                // 'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                // 'password'  => ['required', 'string', 'min:8', 'confirmed'],
+                'name'                 => 'required|string',
+                'password'             => 'required|min:6|same:confirmPassword',
+                'confirmPassword'      => 'required|string|min:8',
+                'email'                =>  'required|email|unique:users,email', 
+                'g-recaptcha-response' => 'recaptcha',
+            ]
+        );
 
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withInput($request->all())->withErrors($validator);
-        // }
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
         // return $request;
         $findUser = User::where('email', '=', $request->email)->get();
         if(count($findUser)==0){
