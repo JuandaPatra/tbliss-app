@@ -2,13 +2,13 @@
 
 @section('container')
 @include('web.components.presentational.header')
-<div class="flex items-center px-4 mb-4 bg-white lg:justify-center">
-    <h1 class=" font-bely text-footer text-[30px]">FAQ</h1>
+<div class="flex items-center px-4 mb-4 bg-white justify-center">
+    <h1 class=" font-bely text-footer text-[45px]">FAQ</h1>
 </div>
 
 <section>
     <div class="container-lg pb-[50px] lg:pb-[164px]">
-        <div id="accordion-color" class="px-[200px]" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-authbutton dark:text-white">
+        <div id="accordion-color" class="px-2 lg:px-[200px] " data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-authbutton dark:text-white">
             <h2 id="accordion-color-heading-1">
                 <button type="button" class="flex items-center justify-between w-full py-3 px-2 font-medium text-left text-[18px]  text-gray-500 border-y-2  border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-1" aria-expanded="true" aria-controls="accordion-color-body-1">
                     <span>Payment & Security</span>
@@ -106,8 +106,6 @@
 </section>
 
 
-@include('web.components.presentational.login')
-@include('web.components.presentational.register')
 @include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
 @endsection

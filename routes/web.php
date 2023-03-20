@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\HiddenGemController;
 use App\Http\Controllers\Admin\IncludesController;
 use App\Http\Controllers\Admin\PickHiddenGemsController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TripController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
@@ -46,8 +47,8 @@ Route::get('/cerita-kami',[HomeController::class, 'cerita'])->name('home.cerita'
 Route::get('/hidden-gem/{id}/hidden/{slug}', [HomeController::class,'hiddemGem'])->name('home.hiddenGems');
 
 Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities']);
-Route::resource('signup', UserRegisterController::class);
-Route::resource('signin', UserLoginController::class);
+Route::resource('signup', UserRegisterController::class)->middleware('guest');
+Route::resource('signin', UserLoginController::class)->middleware('guest');
 
 
 Route::get('/google-sign-in', [UserLoginController::class,'google'])->name('sign.google');
@@ -70,6 +71,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
     Route::get('product/choose/{product}', [ProductController::class, 'choose'])->name('product.choose');
     Route::get('product/images', [ProductController::class, 'images'])->name('product.images');
+    Route::post('product/edit/{id}/update', [ProductController::class, 'updateTrip'])->name('product.updateTrip');
+
     Route::resource('product', ProductController::class);
     
     Route::resource('news', NewsController::class);
@@ -100,7 +103,7 @@ Route::group(['middleware'=>'auth'], function(){
     
     Route::resource('pick-hidden-gem', PickHiddenGemsController::class);
     
-    Route::get('contact', [ContactController::class,'index'])->name('contact');
+    Route::get('contact', [ContactController::class,'index'])->middleware('isAdmin')->name('contact');
 });
 
 Route::get('/clear-cache', function() {

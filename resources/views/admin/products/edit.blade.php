@@ -8,7 +8,7 @@ Category Add
 @section('content')
 <div class="row">
     <div class="col-12 col-md-8">
-        <form action="{{route('product.store')}}" method="POST">
+        <form action="{{route('product.updateTrip', ['id'=>$trip->id])}}" method="POST">
             @csrf
             <div class="card mb-4">
                 <h5 class="card-header">Trip Edit</h5>
@@ -202,20 +202,7 @@ Category Add
             @endforeach
         </div>
     </div>--}}
-    {{--<div class="card-body">
-                <div class="d-flex justify-content-between">
-                    <div class="text-light small fw-semibold">Hashtag</div>
-                    <button class="btn btn-warning btn-sm">Edit Hashtag</button>
-
-                </div>
-
-                <div class="demo-inline-spacing">
-                    @foreach($trip->hashtag_place_trip as $hashtag)
-                    <span class="badge bg-primary">{{$hashtag->hashtag->title}}</span>
-
-    @endforeach
-</div>
-</div>--}}
+    
 <div class="country-add d-none">
     <div class="card-body ">
         <form action="{{ route('edit-country.store') }}" method="post">
@@ -403,108 +390,7 @@ Category Add
 
     </div>
 </div>
-<div class="card mb-4">
-    <h5 class="card-header">Edit Hashtag</h5>
 
-
-
-    <div class="card-body hashtag-list">
-        <div class="d-flex justify-content-between">
-            <div class="text-light small fw-semibold">Hashtag</div>
-            <button class="btn btn-warning btn-sm" id="edit-hashtag">Edit Hashtag</button>
-
-        </div>
-
-        <div class="demo-inline-spacing">
-            @foreach($trip->hashtag_place_trip as $hashtag)
-            @if($hashtag->id %2 == 0)
-            <span class="badge bg-success">{{$hashtag->hashtag->title}}</span>
-            @elseif($hashtag->id %3 == 1)
-            <span class="badge bg-dark">{{$hashtag->hashtag->title}}</span>
-            @elseif($hashtag->id %5 == 0)
-            <span class="badge bg-primary">{{$hashtag->hashtag->title}}</span>
-            @else
-            <span class="badge bg-info">{{$hashtag->hashtag->title}}</span>
-            @endif
-            @endforeach
-        </div>
-    </div>
-    <div class="card-body hashtag-add d-none">
-        <div class="accordion mt-3 mb-4" id="accordionExample">
-            <form action="{{ route('edit-hashtag-trip.store') }}" method="post">
-                @csrf
-                <input type="hidden" name="trip_categories_id" class="form-control" value="{{ $trip->id }}">
-                <div class="card accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
-                            Tambah Hashtag
-                        </button>
-                    </h2>
-                    <div id="accordionTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-                        <div class="card-body">
-                            <div class="row gy-3">
-                                <div class="col-md">
-                                    @foreach($hashtags as $hashtag)
-                                    <div class="form-check mt-3">
-                                        <input class="form-check-input " type="checkbox" value="{{$hashtag->id}}" id="defaultCheck1" name="hashtag[]">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            {{$hashtag->title}}
-                                        </label>
-                                    </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="d-flex justify-content-end mt-3">
-                    <a id="edit-hashtag-back" class="btn btn-danger px-4 me-2 text-white"><i class="menu-icon bx bx-save"></i>Cancel</a>
-                    <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
-                </div>
-            </form>
-        </div>
-        <div class="table-responsive text-nowrap" style="height:300px;overflow: auto;">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Title</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                    @foreach($trip->hashtag_place_trip as $hashtag)
-                    <tr>
-                        <td>{{ $loop->index+1}}</td>
-                        <td><strong>{{$hashtag->hashtag->title}}</strong></td>
-                        <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" fdprocessedid="o9k5ac" aria-expanded="false">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu" style="">
-                                    <form action="{{ route('edit-hashtag-trip.destroy',$hashtag->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $hashtag->id }}" onclick="this.closest('form').submit();return false;">
-                                            <i class="bx bx-trash me-1"></i>Delete
-                                        </a>
-                                    </form>
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
-
-
-        </div>
-
-
-
-    </div>
-</div>
 </div>
 
 

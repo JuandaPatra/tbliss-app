@@ -6,7 +6,7 @@
     <div class="relative">
         <div class="banner-slider">
             <div class="relative ">
-                <div class="absolute top-[170px] lg:top-[170px] left-0 right-0 text-white">
+                <div class="absolute top-1/2 lg:top-[170px] left-0 right-0 text-white">
                     <div class="flex justify-center ">
                         <h1 class="text-center text-[30px] lg:text-[60px] w-[710px] xl:w-[700px]  font-bely">
                             Salam Kenal Kak !
@@ -51,7 +51,7 @@
             <a class="tw-underline tw-text-black hover:tw-text-black" href="https://www.seeksophie.com/tried-and-tested">try them for ourselves</a> and then list them on Seek Sophie for other adventurers to find.
         </div>
     </div>
-    <div class="container my-8 px-5">
+    <div class="container-lg my-8 px-5">
         <div class="row align-items-center">
             <div class="hidden lg:block col-md-7">
                 <img class=" h-[400px] w-full object-cover" src="https://d18sx48tl6nre5.cloudfront.net/assets/about/section_1-5cbc66b186016bd3494cd5a4fc969f58249a5af4cb27f40aae187ff6c04e7199.jpg">
@@ -111,8 +111,7 @@
 </section>
 
 
-@include('web.components.presentational.login')
-@include('web.components.presentational.register')
+
 @include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
 @endsection

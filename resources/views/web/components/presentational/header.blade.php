@@ -88,7 +88,7 @@
 
             @endguest
             @auth
-            <a  class="block lg:hidden mt-[12px]" id="dropdownHoverButtonX" data-dropdown-toggle="dropdownHoverX">
+            <a class="block lg:hidden mt-[12px]" id="dropdownHoverButtonX" data-dropdown-toggle="dropdownHoverX">
                 <img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
             </a>
             <!-- Dropdown menu -->
@@ -211,10 +211,10 @@
                                 <a href="">Korporat</a>
                             </div>
                             <div class=" p-3 flex items-center ">
-                                <a href="">Cerita Kami</a>
+                                <a href="{{route('home.cerita')}}">Cerita Kami</a>
                             </div>
                             <div class=" p-3 flex items-center ">
-                                <a href="">FAQ</a>
+                                <a href="{{route('home.faq')}}">FAQ</a>
                             </div>
                             <div class=" p-3 flex items-center ">
                                 <a href="">Kontak Kami</a>
@@ -222,8 +222,20 @@
                         </div>
                     </div>
                     <div class="sidenav__footer absolute z-50 bottom-0 left-0 bg-white w-[320px]  border-gray-300  border-t-2 p-3 ">
-                        <a href="" class="mr-3">Login</a>
-                        <a href="">Register</a>
+                        @guest
+                        <a href="{{ route('signin.index') }}" class="mr-3">Login</a>
+                        <a href="{{ route('signup.index') }}">Register</a>
+                        @endguest
+                        @auth
+                        <a class="" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                        @endauth
                     </div>
                 </div>
 
@@ -236,10 +248,10 @@
         <div class=" container hidden lg:flex flex-wrap justify-center mb-[33px]">
             <button data-drop="destinasi" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">DESTINASI</button>
             <button data-drop="bantuan" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">BANTUAN</button>
-            <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">KORPORAT</button>
+            <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KORPORAT</button>
             <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">CERITA KAMI</a>
             <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">FAQ</a>
-            <button data-drop="kontak" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">KONTAK KAMI</button>
+            <button data-drop="kontak" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KONTAK KAMI</button>
         </div>
     </div>
     <div>
