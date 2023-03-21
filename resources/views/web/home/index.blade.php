@@ -320,7 +320,7 @@
                     }
                 },
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     $('.home-section').empty()
                     let result = data
                     result.forEach(function(item, index) {
@@ -349,7 +349,7 @@
                                             </span>
                                             <span class="ml-3 text-[16px]">
 
-                                                ${item.date_from} - ${item.date_to}
+                                                ${new Date(item.date_from).getDay()} - ${item.date_to}
                                             </span>
                                             <p class="text-redTbliss font-bold text-[19px]">
                                                 ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}

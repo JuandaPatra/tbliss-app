@@ -3,6 +3,9 @@
 @section('container')
 @include('web.components.presentational.header')
 <div class="header">
+    <div class="container-lg mb-[30px] mt-[30px]">
+        <h1 class=" font-interRegular font-bold text-[24px]">{{$hiddenGem->title}}</h1>
+    </div>
     <picture>
         <source media="(min-width:1000px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">
         <source media="(min-width:320px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">

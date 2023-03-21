@@ -130,6 +130,8 @@ class HomeController extends Controller
                              ->where('date_to', '<=', $to)
                              ->where('seat', '>=', $seat)
                              ->get();
+
+            
             return response()->json($reservationsq);
         // return response()->json($reservations);
     }
