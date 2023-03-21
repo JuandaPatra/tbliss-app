@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Hidden_gem;
 use App\Models\Place_categories;
 use App\Models\Place_trip_categories;
+use App\Models\place_trip_categories_cities;
 use App\Models\Trip_categories;
 use App\Models\Trip_cities_hidden_gem_hashtag;
 use Illuminate\Contracts\Database\Eloquent\Builder;
@@ -42,18 +43,7 @@ class HomeController extends Controller
     {
         $slug = $id;
 
-        $now    =   date("Y-m-d", strtotime('2023-06-16'));
-        $to     =   date("Y-m-d", strtotime('2023-06-23'));
-        $seat   =   3;
-        // return $now;
-
-
-        $reservations = Trip_categories::where('date_from', '>=', $now)
-            ->where('date_to', '<=', $to)
-            ->where('seat', '>=', $seat)
-            ->get();
-
-        // return $reservations;
+        
 
         ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
@@ -81,16 +71,11 @@ class HomeController extends Controller
 
     public function detail($id, $trip)
     {
-        // return $trip;
-        // $trueId = decrypt($id);
-        // $trueTrip = decrypt($trip);
-        // return $trueTrip;
+        //// ambil detail trip
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to']);
-        // return $detailTrip;
 
+        //// ambil trip lainnya
         $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
-        // return $otherTrips;
-        // return $detailTrip;
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip'));
     }
 
@@ -119,9 +104,33 @@ class HomeController extends Controller
         if (count($tripHiddenGems) == 0) {
             $tripHiddenGemsResult = [];
         } else if (count($tripHiddenGems) >= 1) {
-            $tripHiddenGemsResult = Trip_categories::where('id', '=', $tripUnique)->get(['slug', 'title', 'thumbnail', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
+            $tripHiddenGemsResult = Trip_categories::whereIn('id', $tripUnique)->get(['slug', 'title', 'thumbnail', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
         }
 
         return view('web.hidden.index', compact('tripHiddenGemsResult', 'hiddenGem'));
+    }
+
+    public function searchTripByDates(Request $request)
+    {
+        $now    =   date("Y-m-d", strtotime($request->dateFrom));
+        $to     =   date("Y-m-d", strtotime($request->dateTo));
+        $seat   =   $request->seats;
+
+        $searchByPlace = place_trip_categories_cities::where('place_categories_id', '=', $request->id)->get(['trip_categories_id'])->pluck('trip_categories_id');
+
+        $reservations = Trip_categories::where('date_from', '>=', $now)
+            ->where('date_to', '<=', $to)
+            ->where('seat', '>=', $seat)
+            // ->whereIn('id',$searchByPlace)
+            ->get();
+
+            
+            $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
+                             ->where('date_from', '>=', $now)
+                             ->where('date_to', '<=', $to)
+                             ->where('seat', '>=', $seat)
+                             ->get();
+            return response()->json($reservationsq);
+        // return response()->json($reservations);
     }
 }

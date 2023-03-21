@@ -19,10 +19,6 @@
                             <option value="{{$select->id}}">{{$select->title}}</option>
                             @endforeach
                             @endforeach
-                            <!-- <option>Korea</option>
-                            <option>Jepang</option>
-                            <option>Prancis</option>
-                            <option>Norwegia</option> -->
                         </select>
                         <button class="focus:outline-none  text-white bg-tbliss w-[46px] rounded-r-lg px-2" id="search-country">
                             <img src="{{ asset('images/title/search.png') }}" alt="" class="">

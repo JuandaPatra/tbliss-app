@@ -1,8 +1,6 @@
-import { data } from "autoprefixer";
-
 let base_url = window.location.origin;
 let host = window.location.host;
-console.log(host)
+// console.log(host)
 let allData = [];
 let allHashtag = [];
 
@@ -110,7 +108,7 @@ export class DetailPages {
                                         (item) => item.title === obj.title
                                     ) === index
                             );
-                            console.log(unique);
+                            // console.log(unique);
                             // console.log(allHashtag)
                             // console.log(allData);
                             $(".hashtag-row").empty();

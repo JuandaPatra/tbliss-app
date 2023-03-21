@@ -46,6 +46,8 @@ Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
 Route::get('/cerita-kami',[HomeController::class, 'cerita'])->name('home.cerita');
 Route::get('/hidden-gem/{id}/hidden/{slug}', [HomeController::class,'hiddemGem'])->name('home.hiddenGems');
 
+Route::post('/seacrhByDate',[HomeController::class,'searchTripByDates'] )->name('home.searchTripByDates');
+
 Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities']);
 Route::resource('signup', UserRegisterController::class)->middleware('guest');
 Route::resource('signin', UserLoginController::class)->middleware('guest');

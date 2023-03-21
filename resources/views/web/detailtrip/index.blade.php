@@ -161,19 +161,6 @@
                 <span><img src="{{$include->icon_image}}" alt="" class="mr-12 inline">{{$include->title}}</span>
             </div>
             @endforeach
-            <!-- <div class="mb-3">
-                <span><img src="{{ asset('images/detailtrip/hotel-btm.png') }}" alt="" class="mr-12 inline"> Hotel *3 (1 kamar berdua)</span>
-            </div>
-            <div class="mb-3">
-                <span><img src="{{ asset('images/detailtrip/tiket-btm.png') }}" alt="" class="mr-12 inline"> Singapore airlines, Cathay Pacific atau sejenisnya</span>
-            </div>
-            <div class="mb-3">
-                <span><img src="{{ asset('images/detailtrip/transport-btm.png') }}" alt="" class="mr-12 inline"> Private van + public transport</span>
-            </div>
-            <div class="mb-3">
-                <span><img src="{{ asset('images/detailtrip/foto-btm.png') }}" alt="" class="mr-12 inline"> Dokumentasi perjalanan</span>
-            </div> -->
-
         </div>
         <div class="basis-full lg:basis-1/2">
             <h3 class="mb-4 text-[28px]">
@@ -184,16 +171,6 @@
                 <span><img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline"> {{$exclude->title}}</span>
             </div>
             @endforeach
-            <!-- <div class="mb-3">
-                <span><img src="{{ asset('images/detailtrip/visa-btm.png') }}" alt="" class="mr-12 inline"> Visa Korea single entry (Rp. 1.200.000)</span>
-            </div>
-            <div class="mb-3">
-                <span><img src="{{ asset('images/detailtrip/meal-btm.png') }}" alt="" class="mr-12 inline"> Estimasi makan 10.000 - 15.000 Won</span>
-            </div>
-            <div class="mb-3">
-                <span><img src="{{ asset('images/detailtrip/asuransi-btm.png') }}" alt="" class="mr-12 inline"> Asuransi perjalanan (500.000/orang)</span>
-            </div> -->
-
         </div>
     </div>
 </section>
@@ -221,12 +198,6 @@
                 <li>
                     <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
                 </li>
-                <!-- <li>
-                    <img src="{{ asset('images/detailtrip/busan-2.jpg') }}" alt="" class="w-[98%]">
-                </li>
-                <li>
-                    <img src="{{ asset('images/detailtrip/busan-3.jpg') }}" alt="" class="w-[98%]">
-                </li> -->
                 @endforeach
             </ul>
         </div>
@@ -276,96 +247,6 @@
             </div>
 
             @endforeach
-            <!-- <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
-                <div class="max-w-md lg:max-w-sm bg-white ">
-                    <a href="#">
-                        <img src="{{ asset('images/trip/trip-0.jpg') }}" alt="" class="w-full">
-                    </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-[#4A5CED] mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                        </div>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Culinary Trip in Korea</h5>
-                        </a>
-                        <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
-                            6H5M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
-                        </span>
-                        <p class="text-[#FF5055] font-bold text-[19px]">
-                            Rp. 9.500.000
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
-                <div class="max-w-md lg:max-w-sm bg-white ">
-                    <a href="#">
-                        <img src="{{ asset('images/trip/trip-1.jpg') }}" alt="" class="w-full">
-                    </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-[#4A5CED] mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                        </div>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Cultural Walk in Korea</h5>
-                        </a>
-                        <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
-                            6H5M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
-                        </span>
-                        <p class="text-[#FF5055] font-bold text-[19px]">
-                            Rp. 9.500.000
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
-                <div class="max-w-md lg:max-w-sm bg-white ">
-                    <a href="#">
-                        <img src="{{ asset('images/trip/trip-2.jpg') }}" alt="" class="w-full">
-                    </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-[#4A5CED] mr-3">
-                                3 seats left
-                            </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                        </div>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Korea 101 Trip</h5>
-                        </a>
-                        <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
-                            6H5M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
-                        </span>
-                        <p class="text-[#FF5055] font-bold text-[19px]">
-                            Rp. 9.500.000
-                        </p>
-                    </div>
-                </div>
-            </div> -->
         </div>
     </div>
 </section>
@@ -378,10 +259,10 @@
         <div class="flex flex-wrap justify-between">
             <div class="basis-full lg:basis-1/2 pt-2 mb-[30px] lg:mb-0">
                 <span class="font-bold font-interRegular text-[14px]">
-                    Harga Rp.<span>12.000.000</span> / pax
+                    Harga Rp.<span>@currency($detailTrip->price)</span> / pax
                 </span>
                 <span class=" ml-4 font-interRegular text-[14px]">
-                    Open Trip 6 Hari 5 Malam
+                    Open Trip {{$detailTrip->day}} Hari {{$detailTrip->night}} Malam
                 </span>
             </div>
             <div class="basis-full lg:basis-1/2 text-[15px]">

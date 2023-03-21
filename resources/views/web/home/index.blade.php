@@ -43,19 +43,20 @@
                         </select>
                         <select id="seats" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>Peserta</option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
                         </select>
                         <div class="relative max-w-sm">
-                            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                            <!-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                 <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
                                 </svg>
-                            </div>
-                            <input datepicker datepicker-orientation="bottom right" datepicker-autohide datepicker-format="dd/mm/yyyy" type="text" class="bg-gray-50 border border-gray-300 rounded-none text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  " placeholder="Select date">
+                            </div> -->
+                            <input type="text" class="selector" placeholder="Select Dates">
+                            <!-- <input datepicker datepicker-orientation="bottom right" datepicker-autohide datepicker-format="dd/mm/yyyy" type="text" class="bg-gray-50 border border-gray-300 rounded-none text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  " placeholder="Select date" id="dateTrips"> -->
                         </div>
-                        <button class="focus:outline-none  text-white bg-tbliss w-[40px] rounded-r-lg px-2" onclick="location.href='/details'">
+                        <button class="focus:outline-none  text-white bg-tbliss w-[40px] rounded-r-lg px-2" id="searchTrips">
                             <img src="{{ asset('images/title/search.png') }}" alt="" class="">
                         </button>
                     </div>
@@ -78,7 +79,7 @@
                 <div class="flex justify-center mb-4 h-[100px]">
                     <h1 class="w-[60%] lg:w-[45%] text-center text-[30px]">Baru rencana, mohon dibantu Kak!</h1>
                 </div>
-                <a href="" class="text-footer text-[20px] block text-center">Baiklah, sini Kami bantu! <span><img src="{{ asset('images/title/arrow.png') }}" alt="" class="w-[20px] inline"></span></a>
+                <a href="{{ route('search')}}" class="text-footer text-[20px] block text-center">Baiklah, sini Kami bantu! <span><img src="{{ asset('images/title/arrow.png') }}" alt="" class="w-[20px] inline"></span></a>
             </div>
 
         </div>
@@ -90,7 +91,7 @@
         <h1 class="text-[30px] ml-[15px]">
             Mari, Pilih trip perjalanan {{$country->title}} kak!
         </h1>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap home-section">
             @foreach($trips as $trip)
             <div class="basis-full lg:basis-4/12 p-3">
                 <div class="max-w-sm bg-white ">
@@ -114,8 +115,8 @@
                             |
                         </span>
                         <span class="ml-3 text-[16px]">
-                            
-                            {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }} 
+
+                            {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
                         </span>
                         <p class="text-redTbliss font-bold text-[19px]">
                             @currency($trip->price)
@@ -259,8 +260,6 @@
 
 </section>
 
-@include('web.components.presentational.login')
-@include('web.components.presentational.register')
 @include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
 
@@ -273,6 +272,104 @@
 @push('javascript-internal')
 <script>
     $(document).ready(function() {
+
+        let base_url = window.location.origin;
+        $(".selector").flatpickr({
+            minDate: "today",
+            maxDate: "31.12.2029",
+            altInput: true,
+            mode: "range",
+            onChange: function(selectedDates, datestr, instance) {
+
+
+                // $(".selector").val(selectedDates[0] + ' - ' + this.formatDate(selectedDates[0], "j F Y"));
+                $(".selector").val(datestr.replace('to', '-'));
+            }
+        });
+
+        $('#searchTrips').on('click', function(e) {
+            let id = $('#countries').val()
+            let dates = $('.selector').val()
+            let dateFrom = dates.slice(0, 10)
+            let dateTo = dates.slice(13, 23)
+            let seats = $('#seats').val()
+
+            $.ajax({
+                type: "POST",
+                url: `${base_url}/seacrhByDate`,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                data: {
+                    id,
+                    dateFrom,
+                    dateTo,
+                    seats
+                },
+                error: function(xhr, error) {
+                    if (xhr.status === 500) {
+                        console.log(error);
+
+                        $(e.target).html("Gagal Terkirim");
+
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2500);
+                    }
+                },
+                success: function(data) {
+                    console.log(data);
+                    $('.home-section').empty()
+                    let result = data
+                    result.forEach(function(item, index) {
+                        $('.home-section').append(
+                            `
+                                <div class="basis-full lg:basis-4/12 p-3">
+                                    <div class="max-w-sm bg-white ">
+                                        <a href="/countries/korea/detail/${item.slug}">
+                                            <img src="${item.thumbnail}" alt="" class="w-full">
+                                        </a>
+                                        <div class="mt-3 ">
+                                            <div class="flex ">
+                                                <h5 class="text-blueTbliss mr-3">
+                                                    ${item.seat} seats left
+                                                </h5>
+                                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                                            </div>
+                                            <a href="#">
+                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">${item.title}</h5>
+                                            </a>
+                                            <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                                                ${item.day}H${item.night}M
+                                            </span>
+                                            <span>
+                                                |
+                                            </span>
+                                            <span class="ml-3 text-[16px]">
+
+                                                ${item.date_from} - ${item.date_to}
+                                            </span>
+                                            <p class="text-redTbliss font-bold text-[19px]">
+                                                ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            `
+                        )
+
+                    })
+
+                    // let allData = [...allData, data]
+                    // allData.push(data)
+
+                },
+            });
+
+
+        })
         $('.banner-slider').slick({
             dots: false,
             infinite: true,
@@ -282,15 +379,15 @@
         });
         $('.banner-slider').not('.slick-initialized').slick();
 
-        
+
         $('.testimoni-slider').slick({
             dots: false,
             infinite: true,
             slidesToShow: 1,
             autoplay: false,
             arrows: true,
-            prevArrow : '.left-testimoni-arrow',
-            nextArrow : '.right-testimoni-arrow',
+            prevArrow: '.left-testimoni-arrow',
+            nextArrow: '.right-testimoni-arrow',
         });
         $('.testimoni-slider').not('.slick-initialized').slick();
 
