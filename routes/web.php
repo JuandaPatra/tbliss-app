@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\ExcludesController;
 use App\Http\Controllers\Admin\HashtagController;
 use App\Http\Controllers\Admin\HiddenGemController;
 use App\Http\Controllers\Admin\IncludesController;
+use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PickHiddenGemsController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TripController;
@@ -18,6 +19,7 @@ use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SosmedController;
+use App\Http\Controllers\Web\CheckoutController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\SearchTripController;
 use App\Http\Controllers\Web\UserLoginController;
@@ -38,33 +40,32 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/countries/{id}', [HomeController::class, 'country'])->name('home.country');
 Route::get('/countries/{id}/detail/{trip}', [HomeController::class, 'detail'])->name('home.detail');
-Route::get('/search', [SearchTripController::class,'index'])->name('search');
-Route::get('/cities/{id}', [SearchTripController::class,'getCities'])->name('search.cities');
-Route::get('/search-hashtag/{id}', [SearchTripController::class, 'getHashtag'])->name('search.hashtag');
-Route::post('/searchtrip', [SearchTripController::class,  'searchtrip'])->name('search.trip');
 Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
+Route::get('/profile', [HomeController::class,'profile'])->name('home.profile');
 Route::get('/cerita-kami',[HomeController::class, 'cerita'])->name('home.cerita');
 Route::get('/hidden-gem/{id}/hidden/{slug}', [HomeController::class,'hiddemGem'])->name('home.hiddenGems');
 
 Route::post('/seacrhByDate',[HomeController::class,'searchTripByDates'] )->name('home.searchTripByDates');
 
+Route::get('/search', [SearchTripController::class,'index'])->name('search');
+Route::get('/cities/{id}', [SearchTripController::class,'getCities'])->name('search.cities');
+Route::get('/search-hashtag/{id}', [SearchTripController::class, 'getHashtag'])->name('search.hashtag');
+Route::post('/searchtrip', [SearchTripController::class,  'searchtrip'])->name('search.trip');
 Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities']);
+
+Route::resource('checkout', CheckoutController::class);
+
+
 Route::resource('signup', UserRegisterController::class)->middleware('guest');
 Route::resource('signin', UserLoginController::class)->middleware('guest');
 
 
 Route::get('/google-sign-in', [UserLoginController::class,'google'])->name('sign.google');
 Route::get('/auth/google/callback', [UserLoginController::class, 'handleGoogleCallback']);
-// Route::get('/signin', function(){
-//     return view('web.login.index');
-// })->name('login.user');
-
-// Route::get('/signup', function(){
-//     return view('web.register.index');
-// })->name('register.user');
 
 
 Auth::routes();
+
 Route::group(['middleware'=>'auth'], function(){
 
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isAdmin');
@@ -78,7 +79,8 @@ Route::group(['middleware'=>'auth'], function(){
     Route::resource('product', ProductController::class);
     
     Route::resource('news', NewsController::class);
-    
+    Route::get('/invoice/{product}', [PaymentController::class, 'invoice'])->name('payments.invoice');
+    Route::resource('payments', PaymentController::class);
     
     Route::resource('sosmed', SosmedController::class);
     Route::resource('slider', SliderController::class);

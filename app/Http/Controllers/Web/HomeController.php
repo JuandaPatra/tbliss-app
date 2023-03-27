@@ -17,21 +17,7 @@ class HomeController extends Controller
 {
     public function index()
     {
-        // $country = Place_categories::whereId(6)->where('status','publish')->first();
-        // $trip1 = Place_trip_categories::where('place_categories_id',4)->get();
-        // return $trip1;
-        // $trips = Trip_categories::all(['id','title','slug','price', 'day', 'night', 'date_from', 'date_to','thumbnail','seat']);
-        // $hiddenGem = Hidden_gem::where('status','publish')->limit(8)->get(["id", "title", "slug", 'places_id', 'image_desktop', 'image_mobile']);
-        // return $hiddenGem;
-        // return $trips;
-        // return view('web.home.index');
-
-        // return redirect()
-
-        // $coba = Place_trip_categories::with(['place_categories'])->where('place_categories_id', 6)->get();
-        // return $country;
-        // return view('web.home.index',compact('trips','country'));
-
+        
         ///// negara default adalah korea 
         $id = 'korea';
 
@@ -134,5 +120,10 @@ class HomeController extends Controller
             
             return response()->json($reservationsq);
         // return response()->json($reservations);
+    }
+
+    public function profile()
+    {
+        return view('web.profile.index');
     }
 }

@@ -35,4 +35,9 @@ class Trip_categories extends Model
     {
         return $this->hasMany(Hashtag_place_trip::class);
     }
+
+    public function cart()
+    {
+        return $this->hasMany(Cart::class);
+    }
 }

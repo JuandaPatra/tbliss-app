@@ -11,11 +11,11 @@
     </picture>
 </div>
 
-<section class="container-lg ">
+{{--<section class="container-lg ">
     <div class="flex flex-col lg:flex-row justify-between mt-[42px]">
         <div class="w-full lg:w-1/2">
             <h1 class="text-[15px] lg:text-[18px]">
-                {{$detailTrip->description}}
+                a
             </h1>
         </div>
         <div class="flex flex-row lg:flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl mt-[30px] lg:mt-0  ">
@@ -73,7 +73,7 @@
             </h1>
 
             <p class="text-[#4A5CED] text-[20px] mt-2">
-                {{ date('d', strtotime($detailTrip->date_from)) }} - {{ date('d M Y', strtotime($detailTrip->date_to)) }}
+            {{ date('d', strtotime($detailTrip->date_from)) }} - {{ date('d M Y', strtotime($detailTrip->date_to)) }} 
             </p>
 
             <p class="text-[#BF1E5F] text-[20px] mt-2">
@@ -173,7 +173,7 @@
             @endforeach
         </div>
     </div>
-</section>
+</section>--}}
 
 <section class="container-full">
     <div class="container-lg mt-[27px] mb-[54px]">
@@ -183,7 +183,7 @@
     </div>
 
 
-    @foreach($detailTrip->place_trip_categories_cities as $city)
+  {{--  @foreach($detailTrip->place_trip_categories_cities as $city)
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-4 lg:gap-2 mb-[50px]">
         <div class="col-span-1"></div>
         <div class="col-span-2">
@@ -202,7 +202,7 @@
             </ul>
         </div>
     </div>
-    @endforeach
+    @endforeach--}}
 
 
 
@@ -251,80 +251,10 @@
     </div>
 </section>
 
-<!-- <button  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Toggle modal
-</button> -->
-
-<!-- Main modal -->
-<div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
-    <div class="relative w-full h-full max-w-2xl md:h-auto">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <form action="{{ route('checkout.store')}}" method="post">
-                @csrf
-                <!-- Modal header -->
-                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        Add to Cart
-                    </h3>
-                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
-                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-6 space-y-6">
-                    <label for="custom-input-number" class="w-full text-gray-700 text-sm font-semibold">Review Cart
-                    </label>
-                    <div class=" flex justify-between ">
-                        <h1>{{$detailTrip->title}}</h1>
-                        <input type="hidden" name="trip_categories_id" value="{{$detailTrip->id}}">
-                        <input type="hidden" class="cart-seat" value="{{$detailTrip->seat}}">
-                        <div class="number cursor-pointer">
-                            <span class="minus w-[20px] h-[20px] bg-[#f2f2f2] shadow border-2 border-[#ddd] px-[8px] py-[5px]">-</span>
-                            <input type="number" value="1" min="1" max="{{$detailTrip->seat}}" class="h-[34px] w-[100px] text-center border-2 border-[#ddd] " name="seat" />
-                            <span class="plus w-[20px] h-[20px] bg-[#f2f2f2] shadow border-2 border-[#ddd] px-[8px] py-[5px]">+</span>
-                        </div>
-                    </div>
-                    <div class="grid grid-cols-3 gap-4">
-
-                        <div class=" ..."></div>
-                        <div class=" col-span-2 ...">
-                            <table class="w-full">
-                                <thead>
-                                    <tr>
-                                        <th class="w-1/2">Seat</th>
-                                        <th class="w-1/2">Total</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>x <span class="count-seat">1</span> </td>
-                                        <td class="count-price" data-price="{{$detailTrip->price}}">@currency($detailTrip->price)</td>
-                                        <input type="hidden" class="count-price-input" value="{{$detailTrip->price}}" name="price">
-                                        <input type="hidden" name="price_dp" value="{{$detailTrip->price}}" class="inputFinishPrice">
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="flex justify-end items-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Order Now</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
 
 @include('web.components.presentational.footer')
 
-<div class="bg-[#ff5055]  lg:h-[73px] w-full text-white fixed  bottom-0 z-20 ">
+{{--<div class="bg-[#ff5055]  lg:h-[73px] w-full text-white fixed  bottom-0 z-20 ">
     <div class="container-lg pt-3 pb-3 lg:pb-0">
         <div class="flex flex-wrap justify-between">
             <div class="basis-full lg:basis-1/2 pt-2 mb-[30px] lg:mb-0">
@@ -337,14 +267,11 @@
             </div>
             <div class="basis-full lg:basis-1/2 text-[15px]">
                 <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
-                <button type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
+                <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
             </div>
         </div>
     </div>
-</div>
-
-
-<!-- Modal toggle -->
+</div>--}}
 
 
 </div>
@@ -356,85 +283,45 @@
 <script>
     $(document).ready(function() {
 
-        let allSlider = ('.city-slider').length;
-        console.log(allSlider)
+        // let allSlider = ('.city-slider').length;
+        // console.log(allSlider)
 
-        $('.slider').each(function(item, index) {
-            // let dataIndex = (this).data("slider")
-            let dataIndex = $(this).data("slider")
-            console.log(dataIndex)
+        // $('.slider').each(function(item, index) {
+        //     // let dataIndex = (this).data("slider")
+        //     let dataIndex = $(this).data("slider")
+        //     console.log(dataIndex)
 
-            $(`.city-slider-${dataIndex}`).slick({
-                dots: false,
-                infinite: false,
-                slidesToShow: 2.5,
-            });
-            $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();
+        //     $(`.city-slider-${dataIndex}`).slick({
+        //         dots: false,
+        //         infinite: false,
+        //         slidesToShow: 2.5,
+        //     });
+        //     $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();
 
 
-        })
+        // })
 
-        const options = {
-            mobileFirst: true,
-            responsive: [{
-                breakpoint: 450,
-                settings: "unslick"
-            }]
-        };
-        // $('.hg-slider').not('.slick-initialized').slick();
-        var slicky = $('.hg-slider');
-        slicky.slick(options);
+        // const options = {
+        //     mobileFirst: true,
+        //     responsive: [{
+        //         breakpoint: 450,
+        //         settings: "unslick"
+        //     }]
+        // };
+        // // $('.hg-slider').not('.slick-initialized').slick();
+        // var slicky = $('.hg-slider');
+        // slicky.slick(options);
 
-        $(window).resize(function() {
+        // $(window).resize(function() {
 
-            setTimeout(function() {
+        //     setTimeout(function() {
 
-                if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
-                    slicky.slick(options);
-                }
-            }, 100);
-        });
+        //         if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
+        //             slicky.slick(options);
+        //         }
+        //     }, 100);
+        // });
 
-        $('.minus').click(function() {
-            var $input = $(this).parent().find('input');
-            var count = parseInt($input.val()) - 1;
-            count = count < 1 ? 1 : count;
-            $input.val(count);
-            $input.change();
-            var price = $('.count-price-input').val()
-            var $cartSeat = $('.count-seat')
-            $cartSeat.empty()
-            $cartSeat.append(`${count}`)
-            var newPrice = price * count
-            var $cartPrice = $('.count-price')
-            $cartPrice.data('price', newPrice)
-            $cartPrice.empty()
-            $cartPrice.append(`${newPrice.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}`)
-            $('.inputFinishPrice').val(newPrice)
-            $('.inputFinishPrice').change()
-            return false;
-        });
-        $('.plus').click(function() {
-            var $input = $(this).parent().find('input');
-            var count = $input.val(parseInt($input.val()) + 1);
-            var countPlus = parseInt($input.val()) + 1;
-            var cartseat = $('.cart-seat').val()
-            count = countPlus >= cartseat ? cartseat : parseInt($input.val());
-            $input.val(count);
-            $input.change();
-            var price = $('.count-price-input').val()
-            var $cartSeat = $('.count-seat')
-            $cartSeat.empty()
-            $cartSeat.append(`${count}`)
-            var newPrice = price * count
-            var $cartPrice = $('.count-price')
-            $cartPrice.data('price', newPrice)
-            $cartPrice.empty()
-            $cartPrice.append(`${newPrice.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}`)
-            $('.inputFinishPrice').val(newPrice)
-            $('.inputFinishPrice').change()
-            return false;
-        });
 
 
 
