@@ -39,9 +39,15 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::get('/countries/{id}', [HomeController::class, 'country'])->name('home.country');
+
 Route::get('/countries/{id}/detail/{trip}', [HomeController::class, 'detail'])->name('home.detail');
+Route::post('detail', [HomeController::class, 'addToCart'])->name('home.addToCart');
 Route::get('/faq', [HomeController::class, 'faq'])->name('home.faq');
+
 Route::get('/profile', [HomeController::class,'profile'])->name('home.profile');
+Route::post('/profile', [HomeController::class, 'profileUpdate'])->name('home.profileUpdate');
+
+Route::get('/histori-transaksi', [HomeController::class, 'cart'])->name('home.cart');
 Route::get('/cerita-kami',[HomeController::class, 'cerita'])->name('home.cerita');
 Route::get('/hidden-gem/{id}/hidden/{slug}', [HomeController::class,'hiddemGem'])->name('home.hiddenGems');
 
@@ -54,6 +60,10 @@ Route::post('/searchtrip', [SearchTripController::class,  'searchtrip'])->name('
 Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities']);
 
 Route::resource('checkout', CheckoutController::class);
+
+Route::get('/booking-trip', [HomeController::class,'booking'])->name('booking');
+Route::get('/payment', [HomeController::class, 'payment'])->name('payment');
+Route::get('/upload', [HomeController::class, 'upload'])->name('upload');
 
 
 Route::resource('signup', UserRegisterController::class)->middleware('guest');

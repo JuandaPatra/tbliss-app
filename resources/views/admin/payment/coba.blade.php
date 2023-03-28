@@ -1,12 +1,21 @@
-<!DOCTYPE html>
+{{-- <!DOCTYPE html>
 <html>
 
 <head>
     <title>Invoice</title>
 </head>
+
 <style type="text/css">
     body {
         font-family: 'Roboto Condensed', sans-serif;
+    }
+
+    .d-flex{
+        display: flex;
+    }
+
+    .justify-content-between{
+        justify-content: space-between;
     }
 
     .m-0 {
@@ -25,6 +34,9 @@
         margin-top: 10px;
     }
 
+    .mr-10{
+        margin-right: 10px;
+    }
     .text-center {
         text-align: center !important;
     }
@@ -109,94 +121,345 @@
     <!-- <div class="head-title">
     <h1 class="text-center m-0 p-0">Invoice</h1>
 </div> -->
-    <div class="add-detail mt-10">
+    <div class="add-detail mt-10 d-flex justify-content-between" style="display:flex; justify-content:space-between">
         <div class="w-50 float-left mt-10">
             <p class="m-0 pt-5 text-bold w-100">Bukti Pembelian</p>
             <p class="m-0 pt-5 text-bold w-100">Invoice Id - <span class="gray-color">#INV59825</span></p>
             <p class="m-0 pt-5 text-bold w-100">Order Id - <span class="gray-color">#{{$dataCoba['orderid']}}</span></p>
-            <p class="m-0 pt-5 text-bold w-100">Order Date - <span class="gray-color">#300333333333</span></p>
-        </div>
-        <div class="w-50 float-left logo mt-10">
-            <svg width="231" height="61" viewBox="0 0 231 61" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <g clip-path="url(#clip0_4_2)">
-                    <path d="M34.7844 52.841V52.9149C33.219 55.3924 31.0403 57.4282 28.4573 58.8272C25.6346 60.3388 22.4685 61.1024 19.2636 61.0443C14.6396 61.0443 11.2829 59.7239 9.19366 57.0831C7.10442 54.4423 6.05484 50.5008 6.04494 45.2585V22.6588H0V22.5701L22.041 5.30627V21.3877H33.2695V22.6588H22.041V41.1199C22.041 45.702 22.65 48.9488 23.8679 50.8604C24.5596 51.8368 25.4977 52.6145 26.5876 53.1153C27.6775 53.6161 28.8808 53.8223 30.0762 53.7131C31.6875 53.7277 33.2863 53.4316 34.7844 52.841Z" fill="#BF1E5F" />
-                    <path d="M37.9628 24.802C39.2412 23.6949 40.3875 22.4451 41.3789 21.0773C42.4253 19.6093 43.1305 17.928 43.4434 16.1553C42.2322 16.1107 41.0583 15.7265 40.057 15.0468C38.907 14.3514 37.9717 13.3542 37.3539 12.1645C36.7557 11.0233 36.44 9.75645 36.433 8.46934C36.4286 6.96799 36.8902 5.50193 37.7549 4.27162C38.5112 3.10995 39.5893 2.19105 40.859 1.62587C41.8719 1.16258 42.9678 0.906249 44.082 0.872055C45.4362 0.8759 46.77 1.20014 47.9734 1.81802C49.2521 2.46683 50.2919 3.50157 50.9439 4.77416C51.6693 6.07049 52.043 7.5325 52.0281 9.01623C51.9919 12.5501 50.6732 15.9518 48.315 18.5941C45.5924 21.6791 41.9756 23.848 37.9628 24.802Z" fill="#BF1E5F" />
-                    <path d="M91.0603 29.6353C96.4461 29.7624 101.693 31.363 106.225 34.2617C107.997 35.4003 109.45 36.9693 110.445 38.8207C111.44 40.6722 111.945 42.7452 111.913 44.8447C111.931 47.0513 111.324 49.2183 110.161 51.0969C108.892 53.0976 107.173 54.7775 105.14 56.0041C102.75 57.472 100.129 58.5311 97.3874 59.1376C94.1627 59.8716 90.863 60.2288 87.5551 60.2018H55.6372V58.9455H62.0089V7.44948L54.9243 3.16307H83.6489C86.5542 3.16805 89.4562 3.35564 92.3376 3.72474C94.9176 4.00616 97.4522 4.60696 99.8826 5.5132C101.693 6.16361 103.387 7.09662 104.903 8.2772C106.097 9.24224 107.06 10.4589 107.725 11.8393C108.722 14.0321 108.942 16.497 108.349 18.8304C107.755 21.1638 106.383 23.2275 104.457 24.6838C101.635 26.8713 97.1696 28.5218 91.0603 29.6353ZM80.7824 4.43421H79.52V29.1476H81.0052C87.2729 29.1476 90.4068 25.0287 90.4068 16.7909C90.4068 8.5531 87.1987 4.43421 80.7824 4.43421ZM81.1834 58.9455C85.5401 58.9455 88.6988 57.8074 90.6593 55.5311C92.6198 53.2549 93.61 49.7716 93.6298 45.0812C93.6298 40.3809 92.5307 36.7596 90.3325 34.2173C89.2847 32.9855 87.9716 32.0043 86.4905 31.3467C85.0095 30.689 83.3986 30.3719 81.7775 30.4187H79.5497V58.9455H81.1834Z" fill="#102448" />
-                    <path d="M114.215 60.2018V58.9455H118.196V11.8098L113.74 7.92246L134.192 0.798157V58.9455H138.172V60.2018H114.215Z" fill="#102448" />
-                    <path d="M139.063 60.2018V58.9455H143.029V30.0196L138.499 26.1175L158.951 18.9784V58.8864H162.931V60.1427L139.063 60.2018ZM150.945 17.663C149.757 17.73 148.568 17.5505 147.453 17.1357C146.338 16.721 145.322 16.0801 144.47 15.2537C143.664 14.3876 143.04 13.3702 142.635 12.2611C142.229 11.1519 142.05 9.97339 142.108 8.79453C142.039 6.45229 142.904 4.17795 144.514 2.46838C145.368 1.64425 146.385 1.00479 147.499 0.590182C148.613 0.175573 149.802 -0.00522836 150.99 0.0591294C152.817 0.00499129 154.62 0.488266 156.173 1.44851C157.506 2.2535 158.527 3.48261 159.07 4.93676C159.548 6.18901 159.804 7.51427 159.827 8.85365C159.887 10.0315 159.711 11.2094 159.308 12.3185C158.905 13.4276 158.283 14.4455 157.48 15.3128C156.621 16.1297 155.6 16.7603 154.483 17.1648C153.366 17.5694 152.176 17.739 150.99 17.663H150.945Z" fill="#102448" />
-                    <path d="M177.57 61.2236C172.639 61.2419 167.732 60.5499 163 59.1691L165.466 46.2508L175.342 59.4056C176.197 59.653 177.081 59.7823 177.971 59.7899C179.504 59.8638 181.011 59.3864 182.219 58.4449C182.764 57.9939 183.196 57.4222 183.48 56.7754C183.764 56.1286 183.891 55.4248 183.853 54.7201C183.833 53.8209 183.561 52.9452 183.066 52.1926C181.987 50.9132 180.625 49.9012 179.085 49.2365L173.827 46.4577C170.959 45.1056 168.424 43.1427 166.401 40.708C164.778 38.5554 163.935 35.9192 164.01 33.229C163.947 31.3739 164.334 29.5309 165.138 27.8561C165.942 26.1812 167.139 24.7237 168.629 23.6067C171.699 21.1926 175.862 19.9904 181.12 20.0002C185.627 19.9843 190.102 20.7598 194.339 22.2913L191.234 34.8105H191.145L181.922 21.7444C181.492 21.5746 181.032 21.4941 180.57 21.5079C179.174 21.4181 177.795 21.8563 176.709 22.7347C176.27 23.0931 175.917 23.5444 175.675 24.0558C175.434 24.5672 175.31 25.1258 175.313 25.6908C175.29 27.07 175.752 28.4137 176.62 29.4895C177.931 30.9245 179.516 32.0852 181.283 32.9038L187.224 36.0669C189.721 37.2726 191.894 39.0507 193.566 41.2549C194.973 43.1896 195.727 45.5183 195.72 47.9062C195.716 49.818 195.203 51.6946 194.235 53.3455C193.251 55.0374 191.907 56.4952 190.299 57.6172C188.538 58.8547 186.572 59.7752 184.491 60.3368C182.234 60.9384 179.907 61.2367 177.57 61.2236Z" fill="#102448" />
-                    <path d="M212.85 61C207.919 61.0182 203.012 60.3262 198.28 58.9455L200.746 46.0271H200.879L210.756 59.182C211.611 59.4293 212.495 59.5586 213.385 59.5663C214.921 59.6372 216.433 59.1602 217.648 58.2212C218.189 57.7673 218.616 57.1946 218.897 56.5483C219.178 55.902 219.305 55.1996 219.267 54.4965C219.254 53.5962 218.98 52.7187 218.479 51.969C217.401 50.6896 216.038 49.6775 214.499 49.0128L209.241 46.2341C206.373 44.8819 203.837 42.9191 201.815 40.4844C200.188 38.3436 199.335 35.7186 199.394 33.0349C199.331 31.1798 199.718 29.3368 200.522 27.662C201.326 25.9871 202.523 24.5296 204.013 23.4126C207.083 20.9985 211.246 19.7963 216.504 19.8062C221.011 19.7887 225.487 20.5643 229.723 22.0972L226.619 34.6164H226.529L217.306 21.5503C216.876 21.3805 216.417 21.3 215.954 21.3138C214.558 21.224 213.179 21.6622 212.093 22.5406C211.654 22.899 211.301 23.3503 211.059 23.8617C210.818 24.3731 210.694 24.9317 210.697 25.4967C210.674 26.8759 211.136 28.2197 212.004 29.2954C213.315 30.7304 214.9 31.8911 216.667 32.7097L222.608 35.8728C225.052 37.0833 227.178 38.8446 228.817 41.0165C230.223 42.9512 230.977 45.2799 230.97 47.6678C230.966 49.5795 230.454 51.4562 229.485 53.1071C228.501 54.799 227.158 56.2568 225.549 57.3787C223.798 58.6184 221.843 59.5438 219.772 60.1132C217.515 60.7148 215.187 61.013 212.85 61Z" fill="#102448" />
-                </g>
-                <defs>
-                    <clipPath id="clip0_4_2">
-                        <rect width="231" height="61" fill="white" />
-                    </clipPath>
-                </defs>
-            </svg>
-            <!-- <img src="{{ asset('images/title/log/logo.png') }}" alt="" class="w-[145px] h-[40px] lg:w-[231px] lg:h-[61px]"> -->
-        </div>
-        <div style="clear: both;"></div>
+<p class="m-0 pt-5 text-bold w-100">Order Date - <span class="gray-color">#300333333333</span></p>
+</div>
+<div class="w-50 float-left logo mt-10">
+
+    <img src="./images/title/log/logo.png" alt="" class="mr-10" style="margin-right: 10px;">
+</div>
+<div style="clear: both;"></div>
+</div>
+<div class="table-section bill-tbl w-100 mt-10">
+    <table class="table w-100 mt-10">
+        <tr>
+            <th class="w-50">DATA PEMESAN</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="box-text">
+                    <p>Nama : <span class="gray-color">{{$dataCoba['title']['nama']}}</span> </p>
+                    <p>Email : <span class="gray-color">{{$dataCoba['title']['email']}}</span> </p>
+                    <p>Telephone : <span class="gray-color">{{$dataCoba['title']['telephone']}}</span> </p>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="table-section bill-tbl w-100 mt-10 mb-10">
+    <table class="table w-100 mt-10" style="width:100%">
+        <tr>
+            <th>No</th>
+            <th class="w-50">Trip</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+        </tr>
+        <tr align="center">
+            <td>1</td>
+            <td>Korea Summer Trip<span>(15 persen down payment)</span> </td>
+            <td>Rp.15.000.000</td>
+            <td>1</td>
+
+            <td>Rp.15.000.000</td>
+        </tr>
+        <tr>
+            <td colspan="7">
+                <div class="total-part">
+                    <div class="total-left w-85 float-left" align="right">
+                        <p>Sub Total</p>
+                        <p>Tax (18%)</p>
+                        <p>Total Payable</p>
+                    </div>
+                    <div class="total-right w-15 float-left text-bold" align="right">
+                        <p>Rp.15.000.000</p>
+                        <p>Rp.150.000</p>
+                        <p>Rp.15.000.000</p>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+<div class="d-flex justify-between">
+    <div style="margin-top:30px">
+        <p>Invoice ini sah dan diproses oleh Komputer</p>
+        <p>Silahkan hubungi <a class="text-tbliss" style="color:#4A5CED;">admin@tbliss.com</a> atau <span style="color:#4A5CED">0877712394</span> apabila kamu butuh bantuan</p>
     </div>
-    <div class="table-section bill-tbl w-100 mt-10">
-        <table class="table w-100 mt-10">
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+
+</html> --}}
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-aFq/bzH65dt+w6FI2ooMVUpc+21e0SRygnTpmBvdBgSdnuTN7QbdgL+OapgHtvPp" crossorigin="anonymous">
+</head>
+<style>
+    body {
+        font-family: Helvetica, sans-serif;
+        font-size: 13px;
+    }
+
+    /* .container {
+        max-width: 680px;
+        margin: 0 auto;
+    } */
+
+    .logotype {
+        background: #000;
+        color: #fff;
+        width: 75px;
+        height: 75px;
+        line-height: 75px;
+        text-align: center;
+        font-size: 11px;
+    }
+
+    .column-title {
+        background: #eee;
+        text-transform: uppercase;
+        padding: 15px 5px 15px 15px;
+        font-size: 11px
+    }
+
+    .column-detail {
+        border-top: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+
+    .column-header {
+        background: #eee;
+        text-transform: uppercase;
+        padding: 15px;
+        font-size: 11px;
+        border-right: 1px solid #eee;
+    }
+
+    .row {
+        padding: 7px 14px;
+        border-left: 1px solid #eee;
+        border-right: 1px solid #eee;
+        border-bottom: 1px solid #eee;
+    }
+
+    .alert {
+        background: #ffd9e8;
+        padding: 20px;
+        margin: 20px 0;
+        line-height: 22px;
+        color: #333
+    }
+
+    .socialmedia {
+        background: #eee;
+        padding: 20px;
+        display: inline-block
+    }
+</style>
+
+<body>
+    <div class="position-relative">
+        <div class="z-n1 position-absolute top-0 end-0">
+            <img src="./images/header/unpaid.png" alt="" style="height:140px">
+        </div>
+    </div>
+    <div class="container" style="padding-top:36px">
+
+        <table width="100%">
             <tr>
-                <th class="w-50">DATA PEMESAN</th>
+                <td width="75px">
+                    <img src="./images/title/log/logo.png" alt="" class="mr-10" style="margin-right: 10px;">
+                </td>
+                <td width="300px">
+                    <div style="background: #ffd9e8;border-left: 15px solid #fff;padding-left: 30px;font-size: 26px;font-weight: bold;letter-spacing: -1px;height: 73px;line-height: 75px;">Order invoice</div>
+                </td>
+                <td></td>
             </tr>
+        </table>
+        <br><br>
+        <h3 class="text-end mb-0"> <strong>PT. Tbliss</strong></h3>
+        <p class="text-end mb-0">Jl. Bungur No 11 A </p>
+        <p class="text-end mb-0">Kota Adm. Jakarta Selatan, DKI Jakarta</p><br>
+        <table width="100%" style="border-collapse: collapse;">
+            <tr>
+                <td widdth="50%" style="background:#eee;padding:5px;">
+                    <h3>
+                        <strong>Invoice</strong> #{{$dataCoba['orderid']}}<br>
+
+                    </h3>
+                    <p class="mb-0">
+                        Invoice Date : Tuesday, February 14th 2023
+                    </p>
+                    <p class="mb-0">
+                        Due Date : Thursday, March 2nd 2023
+                    </p>
+                </td>
+                <td style="background:#eee;padding:20px;">
+                    <!-- <strong>Order-nr:</strong> 27100<br>
+                    <strong>E-mail:</strong> firstname@company.com<br>
+                    <strong>Phone:</strong> 004676234567<br> -->
+                </td>
+            </tr>
+        </table><br>
+        <!-- <table width="100%" style="border-collapse: collapse;">
+            <tr>
+                <td widdth="50%" style="background:#eee;padding:20px;">
+                    <strong>Date:</strong> 2021/05/26<br>
+                    <strong>Payment type:</strong> Credit Card VISA<br>
+                    <strong>Delivery type:</strong> Postnord<br>
+                </td>
+                <td style="background:#eee;padding:20px;">
+                    <strong>Order-nr:</strong> 27100<br>
+                    <strong>E-mail:</strong> firstname@company.com<br>
+                    <strong>Phone:</strong> 004676234567<br>
+                </td>
+            </tr>
+        </table><br> -->
+        <table width="100%">
             <tr>
                 <td>
-                    <div class="box-text">
-                        <p>Nama : <span class="gray-color">Rahmad</span> </p>
-                        <p>Email : <span class="gray-color">patrajuanda10@gmail.com</span> </p>
-                        <p>Telephone : <span class="gray-color">087722039749</span> </p>
-                    </div>
+                    <table>
+                        <tr>
+                            <!-- <td style="vertical-align: text-top;">
+                                <div style="background: #ffd9e8 url(https://cdn0.iconfinder.com/data/icons/commerce-line-1/512/comerce_delivery_shop_business-07-128.png);width: 50px;height: 50px;margin-right: 10px;background-position: center;background-size: 42px;"></div>
+                            </td> -->
+                            <td style="padding-left: 5px;">
+                                <strong>Invoice To</strong><br>
+                                <br>
+                                {{$dataCoba['title']['nama']}}<br>
+                                {{$dataCoba['title']['email']}}<br>
+                                {{$dataCoba['title']['telephone']}}<br>
+                                Jl. Hasan Basri K. Tangi II RT.18 No.42 Banjarmasin
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+                <td class="d-none">
+                    <table>
+                        <tr>
+                            <td style="vertical-align: text-top;">
+                                <div style="background: #ffd9e8 url(https://cdn4.iconfinder.com/data/icons/app-custom-ui-1/48/Check_circle-128.png) no-repeat;width: 50px;height: 50px;margin-right: 10px;background-position: center;background-size: 25px;"></div>
+                            </td>
+                            <td>
+                                <strong>Delivery</strong><br>
+                                {{$dataCoba['title']['nama']}}<br>
+                                {{$dataCoba['title']['email']}}<br>
+                                {{$dataCoba['title']['telephone']}}<br>
+                                Jl. Hasan Basri K. Tangi II RT.18 No.42 Banjarmasin
+
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+        </table><br>
+        <!-- <table width="100%" style="border-top:1px solid #eee;border-bottom:1px solid #eee;padding:0 0 8px 0">
+            <tr>
+                <td>
+                    <h3>Checkout details</h3>Your checkout made by VISA Card **** **** **** 2478
+                <td>
+            </tr>
+        </table><br>
+        <div style="background: #ffd9e8 url(https://cdn4.iconfinder.com/data/icons/basic-ui-2-line/32/shopping-cart-shop-drop-trolly-128.png) no-repeat;width: 50px;height: 50px;margin-right: 10px;background-position: center;background-size: 25px;float: left; margin-bottom: 15px;"></div>
+        <h3>Your articles</h3> -->
+
+        {{--<table width="100%" style="border-collapse: collapse;border-bottom:1px solid #eee;">
+            <tr>
+                <td colspan="3"  class="column-header ">Description</td>
+                <!-- <td width="20%" class="column-header">Options</td> -->
+                <!-- <td width="20%" class="column-header">Price</td> -->
+                <td width="20%" class="column-header">Total</td>
+            </tr>
+            <tr>
+                <td col-span="3" class="column-header ">2</td>
+                <!-- <td>Jacob</td>
+                <td>Thornton</td> -->
+                <td class="column-header ">Rp.15.000.000</td>
+            </tr>
+            <!-- <tr>
+                <th scope="row">3</th>
+                <td colspan="2">Larry the Bird</td>
+                <td>@twitter</td>
+            </tr>
+            <tr>
+                <td class="row"><span style="color:#777;font-size:11px;">#64000L</span><br>Softstyle Lady Fit</td>
+                <td class="row">Black | Large</td>
+                <td class="row">4 <span style="color:#777">X</span> 25 SEK</td>
+                <td class="row">100 SEK</td>
+            </tr>
+            <tr>
+                <td class="row"><span style="color:#777;font-size:11px;">#64000L</span><br>Softstyle Lady Fit</td>
+                <td class="row">Black | Large</td>
+                <td class="row">4 <span style="color:#777">X</span> 25 SEK</td>
+                <td class="row">100 SEK</td>
+            </tr>
+            <tr>
+                <td class="row"><span style="color:#777;font-size:11px;">#64000L</span><br>Softstyle Lady Fit</td>
+                <td class="row">Black | Large</td>
+                <td class="row">4 <span style="color:#777">X</span> 25 SEK</td>
+                <td class="row">100 SEK</td>
+            </tr> -->
+        </table>--}}
+        <table class="table">
+            <thead style="border-collapse: collapse;border-bottom:1px solid #eee;background-color:#eee">
+                <tr>
+                    <th scope="col" colspan="3" class="text-center">Description</th>
+                    <th scope="col" class="text-end" >Total</th>
+                    <!-- <th scope="col">Last</th>
+                    <th scope="col">Handle</th> -->
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <!-- <th scope="row"></th> -->
+                    <td colspan="3" class="text-center">Korea Summer Trip x1 <br>DownPayment</td>
+                    <td class="text-end">Rp.15.000.000</td>
+                    <!-- <td>@mdo</td> -->
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table width="100%" style="background:#eee;padding:20px;">
+            <tr>
+                <td>
+                    <table width="300px" style="float:right">
+                        <tr>
+                            <td><strong>Sub-total:</strong></td>
+                            <td style="text-align:right">Rp.15.000.000</td>
+                        </tr>
+                        <!-- <tr>
+                            <td><strong>Shipping fee:</strong></td>
+                            <td style="text-align:right">50 SEK</td>
+                        </tr> -->
+                        <tr>
+                            <td><strong>Tax 11%:</strong></td>
+                            <td style="text-align:right">Rp.1.650.000</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grand total:</strong></td>
+                            <td style="text-align:right">Rp.16.650.000</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
         </table>
-    </div>
-
-    <div class="table-section bill-tbl w-100 mt-10 mb-10">
-        <table class="table w-100 mt-10" style="width:100%">
-            <tr>
-                <th>No</th>
-                <th class="w-50">Trip</th>
-                <th>Price</th>
-                <th>Qty</th>
-                <th>Total</th>
-            </tr>
-            <tr align="center">
-                <td>1</td>
-                <td>Korea Summer Trip<span>(15 persen down payment)</span> </td>
-                <td>Rp.15.000.000</td>
-                <td>1</td>
-
-                <td>Rp.15.000.000</td>
-            </tr>
-            <tr>
-                <td colspan="7">
-                    <div class="total-part">
-                        <div class="total-left w-85 float-left" align="right">
-                            <p>Sub Total</p>
-                            <p>Tax (18%)</p>
-                            <p>Total Payable</p>
-                        </div>
-                        <div class="total-right w-15 float-left text-bold" align="right">
-                            <p>Rp.15.000.000</p>
-                            <p>Rp.150.000</p>
-                            <p>Rp.15.000.000</p>
-                        </div>
-                        <div style="clear: both;"></div>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="d-flex justify-between">
-        <div style="margin-top:30px">
-            <p>Invoice ini sah dan diproses oleh Komputer</p>
-            <p>Silahkan hubungi <a class="text-tbliss" style="color:#4A5CED;">admin@tbliss.com</a> atau <span style="color:#4A5CED">0877712394</span> apabila kamu butuh bantuan</p>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+        <div class="alert">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. </div>
+        <div class="socialmedia mb-5">Follow us online <small>[FB] [INSTA]</small></div>
+    </div><!-- container -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js" integrity="sha384-qKXV1j0HvMUeCBQ+QVp7JcfGl760yU08IQ+GpUo5hlbpg51QRiuqHAJz8+BrxE/N" crossorigin="anonymous"></script>
+</body>
 
 </html>

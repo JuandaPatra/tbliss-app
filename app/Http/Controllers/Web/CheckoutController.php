@@ -40,7 +40,8 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        return view('web.invoice.order');
+        // return view('web.invoice.order');
+        
         if(!Auth::user()){
             return redirect()->to(route('signin.index'));
         }
@@ -66,12 +67,20 @@ class CheckoutController extends Controller
         // return $dataCoba['title'];
 
         $pdf = PDF::loadView('admin.payment.coba',compact('dataCoba'));
+        // $pdf = PDF::loadView('admin.payment.cobaTailwind',compact('dataCoba'));
+
+
+        return view('admin.payment.coba', compact('dataCoba'));
 
         // Storage::put('public/storage/uploads/'.'-'.rand().'_'.time().'.'.'pdf', $pdf->output());
         // return 'success';
         
 
         // User::sendEMail($email, $pdf);
+        PDF::getOptions()->set([
+            'defaultFont' => 'helvetica',
+            'chroot' => '/var/www/myproject/public',
+        ]);
         $path = Storage::put('public/storage/uploads/'.'-'.rand().'_'.time().'.'.'pdf', $pdf->output());
 
         // return $path;

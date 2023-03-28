@@ -11,13 +11,20 @@ use App\Models\Trip_categories;
 use App\Models\Trip_cities_hidden_gem_hashtag;
 use Illuminate\Contracts\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Alert;
+use App\Models\Cart;
+use App\Models\User;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
     public function index()
     {
-        
+
         ///// negara default adalah korea 
         $id = 'korea';
 
@@ -29,7 +36,7 @@ class HomeController extends Controller
     {
         $slug = $id;
 
-        
+
 
         ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
@@ -63,6 +70,57 @@ class HomeController extends Controller
         //// ambil trip lainnya
         $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip'));
+    }
+
+    public function addToCart(Request $request)
+    {
+        if (!Auth::user()) {
+            return redirect(route('signin.index'));
+        }
+
+        // return $request;
+        $user = Auth::user();
+        $trip = Trip_categories::where('id', '=', $request->id)->first();
+
+        // Cart::create([
+        //     'user_id'               => $user->id,
+        //     'trip_categories_id'    => $trip->id,
+        //     'qty'                   => 1,
+        //     'price'                 => $trip->price,
+        //     'price_dp'              => 0,
+        //     'total'                 => 0,
+        //     'tanggal_pembayaran'    => Carbon::now(),
+        //     'status'                => 'order',
+        // ]);
+
+        // proses insert
+
+        DB::beginTransaction();
+        try {
+            $post = Cart::create([
+                'user_id'               => $user->id,
+                'trip_categories_id'    => $trip->id,
+                'qty'                   => 1,
+                'price'                 => $trip->price,
+                'price_dp'              => 0,
+                'total'                 => 0,
+                'tanggal_pembayaran'    => Carbon::now(),
+                'status'                => 'order',
+            ]);
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Tambah Career', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
+
+        // Alert::success('Tambah Cart', 'Berhasil');
+        $newCart = Cart::where('user_id', '=', $user->id)->where('trip_categories_id','=',$trip->id)->first();
+        return $newCart;
+        // return view('web.booking.index', )
+
+        // return redirect()->route('booking', []);
     }
 
     public function search(Request $request)
@@ -110,20 +168,83 @@ class HomeController extends Controller
             // ->whereIn('id',$searchByPlace)
             ->get();
 
-            
-            $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
-                             ->where('date_from', '>=', $now)
-                             ->where('date_to', '<=', $to)
-                             ->where('seat', '>=', $seat)
-                             ->get();
 
-            
-            return response()->json($reservationsq);
+        $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
+            ->where('date_from', '>=', $now)
+            ->where('date_to', '<=', $to)
+            ->where('seat', '>=', $seat)
+            ->get();
+
+
+        return response()->json($reservationsq);
         // return response()->json($reservations);
     }
 
     public function profile()
     {
-        return view('web.profile.index');
+        $user = Auth::user();
+        // return $user;
+        return view('web.profile.index', compact('user'));
+    }
+
+    public function profileUpdate(Request $request)
+    {
+        $user = Auth::user();
+
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name' => 'required',
+                'email' => 'required',
+                'phone' => 'required',
+                'alamat' => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+
+        DB::beginTransaction();
+
+        try {
+            $user = User::whereId($user->id);
+
+            $user->update([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'alamat' => $request->alamat,
+            ]);
+
+            Alert::success('Edit Profile', 'Berhasil');
+            return redirect()->route('home.profile');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Edit Slider', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
+    }
+
+    public function cart()
+    {
+        return view('web.cart.index');
+    }
+
+    public function booking()
+    {
+        return view('web.booking.index');
+    }
+
+    public function payment()
+    {
+        return view('web.payment.index');
+    }
+
+    public function upload()
+    {
+        return view('web.upload.index');
     }
 }
