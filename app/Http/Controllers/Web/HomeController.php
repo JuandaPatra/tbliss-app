@@ -81,7 +81,8 @@ class HomeController extends Controller
         // return $request;
         $user = Auth::user();
         $trip = Trip_categories::where('id', '=', $request->id)->first();
-
+        
+        
         // Cart::create([
         //     'user_id'               => $user->id,
         //     'trip_categories_id'    => $trip->id,
@@ -116,11 +117,11 @@ class HomeController extends Controller
         }
 
         // Alert::success('Tambah Cart', 'Berhasil');
-        $newCart = Cart::where('user_id', '=', $user->id)->where('trip_categories_id','=',$trip->id)->first();
-        return $newCart;
+        // $newCart = Cart::where('user_id', '=', $user->id)->where('trip_categories_id','=',$trip->id)->first();
+        // return $newCart;
         // return view('web.booking.index', )
 
-        // return redirect()->route('booking', []);
+        return redirect()->route('booking');
     }
 
     public function search(Request $request)
@@ -235,7 +236,15 @@ class HomeController extends Controller
 
     public function booking()
     {
-        return view('web.booking.index');
+        if(!Auth::user()){
+            redirect('/');
+        }
+        $user = Auth::user();
+
+        $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price'])->where('user_id', '=', $user->id)->orderBy('created_at', 'desc')->get()->last();
+        // return $newCart;
+
+        return view('web.booking.index', compact('newCart'));
     }
 
     public function payment()
