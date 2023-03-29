@@ -6,9 +6,9 @@
     <h1 class=" font-bely text-footer text-[45px]">Profil Kamu</h1>
 </div>
 <section>
-    <div class="container-lg my-4 mx-5">
+    <div class="container-lg my-4 mx-1 lg:mx-5">
         <div class="grid grid-cols-3 gap-4 ">
-            <div class="text-lg font-bold text-center p-3 rounded-lg ">
+            <div class="text-lg font-bold text-center p-3 mr-[30px] lg:mr-0 rounded-lg hidden lg:block">
                 <div class="flex justify-start mr-2 mb-3">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" fill="#212529" viewBox="0 0 100 100" class="inline" height="48" width="48">
@@ -46,10 +46,7 @@
                 </div>
 
             </div>
-            <div class=" text-lg font-bold text-center p-3 rounded-lg col-span-2">
-
-
-
+            <div class=" text-lg font-bold text-center p-3 rounded-lg col-span-3 lg:col-span-2">
                 <div class="relative overflow-x-auto">
                     <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
                         <thead class=" font-interRegular text-sm border-b border-[#9F9F9F]">
@@ -64,22 +61,30 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach($histories as $history)
                             <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
                                 <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Invoice #TRAVELBLIZZ-BCA-2309
+                                    Invoice #{{$history->invoice_id}}
                                 </th>
+                                @if($history->status == 'Menunggu Pembayaran')
                                 <td class="pl-6 pr-0 py-4 text-footer">
                                     Menunggu Pembayaran
                                 </td>
+                                @else
+                                <td class="pl-6 pr-0 py-4 text-[#5C6CEF]">
+                                    Lunas
+                                </td>
+                                @endif
                             </tr>
-                            <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
+                            @endforeach
+                            <!-- <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
                                 <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                     Invoice #TRAVELBLIZZ-BCA-2308
                                 </th>
                                 <td class="pl-6 pr-0 py-4 text-[#5C6CEF]">
                                     Lunas
                                 </td>
-                            </tr>
+                            </tr> -->
 
                         </tbody>
                     </table>

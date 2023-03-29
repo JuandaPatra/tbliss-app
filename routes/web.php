@@ -62,8 +62,10 @@ Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities'
 Route::resource('checkout', CheckoutController::class);
 
 Route::get('/booking-trip', [HomeController::class,'booking'])->name('booking');
-Route::get('/payment', [HomeController::class, 'payment'])->name('payment');
-Route::get('/upload', [HomeController::class, 'upload'])->name('upload');
+Route::post('booking-order', [HomeController::class, 'bookingOrder'])->name('booking.order');
+Route::get('/payment/{ids}', [HomeController::class, 'payment'])->name('payment');
+Route::get('/upload/{ids}', [HomeController::class, 'upload'])->name('upload');
+Route::post('/upload', [HomeController::class,'uploadImage'])->name('uploadImages');
 
 
 Route::resource('signup', UserRegisterController::class)->middleware('guest');

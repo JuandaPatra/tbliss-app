@@ -6,9 +6,9 @@
     <h1 class=" font-bely text-footer text-[45px]">Profil Kamu</h1>
 </div>
 <section>
-    <div class="container-lg my-4 mx-5">
+    <div class="container-lg my-4 mx-1 lg:mx-5">
         <div class="grid grid-cols-3 gap-4 ">
-            <div class="text-lg font-normal text-center p-3 rounded-lg ">
+            <div class="text-lg font-normal text-center p-3  rounded-lg hidden lg:block">
                 <div class="flex justify-start mr-2 mb-3">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" fill="#212529" viewBox="0 0 100 100" class="inline" height="48" width="48">
@@ -45,7 +45,7 @@
                     </a>
                 </div>
             </div>
-            <div class=" text-greyTbliss text-lg font-normal text-center p-3 rounded-lg col-span-2">
+            <div class=" text-greyTbliss text-lg font-normal text-center p-3  rounded-lg col-span-3 lg:col-span-2">
 
                 <form action="{{ route('home.profileUpdate')}}" method="post">
                     @csrf
@@ -58,12 +58,12 @@
                         <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value="{{$user->email}}" name="email" required>
                     </div>
                     <div class="mb-6">
-                        <label for="telephone" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Phone Number</label>
+                        <label for="telephone" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Alamat</label>
                         <input type="number" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{$user->phone}}" name="phone">
                     </div>
                     <div class="mb-6">
-                        <label for="alamat" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Phone Number</label>
-                        <textarea id="alamat" name="alamat" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Alamat" required>{{$user->alamat}}</textarea>
+                        <label for="alamat" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Alamat</label>
+                        <textarea id="alamat" name="alamat" rows="4" class="block p-2.5 w-full lg:w-[80%] text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Alamat" required>{{$user->alamat}}</textarea>
                         <!-- <input type="n" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{$user->phone}}"> -->
                     </div>
                     <h1 class="text-start mb-6 font-bold">

@@ -43,7 +43,7 @@
 
 
                 </div>
-                <div class=" bg-white h-[39px] py-[7px] text-[14px] text-[#6A6A6A] border border-[#9F9F9F] flex justify-center cursor-pointer full-pay-button" data-price="15000000">
+                <div class=" bg-white h-[39px] py-[7px] text-[14px] text-[#6A6A6A] border border-[#9F9F9F] flex justify-center cursor-pointer full-pay-button" data-price="{{$newCart->trip->price}}">
                     <svg width="17" height="17" viewBox="0 0 17 17" class="mt-[2px]" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_466_104)">
                             <path d="M7.81378 0H9.17352C9.42887 0.035725 9.69827 0.0293457 9.95873 0.0599671C10.5832 0.144365 11.1926 0.316169 11.7692 0.570324C12.6451 0.928472 13.4538 1.43283 14.1605 2.06184C14.8574 2.67727 15.4513 3.40003 15.9199 4.20279C16.3646 4.96855 16.6885 5.79828 16.88 6.66271C16.9387 7.01035 16.9733 7.36164 16.9834 7.71405C16.9834 7.76764 16.9668 7.82378 17 7.87481V8.89808C16.9656 9.16474 16.9668 9.43523 16.9553 9.70317C16.9236 10.1374 16.8378 10.566 16.7 10.9791C16.3737 12.0812 15.8239 13.1044 15.0849 13.9851C13.8486 15.4721 12.1456 16.4977 10.2524 16.8954C9.9096 16.9481 9.56368 16.9779 9.21693 16.9847C9.15692 16.9847 9.09564 16.9668 9.03819 17H7.87762C7.62227 16.9681 7.36691 16.9719 7.11156 16.9451C6.51897 16.8709 5.93916 16.7168 5.38794 16.4871C4.5468 16.1609 3.76452 15.6997 3.07191 15.1219C2.00971 14.2458 1.17269 13.1285 0.630752 11.8633C0.351316 11.2482 0.162937 10.5957 0.0715341 9.92645C-0.000814329 9.26215 -0.0183229 8.59302 0.0191867 7.92585C0.0204483 7.55753 0.0498999 7.18985 0.107283 6.82603C0.372766 5.47513 0.964946 4.20966 1.83218 3.13997C2.68647 2.0686 3.78542 1.2176 5.03684 0.658361C5.58519 0.407918 6.16052 0.221264 6.75152 0.102072C7.06714 0.0557098 7.38514 0.0271693 7.70398 0.0165867C7.741 0.014035 7.78058 0.0280696 7.81378 0Z" fill="#5C6CEF" />
@@ -67,7 +67,7 @@
                 Rp.1.000.000
             </h1>
             <h1 class="mt-2 mb-[30px] font-semibold text-[30px] full-pay-price  hidden">
-                Rp.15.000.000
+                @currency($newCart->price)
             </h1>
         </div>
     </div>
@@ -75,13 +75,15 @@
         <div class="flex justify-start ml-[10px] pt-[20px]">
             <img src="{{ asset('images/header/seats.png') }}" alt="" class="w-[30px] h-[30px] mr-[12px]">
             <span>
-                Sisa 3 seat!
+                Sisa {{$newCart->trip->seat}} seat!
             </span>
         </div>
     </div>
 </section>
 
 <section class="bg-yellowTbliss">
+    <form action="{{route('booking.order')}}" method="post">
+        @csrf
     <div class="container-lg px-4">
         <div class="relative overflow-x-auto">
             <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
@@ -107,27 +109,28 @@
                         <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900   ">
                             <div class="flex flex-wrap">
                                 <div class="basis-4/12">
-                                    <img src="{{ asset('images/header/licensed-image.jpeg') }}" alt="" class="">
+                                    <img src="{{$newCart->trip->thumbnail}}" alt="" class="">
                                 </div>
                                 <div class="basis-8/12 pl-3 mt-8">
                                     <div class="flex mb-2">
                                         <p class="w-[30%]">Nama Trip</p>
                                         <p>:</p>
-                                        <p class="pl-1">Cultural Walk in Korea</p>
+                                        <p class="pl-1">{{$newCart->trip->title}}</p>
 
                                     </div>
                                     <div class="flex mb-2">
                                         <p class="w-[30%]">Tanggal</p>
                                         <p>:</p>
-                                        <p class="pl-1">23-28 APR 2023</p>
+                                        <p class="pl-1">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
 
                                     </div>
                                     <div class="flex mb-2">
                                         <p class="w-[30%]">Opsi Pembayaran</p>
                                         <p>:</p>
                                         <p class="pl-1 status-payment">Bayar Uang Muka</p>
-                                        <input type="hidden" name="status" value="1000000" class="input-payment">
-                                        <input type="hidden" name="seat" value="3" class="seat-payment">
+                                        <input type="hidden" name="dp_price" value="1000000" class="input-payment">
+                                        <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}" >
+                                        <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
 
                                     </div>
 
@@ -137,7 +140,7 @@
                             Rp.1.000.000
                         </td>
                         <td class="text-justify pl-6 py-4">
-                            <input type="number" value="1" class="w-[60px] mt-[10px] input-qty">
+                            <input type="number" value="1" class="w-[60px] mt-[10px] input-qty" name="qty">
                         </td>
                         <td class="pl-6 pr-0 py-4 total-price">
                             Rp.1.000.000
@@ -148,7 +151,7 @@
 
         </div>
         <div class="btn-group w-full">
-            <a class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] ">Bayar Sekarang</a>
+            <button class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] " type="submit">Bayar Sekarang</button>
         </div>
         <div class="btn-group w-full font-interRegular text-[16px] font-normal">
             <a class=" w-full h-[49px] mt-[14px] mb-[14px] text-white bg-[#4CAF50] cursor-pointer text-center py-[10px] ">
@@ -163,6 +166,7 @@
                 Tanya Admin Kami</a>
         </div>
     </div>
+    </form>
     <div class="container-lg pb-[50px] lg:pb-[164px] px-4">
         <h1 class=" font-interRegular text-[16px] font-bold text-[#414141] mb-[20px] mt-[35px]">
             Syarat dan Ketentuan
@@ -280,92 +284,6 @@
     </div>
 </section>
 
-<!-- <section>
-    <div class="container-lg my-4 mx-5">
-        <div class="grid grid-cols-3 gap-4 ">
-            <div class="text-lg font-bold text-center p-3 rounded-lg ">
-                <div class="flex justify-start mr-2 mb-3">
-                    <span>
-                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" fill="#212529" viewBox="0 0 100 100" class="inline" height="48" width="48">
-                            <circle cx="50.1" cy="39.5" r="16.7"></circle>
-                            <path d="m50 3.6c-25.5 0-46.3 20.7-46.3 46.3s20.8 46.3 46.3 46.3 46.3-20.8 46.3-46.3-20.8-46.3-46.3-46.3zm27.2 75.5c-3.4-9.1-10.8-18.8-27.2-18.8-16.3 0-23.8 9.7-27.2 18.8-7.8-7.3-12.8-17.7-12.8-29.2 0-22 17.9-40 40-40s40 17.9 40 40c0 11.5-5 21.9-12.8 29.2z"></path>
-                        </svg>
-
-                    </span>
-
-                    <div class=" ml-4 align-self-center">
-                        Welcome back, <br>
-                        <b>Juanda Patra</b>
-                    </div>
-                </div>
-
-                <div class="account-sidebar__item">
-                    <a class="flex justify-start mb-3 " href="{{route('home.profile')}}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 30 30" fill="none" class="mr-2 align-bottom">
-                            <path d="M17.5441 10.9127C17.5441 12.1335 16.5544 13.1232 15.3336 13.1232C14.1128 13.1232 13.123 12.1335 13.123 10.9127C13.123 9.69183 14.1128 8.70215 15.3336 8.70215C16.5544 8.70215 17.5441 9.69183 17.5441 10.9127Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M29.333 15.333C29.333 23.065 23.065 29.333 15.333 29.333C7.60101 29.333 1.33301 23.065 1.33301 15.333C1.33301 7.60101 7.60101 1.33301 15.333 1.33301C23.065 1.33301 29.333 7.60101 29.333 15.333Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                            <path d="M15.3322 16.0693C17.9306 16.0693 20.0803 17.9909 20.438 20.4904H10.2266C10.5841 17.9909 12.7338 16.0693 15.3322 16.0693Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
-                        </svg>
-
-                        <span class="align-middle tw-leading-none ml-4">Profile</span>
-                    </a>
-                </div>
-                <div class="account-sidebar__item">
-                    <a class="flex justify-start mb-3 text-authbutton" href="{{route('home.cart')}}">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 30 30" fill="none" class="mr-2 align-bottom">
-                            <path d="M22.2917 18.2843L20.016 12.9337L20.0495 12.9025C20.8688 12.1673 22.2055 10.6512 21.9492 8.79021C21.935 8.68659 21.8872 8.59047 21.8133 8.51652C21.7393 8.44257 21.6432 8.39485 21.5395 8.38065C19.6686 8.12678 18.157 9.45843 17.3976 10.3135L12.0435 8.03816C11.9555 8.00073 11.8582 7.99054 11.7642 8.0089C11.6703 8.02725 11.584 8.07332 11.5165 8.14115L10.3187 9.33868C10.2725 9.38216 10.2353 9.43441 10.2094 9.49238C10.1835 9.55036 10.1693 9.6129 10.1678 9.67639C10.1678 9.73959 10.1802 9.80219 10.2045 9.86056C10.2288 9.91893 10.2643 9.97192 10.3092 10.0165L14.0366 13.748L11.9262 15.8557L8.3999 15.2329C8.32421 15.2195 8.24639 15.2244 8.173 15.2473C8.09962 15.2703 8.03283 15.3105 7.97829 15.3647L7.13984 16.2053C7.08599 16.2593 7.04581 16.3254 7.02264 16.3981C6.99947 16.4707 6.99399 16.5478 7.00664 16.623C7.01929 16.6982 7.04972 16.7693 7.09538 16.8304C7.14105 16.8915 7.20064 16.9407 7.2692 16.9742L11.3728 18.9549L13.3443 23.0576C13.3775 23.1287 13.4276 23.1905 13.4903 23.2377C13.5529 23.2849 13.6262 23.316 13.7037 23.3283C13.7308 23.3306 13.758 23.3306 13.7851 23.3283C13.912 23.3277 14.0335 23.2769 14.1229 23.187L14.9637 22.3487C15.0179 22.2941 15.0582 22.2274 15.0811 22.154C15.104 22.0806 15.109 22.0028 15.0955 21.9272L14.4798 18.4711L16.5999 16.3155L20.3034 20.0183C20.348 20.0631 20.401 20.0987 20.4594 20.1229C20.5178 20.1472 20.5804 20.1596 20.6436 20.1596C20.7705 20.1591 20.8919 20.1082 20.9814 20.0183L22.1791 18.8208C22.2506 18.7536 22.2997 18.6661 22.3198 18.5702C22.3399 18.4743 22.3301 18.3745 22.2917 18.2843ZM11.3249 9.67639L11.9645 9.0369L16.7101 11.0535C16.5304 11.2428 16.3412 11.4392 16.1352 11.6451L14.7146 13.0654L11.3249 9.67639ZM13.6222 17.9657C13.5688 18.0202 13.5292 18.0867 13.5067 18.1596C13.4842 18.2325 13.4795 18.3097 13.4929 18.3848L14.1085 21.8385L13.9217 22.023L12.1633 18.3896C12.1163 18.2924 12.0378 18.2139 11.9405 18.1669L8.2945 16.4065L8.47896 16.2197L12.0052 16.8472C12.0809 16.8607 12.1587 16.8558 12.2321 16.8328C12.3055 16.8099 12.3723 16.7697 12.4268 16.7155L16.8131 12.3325C17.2922 11.8535 17.7114 11.408 18.0708 10.9961C18.5259 10.4763 19.6686 9.34347 21.0221 9.31952C20.9933 10.5793 20.0231 11.6499 19.4075 12.1936C18.8541 12.6942 18.4037 13.1205 17.9941 13.5372L13.6222 17.9657ZM20.6436 18.9932L17.273 15.6329L18.6768 14.2079C18.8637 14.0186 19.0601 13.8246 19.2685 13.6259L21.2832 18.3633L20.6436 18.9932Z" fill="currentColor"></path>
-                            <path d="M28.5 15.5947C28.5 23.0506 22.4558 29.0947 15 29.0947C7.54416 29.0947 1.5 23.0506 1.5 15.5947C1.5 8.13888 7.54416 2.09473 15 2.09473C22.4558 2.09473 28.5 8.13888 28.5 15.5947Z" stroke="currentColor"></path>
-                        </svg>
-                        <span class="align-middle tw-leading-none ml-4">Histori Pembayaran</span>
-                    </a>
-                </div>
-
-            </div>
-            <div class=" text-lg font-bold text-center p-3 rounded-lg col-span-2">
-
-
-
-                <div class="relative overflow-x-auto">
-                    <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
-                        <thead class=" font-interRegular text-sm border-b border-[#9F9F9F]">
-                            <tr>
-                                <th scope="col" class="pl-0 pr-6 py-3 ">
-                                    Invoice Number
-                                </th>
-                                <th scope="col" class="pl-6 pr-0 py-3">
-                                    Status
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
-                                <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Invoice #TRAVELBLIZZ-BCA-2309
-                                </th>
-                                <td class="pl-6 pr-0 py-4 text-footer">
-                                    Menunggu Pembayaran
-                                </td>
-                            </tr>
-                            <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
-                                <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Invoice #TRAVELBLIZZ-BCA-2308
-                                </th>
-                                <td class="pl-6 pr-0 py-4 text-[#5C6CEF]">
-                                    Lunas
-                                </td>
-                            </tr>
-
-                        </tbody>
-                    </table>
-                </div>
-
-
-
-            </div>
-        </div>
-    </div>
-</section> -->
 
 <style>
     input::-webkit-outer-spin-button,
@@ -458,7 +376,7 @@
 
         $('.input-qty').keyup(function() {
             var numbers = $(this).val()
-            // console.log(numbers)
+            console.log(numbers)
             // console.log(this)
             var inputPayment = $('.input-payment').val()
             // console.log(inputPayment)
@@ -468,8 +386,7 @@
             } else {
                 var totalPrice = inputPayment * numbers
             }
-            if(numbers >= seat){
-                console.log(numbers)
+            if(+numbers >= +seat){
                 $(this).val(seat)
                 $(this).change()
                 var totalPrice = inputPayment * seat
