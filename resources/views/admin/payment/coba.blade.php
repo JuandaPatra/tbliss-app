@@ -108,10 +108,10 @@
 
                     </h3>
                     <p class="mb-0">
-                        Invoice Date : Tuesday, February 14th 2023
+                        Invoice Date :{{$dataCoba['invoice_date']}}
                     </p>
                     <p class="mb-0">
-                        Due Date : Thursday, March 2nd 2023
+                        Due Date : {{$dataCoba['due_date']}}
                     </p>
                 </td>
                 <td style="background:#eee;padding:20px;">

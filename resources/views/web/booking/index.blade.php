@@ -11,8 +11,8 @@
         <h1 class=" font-interRegular text-[15px]">Trusted Booking</h1>
     </div>
     <div class="flex flex-wrap">
-        <div class="basis-3/12"></div>
-        <div class="basis-6/12">
+        <div class="basis-full lg:basis-3/12"></div>
+        <div class="basis-full lg:basis-6/12 p-[10px] lg:p-0">
             <h1 class="mb-[18px] mt-[80px]">
                 Kamu cukup membayar deposit terlebih dahulu.
             </h1>

@@ -81,13 +81,11 @@ class HomeController extends Controller
         if (!Auth::user()) {
             return redirect(route('signin.index'));
         }
-
-        // return $request;
         $user = Auth::user();
+        if($user->alamat == '' || $user->phone == ''){
+            return redirect(route('home.profile'));
+        }
         $trip = Trip_categories::where('id', '=', $request->id)->first();
-        // return $trip;
-
-
         // Cart::create([
         //     'user_id'               => $user->id,
         //     'trip_categories_id'    => $trip->id,
@@ -120,12 +118,6 @@ class HomeController extends Controller
         } finally {
             DB::commit();
         }
-
-        // Alert::success('Tambah Cart', 'Berhasil');
-        // $newCart = Cart::where('user_id', '=', $user->id)->where('trip_categories_id','=',$trip->id)->first();
-        // return $newCart;
-        // return view('web.booking.index', )
-
         return redirect()->route('booking');
     }
 
@@ -275,7 +267,6 @@ class HomeController extends Controller
         DB::beginTransaction();
         try {
             $payment = Payment::create([
-
                 'order_id'              => $newCart->id,
                 'invoice_id'            => $invoice_id,
                 'user_id'               => $user->id,
@@ -314,7 +305,8 @@ class HomeController extends Controller
             'trip_qty'          =>  $qty,
             'trip_price'        =>  'Rp.' . number_format($request->dp_price, 0, ',', '.'),
             'statusPembayaran'  =>  $statusPembayaran,
-            'invoice_date'      => ($invoiceDate) . date('d M Y')
+            'invoice_date'      => date('l,dS M Y', strtotime($invoiceDate)),
+            'due_date'          => date('l,dS M Y', strtotime($invoiceDate . ' + 2 days'))            
         ];
 
         $pdf = PDF::loadView('admin.payment.coba', compact('dataCoba'));
@@ -326,8 +318,13 @@ class HomeController extends Controller
         $path = Storage::put('public/storage/uploads/' . '-' . rand() . '_' . time() . '.' . 'pdf', $pdf->output());
         $email = [
             'email'         => $dataCoba['title']['email'],
-            'nama'          => $dataCoba['title']['nama'],
-            'telephone'     => $dataCoba['title']['phone']
+            'nama'          => $dataCoba['title']['name'],
+            'telephone'     => $dataCoba['title']['phone'],
+            'invoiceId'     => $invoice_id,
+            'duedate'       => date('l,dS M Y', strtotime($invoiceDate . ' + 2 days')),
+            'qty'           => $qty,
+            'trip_name'     => $newCart->trip->title,
+            'price'         =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
         ];
 
         Storage::put($path, $pdf->output());
@@ -335,7 +332,7 @@ class HomeController extends Controller
         Mail::send('web.emails.order', $email, function ($message) use ($email, $pdf, $path) {
             $message->from('patrajuanda10@gmail.com');
             $message->to($email['email']);
-            $message->subject('Subject' . $email['nama']);
+            $message->subject('Order-' . $email['nama']);
             $message->attachData(
                 $pdf->output(),
                 $email['nama'] . time() . '.' . 'pdf'
@@ -350,9 +347,7 @@ class HomeController extends Controller
     {
         $decId = decrypt($id);
         $payment = Payment::with(['trip:id,title,date_from,date_to'])->where('id', '=', $decId->id)->first(['id', 'user_id', 'invoice_id', 'qty', 'price', 'price_dp', 'total', 'trip_categories_id', 'tanggal_pembayaran', 'created_at']);
-        // $dueDate    = $payment->tanggal_pembayaran
-        $dueDate    = date('d-M-Y g:i a', strtotime($payment->created_at . ' + 2 days'));
-        // return $payment;
+        $dueDate    = date('d M Y g:i a', strtotime($payment->created_at . ' + 2 days'));
         return view('web.payment.index', compact('payment', 'dueDate', 'id'));
     }
 
