@@ -305,8 +305,8 @@ class HomeController extends Controller
             'trip_qty'          =>  $qty,
             'trip_price'        =>  'Rp.' . number_format($request->dp_price, 0, ',', '.'),
             'statusPembayaran'  =>  $statusPembayaran,
-            'invoice_date'      => date('l,dS M Y', strtotime($invoiceDate)),
-            'due_date'          => date('l,dS M Y', strtotime($invoiceDate . ' + 2 days'))            
+            'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
+            'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days'))            
         ];
 
         $pdf = PDF::loadView('admin.payment.coba', compact('dataCoba'));
@@ -321,7 +321,7 @@ class HomeController extends Controller
             'nama'          => $dataCoba['title']['name'],
             'telephone'     => $dataCoba['title']['phone'],
             'invoiceId'     => $invoice_id,
-            'duedate'       => date('l,dS M Y', strtotime($invoiceDate . ' + 2 days')),
+            'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
             'qty'           => $qty,
             'trip_name'     => $newCart->trip->title,
             'price'         =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
