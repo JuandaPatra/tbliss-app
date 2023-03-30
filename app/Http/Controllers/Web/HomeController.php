@@ -347,6 +347,15 @@ class HomeController extends Controller
     {
         $decId = decrypt($id);
         $payment = Payment::with(['trip:id,title,date_from,date_to'])->where('id', '=', $decId->id)->first(['id', 'user_id', 'invoice_id', 'qty', 'price', 'price_dp', 'total', 'trip_categories_id', 'tanggal_pembayaran', 'created_at']);
+
+        if (Carbon::now()->greaterThan($payment->created_at->addDay('2'))) {
+            $payment->update([
+                'status'    => 'cancelled'
+
+            ]);
+            
+            return "sorry you cannot review anymore.";
+        }
         $dueDate    = date('d M Y g:i a', strtotime($payment->created_at . ' + 2 days'));
         return view('web.payment.index', compact('payment', 'dueDate', 'id'));
     }
