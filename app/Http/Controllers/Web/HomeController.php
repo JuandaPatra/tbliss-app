@@ -362,6 +362,20 @@ class HomeController extends Controller
         //     'file' => 'required',
         // ]);
 
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'upload' => 'required',
+                'id'    => 'required'
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+
+
+
         // return $request;
         // return $request->upload->extension();
         $fileName = null;
@@ -383,7 +397,7 @@ class HomeController extends Controller
             $payment->update([
                 'tanggal_foto_diunggah' => Carbon::now(),
                 'foto_diunggah'         => $image_path,
-                'status'                => 'upload'
+                'status'                => 'Menunggu Pembayaran'
             ]);
 
             Alert::success('Edit Profile', 'Berhasil');

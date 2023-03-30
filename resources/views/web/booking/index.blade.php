@@ -108,32 +108,34 @@
                     <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
                         <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900   ">
                             <div class="flex flex-wrap">
-                                <div class="basis-4/12">
+                                <div class=" basis-full lg:basis-4/12">
                                     <img src="{{$newCart->trip->thumbnail}}" alt="" class="">
                                 </div>
-                                <div class="basis-8/12 pl-3 mt-8">
-                                    <div class="flex mb-2">
+                                <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
+                                    <div class="hidden lg:flex mb-2">
                                         <p class="w-[30%]">Nama Trip</p>
                                         <p>:</p>
                                         <p class="pl-1">{{$newCart->trip->title}}</p>
-
                                     </div>
-                                    <div class="flex mb-2">
+                                    <div class="hidden lg:flex mb-2">
                                         <p class="w-[30%]">Tanggal</p>
                                         <p>:</p>
                                         <p class="pl-1">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
 
                                     </div>
-                                    <div class="flex mb-2">
+                                    <div class="hidden lg:flex mb-2">
                                         <p class="w-[30%]">Opsi Pembayaran</p>
                                         <p>:</p>
                                         <p class="pl-1 status-payment">Bayar Uang Muka</p>
                                         <input type="hidden" name="dp_price" value="1000000" class="input-payment">
                                         <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}" >
                                         <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
-
                                     </div>
-
+                                    <div>
+                                        <p>Nama Trip: {{$newCart->trip->title}}</p>
+                                        <p>Tanggal: {{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
+                                        <p>Opsi Pembayaran : <span class="status-payment">Bayar Uang Muka</span></p>
+                                    </div>
                                 </div>
                         </th>
                         <td class="pl-6 pr-0 py-4 subtotal-price">
