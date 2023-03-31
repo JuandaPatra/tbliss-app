@@ -16,11 +16,11 @@
             <h1 class="mb-[18px] mt-[80px]">
                 Kamu cukup membayar deposit terlebih dahulu.
             </h1>
-            <div class="w-full bg-blueTbliss h-[39px] text-white">
+            <button class="w-full bg-blueTbliss h-[39px] text-white" type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal">
                 <p class=" text-center py-2 text-[15px]">
                     Skema Pembayaran
                 </p>
-            </div>
+            </button>
             <h1 class="mt-[34px]">
                 Opsi Pembayaran
             </h1>
@@ -84,90 +84,90 @@
 <section class="bg-yellowTbliss">
     <form action="{{route('booking.order')}}" method="post">
         @csrf
-    <div class="container-lg px-4">
-        <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
-                <thead class=" font-interRegular text-sm border-b border-[#9F9F9F]">
-                    <tr>
-                        <th scope="col" class="pl-0 pr-6 py-3 w-[55%]">
-                            Item Pembayaran
-                        </th>
-                        <th scope="col" class="pl-6 pr-0 py-3 w-[15%]">
-                            Harga
-                        </th>
-                        <th scope="col" class="pl-6 pr-0 py-3 w-[15%]">
-                            Jumlah
-                        </th>
-                        <th scope="col" class="pl-6 pr-0 py-3 w-[15%]">
-                            Subtotal
-                        </th>
+        <div class="container-lg px-4">
+            <div class="relative overflow-x-auto">
+                <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
+                    <thead class=" font-interRegular text-sm border-b border-[#9F9F9F]">
+                        <tr>
+                            <th scope="col" class="pl-0 pr-6 py-3 w-[55%]">
+                                Item Pembayaran
+                            </th>
+                            <th scope="col" class="pl-6 pr-0 py-3 w-[15%]">
+                                Harga
+                            </th>
+                            <th scope="col" class="pl-6 pr-0 py-3 w-[15%]">
+                                Jumlah
+                            </th>
+                            <th scope="col" class="pl-6 pr-0 py-3 w-[15%]">
+                                Subtotal
+                            </th>
 
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
-                        <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900   ">
-                            <div class="flex flex-wrap">
-                                <div class=" basis-full lg:basis-4/12">
-                                    <img src="{{$newCart->trip->thumbnail}}" alt="" class="">
-                                </div>
-                                <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
-                                    <div class="hidden lg:flex mb-2">
-                                        <p class="w-[30%]">Nama Trip</p>
-                                        <p>:</p>
-                                        <p class="pl-1">{{$newCart->trip->title}}</p>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
+                            <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
+                                <div class="flex flex-wrap">
+                                    <div class=" basis-full lg:basis-4/12">
+                                        <img src="{{$newCart->trip->thumbnail}}" alt="" class="">
                                     </div>
-                                    <div class="hidden lg:flex mb-2">
-                                        <p class="w-[30%]">Tanggal</p>
-                                        <p>:</p>
-                                        <p class="pl-1">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
+                                    <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
+                                        <div class="hidden lg:flex mb-2">
+                                            <p class="w-[30%]">Nama Trip</p>
+                                            <p>:</p>
+                                            <p class="pl-1">{{$newCart->trip->title}}</p>
+                                        </div>
+                                        <div class="hidden lg:flex mb-2">
+                                            <p class="w-[30%]">Tanggal</p>
+                                            <p>:</p>
+                                            <p class="pl-1">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
 
+                                        </div>
+                                        <div class="hidden lg:flex mb-2">
+                                            <p class="w-[30%]">Opsi Pembayaran</p>
+                                            <p>:</p>
+                                            <p class="pl-1 status-payment">Bayar Uang Muka</p>
+                                            <input type="hidden" name="dp_price" value="1000000" class="input-payment">
+                                            <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}">
+                                            <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
+                                        </div>
+                                        <div>
+                                            <p class="block lg:hidden text-[12px]">Nama Trip: {{$newCart->trip->title}}</p>
+                                            <p class="block lg:hidden text-[12px]">Tanggal: {{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
+                                            <p class="block lg:hidden text-[12px]">Opsi Pembayaran : <span class="status-payment">Bayar Uang Muka</span></p>
+                                        </div>
                                     </div>
-                                    <div class="hidden lg:flex mb-2">
-                                        <p class="w-[30%]">Opsi Pembayaran</p>
-                                        <p>:</p>
-                                        <p class="pl-1 status-payment">Bayar Uang Muka</p>
-                                        <input type="hidden" name="dp_price" value="1000000" class="input-payment">
-                                        <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}" >
-                                        <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
-                                    </div>
-                                    <div>
-                                        <p>Nama Trip: {{$newCart->trip->title}}</p>
-                                        <p>Tanggal: {{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
-                                        <p>Opsi Pembayaran : <span class="status-payment">Bayar Uang Muka</span></p>
-                                    </div>
-                                </div>
-                        </th>
-                        <td class="pl-6 pr-0 py-4 subtotal-price">
-                            Rp.1.000.000
-                        </td>
-                        <td class="text-justify pl-6 py-4">
-                            <input type="number" value="1" class="w-[60px] mt-[10px] input-qty" name="qty">
-                        </td>
-                        <td class="pl-6 pr-0 py-4 total-price">
-                            Rp.1.000.000
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+                            </th>
+                            <td class="pl-6 pr-0 py-4 subtotal-price">
+                                Rp.1.000.000
+                            </td>
+                            <td class="text-justify pl-6 py-4">
+                                <input type="number" value="1" class="w-[60px] mt-[10px] input-qty" name="qty">
+                            </td>
+                            <td class="pl-6 pr-0 py-4 total-price">
+                                Rp.1.000.000
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
+            </div>
+            <div class="btn-group w-full">
+                <button class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] " type="submit">Bayar Sekarang</button>
+            </div>
+            <div class="btn-group w-full font-interRegular text-[16px] font-normal">
+                <a class=" w-full h-[49px] mt-[14px] mb-[14px] text-white bg-[#4CAF50] cursor-pointer text-center py-[10px] ">
+                    <span>
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline">
+                            <path d="M13.68 2.29933C12.16 0.83 10.16 0 8.03 0C1.91667 0 -1.922 6.62333 1.13067 11.892L0 16L4.22333 14.8987C6.06333 15.8927 7.57067 15.8047 8.034 15.8633C15.1227 15.8633 18.6513 7.28733 13.67 2.32533L13.68 2.29933Z" fill="#ECEFF1" />
+                            <path d="M8.04459 14.5007L8.04059 14.5H8.02992C5.90859 14.5 4.55326 13.4954 4.41992 13.4374L1.91992 14.0874L2.58992 11.6574L2.43059 11.4074C1.77059 10.3567 1.41992 9.14669 1.41992 7.90069C1.41992 2.03869 8.58326 -0.892648 12.7286 3.25069C16.8639 7.35069 13.9606 14.5007 8.04459 14.5007Z" fill="#4CAF50" />
+                            <path d="M11.6714 9.53795L11.6654 9.58795C11.4648 9.48795 10.4874 9.00995 10.3054 8.94395C9.89676 8.79262 10.0121 8.91995 9.22743 9.81862C9.11076 9.94862 8.99476 9.95862 8.79676 9.86862C8.59676 9.76862 7.95476 9.55862 7.19476 8.87862C6.60276 8.34862 6.20543 7.69862 6.08809 7.49862C5.89276 7.16128 6.30143 7.11328 6.67343 6.40928C6.74009 6.26928 6.70609 6.15928 6.65676 6.05995C6.60676 5.95995 6.20876 4.97995 6.04209 4.58928C5.88209 4.19995 5.71743 4.24928 5.59409 4.24928C5.21009 4.21595 4.92942 4.22128 4.68209 4.47862C3.60609 5.66128 3.87743 6.88128 4.79809 8.17862C6.60743 10.5466 7.57143 10.9826 9.33409 11.5879C9.81009 11.7393 10.2441 11.718 10.5874 11.6686C10.9701 11.608 11.7654 11.1879 11.9314 10.7179C12.1014 10.2479 12.1014 9.85795 12.0514 9.76795C12.0021 9.67795 11.8714 9.62795 11.6714 9.53795Z" fill="#FAFAFA" />
+                        </svg>
+
+                    </span>
+                    Tanya Admin Kami</a>
+            </div>
         </div>
-        <div class="btn-group w-full">
-            <button class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] " type="submit">Bayar Sekarang</button>
-        </div>
-        <div class="btn-group w-full font-interRegular text-[16px] font-normal">
-            <a class=" w-full h-[49px] mt-[14px] mb-[14px] text-white bg-[#4CAF50] cursor-pointer text-center py-[10px] ">
-                <span>
-                    <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" class="inline">
-                        <path d="M13.68 2.29933C12.16 0.83 10.16 0 8.03 0C1.91667 0 -1.922 6.62333 1.13067 11.892L0 16L4.22333 14.8987C6.06333 15.8927 7.57067 15.8047 8.034 15.8633C15.1227 15.8633 18.6513 7.28733 13.67 2.32533L13.68 2.29933Z" fill="#ECEFF1" />
-                        <path d="M8.04459 14.5007L8.04059 14.5H8.02992C5.90859 14.5 4.55326 13.4954 4.41992 13.4374L1.91992 14.0874L2.58992 11.6574L2.43059 11.4074C1.77059 10.3567 1.41992 9.14669 1.41992 7.90069C1.41992 2.03869 8.58326 -0.892648 12.7286 3.25069C16.8639 7.35069 13.9606 14.5007 8.04459 14.5007Z" fill="#4CAF50" />
-                        <path d="M11.6714 9.53795L11.6654 9.58795C11.4648 9.48795 10.4874 9.00995 10.3054 8.94395C9.89676 8.79262 10.0121 8.91995 9.22743 9.81862C9.11076 9.94862 8.99476 9.95862 8.79676 9.86862C8.59676 9.76862 7.95476 9.55862 7.19476 8.87862C6.60276 8.34862 6.20543 7.69862 6.08809 7.49862C5.89276 7.16128 6.30143 7.11328 6.67343 6.40928C6.74009 6.26928 6.70609 6.15928 6.65676 6.05995C6.60676 5.95995 6.20876 4.97995 6.04209 4.58928C5.88209 4.19995 5.71743 4.24928 5.59409 4.24928C5.21009 4.21595 4.92942 4.22128 4.68209 4.47862C3.60609 5.66128 3.87743 6.88128 4.79809 8.17862C6.60743 10.5466 7.57143 10.9826 9.33409 11.5879C9.81009 11.7393 10.2441 11.718 10.5874 11.6686C10.9701 11.608 11.7654 11.1879 11.9314 10.7179C12.1014 10.2479 12.1014 9.85795 12.0514 9.76795C12.0021 9.67795 11.8714 9.62795 11.6714 9.53795Z" fill="#FAFAFA" />
-                    </svg>
-
-                </span>
-                Tanya Admin Kami</a>
-        </div>
-    </div>
     </form>
     <div class="container-lg pb-[50px] lg:pb-[164px] px-4">
         <h1 class=" font-interRegular text-[16px] font-bold text-[#414141] mb-[20px] mt-[35px]">
@@ -287,6 +287,98 @@
 </section>
 
 
+<!-- Modal toggle -->
+
+<!-- Main modal -->
+<div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
+    <div class="relative w-full h-full max-w-2xl md:h-auto">
+        <!-- Modal content -->
+        <div class="relative bg-white  shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between px-6 pt-4 pb-1">
+                <h3 class="text-[20px] font-semibold">
+                    Ketentuan Pembelian
+                </h3>
+                
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900  text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <!-- <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                        <tr>
+                            <th scope="col" class="px-6 py-3">
+                                Bayar DP/ Uang Muka
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Color
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Category
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Price
+                            </th>
+                        </tr>
+                    </thead> -->
+                    <tbody>
+                        <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" width="30%"  class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[16px]">
+                                <span class="hidden lg:block">Bayar DP / Uang Muka</span>
+                                
+                                <span class="block lg:hidden">Bayar DP / <br>Uang Muka</span>
+                            </th>
+                            <td class="px-6 py-4 border-2 text-[16px]">
+                                Rp.1.000.000
+                            </td>
+                            
+                        </tr>
+                        <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
+                            <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                                25 Jan 2023
+                            </th>
+                            <td class="px-6 py-4 border-2 text-[16px]">
+                                Rp.4.000.000
+                            </td>
+                        </tr>
+                        <tr class="bg-white  dark:bg-gray-800">
+                            <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                                 25 Feb 2023
+                            </th>
+                            <td class="px-6 py-4 border-2 text-[16px]">
+                                Rp.4.000.000
+                            </td>
+                        </tr>
+                        <tr class="bg-white  dark:bg-gray-800">
+                            <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                                 21 May 2023
+                            </th>
+                            <td class="px-6 py-4 border-2 text-[16px]">
+                                Pelunasan
+                            </td>
+                        </tr>
+                        <tr class="bg-white  dark:bg-gray-800">
+                            <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold  text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                                 Reminder
+                            </th>
+                            <td class="px-6 py-4 border-2 text-[16px]">
+                                Dikirimkan ke whatsapp atau email peserta
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+
 <style>
     input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
@@ -330,7 +422,8 @@
             $('.input-payment').change()
             $('.input-qty').val(1)
             $('.input-qty').change()
-            $('.subtotal-price').val(subtotalPrice.toLocaleString("id-ID", {
+            $('.subtotal-price').empty()
+            $('.subtotal-price').append(subtotalPrice.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
                 minimumFractionDigits: 0
@@ -388,7 +481,7 @@
             } else {
                 var totalPrice = inputPayment * numbers
             }
-            if(+numbers >= +seat){
+            if (+numbers >= +seat) {
                 $(this).val(seat)
                 $(this).change()
                 var totalPrice = inputPayment * seat

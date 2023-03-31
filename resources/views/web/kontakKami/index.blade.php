@@ -2,23 +2,42 @@
 
 @section('container')
 @include('web.components.presentational.header')
-<div class="hero hero--about bg-[url('/img/hero-pattern.svg')]">
-    <div class="hero__inner">
-        <div class="container">
-            <h2 class="hero__title text-center">Welcome to <br class="d-block d-sm-none">Seek Sophie</h2>
-        </div>
-    </div>
+<div class="flex items-center px-4 mb-4 bg-white justify-center">
+    <h1 class=" font-bely text-footer text-[30px]">Kontak Kami</h1>
 </div>
 <div class="flex items-center px-4 mb-4 bg-white lg:justify-center">
-    <h1 class=" font-bely text-footer text-[30px]">FAQ</h1>
+    <p>Hi, kamu bisa kirim email atau langsung Whatsapp kami</p>
+</div>
+<div class="flex items-center px-4 mb-4 bg-white lg:justify-center">
+    <div class="mr-[30px] lg:mr-[120px]">
+        <div class="flex justify-center">
+            <img class=" " src="{{ asset('images/header/emails.png') }}" alt="" />
+        </div>
+        <p class=" text-[12px] text-authbutton text-center">Email Kami</p>
+        <p class=" text-[16px]">chat@tbliss.com</p>
+    </div>
+    <div class="mr-[30px] lg:mr-[120px]">
+        <div class="flex justify-center">
+            <img class=" " src="{{ asset('images/header/whatsapps.png') }}" alt="" />
+        </div>
+        <p class=" text-[12px] text-authbutton text-center">Whatsapp</p>
+        <p class="text-[16px]">081578682930</p>
+    </div>
+    <div>
+        <div class="flex justify-center">
+            <img class=" " src="{{ asset('images/header/instagrams.png') }}" alt="" />
+        </div>
+        <p class="text-[12px] text-authbutton text-center">Instagram</p>
+        <p class=" text-[16px]">@Tbliss</p>
+    </div>
 </div>
 
 <section>
     <div class="container-lg pb-[50px] lg:pb-[164px]">
-        <div id="accordion-color" class="px-[200px]" data-accordion="collapse" data-active-classes="bg-white dark:bg-gray-800 text-authbutton dark:text-white">
+        <div id="accordion-color" class="px-0" data-accordion="collapse" data-active-classes="bg-transparent dark:bg-gray-800 text-authbutton dark:text-white">
             <h2 id="accordion-color-heading-1">
-                <button type="button" class="flex items-center justify-between w-full py-3 px-2 font-medium text-left text-[18px]  text-gray-500 border-y-2  border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-1" aria-expanded="false" aria-controls="accordion-color-body-1">
-                    <span>Payment & Security</span>
+                <button type="button" class="flex items-center justify-between w-full py-3 px-0 font-medium text-left text-[18px]  text-gray-500 border-y-2  border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100  dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-1" aria-expanded="false" aria-controls="accordion-color-body-1">
+                    <span>Pembayaran</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus tw-text-cyan">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
                         <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -26,16 +45,16 @@
                 </button>
             </h2>
             <div id="accordion-color-body-1" class="hidden" aria-labelledby="accordion-color-heading-1">
-                <div class="py-3 px-2 text-[16px] font-light">
-                    <div class=" font-bold mb-2">When will my card be charged?</div>
+                <div class="py-3 px-0 text-[16px] font-light">
+                    <div class=" font-bold mb-2">Perubahan dan Pembatalan</div>
                     <p>Some listings are "Request to Book" vs "Instant Book". For "Requests to Book" listings, your card will be charged when your request is confirmed (usually within 24 hours of your request being made). For "Instant Book" listings, your card will be charged at the time your booking is made.</p>
                     <div class="font-bold mb-2">Can I trust you with my card details?</div>
                     <p>We take security very seriously and protect your security in two ways. First, all pages on tbliss.com run on HTTPS which provides a secure, encrypted connection between your internet browser and tbliss.com. HTTPS is the global standard used to protect highly confidential online transactions such as online banking services. Second, we use Stripe, a global leading payment processing platform, for our payment services at tbliss.com. Stripe is certified to PCI Service Provider Level 1, which is the most stringent certification available in the payments industry worldwide. </p>
                 </div>
             </div>
             <h2 id="accordion-color-heading-2">
-                <button type="button" class="flex items-center justify-between w-full py-3 px-2 font-medium text-left text-[18px]  text-gray-500 border-b-2  border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
-                    <span>Changes and Cancellations</span>
+                <button type="button" class="flex items-center justify-between w-full py-3 px-0 font-medium text-left text-[18px]  text-gray-500 border-b-2  border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-2" aria-expanded="false" aria-controls="accordion-color-body-2">
+                    <span>Perubahan dan Pembatalan</span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus tw-text-cyan">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
                         <line x1="5" y1="12" x2="19" y2="12"></line>
@@ -44,7 +63,7 @@
             </h2>
             <div id="accordion-color-body-2" class="hidden" aria-labelledby="accordion-color-heading-2">
                 <div class="py-3 px-2 font-light text-[16px]">
-                    <div class=" font-bold mb-2">Covid Cancellation Policy</div>
+                    <div class=" font-bold mb-2">Asuransi perjalanan</div>
                     <p>As travellers ourselves, we understand how stressful this pandemic has been when it comes to making plans. That is why we want to be fair to all in the event of sudden changes — to the local businesses, to the community, and to YOU.</p>
                     <div class="font-bold mb-2">Usual Cancellations and Changes</div>
                     <p>
@@ -53,9 +72,9 @@
                 </div>
             </div>
             <h2 id="accordion-color-heading-3">
-                <button type="button" class="flex items-center justify-between w-full py-3 px-2 font-medium text-left text-[18px]  text-gray-500 border-b-2 border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-3" aria-expanded="false" aria-controls="accordion-color-body-3">
+                <button type="button" class="flex items-center justify-between w-full py-3 px-0 font-medium text-left text-[18px]  text-gray-500 border-b-2 border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-3" aria-expanded="false" aria-controls="accordion-color-body-3">
                     <span>
-                        Safety and Insurance
+                        Asuransi perjalanan
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus tw-text-cyan">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -72,9 +91,9 @@
                 </div>
             </div>
             <h2 id="accordion-color-heading-4">
-                <button type="button" class="flex items-center justify-between w-full py-3 px-2 font-medium text-left text-[18px]  text-gray-500 border-b-2 border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-4" aria-expanded="false" aria-controls="accordion-color-body-4">
+                <button type="button" class="flex items-center justify-between w-full py-3 px-0 font-medium text-left text-[18px]  text-gray-500 border-b-2 border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-4" aria-expanded="false" aria-controls="accordion-color-body-4">
                     <span>
-                        Jobs and Internships
+                        Lainnya
                     </span>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus tw-text-cyan">
                         <line x1="12" y1="5" x2="12" y2="19"></line>
@@ -90,31 +109,12 @@
                     <p>It's really simple. Just write to us at <a style="font-size: 17px; color: #2ec4dd;" href="#">join@tbliss.com</a> and let us know what skills you would like to contribute to Tbliss, what you're hoping to learn and why you love difficult journeys. We can't wait to hear from you! </p>
                 </div>
             </div>
-            <h2 id="accordion-color-heading-5">
-                <button type="button" class="flex items-center justify-between w-full py-3 px-2 font-medium text-left text-[18px]  text-gray-500 border-b-2 border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100 dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-5" aria-expanded="false" aria-controls="accordion-color-body-5">
-                    <span>
-                        Press Inquiries
-                    </span>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus tw-text-cyan">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
-                </button>
-            </h2>
-            <div id="accordion-color-body-5" class="hidden" aria-labelledby="accordion-color-heading-5">
-                <div class="py-3 px-2 font-light text-[16px]">
-                    <p>Sure! For press inquiries, please contact <a style="font-size: 16px; color: #26527F;" href="#">press@tbliss.com</a>. We would love to speak to you and answer any questions you may have.</p>
-                </div>
-            </div>
         </div>
 
 
     </div>
 </section>
 
-
-@include('web.components.presentational.login')
-@include('web.components.presentational.register')
 @include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
 @endsection
@@ -157,9 +157,6 @@
             } else
                 $('#message').html('Password not Match').css('color', 'red');
         });
-
-
-
     });
 </script>
 @endpush

@@ -233,7 +233,7 @@
                                 <a href="{{route('home.faq')}}">FAQ</a>
                             </div>
                             <div class=" p-3 flex items-center ">
-                                <a href="">Kontak Kami</a>
+                                <a href="{{route('home.kontak')}}">Kontak Kami</a>
                             </div>
                         </div>
                     </div>
@@ -267,7 +267,7 @@
             <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KORPORAT</button>
             <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">CERITA KAMI</a>
             <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">FAQ</a>
-            <button data-drop="kontak" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KONTAK KAMI</button>
+            <a href="{{route('home.kontak')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KONTAK KAMI</a>
         </div>
     </div>
     <div>

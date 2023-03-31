@@ -421,4 +421,9 @@ class HomeController extends Controller
             DB::commit();
         }
     }
+
+    public function kontak()
+    {
+        return view('web.kontakKami.index');
+    }
 }
