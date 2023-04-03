@@ -46,5 +46,14 @@ class AppServiceProvider extends ServiceProvider
             $time = strtotime($dateTo);
             return "<?php echo ($time)->format('d M Y').'  '.($time)->timezone('Asia/Jakarta'); ?>";
         });
+        Blade::directive('months', function($array){
+            // $expressionValues = preg_split('/\s+/', $array['months']);
+            return  $array[1]  ;
+
+           
+            $perMonth = $array['index'] *30;
+            $time = strtotime($array['months'] . ' - '.$perMonth.' days');
+            return "<?php echo ($time)->format('d M Y').'  '.($time)->timezone('Asia/Jakarta'); ?>";
+        });
     }
 }

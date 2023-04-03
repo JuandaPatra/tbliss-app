@@ -20,6 +20,7 @@ use App\Models\Cart;
 use App\Models\Payment;
 use App\Models\User;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Support\Facades\Mail;
 use PDF;
 use Illuminate\Support\Facades\Storage;
@@ -82,7 +83,7 @@ class HomeController extends Controller
             return redirect(route('signin.index'));
         }
         $user = Auth::user();
-        if($user->alamat == '' || $user->phone == ''){
+        if ($user->alamat == '' || $user->phone == '') {
             return redirect(route('home.profile'));
         }
         $trip = Trip_categories::where('id', '=', $request->id)->first();
@@ -244,7 +245,48 @@ class HomeController extends Controller
         $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price'])->where('user_id', '=', $user->id)->orderBy('created_at', 'asc')->get()->last();
         // return $newCart;
 
-        return view('web.booking.index', compact('newCart'));
+        $dates1 = $newCart->trip->date_from;
+        $dates2 = Carbon::today()->toDateString();
+
+        $date1 = new DateTime($dates1);
+        $date2 = new DateTime($dates2);
+        // return $date1;
+        $diff = $date1->diff($date2);
+        // return $diff->format('%m');
+        $months = $diff->format('%m');
+        $pricePerMonths = 0;
+        $monthly = array();
+        if ($diff->format('%m') > 3) {
+
+            $pricePerMonths = $newCart->trip->price / 3;
+            for ($i = 1; $i <= $diff->format('%m'); $i++) {
+                $arrays = [
+                    $price = $pricePerMonths,
+                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . $i * 30 . 'days'))
+
+                ];
+                array_push($monthly, $arrays);
+            }
+        } else {
+            $pricePerMonths = $newCart->trip->price / $diff->format('%m');
+            for ($i = 1; $i <= $diff->format('%m'); $i++) {
+                $arrays = [
+                    $price = $pricePerMonths,
+                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . $i * 30 . 'days'))
+
+                ];
+                array_push($monthly, $arrays);
+            }
+            // return $arrays;
+        }
+        // return $monthly[1][1];
+
+        // $thr = strtodate($newCart->trip->date_from)->addDays(30); 
+
+        // return $newCart->trip->date_from->addDay('2');
+        // return date('d M Y', strtotime($newCart->trip->date_from . ' - 30 days'));
+
+        return view('web.booking.index', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
     }
 
     public function bookingOrder(Request $request)
@@ -306,7 +348,7 @@ class HomeController extends Controller
             'trip_price'        =>  'Rp.' . number_format($request->dp_price, 0, ',', '.'),
             'statusPembayaran'  =>  $statusPembayaran,
             'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
-            'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days'))            
+            'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days'))
         ];
 
         $pdf = PDF::loadView('admin.payment.coba', compact('dataCoba'));
@@ -353,7 +395,7 @@ class HomeController extends Controller
                 'status'    => 'cancelled'
 
             ]);
-            
+
             return "sorry you cannot review anymore.";
         }
         $dueDate    = date('d M Y g:i a', strtotime($payment->created_at . ' + 2 days'));

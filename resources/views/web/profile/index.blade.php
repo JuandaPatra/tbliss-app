@@ -58,7 +58,7 @@
                         <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value="{{$user->email}}" name="email" required>
                     </div>
                     <div class="mb-6">
-                        <label for="telephone" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Alamat</label>
+                        <label for="telephone" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">No. Telephone</label>
                         <input type="number" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{$user->phone}}" name="phone">
                     </div>
                     <div class="mb-6">

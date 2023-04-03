@@ -84,7 +84,7 @@
 <section class="bg-yellowTbliss">
     <form action="{{route('booking.order')}}" method="post">
         @csrf
-        <div class="container-lg px-4">
+        <div class="container-lg px-2 lg:px-4">
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
                     <thead class=" font-interRegular text-sm border-b border-[#9F9F9F]">
@@ -138,13 +138,13 @@
                                         </div>
                                     </div>
                             </th>
-                            <td class="pl-6 pr-0 py-4 subtotal-price">
+                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price">
                                 Rp.1.000.000
                             </td>
-                            <td class="text-justify pl-6 py-4">
+                            <td class="text-justify pl-2 lg:pl-6 py-4">
                                 <input type="number" value="1" class="w-[60px] mt-[10px] input-qty" name="qty">
                             </td>
-                            <td class="pl-6 pr-0 py-4 total-price">
+                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
                                 Rp.1.000.000
                             </td>
                         </tr>
@@ -299,7 +299,7 @@
                 <h3 class="text-[20px] font-semibold">
                     Ketentuan Pembelian
                 </h3>
-                
+
                 <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900  text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
                     <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -328,35 +328,49 @@
                     </thead> -->
                     <tbody>
                         <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" width="30%"  class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[16px]">
+                            <th scope="row" width="30%" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[16px]">
                                 <span class="hidden lg:block">Bayar DP / Uang Muka</span>
-                                
+
                                 <span class="block lg:hidden">Bayar DP / <br>Uang Muka</span>
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">
                                 Rp.1.000.000
                             </td>
-                            
+
                         </tr>
-                        <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
+                        @for ($i = $months-1; $i > 0; $i--) <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                25 Jan 2023
+                                {{$monthly[$i][1]}}
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">
-                                Rp.4.000.000
+                                
+                                @if($i == 0)
+                                Pelunasan
+                                @else
+                                @currency($pricePerMonths)
+                                @endif
                             </td>
                         </tr>
+                        @endfor
+                        <!-- <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
+                                <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                                    25 Jan 2023
+                                </th>
+                                <td class="px-6 py-4 border-2 text-[16px]">
+                                    Rp.4.000.000
+                                </td>
+                            </tr>
+                            <tr class="bg-white  dark:bg-gray-800">
+                                <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                                    25 Feb 2023
+                                </th>
+                                <td class="px-6 py-4 border-2 text-[16px]">
+                                    Rp.4.000.000
+                                </td>
+                            </tr> -->
                         <tr class="bg-white  dark:bg-gray-800">
                             <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                 25 Feb 2023
-                            </th>
-                            <td class="px-6 py-4 border-2 text-[16px]">
-                                Rp.4.000.000
-                            </td>
-                        </tr>
-                        <tr class="bg-white  dark:bg-gray-800">
-                            <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                 21 May 2023
+                                21 May 2023
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">
                                 Pelunasan
@@ -364,7 +378,7 @@
                         </tr>
                         <tr class="bg-white  dark:bg-gray-800">
                             <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold  text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                 Reminder
+                                Reminder
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">
                                 Dikirimkan ke whatsapp atau email peserta
@@ -373,7 +387,7 @@
                     </tbody>
                 </table>
             </div>
-            
+
         </div>
     </div>
 </div>
