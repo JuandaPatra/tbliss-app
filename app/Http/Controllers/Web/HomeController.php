@@ -261,7 +261,7 @@ class HomeController extends Controller
             $pricePerMonths = $newCart->trip->price / 3;
             for ($i = 1; $i <= $diff->format('%m'); $i++) {
                 $arrays = [
-                    $price = $pricePerMonths,
+                    $price = round($pricePerMonths),
                     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . $i * 30 . 'days'))
 
                 ];
@@ -271,7 +271,7 @@ class HomeController extends Controller
             $pricePerMonths = $newCart->trip->price / $diff->format('%m');
             for ($i = 1; $i <= $diff->format('%m'); $i++) {
                 $arrays = [
-                    $price = $pricePerMonths,
+                    $price = round($pricePerMonths),
                     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . $i * 30 . 'days'))
 
                 ];

@@ -338,14 +338,14 @@
                             </td>
 
                         </tr>
-                        @for ($i = $months-1; $i > 0; $i--) <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
+                        @for ($i = $months-1; $i >= 0; $i--) <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
                                 {{$monthly[$i][1]}}
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">
                                 
                                 @if($i == 0)
-                                Pelunasan
+                                Pelunasan 
                                 @else
                                 @currency($pricePerMonths)
                                 @endif
@@ -368,14 +368,14 @@
                                     Rp.4.000.000
                                 </td>
                             </tr> -->
-                        <tr class="bg-white  dark:bg-gray-800">
+                        <!-- <tr class="bg-white  dark:bg-gray-800">
                             <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
                                 21 May 2023
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">
                                 Pelunasan
                             </td>
-                        </tr>
+                        </tr> -->
                         <tr class="bg-white  dark:bg-gray-800">
                             <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold  text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
                                 Reminder
