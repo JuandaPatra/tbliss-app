@@ -9,15 +9,16 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 // use App\Mail\SendEmailTest;
+use App\Mail\SendEmailTestl;
 use App\Mail\SendEmail;
+use App\Mail\SendEmailTest;
 use Illuminate\Support\Facades\Mail as FacadesMail;
-use Mail;
-
+use Illuminate\Support\Facades\Mail;
 
 class SendEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-
+    protected $details;
     /**
      * Create a new job instance.
      *
@@ -35,8 +36,9 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        $email = new SendEmail();
-        Mail::to($this->details['email'])->send($email);
+        // return $this->details(['email']);
+        $email = new SendEmailTest();
+        Mail::to('juandaent@gmail.com')->send($email);
         // Mail::send($this->details['email']);
     }
 }

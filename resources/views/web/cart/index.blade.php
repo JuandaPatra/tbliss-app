@@ -8,7 +8,7 @@
 <section>
     <div class="container-lg my-4 mx-1 lg:mx-5">
         <div class="grid grid-cols-3 gap-4 ">
-            <div class="text-lg font-bold text-center p-3 mr-[30px] lg:mr-0 rounded-lg hidden lg:block">
+            <div class="text-lg font-normal text-center p-3 mr-[30px] lg:mr-0 rounded-lg hidden lg:block">
                 <div class="flex justify-start mr-2 mb-3 ml-[30%]">
                     <span>
                         <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 100 100" fill="#212529" viewBox="0 0 100 100" class="inline" height="48" width="48">

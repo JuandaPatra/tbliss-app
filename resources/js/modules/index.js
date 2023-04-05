@@ -271,13 +271,7 @@ export class DetailPages {
 
 
                                             
-                                            ${result[
-                                                i
-                                            ].place_trip_categories_cities[0].place_categories.title.toUpperCase()}-${result[
-                                    i
-                                ].place_trip_categories_cities[1].place_categories.title.toUpperCase()} -${result[
-                                    i
-                                ].place_trip_categories_cities[2].place_categories.title.toUpperCase()}                                             
+                                                                                 
                                             </h1>
                                             
                                             <p>Pohang Space Walk</p>

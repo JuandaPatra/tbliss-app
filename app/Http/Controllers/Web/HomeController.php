@@ -41,16 +41,18 @@ class HomeController extends Controller
     {
         $slug = $id;
 
-
-
         ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
 
         //// mendapatkan trip berdasarkan negara
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
+        })->where('date_from', '>', date("Y-m-d",time()+3600*24*90))->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat',]);
+        // return $trips;
+        $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
+            $query->where('place_categories_id', $country->id);
         })->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat',]);
-
+        // return $trips;
 
         //// mendapatkan list negara di halaman home
         $hiddenGemId = Place_categories::where('parent_id', '=', $country->id)->get(['id', 'title', 'parent_id']);
@@ -63,7 +65,6 @@ class HomeController extends Controller
             'image_mobile',
             'places_id'
         ]);
-        // return $hiddenGems;
         return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId'));
     }
 
@@ -87,17 +88,6 @@ class HomeController extends Controller
             return redirect(route('home.profile'));
         }
         $trip = Trip_categories::where('id', '=', $request->id)->first();
-        // Cart::create([
-        //     'user_id'               => $user->id,
-        //     'trip_categories_id'    => $trip->id,
-        //     'qty'                   => 1,
-        //     'price'                 => $trip->price,
-        //     'price_dp'              => 0,
-        //     'total'                 => 0,
-        //     'tanggal_pembayaran'    => Carbon::now(),
-        //     'status'                => 'order',
-        // ]);
-
         // proses insert
 
         DB::beginTransaction();
@@ -258,7 +248,8 @@ class HomeController extends Controller
         $monthly = array();
         if ($diff->format('%m') > 3) {
 
-            $pricePerMonths = $newCart->trip->price / 3;
+            $pricePerMonths = round($newCart->trip->price / 3) ;
+            // return $pricePerMonths;
             for ($i = 1; $i <= 3; $i++) {
                 $arrays = [
                     $price = round($pricePerMonths),
@@ -268,7 +259,8 @@ class HomeController extends Controller
                 array_push($monthly, $arrays);
             }
         } else {
-            $pricePerMonths = $newCart->trip->price / $diff->format('%m');
+            $pricePerMonths = round($newCart->trip->price / $diff->format('%m')) ;
+            // return $pricePerMonths;
             for ($i = 1; $i <= $diff->format('%m'); $i++) {
                 $arrays = [
                     $price = round($pricePerMonths),
@@ -277,14 +269,7 @@ class HomeController extends Controller
                 ];
                 array_push($monthly, $arrays);
             }
-            // return $arrays;
         }
-        // return $monthly[1][1];
-
-        // $thr = strtodate($newCart->trip->date_from)->addDays(30); 
-
-        // return $newCart->trip->date_from->addDay('2');
-        // return date('d M Y', strtotime($newCart->trip->date_from . ' - 30 days'));
 
         return view('web.booking.index', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
     }
