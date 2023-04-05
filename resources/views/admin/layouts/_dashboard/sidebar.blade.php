@@ -26,7 +26,7 @@
     <li class="menu-header small text-uppercase">
       <span class="menu-header-text">Konten</span>
     </li>
-
+    @can('delete-blog-posts')
     <li class="menu-item   {{ set_active(['slider.index','slider.create', 'slider.edit']) }} {{ set_open(['slider.index','slider.create', 'slider.edit']) }} ">
       <a href="javascript:void(0);" class="menu-link menu-toggle">
         <i class="menu-icon bx bx-carousel"></i>
@@ -45,6 +45,7 @@
         </li>
       </ul>
     </li>
+    @endcan
 
     <li class="menu-item  ">
       <a href="javascript:void(0);" class="menu-link menu-toggle">

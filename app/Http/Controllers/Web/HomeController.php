@@ -191,7 +191,7 @@ class HomeController extends Controller
         );
 
         if ($validator->fails()) {
-            return redirect()->back()->withInput($request->all())->withErrors($validator);
+            return redirect()->back()->withInput($request->all())->withErrors($validator)->with('fail','Silahkan periksa kembali form !');
         }
 
         DB::beginTransaction();
@@ -207,7 +207,7 @@ class HomeController extends Controller
             ]);
 
             Alert::success('Edit Profile', 'Berhasil');
-            return redirect()->route('home.profile');
+            return redirect()->route('home.profile')->with('success','Data berhasil diupdate!');
         } catch (\throwable $th) {
             DB::rollBack();
             Alert::error('Edit Slider', 'error' . $th->getMessage());
