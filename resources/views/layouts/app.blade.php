@@ -25,6 +25,8 @@
    <link rel="stylesheet" href="{{ asset('vendor/my-auth/css/auth.css') }}">
    <link rel="stylesheet" href="{{ asset('vendor/my-dashboard/css/demo.css') }}">
    <link rel="stylesheet" href="{{ asset('vendor/my-dashboard/js/perfect-scrollbar/perfect-scrollbar.css') }}">
+   <link rel="stylesheet" href="{{ asset('vendor/lity-2.4.1/dist/lity.css') }}">
+   <link rel="stylesheet" src="https://cdn.jsdelivr.net/gh/cotton123236/zoomist@latest/dist/zoomist.min.css" />
   
 
    <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -98,5 +100,6 @@
    <script src="{{ asset('vendor/my-dashboard/js/perfect-scrollbar/perfect-scrollbar.js') }}">  
    <script src="{{ asset('vendor/my-dashboard/js/menu.js') }}"> 
    <script src="{{ asset('vendor/my-dashboard/js/main.js') }}"> 
+   <script src="{{ asset('vendor/lity-2.4.1/dist/litt.js') }}"> 
 </body>
 </html>

@@ -181,7 +181,7 @@ export class DetailPages {
                     }
                 },
                 success: function (data) {
-                    // console.log(data);
+                    console.log(data);
                     let result = data;
                     // $(`.row-button`).empty();
                     // $(`.loading-animation`).addClass("hidden");

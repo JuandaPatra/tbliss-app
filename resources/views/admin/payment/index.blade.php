@@ -8,23 +8,23 @@ Sliders
 @section('content')
 <div class="card">
     <h5 class="card-header">List Payment</h5>
-    <div class="table-responsive text-nowrap" style="height:1000px">
-        
+    <div class="table-responsive text-nowrap px-3" style="height:1000px">
+
 
         <table class="table table-bordered data-table">
             <thead>
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
-                    <th>Trip/Paket</th>
-                    <th>Qty</th>
-                    <th>Price</th>
-                    <th>status pembayaran</th>
-                    <th>Total</th>
-                    <th>Bukti pembayaran</th>
-                    <th>Tanggal pembayaran</th>
-                    <th>Approve Payment</th>
-                    <th>Cetak Invoice</th>
+                    <th>Invoice Number</th>
+                    <th>Tanggal Pembayaran</th>
+                    <th>Status</th>
+                    <th>Check Detail</th>
+                    <!-- <th>status pembayaran</th> -->
+                    <!-- <th>Total</th> -->
+                    <!-- <th>Bukti pembayaran</th> -->
+                    <!-- <th>Tanggal pembayaran</th> -->
+                    <!-- <th>Approve Payment</th> -->
+                    <!-- <th>Cetak Invoice</th> -->
                     <!-- <th><button type="button" name="bulk_delete" id="bulk_delete" class="btn btn-danger btn-xs">Delete</button></th> -->
                 </tr>
             </thead>
@@ -36,44 +36,63 @@ Sliders
                     </td>
                     <td>
                         {{$payment->user->name}}
-                    </td>
-                    <td>
-                        {{$payment->trip->title}}
-                    </td>
-                    <td>
-                        {{$payment->qty}}
-                    </td>
-                    <td>
+                </td>
+                <td>
+                    {{$payment->trip->title}}
+                </td>
+                <td>
+                    {{$payment->qty}}
+                </td>
+                <td>
                     @currency($payment->price)
-                    </td>
-                    <td>
-                        @if($payment->price != $payment->price_dp)
-                        <span class="text-danger">DP Payment</span>
-                        @else
-                        <span class="text-success">Full Payment</span>
-                        @endif
-                    </td>
-                    <td>
+                </td>
+                <td>
+                    @if($payment->price != $payment->price_dp)
+                    <span class="text-danger">DP Payment</span>
+                    @else
+                    <span class="text-success">Full Payment</span>
+                    @endif
+                </td>
+                <td>
                     @currency($payment->total)
-                    </td>
-                    <td>
-                        <img src="{{$payment->foto_diunggah}}" alt="" style="height:30px;width:30px">
-                    </td>
-                    <td>
-                        {{$payment->tanggal_pembayaran_acc}}
-                    </td>
-                    <td>
-                        @if(!empty($payment->tanggal_pembayaran_acc) )
-                        <button type="button" name="bulk_delete" id="bulk_delete" class="btn btn-success btn-xs">Approve Payment</button>
-                        @endif
-                    </td>
-                    <td>
-                        @if(!empty($payment->tanggal_pembayaran_acc) )
-                        <a href="{{ route('payments.invoice',['product'=>$payment->id]) }}"  name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Cetak Invoice</a>
-                        @endif
-                    </td>
+                </td>
+                <td>
+                    <img src="{{$payment->foto_diunggah}}" alt="" style="height:30px;width:30px">
+                </td>
+                <td>
+                    {{$payment->tanggal_pembayaran_acc}}
+                </td>
+                <td>
+                    @if(!empty($payment->tanggal_pembayaran_acc) )
+                    <button type="button" name="bulk_delete" id="bulk_delete" class="btn btn-success btn-xs">Approve Payment</button>
+                    @endif
+                </td>
+                <td>
+                    @if(!empty($payment->tanggal_pembayaran_acc) )
+                    <a href="{{ route('payments.invoice',['product'=>$payment->id]) }}" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Cetak Invoice</a>
+                    @endif
+                </td>
                 </tr>
                 @endforeach--}}
+                @foreach($data as $payment)
+                <tr>
+                    <td>
+                        1
+                    </td>
+                    <td>
+                        #{{$payment->invoice_id}}
+                    </td>
+                    <td>
+                        {{$payment->tanggal_pembayaran}}
+                    </td>
+                    <td>
+                        {{$payment->status}}
+                    </td>
+                    <td class="text-center">
+                        <a href="{{ route('payments.show',['payment'=>$payment->id]) }}" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Detail</a>
+                    </td>
+                </tr>
+                @endforeach
             </tbody>
         </table>
     </div>
@@ -99,11 +118,14 @@ Sliders
 <script>
     $(document).ready(function() {
 
+        var table = $('.data-table').DataTable();
+
         // var table = $('.data-table').DataTable({
         //     processing: true,
         //     serverSide: true,
         //     ajax: {
-        //        url: "{{ route('payments.index') }}",
+        //        url: "{{ route('payments.table') }}",
+        //        type : "GET",
         //        data: function (data) {
         //         console.log(data)
         //     },
@@ -116,41 +138,41 @@ Sliders
         //     //     },
         //     // ],
         //     columns: [
-        //         // {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-        //         {
-        //             data: 'user_id',
-        //             name: 'user_id'
-        //         },
-        //         {
-        //             data: 'email',
-        //             name: 'email'
-        //         },
-        //         {
-        //             data: 'company',
-        //             name: 'company'
-        //         },
-        //         {
-        //             data: 'subject',
-        //             name: 'subject'
-        //         },
-        //         {
-        //             data: 'address',
-        //             name: 'address'
-        //         },
-        //         {
-        //             data: 'phone',
-        //             name: 'phone'
-        //         },
-        //         {
-        //             data: 'message',
-        //             name: 'message'
-        //         },
-        //         {
-        //             data: 'created_at',
-        //             render: function(d) {
-        //                 return moment(d).format("DD/MM/YYYY HH:mm");
-        //             }
-        //         },
+        //         {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+        //         // {
+        //         //     data: 'user_id',
+        //         //     name: 'user_id'
+        //         // },
+        //         // {
+        //         //     data: 'email',
+        //         //     name: 'email'
+        //         // },
+        //         // {
+        //         //     data: 'company',
+        //         //     name: 'company'
+        //         // },
+        //         // {
+        //         //     data: 'subject',
+        //         //     name: 'subject'
+        //         // },
+        //         // {
+        //         //     data: 'address',
+        //         //     name: 'address'
+        //         // },
+        //         // {
+        //         //     data: 'phone',
+        //         //     name: 'phone'
+        //         // },
+        //         // {
+        //         //     data: 'message',
+        //         //     name: 'message'
+        //         // },
+        //         // {
+        //         //     data: 'created_at',
+        //         //     render: function(d) {
+        //         //         return moment(d).format("DD/MM/YYYY HH:mm");
+        //         //     }
+        //         // },
         //         // {
         //         //     data: 'checkbox',
         //         //     name: 'checkbox',

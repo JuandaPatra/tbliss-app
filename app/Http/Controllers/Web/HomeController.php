@@ -165,6 +165,7 @@ class HomeController extends Controller
             ->get();
 
 
+        // return $reservationsq;
         return response()->json($reservationsq);
         // return response()->json($reservations);
     }

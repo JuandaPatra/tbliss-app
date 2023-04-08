@@ -28,15 +28,16 @@
                         </defs>
                     </svg>
 
-                    <p class="mb-[51px] mt-[30px] text-sm text-white font-normal font-interRegular text-[18px] ">(maks 30MB, tipe file png / jpg / pdf)</p>
+                    <p class="mb-[51px] mt-[30px] text-sm text-white font-normal font-interRegular text-[18px] ">(maks 30MB, tipe file png / jpg / pdf)</p> <br> 
                 </div>
-                <input id="dropzone-file" type="file" class="hidden" name="upload"  />
+                <input id="dropzone-file" type="file" class="hidden" name="upload" />
                 <input type="hidden" name="id" value="{{$id}}">
             </label>
         </div>
         <div class="btn-group w-full">
             <button type="submit" class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] ">Upload Sekarang</button>
         </div>
+        <p id="UploadPath" class=" text-footer"></p>
     </form>
 </section>
 
@@ -55,6 +56,29 @@
 <script>
     $(document).ready(function() {
 
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('[data-label="UploadImage"]').children('img').attr('src', e.target.result);
+
+                }
+
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $('#dropzone-file').change(function() {
+            readURL(this);
+            var path, url;
+            url = this.value;
+            url = url.split("\\");
+            path = url[2];
+            $("#UploadPath").text(path);
+        });
+
 
         let base_url = window.location.origin;
         $(".selector").flatpickr({
@@ -70,131 +94,131 @@
             }
         });
 
-        $('#searchTrips').on('click', function(e) {
-            let id = $('#countries').val()
-            let dates = $('.selector').val()
-            let dateFrom = dates.slice(0, 10)
-            let dateTo = dates.slice(13, 23)
-            let seats = $('#seats').val()
+        // $('#searchTrips').on('click', function(e) {
+        //     let id = $('#countries').val()
+        //     let dates = $('.selector').val()
+        //     let dateFrom = dates.slice(0, 10)
+        //     let dateTo = dates.slice(13, 23)
+        //     let seats = $('#seats').val()
 
-            $.ajax({
-                type: "POST",
-                url: `${base_url}/seacrhByDate`,
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-                data: {
-                    id,
-                    dateFrom,
-                    dateTo,
-                    seats
-                },
-                error: function(xhr, error) {
-                    if (xhr.status === 500) {
-                        console.log(error);
+        //     $.ajax({
+        //         type: "POST",
+        //         url: `${base_url}/seacrhByDate`,
+        //         headers: {
+        //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+        //                 "content"
+        //             ),
+        //         },
+        //         data: {
+        //             id,
+        //             dateFrom,
+        //             dateTo,
+        //             seats
+        //         },
+        //         error: function(xhr, error) {
+        //             if (xhr.status === 500) {
+        //                 console.log(error);
 
-                        $(e.target).html("Gagal Terkirim");
+        //                 $(e.target).html("Gagal Terkirim");
 
-                        setTimeout(() => {
-                            location.reload();
-                        }, 2500);
-                    }
-                },
-                success: function(data) {
-                    // console.log(data);
-                    $('.home-section').empty()
-                    let result = data
-                    result.forEach(function(item, index) {
-                        $('.home-section').append(
-                            `
-                                <div class="basis-full lg:basis-4/12 p-3">
-                                    <div class="max-w-sm bg-white ">
-                                        <a href="/countries/korea/detail/${item.slug}">
-                                            <img src="${item.thumbnail}" alt="" class="w-full">
-                                        </a>
-                                        <div class="mt-3 ">
-                                            <div class="flex ">
-                                                <h5 class="text-blueTbliss mr-3">
-                                                    ${item.seat} seats left
-                                                </h5>
-                                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                                            </div>
-                                            <a href="#">
-                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">${item.title}</h5>
-                                            </a>
-                                            <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-                                                ${item.day}H${item.night}M
-                                            </span>
-                                            <span>
-                                                |
-                                            </span>
-                                            <span class="ml-3 text-[16px]">
+        //                 setTimeout(() => {
+        //                     location.reload();
+        //                 }, 2500);
+        //             }
+        //         },
+        //         success: function(data) {
+        //             // console.log(data);
+        //             $('.home-section').empty()
+        //             let result = data
+        //             result.forEach(function(item, index) {
+        //                 $('.home-section').append(
+        //                     `
+        //                         <div class="basis-full lg:basis-4/12 p-3">
+        //                             <div class="max-w-sm bg-white ">
+        //                                 <a href="/countries/korea/detail/${item.slug}">
+        //                                     <img src="${item.thumbnail}" alt="" class="w-full">
+        //                                 </a>
+        //                                 <div class="mt-3 ">
+        //                                     <div class="flex ">
+        //                                         <h5 class="text-blueTbliss mr-3">
+        //                                             ${item.seat} seats left
+        //                                         </h5>
+        //                                         <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+        //                                     </div>
+        //                                     <a href="#">
+        //                                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">${item.title}</h5>
+        //                                     </a>
+        //                                     <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+        //                                         ${item.day}H${item.night}M
+        //                                     </span>
+        //                                     <span>
+        //                                         |
+        //                                     </span>
+        //                                     <span class="ml-3 text-[16px]">
 
-                                                ${new Date(item.date_from).getDay()} - ${item.date_to}
-                                            </span>
-                                            <p class="text-redTbliss font-bold text-[19px]">
-                                                ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            `
-                        )
+        //                                         ${new Date(item.date_from).getDay()} - ${item.date_to}
+        //                                     </span>
+        //                                     <p class="text-redTbliss font-bold text-[19px]">
+        //                                         ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
+        //                                     </p>
+        //                                 </div>
+        //                             </div>
+        //                         </div>
+        //                     `
+        //                 )
 
-                    })
+        //             })
 
-                    // let allData = [...allData, data]
-                    // allData.push(data)
+        //             // let allData = [...allData, data]
+        //             // allData.push(data)
 
-                },
-            });
-
-
-        })
-        $('.banner-slider').slick({
-            dots: false,
-            infinite: true,
-            slidesToShow: 1,
-            autoplay: false,
-            // autoplaySpeed: 2000,
-        });
-        $('.banner-slider').not('.slick-initialized').slick();
+        //         },
+        //     });
 
 
-        $('.testimoni-slider').slick({
-            dots: false,
-            infinite: true,
-            slidesToShow: 1,
-            autoplay: false,
-            arrows: true,
-            prevArrow: '.left-testimoni-arrow',
-            nextArrow: '.right-testimoni-arrow',
-        });
-        $('.testimoni-slider').not('.slick-initialized').slick();
+        // })
+        // $('.banner-slider').slick({
+        //     dots: false,
+        //     infinite: true,
+        //     slidesToShow: 1,
+        //     autoplay: false,
+        //     // autoplaySpeed: 2000,
+        // });
+        // $('.banner-slider').not('.slick-initialized').slick();
 
-        const options = {
-            mobileFirst: true,
-            responsive: [{
-                breakpoint: 450,
-                settings: "unslick"
-            }]
-        };
 
-        var slicky = $('.hg-slider');
-        slicky.slick(options);
+        // $('.testimoni-slider').slick({
+        //     dots: false,
+        //     infinite: true,
+        //     slidesToShow: 1,
+        //     autoplay: false,
+        //     arrows: true,
+        //     prevArrow: '.left-testimoni-arrow',
+        //     nextArrow: '.right-testimoni-arrow',
+        // });
+        // $('.testimoni-slider').not('.slick-initialized').slick();
 
-        $(window).resize(function() {
+        // const options = {
+        //     mobileFirst: true,
+        //     responsive: [{
+        //         breakpoint: 450,
+        //         settings: "unslick"
+        //     }]
+        // };
 
-            setTimeout(function() {
+        // var slicky = $('.hg-slider');
+        // slicky.slick(options);
 
-                if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
-                    slicky.slick(options);
-                }
-            }, 100);
-        });
-        // $('.hg-slider').not('.slick-initialized').slick();
+        // $(window).resize(function() {
+
+        //     setTimeout(function() {
+
+        //         if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
+        //             slicky.slick(options);
+        //         }
+        //     }, 100);
+        // });
+        // // $('.hg-slider').not('.slick-initialized').slick();
 
 
 
