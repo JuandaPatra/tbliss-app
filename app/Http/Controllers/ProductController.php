@@ -58,16 +58,17 @@ class ProductController extends Controller
     {
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
-        // return $int_value;
-
-        // return $request;
+        $dp_price = str_replace('.', '', $request->dp_price);
+        $installment1 = str_replace('.', '', $request->installment1);
+        $installment2 = str_replace('.', '', $request->installment2);
+        $installment3 = str_replace('.', '', $request->installment3);
 
         $validator = Validator::make(
             $request->all(),
             [
                 'title'         =>  'required|string|max:100',
                 'slug'          =>  'required|string|unique:trip_categories,slug',
-                'description'     =>  'required',
+                'description'   =>  'required',
                 'thumbnail'     =>  'required',
                 'itinerary'     =>  'required',
                 'price'         =>  'required',
@@ -76,7 +77,11 @@ class ProductController extends Controller
                 'link_g_drive'  =>  'required',
                 'date_from'     =>  'required',
                 'date_to'       =>  'required',
-                'status'        =>  'required'
+                'status'        =>  'required',
+                'dp_price'      =>  'required',
+                'installment1'  =>  'required',
+                'installment2'  =>  'required',
+                'installment3'  =>  'required',
             ]
         );
 
@@ -101,6 +106,10 @@ class ProductController extends Controller
                 'date_from'     =>  $request->date_from,
                 'date_to'       =>  $request->date_to,
                 'status'        =>  $request->status,
+                'dp_price'      => (int) $dp_price,
+                'installment1'  => (int) $installment1,
+                'installment2'  => (int) $installment2,
+                'installment3'  => (int) $installment3,
             ]);
             DB::commit();
             $trip = Trip_categories::where('title', '=', $request->title)->get();
@@ -185,7 +194,7 @@ class ProductController extends Controller
     {
         //// controller edit Trip 
  
-        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status']);
+        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status','dp_price', 'installment1','installment2','installment3']);
 
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $hashtags = Hashtag::all(['id', 'title']);

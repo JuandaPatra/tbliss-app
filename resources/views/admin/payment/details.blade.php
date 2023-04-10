@@ -437,7 +437,7 @@ Sliders
     </div>
     <div class="row mb-5">
         <div class="col-md-6 col-lg-4 mb-3">
-            <div class="card h-100">
+            <div class="card h-100 ms-2">
                 @if($data->foto_diunggah == null)
                 <img class="card-img-top" src="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo/assets/img/elements/2.jpg" alt="Card image cap">
                 @else
@@ -459,7 +459,7 @@ Sliders
                 <div class="card-body">
                     <p class="card-title">
                         <b>
-                           Status: {{$data->status}}
+                            Status: {{$data->status}}
                         </b>
                     </p>
                     <div class="d-flex justify-content-end">

@@ -9,7 +9,7 @@
 <a href="https://itsolutionstuff.com">Visit Our Website : ItSolutionStuff.com</a>
 </h2>
 </center>
-<p>Hi, Sir</p>
+<p>Hi, Sir {{$email['email']}}</p>
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo

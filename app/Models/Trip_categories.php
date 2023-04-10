@@ -9,7 +9,7 @@ class Trip_categories extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug','description','itinerary','price','day','night','seat','thumbnail','date_from', 'date_to','link_g_drive','status'];
+    protected $fillable = ['title', 'slug','description','itinerary','price','day','night','seat','thumbnail','date_from', 'date_to','link_g_drive','status', 'dp_price', 'installment1', 'installment2', 'installment3'];
 
     public function trip_include()
     {

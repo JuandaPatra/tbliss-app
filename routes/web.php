@@ -62,8 +62,10 @@ Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities'
 
 Route::resource('checkout', CheckoutController::class);
 
-Route::get('/booking-trip', [HomeController::class, 'booking'])->name('booking');
-Route::post('booking-order', [HomeController::class, 'bookingOrder'])->name('booking.order');
+// Route::get('/booking-trip', [HomeController::class, 'booking'])->name('booking');
+Route::get('/booking-trip', [HomeController::class, 'booking1'])->name('booking');
+// Route::post('booking-order', [HomeController::class, 'bookingOrder'])->name('booking.order');
+Route::post('booking-order', [HomeController::class, 'bookingOrder1'])->name('booking.order');
 Route::get('/payment/{ids}', [HomeController::class, 'payment'])->name('payment');
 Route::get('/upload/{ids}', [HomeController::class, 'upload'])->name('upload');
 Route::post('/upload', [HomeController::class, 'uploadImage'])->name('uploadImages');
@@ -77,7 +79,7 @@ Route::get('/google-sign-in', [UserLoginController::class, 'google'])->name('sig
 Route::get('/auth/google/callback', [UserLoginController::class, 'handleGoogleCallback']);
 
 Route::get('email-test', function () {
-    $details['email'] = 'juandaent@gmail.com';
+    $details['email'] = 'patrajuanda10@gmail.com';
     dispatch(new App\Jobs\SendEmailJob($details));
     dd('done');
 });

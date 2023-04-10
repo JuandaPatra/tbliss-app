@@ -2,31 +2,27 @@
 
 namespace App\Jobs;
 
+use App\Mail\orderSendMail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-// use App\Mail\SendEmailTest;
-use App\Mail\SendEmailTestl;
-use App\Mail\SendEmail;
-use App\Mail\SendEmailTest;
-use Illuminate\Support\Facades\Mail as FacadesMail;
 use Illuminate\Support\Facades\Mail;
 
-class SendEmailJob implements ShouldQueue
+class OrderEmailJob implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
-    protected $details;
+    private $message;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($message)
     {
-        $this->details = $details;
+        $this->message = (array) $message;
     }
 
     /**
@@ -36,9 +32,11 @@ class SendEmailJob implements ShouldQueue
      */
     public function handle()
     {
-        // return $this->details(['email']);
-        $email = new SendEmailTest($this->details);
-        Mail::to($this->details)->send($email);
-        // Mail::send($this->details['email']);
+        // return $this->message;
+        // return $this->message;
+        // echo $this->message;
+    //    echo ($this->message);
+        $email = new orderSendMail($this->message);
+        Mail::to($this->message['email'])->send($email);
     }
 }

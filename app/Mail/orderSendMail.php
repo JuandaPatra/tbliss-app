@@ -5,11 +5,12 @@ namespace App\Mail;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
 
-class SendEmailTest extends Mailable
+class orderSendMail extends Mailable
 {
     use Queueable, SerializesModels;
     private $message;
@@ -20,7 +21,7 @@ class SendEmailTest extends Mailable
      */
     public function __construct($message)
     {
-        $this->message= $message;
+        $this->message=(array) $message;
     }
 
     /**
@@ -31,7 +32,8 @@ class SendEmailTest extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Send Email Test'.$this->message['email'],
+            subject: 'Order '.$this->message['nama'],
+            to: $this->message['email'],
         );
     }
 
@@ -43,8 +45,8 @@ class SendEmailTest extends Mailable
     public function content()
     {
         return new Content(
-            view: 'emails.test',
-            with:['email' =>$this->message]
+            view: 'web.emails.order1',
+            with:['email' =>(array)$this->message]
         );
     }
 
@@ -55,9 +57,22 @@ class SendEmailTest extends Mailable
      */
     public function attachments()
     {
-        return [];
+        // return [];
+        return[
+            Attachment::fromStorage('/path/to/file')
+                // ->as('name.pdf')
+                ->withMime('application/pdf'),
+        ];
     }
 
-    //coba
-    
+    // public function build()
+    // {
+    //    // Array for passing template
+    //     $input = array(
+    //         'message'     => $this->message
+    //     );
+    //     return $this->view('web.emails.order')->with([
+    //         'inputs' => $input,
+    //       ]); 
+    // } 
 }
