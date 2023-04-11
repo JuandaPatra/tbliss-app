@@ -19,6 +19,9 @@ return new class extends Migration
             $table->integer('payment_id');
             $table->integer('amount');
             $table->date('due_date');
+            $table->integer('price')->unsigned()->nullable();
+            $table->integer('qty')->unsigned()->nullable();
+            $table->unsignedBigInteger('total')->unsigned()->nullable();
             $table->date('payment_acc_date')->nullable();
             $table->string('status');
             $table->string('foto_diunggah')->nullable();

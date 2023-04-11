@@ -45,4 +45,9 @@ class Trip_categories extends Model
     {
         return $this->hasOne(Payment::class, 'trip_categories_id', 'id');
     }
+
+    public function paymentDetails()
+    {
+        return $this->hasOne(PaymentDetails::class, 'trip_categories_id', 'id');
+    }
 }

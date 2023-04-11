@@ -43,6 +43,18 @@ class HomeController extends Controller
 
     public function country($id)
     {
+        $payments = PaymentDetails::with(['user:id,email,alamat,phone', 'trip:id,title'])->get(['id', 'installment_id', 'amount', 'qty', 'total', 'due_date', 'user_id', 'trip_categories_id']);
+        // return $payments;
+        $date = date('Y-m-d', strtotime($payments[0]->due_date . ' -' . 7 . 'days'));
+        // return $date;
+        $current_date = Carbon::now();
+        $current_date = $current_date->toDateString();
+        if($date == $current_date){
+            return $current_date.' = '.$date;
+        }else{
+            return $current_date.'!= '.$date;
+        }
+     
         $slug = $id;
 
         ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
@@ -633,6 +645,8 @@ class HomeController extends Controller
                         'installment_id'        =>  $bulan,
                         'payment_id'            =>  $paymentId->id,
                         'amount'                =>  $monthly[$i-1][0],
+                        'qty'                   =>  $request->qty,
+                        'total'                 =>  $monthly[$i-1][0]* $request->qty,
                         'due_date'              =>  $monthly[$i-1][1],
                         'status'                =>  'Menunggu Pembayaran',
                         'user_id'               =>  $user->id,
@@ -649,11 +663,6 @@ class HomeController extends Controller
 
             }
         }
-
-
-
-
-
 
 
         $dataCoba = [

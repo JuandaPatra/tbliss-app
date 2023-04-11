@@ -12,6 +12,8 @@ class PaymentDetails extends Model
         'installment_id',
         'payment_id',
         'amount',
+        'qty',
+        'total',
         'due_date',
         'payment_acc_date',
         'status',
@@ -20,6 +22,16 @@ class PaymentDetails extends Model
         'user_id',
         'trip_categories_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id','id');
+    }
+
+    public function trip()
+    {
+        return $this->belongsTo(Trip_categories::class, 'trip_categories_id', 'id');
+    }
 
     
 }

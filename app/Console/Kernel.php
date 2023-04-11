@@ -18,8 +18,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
+        // $schedule->command('email:send')->everyMinute();
+        $schedule->command('email:reminder')->everyMinute();
         $details['email'] = 'patrajuanda10@gmail.com';
         $schedule->job(new SendEmailJob($details))->everyMinute();
+
     }
 
     /**

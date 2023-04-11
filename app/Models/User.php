@@ -61,6 +61,11 @@ class User extends Authenticatable
         return $this->hasOne(Payment::class);
     }
 
+    public function paymentDetails()
+    {
+        return $this->hasOne(PaymentDetails::class);
+    }
+
     public static function sendEMail($email, $pdf)
     {
         $viewData['name'] = $email->name;
