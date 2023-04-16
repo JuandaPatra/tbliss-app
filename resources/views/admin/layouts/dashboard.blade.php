@@ -57,8 +57,8 @@
   </div>
 
   <!-- scripts -->
-  @vite(['resources/css/app.css'])
-  @vite(['resources/js/app.js'])
+  <!-- @vite(['resources/css/app.css'])
+  @vite(['resources/js/app.js']) -->
   <script src="{{ asset('vendor/my-dashboard/js/jquery/jquery.js') }}"></script>
   <script src="{{ asset('vendor/my-dashboard/js/bootstrap.js') }}"></script>
   <script src="{{ asset('vendor/my-dashboard/js/popper/popper.js') }}"></script>

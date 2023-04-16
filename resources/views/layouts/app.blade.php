@@ -101,6 +101,6 @@
    <script src="{{ asset('vendor/my-dashboard/js/menu.js') }}"> 
    <script src="{{ asset('vendor/my-dashboard/js/main.js') }}"> 
    <script src="{{ asset('vendor/lity-2.4.1/dist/lity.js') }}">
-   <script src="/js/app.js"></script> 
+   <script src="js/app.js"></script> 
 </body>
 </html>

@@ -54,7 +54,7 @@ Slider Edit
                </div>
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Description</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description1') is-invalid @enderror" name="title" value="{{ old('description1') }}" />
+                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description1') is-invalid @enderror" name="title" value="{{ old('description1', $hidden_gem->description1) }}" />
                   @error('description1')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>

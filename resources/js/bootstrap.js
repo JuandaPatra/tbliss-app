@@ -49,4 +49,6 @@ window.Echo.channel('messages').listen('MessageCreated', function(data){
     $('.badge-notif').empty()
     $('.badge-notif').append("1")
 
+    
+
 })

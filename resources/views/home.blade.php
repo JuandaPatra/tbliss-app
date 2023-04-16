@@ -68,7 +68,7 @@
                 </div>
               </div>
               <span class="fw-semibold d-block mb-1">Paket Trip</span>
-              <h3 class="card-title mb-2">3</h3>
+              <h3 class="card-title mb-2">{{$countTrip}}</h3>
             </div>
           </div>
         </div>
@@ -80,8 +80,8 @@
                   <i class='bx bx-user bx-lg '></i>
                 </div>
               </div>
-              <span class="fw-semibold d-block mb-1">User Online</span>
-              <h3 class="card-title text-nowrap mb-1">2</h3>
+              <span class="fw-semibold d-block mb-1">Hidden Gems</span>
+              <h3 class="card-title text-nowrap mb-1">{{$countHiddenGems}}</h3>
             </div>
           </div>
         </div>

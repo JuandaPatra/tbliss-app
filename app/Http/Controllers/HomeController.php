@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hidden_gem;
+use App\Models\Trip_categories;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -23,6 +25,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $countTrip = Trip_categories::all(['id'])->count();
+        $countHiddenGems = Hidden_gem::all(['id'])->count();
+        return view('home', compact('countTrip','countHiddenGems'));
     }
 }
