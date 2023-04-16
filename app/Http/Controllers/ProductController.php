@@ -86,7 +86,7 @@ class ProductController extends Controller
                 'installment2'  =>  'required',
                 'visa'          =>  'required',
                 'tipping'       =>  'required',
-                'total_tipping '=>  'required'
+                'total_tipping' =>  'required'
 
                 // 'installment3'  =>  'required',
             ]
@@ -347,7 +347,7 @@ class ProductController extends Controller
                 'installment2'  =>  'required',
                 'visa'          =>  'required',
                 'tipping'       =>  'required',
-                'total_tipping '=>  'required' 
+                'total_tipping' =>  'required' 
             ]
         );
 
