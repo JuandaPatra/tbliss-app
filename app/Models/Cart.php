@@ -17,6 +17,8 @@ class Cart extends Model
         'total',
         'tanggal_pembayaran',
         'status',
+        'visa',
+        'total_tipping'
     ];
 
     public function User()

@@ -7,6 +7,7 @@ use App\Models\PaymentDetails;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class CronEmail extends Command
 {
@@ -33,11 +34,9 @@ class CronEmail extends Command
     {
         // return Command::SUCCESS;
         $payments = PaymentDetails::with(['user:id,email,alamat,phone', 'trip:id,title'])->get(['id', 'installment_id', 'amount', 'qty', 'total', 'due_date', 'user_id', 'trip_categories_id']);
-        // return $payments;
 
         $current_date = Carbon::now();
         $current_date = $current_date->toDateString();
-        // return $current_date;
         
 
         foreach ($payments as $payment) {
@@ -48,9 +47,11 @@ class CronEmail extends Command
 
                 Mail::to($payment->user->email)
                     ->send(new sendEmailWithCron());
+                    Log::info('email sent');
             } 
              else {
                 $this->info("No mail to send !");
+                Log::warning('email not sent');
             }
         }
     }

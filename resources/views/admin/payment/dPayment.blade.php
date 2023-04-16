@@ -200,7 +200,7 @@
                     <td class="text-end">{{$dataCoba['price']}}</td>
                     <!-- <td>@mdo</td> -->
                 </tr>
-                @if($dataCoba['totalVisa'] != 'Rp.0')
+                @if($dataCoba['totalVisa'])
                 <tr>
                     <!-- <th scope="row"></th> -->
                     <td colspan="3" class="text-center">Visa </td>
@@ -208,7 +208,7 @@
                     <!-- <td>@mdo</td> -->
                 </tr>
                 @endif
-                @if($dataCoba['total_tipping_price'] != 'Rp.0')
+                @if($dataCoba['total_tipping_price'])
                 <tr>
                     <td colspan="3" class="text-center">Tipping </td>
                     <td class="text-end">{{$dataCoba['total_tipping_price']}}</td>
@@ -228,11 +228,11 @@
                         <tr>
                             <td><strong>Grand total:</strong></td>
                             <td style="text-align:right">{{$dataCoba['grandTotal']}}
-                            </td>
-                        </tr>
-                    </table>
                 </td>
             </tr>
+        </table>
+        </td>
+        </tr>
         </table>
         <br>
         <br>

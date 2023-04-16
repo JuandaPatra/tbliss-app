@@ -34,7 +34,6 @@ class PaymentController extends Controller
         // return $data;
         // $datas = Payment::all();
         // return $datas;
-        // return $data;
         return view('admin.payment.index', compact('data'));
     }
 
@@ -67,10 +66,10 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $data = Payment::with(['trip:id,title', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status']);
+        $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status','visa','total_tipping','grand_total','due_date', 'opsi_pembayaran']);
         // return $data;
         $statusPayment = '';
-        if ($data->price_dp < $data->price) {
+        if ($data->opsi_pembayaran == 0) {
             $statusPayment = 'Pembayaran Cicilan';
         }
 

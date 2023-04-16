@@ -25,7 +25,7 @@
                 Opsi Pembayaran
             </h1>
             <div class="grid grid-cols-2 gap-x-3 mt-[16px]">
-                <div class=" bg-blueTbliss h-[39px] py-[7px] text-[14px] border text-white flex justify-center cursor-pointer dp-button" data-price="1500000" data-status="0">
+                <div class=" bg-blueTbliss h-[39px] py-[7px] text-[14px] border text-white flex justify-center cursor-pointer dp-button" data-price="{{$monthly[0][0]}}" data-status="0" data-grand="{{$monthly[0][4]}}">
                     <svg width="17" height="17" viewBox="0 0 17 17" class="mt-[2px] white-icon hidden " fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_466_104)">
                             <path d="M7.81378 0H9.17352C9.42887 0.035725 9.69827 0.0293457 9.95873 0.0599671C10.5832 0.144365 11.1926 0.316169 11.7692 0.570324C12.6451 0.928472 13.4538 1.43283 14.1605 2.06184C14.8574 2.67727 15.4513 3.40003 15.9199 4.20279C16.3646 4.96855 16.6885 5.79828 16.88 6.66271C16.9387 7.01035 16.9733 7.36164 16.9834 7.71405C16.9834 7.76764 16.9668 7.82378 17 7.87481V8.89808C16.9656 9.16474 16.9668 9.43523 16.9553 9.70317C16.9236 10.1374 16.8378 10.566 16.7 10.9791C16.3737 12.0812 15.8239 13.1044 15.0849 13.9851C13.8486 15.4721 12.1456 16.4977 10.2524 16.8954C9.9096 16.9481 9.56368 16.9779 9.21693 16.9847C9.15692 16.9847 9.09564 16.9668 9.03819 17H7.87762C7.62227 16.9681 7.36691 16.9719 7.11156 16.9451C6.51897 16.8709 5.93916 16.7168 5.38794 16.4871C4.5468 16.1609 3.76452 15.6997 3.07191 15.1219C2.00971 14.2458 1.17269 13.1285 0.630752 11.8633C0.351316 11.2482 0.162937 10.5957 0.0715341 9.92645C-0.000814329 9.26215 -0.0183229 8.59302 0.0191867 7.92585C0.0204483 7.55753 0.0498999 7.18985 0.107283 6.82603C0.372766 5.47513 0.964946 4.20966 1.83218 3.13997C2.68647 2.0686 3.78542 1.2176 5.03684 0.658361C5.58519 0.407918 6.16052 0.221264 6.75152 0.102072C7.06714 0.0557098 7.38514 0.0271693 7.70398 0.0165867C7.741 0.014035 7.78058 0.0280696 7.81378 0Z" fill="#5C6CEF" />
@@ -55,7 +55,7 @@
 
 
                 </div>
-                <div class=" bg-white h-[39px] py-[7px] text-[14px] text-[#6A6A6A] border border-[#9F9F9F] flex justify-center cursor-pointer full-pay-button" data-price="{{$newCart->trip->price}}" data-status="1">
+                <div class=" bg-white h-[39px] py-[7px] text-[14px] text-[#6A6A6A] border border-[#9F9F9F] flex justify-center cursor-pointer full-pay-button" data-price="{{$newCart->trip->price}}" data-status="1" data-grand="{{$newCart->total}}" >
                     <svg width="17" height="17" viewBox="0 0 17 17" class="mt-[2px] blue-icon" fill="none " xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_466_104)">
                             <path d="M7.81378 0H9.17352C9.42887 0.035725 9.69827 0.0293457 9.95873 0.0599671C10.5832 0.144365 11.1926 0.316169 11.7692 0.570324C12.6451 0.928472 13.4538 1.43283 14.1605 2.06184C14.8574 2.67727 15.4513 3.40003 15.9199 4.20279C16.3646 4.96855 16.6885 5.79828 16.88 6.66271C16.9387 7.01035 16.9733 7.36164 16.9834 7.71405C16.9834 7.76764 16.9668 7.82378 17 7.87481V8.89808C16.9656 9.16474 16.9668 9.43523 16.9553 9.70317C16.9236 10.1374 16.8378 10.566 16.7 10.9791C16.3737 12.0812 15.8239 13.1044 15.0849 13.9851C13.8486 15.4721 12.1456 16.4977 10.2524 16.8954C9.9096 16.9481 9.56368 16.9779 9.21693 16.9847C9.15692 16.9847 9.09564 16.9668 9.03819 17H7.87762C7.62227 16.9681 7.36691 16.9719 7.11156 16.9451C6.51897 16.8709 5.93916 16.7168 5.38794 16.4871C4.5468 16.1609 3.76452 15.6997 3.07191 15.1219C2.00971 14.2458 1.17269 13.1285 0.630752 11.8633C0.351316 11.2482 0.162937 10.5957 0.0715341 9.92645C-0.000814329 9.26215 -0.0183229 8.59302 0.0191867 7.92585C0.0204483 7.55753 0.0498999 7.18985 0.107283 6.82603C0.372766 5.47513 0.964946 4.20966 1.83218 3.13997C2.68647 2.0686 3.78542 1.2176 5.03684 0.658361C5.58519 0.407918 6.16052 0.221264 6.75152 0.102072C7.06714 0.0557098 7.38514 0.0271693 7.70398 0.0165867C7.741 0.014035 7.78058 0.0280696 7.81378 0Z" fill="#5C6CEF" />
@@ -87,7 +87,7 @@
                 Bayar DP per-orang, sisanya sesuai skema pembayaran
             </h1>
             <h1 class="mt-2 mb-[30px] font-semibold text-[30px] dp-price ">
-                Rp.1.500.000
+               @currency($monthly[0][0])
             </h1>
             <h1 class="mt-2 mb-[30px] font-semibold text-[30px] full-pay-price  hidden">
                 @currency($newCart->price)
@@ -128,7 +128,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
+                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer ">
                             <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
                                 <div class="flex flex-wrap">
                                     <div class=" basis-full lg:basis-4/12">
@@ -150,7 +150,7 @@
                                             <p class="w-[30%]">Opsi Pembayaran</p>
                                             <p>:</p>
                                             <p class="pl-1 status-payment">Bayar Uang Muka</p>
-                                            <input type="hidden" name="dp_price" value="1500000" class="input-payment">
+                                            <input type="hidden" name="dp_price" value="{{$monthly[0][0]}}" class="input-payment">
                                             <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}">
                                             <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
                                         </div>
@@ -162,7 +162,8 @@
                                     </div>
                             </th>
                             <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price">
-                                Rp.1.500.000
+                                @currency($monthly[0][0])
+                                <!-- Rp.1.500.000 -->
                             </td>
                             <td class="text-justify pl-2 lg:pl-6 py-4">
                                 <input type="number" value="1" class="w-[60px] mt-[10px] input-qty" name="qty">
@@ -170,7 +171,108 @@
                                 <input type="hidden" value="0" name="status" class="input-status">
                             </td>
                             <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
-                                Rp.1.500.000
+                                @currency($monthly[0][0])
+                                <!-- Rp.1.500.000 -->
+                            </td>
+                        </tr>
+
+                        @if($monthly[0][2] != 0)
+                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer installment-excludes-dp ">
+                            <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
+                                <div class="flex flex-wrap">
+                                    <div class=" basis-full lg:basis-4/12">
+                                        <!-- <img src="{{$newCart->trip->thumbnail}}" alt="" class=""> -->
+                                    </div>
+                                    <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
+                                        <div class="hidden lg:flex mb-2">
+                                            <p>Visa @currency($newCart->trip->visa)</p>
+                                        </div>
+                                    </div>
+                            </th>
+                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price-visa">
+                                @currency($newCart->trip->visa)
+                            </td>
+                            <td class="text-justify pl-2 lg:pl-6 py-4">
+                                <input type="number" value="1" class="w-[60px] mt-[10px] bg-gray-100 border border-gray-300 text-gray-600 input-qty-visa" name="qty-visa" disabled>
+                                <!-- <input type="hidden" value="{{$months}}" name="months"> -->
+                                <input type="hidden" value="{{$newCart->trip->visa}}" name="input_payment_visa" class="input-payment-visa">
+                                <input type="hidden" value="1" class="input-visa-dp">
+                            </td>
+                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price-visa">
+                                @currency($newCart->trip->visa)
+                            </td>
+                        </tr>
+                        @endif
+                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer installment-excludes hidden">
+                            <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
+                                <div class="flex flex-wrap">
+                                    <div class=" basis-full lg:basis-4/12">
+                                        <!-- <img src="{{$newCart->trip->thumbnail}}" alt="" class=""> -->
+                                    </div>
+                                    <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
+                                        <div class="hidden lg:flex mb-2">
+                                            <p>Visa @currency($newCart->trip->visa)</p>
+                                        </div>
+                                    </div>
+                            </th>
+                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price-visa">
+                                @currency($newCart->trip->visa)
+                            </td>
+                            <td class="text-justify pl-2 lg:pl-6 py-4">
+                                <input type="number" value="1" class="w-[60px] mt-[10px] bg-gray-100 border border-gray-300 text-gray-600 input-qty-visa" name="qty-visa" disabled>
+                                <!-- <input type="hidden" value="{{$months}}" name="months"> -->
+                                <input type="hidden" value="{{$newCart->trip->visa}}" name="input_payment_visa" class="input-payment-visa">
+                            </td>
+                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price-visa">
+                                @currency($newCart->trip->visa)
+                            </td>
+                        </tr>
+                        @if($monthly[0][3] != 0)
+                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer installment-excludes-dp">
+                            <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
+                                <div class="flex flex-wrap">
+                                    <div class=" basis-full lg:basis-4/12">
+                                        <!-- <img src="{{$newCart->trip->thumbnail}}" alt="" class=""> -->
+                                    </div>
+                                    <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
+                                        <div class="hidden lg:flex mb-2">
+                                            <p>Local Guide Tipping @currency($newCart->trip->tipping) / Orang x {{$newCart->trip->day}} Hari</p>
+                                        </div>
+                                    </div>
+                            </th>
+                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price-qty">
+                                @currency($newCart->trip->total_tipping)
+                            </td>
+                            <td class="text-justify pl-2 lg:pl-6 py-4">
+                                <input type="number" value="1" class="w-[60px] mt-[10px] bg-gray-100 border border-gray-300 text-gray-600 input-qty-tipping" name="qty-tipping" disabled>
+                                <input type="hidden" value="{{$newCart->trip->total_tipping}}" name="input_payment_tipping" class="input-payment-tipping">
+                            </td>
+                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price-tipping">
+                                @currency($newCart->trip->total_tipping)
+                            </td>
+                        </tr>
+                        @endif
+                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer installment-excludes hidden">
+                            <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
+                                <div class="flex flex-wrap">
+                                    <div class=" basis-full lg:basis-4/12">
+                                        <!-- <img src="{{$newCart->trip->thumbnail}}" alt="" class=""> -->
+                                    </div>
+                                    <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
+                                        <div class="hidden lg:flex mb-2">
+                                            <p>Local Guide Tipping @currency($newCart->trip->tipping) / Orang x {{$newCart->trip->day}} Hari</p>
+                                        </div>
+                                    </div>
+                            </th>
+                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price-qty">
+                                @currency($newCart->trip->total_tipping)
+                            </td>
+                            <td class="text-justify pl-2 lg:pl-6 py-4">
+                                <input type="number" value="1" class="w-[60px] mt-[10px] bg-gray-100 border border-gray-300 text-gray-600 input-qty-tipping" name="qty-tipping" disabled>
+                                <input type="hidden" value="{{$newCart->trip->total_tipping}}" name="input_payment_tipping" class="input-payment-tipping">
+                            </td>
+                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price-tipping">
+                                @currency($newCart->trip->total_tipping)
                             </td>
                         </tr>
                         <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
@@ -181,93 +283,26 @@
                                     </div>
                                     <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
                                         <div class="hidden lg:flex mb-2">
-                                            <!-- <p class="w-[30%]">Nama Trip</p>
-                                            <p>:</p>
-                                            <p class="pl-1">{{$newCart->trip->title}}</p> -->
-                                            <p>Visa Korea Rp.3.000.000</p>
+                                            <!-- <p>Local Guide Tipping @currency($newCart->trip->tipping) / Orang x {{$newCart->trip->day}} Hari</p> -->
                                         </div>
-                                        <!-- <div class="hidden lg:flex mb-2">
-                                            <p class="w-[30%]">Tanggal</p>
-                                            <p>:</p>
-                                            <p class="pl-1">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
-
-                                        </div>
-                                        <div class="hidden lg:flex mb-2">
-                                            <p class="w-[30%]">Opsi Pembayaran</p>
-                                            <p>:</p>
-                                            <p class="pl-1 status-payment">Bayar Uang Muka</p>
-                                            <input type="hidden" name="dp_price" value="1500000" class="input-payment">
-                                            <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}">
-                                            <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
-                                        </div> -->
-                                        <!-- <div>
-                                            <p class="block lg:hidden text-[12px]">Nama Trip: {{$newCart->trip->title}}</p>
-                                            <p class="block lg:hidden text-[12px]">Tanggal: {{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
-                                            <p class="block lg:hidden text-[12px]">Opsi Pembayaran : <span class="status-payment">Bayar Uang Muka</span></p>
-                                        </div> -->
                                     </div>
                             </th>
-                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price">
-                                Rp.3.000.000
+                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price-qty font-bold uppercase">
+                                GrandTotal
                             </td>
                             <td class="text-justify pl-2 lg:pl-6 py-4">
-                                <!-- <input type="number" value="1" class="w-[60px] mt-[10px] input-qty" name="qty">
-                                <input type="hidden" value="{{$months}}" name="months">
-                                <input type="hidden" value="0" name="status" class="input-status"> -->
+                                <!-- <input type="number" value="1" class="w-[60px] mt-[10px] bg-gray-100 border border-gray-300 text-gray-600 input-qty-tipping" name="qty-tipping" disabled>
+                                <input type="hidden" value="{{$newCart->trip->total_tipping}}" name="input-payment-tipping" class="input-payment-tipping"> -->
                             </td>
-                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
-                                Rp.3.000.000
-                            </td>
-                        </tr>
-                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
-                            <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
-                                <div class="flex flex-wrap">
-                                    <div class=" basis-full lg:basis-4/12">
-                                        <!-- <img src="{{$newCart->trip->thumbnail}}" alt="" class=""> -->
-                                    </div>
-                                    <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
-                                        <div class="hidden lg:flex mb-2">
-                                            <!-- <p class="w-[30%]">Nama Trip</p>
-                                            <p>:</p>
-                                            <p class="pl-1">{{$newCart->trip->title}}</p> -->
-                                            <p>Local Guide Tipping</p>
-                                        </div>
-                                        <!-- <div class="hidden lg:flex mb-2">
-                                            <p class="w-[30%]">Tanggal</p>
-                                            <p>:</p>
-                                            <p class="pl-1">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
-
-                                        </div>
-                                        <div class="hidden lg:flex mb-2">
-                                            <p class="w-[30%]">Opsi Pembayaran</p>
-                                            <p>:</p>
-                                            <p class="pl-1 status-payment">Bayar Uang Muka</p>
-                                            <input type="hidden" name="dp_price" value="1500000" class="input-payment">
-                                            <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}">
-                                            <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
-                                        </div> -->
-                                        <!-- <div>
-                                            <p class="block lg:hidden text-[12px]">Nama Trip: {{$newCart->trip->title}}</p>
-                                            <p class="block lg:hidden text-[12px]">Tanggal: {{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
-                                            <p class="block lg:hidden text-[12px]">Opsi Pembayaran : <span class="status-payment">Bayar Uang Muka</span></p>
-                                        </div> -->
-                                    </div>
-                            </th>
-                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price">
-                                Rp.150.000
-                            </td>
-                            <td class="text-justify pl-2 lg:pl-6 py-4">
-                                <input type="number" value="6" class="w-[60px] mt-[10px] input-qty" name="qty">
-                                <input type="hidden" value="{{$months}}" name="months">
-                                <input type="hidden" value="0" name="status" class="input-status">
-                            </td>
-                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
-                                Rp.900.000
+                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price-grandtotal font-bold">
+                                <!-- Rp.1.500.000 -->
+                                @currency($monthly[0][4])
                             </td>
                         </tr>
                     </tbody>
                 </table>
-
+                <p class="installment-includes">* Visa untuk pembayaran Uang Muka akan di kenakan pada saat cicilan pertama</p>
+                <p class="installment-includes">* Tipping untuk pembayaran Uang Muka akan di kenakan pada saat cicilan Kedua</p>
             </div>
             <div class="btn-group w-full">
                 <button class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] " type="submit">Bayar Sekarang</button>
@@ -424,90 +459,22 @@
                     <span class="sr-only">Close modal</span>
                 </button>
             </div>
-            <!-- Modal body -->
+            
             <div class="p-6 space-y-6">
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <!-- <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th scope="col" class="px-6 py-3">
-                                Bayar DP/ Uang Muka
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Color
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Category
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Price
-                            </th>
-                        </tr>
-                    </thead> -->
                     <tbody>
-                        <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
+                        @for($i=0;$i<$months;$i++) <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
                             <th scope="row" width="30%" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[16px]">
-                                <span class="hidden lg:block">Bayar DP / Uang Muka</span>
+                                <span class="hidden lg:block">{{$monthly[$i][1]}}</span>
 
-                                <span class="block lg:hidden">Bayar DP / <br>Uang Muka</span>
+                                <!-- <span class="block lg:hidden">Bayar DP / <br>Uang Muka</span> -->
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">
-                                Rp. 1.500.000
-                            </td>
-
-                        </tr>
-                        @for($i=0;$i<$months;$i++) <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                            {{$monthly[$i][1]}}
-                            </th>
-                            <td class="px-6 py-4 border-2 text-[16px]">
-
-                                @if($i == $months)
-                                Pelunasan
-                                @else
-
                                 @currency($monthly[$i][0])
-                                @endif
                             </td>
-                            </tr>
 
+                            </tr>
                             @endfor
-                            {{-- @for ($i = count($monthly); $i >= 1; $i--) <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                {{$monthly[$i-1][1]}}
-                            </th>
-                            <td class="px-6 py-4 border-2 text-[16px]">
-
-                                @if($i == 1)
-                                Pelunasan
-                                @else
-                                @currency($pricePerMonths)
-                                @endif
-                            </td>
-                            </tr>
-                            @endfor --}}
-                            <!-- <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
-                                <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                    25 Jan 2023
-                                </th>
-                                <td class="px-6 py-4 border-2 text-[16px]">
-                                    Rp.4.000.000
-                                </td>
-                            </tr>
-                            <tr class="bg-white  dark:bg-gray-800">
-                                <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                    25 Feb 2023
-                                </th>
-                                <td class="px-6 py-4 border-2 text-[16px]">
-                                    Rp.4.000.000
-                                </td>
-                            </tr> -->
-                            <!-- <tr class="bg-white  dark:bg-gray-800">
-                            <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
-                                21 May 2023
-                            </th>
-                            <td class="px-6 py-4 border-2 text-[16px]">
-                                Pelunasan
-                            </td>
-                        </tr> -->
                             <tr class="bg-white  dark:bg-gray-800">
                                 <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold  text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
                                     Reminder
@@ -557,6 +524,10 @@
             $(this).addClass('text-white')
             $('.blue-icon', this).removeClass('hidden')
             $('.white-icon', this).addClass('hidden')
+
+            $('.installment-excludes-dp').removeClass('hidden')
+
+
             $('.full-pay-button .white-icon').addClass('hidden')
             $('.full-pay-button .blue-icon').removeClass('hidden')
             $('.caption-payment').empty()
@@ -564,10 +535,26 @@
             var subtotalPrice = $(this).data('price')
             var totalPrice = subtotalPrice * 1
 
+            var subtotalVisa = $('.input-payment-visa').val()
+            var totalPriceVisa = subtotalVisa *1
+
             var status = $(this).data('status')
             // console.log(status)
             $('.input-status').val(status)
             $('.input-status').change()
+
+            $('.installment-excludes').addClass('hidden')
+
+            var grandTotal = $(this).data('grand')
+        //    console.log(grandTotal)
+
+            $('.total-price-grandtotal').empty()
+            $('.total-price-grandtotal').append(grandTotal.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
+
 
 
             $('.full-pay-button').removeClass('bg-blueTbliss')
@@ -581,6 +568,10 @@
             $('.input-payment').change()
             $('.input-qty').val(1)
             $('.input-qty').change()
+            $('.input-qty-visa').val(1)
+            $('.input-qty-visa').change()
+            $('.input-qty-tipping').val(1)
+            $('.input-qty-tipping').change()
             $('.subtotal-price').empty()
             $('.subtotal-price').append(subtotalPrice.toLocaleString("id-ID", {
                 style: "currency",
@@ -590,6 +581,14 @@
             $('.subtotal-price').change()
             $('.total-price').empty()
             $('.total-price').append(totalPrice.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
+            
+
+            $('.total-price-visa').empty()
+            $('.total-price-visa').append(totalPriceVisa.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
                 minimumFractionDigits: 0
@@ -604,14 +603,34 @@
             $('.blue-icon', this).addClass('hidden')
             $('.white-icon', this).removeClass('hidden')
 
+            $('.installment-excludes-dp').addClass('hidden')
+
 
             $('.dp-button .blue-icon').addClass('hidden')
             $('.dp-button .white-icon').removeClass('hidden')
             $('.caption-payment').empty()
             $('.caption-payment').append('Bayar harga penuh per-orang')
 
+            $('.installment-excludes').removeClass('hidden')
+
+           var grandTotal = $(this).data('grand')
+           console.log(grandTotal)
+
             var subtotalPrice = $(this).data('price')
             var totalPrice = subtotalPrice * 1
+
+            var subtotalVisa = $('.input-payment-visa').val()
+            var totalPriceVisa = subtotalVisa *1
+
+            var subtotalTipping = $('.input-payment-tipping').val()
+            var totalPriceTipping = subtotalTipping *1
+
+            $('.total-price-grandtotal').empty()
+            $('.total-price-grandtotal').append(grandTotal.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
 
             var status = $(this).data('status')
             // console.log(status)
@@ -629,6 +648,10 @@
             $('.input-payment').change()
             $('.input-qty').val(1)
             $('.input-qty').change()
+            $('.input-qty-visa').val(1)
+            $('.input-qty-visa').change()
+            $('.input-qty-tipping').val(1)
+            $('.input-qty-tipping').change()
             $('.subtotal-price').empty()
             $('.subtotal-price').append(subtotalPrice.toLocaleString("id-ID", {
                 style: "currency",
@@ -641,19 +664,56 @@
                 currency: "IDR",
                 minimumFractionDigits: 0
             }))
+
+            $('.total-price-visa').empty()
+            $('.total-price-visa').append(totalPriceVisa.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
+
+            $('.total-price-tipping').empty()
+            $('.total-price-tipping').append(totalPriceTipping.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
         })
 
         $('.input-qty').keyup(function() {
             var numbers = $(this).val()
-            console.log(numbers)
-            // console.log(this)
+           
             var inputPayment = $('.input-payment').val()
-            // console.log(inputPayment)
+            var inputPaymentVisa = $('.input-payment-visa').val()
+            var inputPaymentTipping = $('.input-payment-tipping').val()
+            // console.log(inputPaymentTipping)
+
+            var inputVisaDp =$('.input-visa-dp').val()
+            console.log(inputVisaDp)
+            
+
             var seat = $('.seat-payment').val()
+            var qtyVisa = $('.input-qty-visa').val()
+            var qtyTipping = $('.input-qty-tipping').val()
+            // console.log(qtyVisa)
+            $('.input-qty-visa').val(numbers)
+            $('.input-qty-visa').change()
+
+            $('.input-qty-visa-dp').val(numbers)
+            $('.input-qty-visa-dp').change(numbers)
+            
+
+            $('.input-qty-tipping').val(numbers)
+            $('.input-qty-tipping').change()
+
             if (numbers === '') {
                 var totalPrice = inputPayment * 1
+                var totalPriceVisa = inputPaymentVisa * 1
+                var totalPriceTipping = inputPaymentTipping * 1
             } else {
                 var totalPrice = inputPayment * numbers
+                var totalPriceVisa = inputPaymentVisa * numbers
+                var totalPriceTipping = inputPaymentTipping * numbers
             }
             if (+numbers >= +seat) {
                 $(this).val(seat)
@@ -661,11 +721,51 @@
                 var totalPrice = inputPayment * seat
             }
 
+            console.log(inputPayment)
+            
             // console.log(totalPrice)
 
 
             $('.total-price').empty()
             $('.total-price').append(totalPrice.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
+
+            $('.total-price-visa').empty()
+            $('.total-price-visa').append(totalPriceVisa.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
+
+            $('.total-price-tipping').empty()
+            $('.total-price-tipping').append(totalPriceTipping.toLocaleString("id-ID", {
+                style: "currency",
+                currency: "IDR",
+                minimumFractionDigits: 0
+            }))
+
+            var status = $('.input-status').val()
+            var grandTotal = 0
+            if(status == 0){
+                if(inputVisaDp == undefined){
+                    grandTotal = totalPrice
+                    // console.log('tes')
+                }else{
+                    grandTotal = totalPrice+totalPriceVisa
+                }
+            }else{
+                grandTotal = totalPrice+totalPriceTipping+totalPriceVisa
+            }
+
+            // console.log(totalPrice)
+            // console.log(totalPriceVisa + totalPrice)
+            // console.log(grandTotal)
+
+            $('.total-price-grandtotal').empty()
+            $('.total-price-grandtotal').append(grandTotal.toLocaleString("id-ID", {
                 style: "currency",
                 currency: "IDR",
                 minimumFractionDigits: 0

@@ -152,6 +152,37 @@ Category Add
                </div>
             </div>
             <div class="mb-3">
+                  <label for="input_post_seat" class="form-label">Visa</label>
+                  <input id="input_post_price" name="visa" type="text" placeholder="" class="form-control @error('visa') is-invalid @enderror" name="visa" value="{{ old('visa') }}" />
+                  @error('visa')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+            <div class="mb-3">
+               <div class="row">
+                  <div class="col-6">
+                     <label for="input_days" class="form-label">Tipping PerDay (Rp.)</label>
+                     <input id="input_post_price" name="tipping" type="text" placeholder="" class="form-control @error('tipping') is-invalid @enderror" name="tipping" value="{{ old('tipping') }}" />
+                     @error('tipping')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+                  <div class="col-6">
+                     <label for="input_nights" class="form-label">Total Tipping (Rp.)</label>
+                     <input id="input_post_price" name="total_tipping" type="text" placeholder="" class="form-control @error('total_tipping') is-invalid @enderror" name="total_tipping" value="{{ old('total_tipping') }}" />
+                     @error('total_tipping')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+               </div>
+            </div>
+            <div class="mb-3">
                <label for="select_post_status" class="form-label">Status</label>
                <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
                   <option value="">Please Select ..</option>
@@ -265,7 +296,7 @@ Category Add
             </span>
             @enderror
          </div>
-         <div class="mb-3">
+         {{--<div class="mb-3">
             <label for="input_post_price" class="form-label">Installment 3</label>
             <input id="input_post_price" name="installment3" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror" name="installment3" value="{{ old('installment3') }}" />
             @error('installment3')
@@ -273,7 +304,7 @@ Category Add
                <strong>{{ $message }}</strong>
             </span>
             @enderror
-         </div>
+         </div>--}}
          </form>
       </div>
    </div>

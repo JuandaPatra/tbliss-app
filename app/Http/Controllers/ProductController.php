@@ -62,6 +62,9 @@ class ProductController extends Controller
         $installment1 = str_replace('.', '', $request->installment1);
         $installment2 = str_replace('.', '', $request->installment2);
         $installment3 = str_replace('.', '', $request->installment3);
+        $visa         = str_replace('.', '', $request->visa);
+        $tipping         = str_replace('.', '', $request->tipping);
+        $total_tipping         = str_replace('.', '', $request->total_tipping);
 
         $validator = Validator::make(
             $request->all(),
@@ -81,7 +84,11 @@ class ProductController extends Controller
                 'dp_price'      =>  'required',
                 'installment1'  =>  'required',
                 'installment2'  =>  'required',
-                'installment3'  =>  'required',
+                'visa'          =>  'required',
+                'tipping'       =>  'required',
+                'total_tipping '=>  'required'
+
+                // 'installment3'  =>  'required',
             ]
         );
 
@@ -109,7 +116,9 @@ class ProductController extends Controller
                 'dp_price'      => (int) $dp_price,
                 'installment1'  => (int) $installment1,
                 'installment2'  => (int) $installment2,
-                'installment3'  => (int) $installment3,
+                'visa'          =>  (int) $visa,
+                'tipping'       =>  (int) $tipping,
+                'total_tipping' =>  (int) $total_tipping
             ]);
             DB::commit();
             $trip = Trip_categories::where('title', '=', $request->title)->get();
@@ -194,7 +203,7 @@ class ProductController extends Controller
     {
         //// controller edit Trip 
  
-        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status','dp_price', 'installment1','installment2','installment3']);
+        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status','dp_price', 'installment1','installment2','installment3','visa','tipping','total_tipping']);
 
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $hashtags = Hashtag::all(['id', 'title']);
@@ -302,11 +311,19 @@ class ProductController extends Controller
     public function updateTrip(Request $request, $id)
     {
         //// controler update Trip
-        
+        // return $request;
+
         //// ubah string to number price
 
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
+        $dp_price = str_replace('.', '', $request->dp_price);
+        $installment1 = str_replace('.', '', $request->installment1);
+        $installment2 = str_replace('.', '', $request->installment2);
+        $installment3 = str_replace('.', '', $request->installment3);
+        $visa         = str_replace('.', '', $request->visa);
+        $tipping         = str_replace('.', '', $request->tipping);
+        $total_tipping         = str_replace('.', '', $request->total_tipping);
 
         ///validasi input form
 
@@ -324,7 +341,13 @@ class ProductController extends Controller
                 'link_g_drive'  =>  'required',
                 'date_from'     =>  'required',
                 'date_to'       =>  'required',
-                'status'        =>  'required'
+                'status'        =>  'required',
+                'dp_price'      =>  'required',
+                'installment1'  =>  'required',
+                'installment2'  =>  'required',
+                'visa'          =>  'required',
+                'tipping'       =>  'required',
+                'total_tipping '=>  'required' 
             ]
         );
 
@@ -356,6 +379,12 @@ class ProductController extends Controller
                 'date_from'     =>  $request->date_from,
                 'date_to'       =>  $request->date_to,
                 'status'        =>  $request->status,
+                'dp_price'      => (int) $dp_price,
+                'installment1'  => (int) $installment1,
+                'installment2'  => (int) $installment2,
+                'visa'          =>  (int) $visa,
+                'tipping'       =>  (int) $tipping,
+                'total_tipping' =>  (int) $total_tipping
             ]);
 
             Alert::success('Edit Trip', 'Berhasil');

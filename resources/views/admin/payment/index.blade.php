@@ -7,25 +7,18 @@ Sliders
 @endsection
 @section('content')
 <div class="card">
-    <h5 class="card-header">List Payment</h5>
+    <h3 class="card-header text-uppercase">List Payment</h3>
     <div class="table-responsive text-nowrap px-3" style="height:1000px">
-
 
         <table class="table table-bordered data-table">
             <thead>
                 <tr>
                     <th>No</th>
                     <th>Invoice Number</th>
-                    <th>Tanggal Pembayaran</th>
+                    <th>ORDER Number</th>
+                    <th>Tanggal Pemesanan</th>
                     <th>Status</th>
                     <th>Check Detail</th>
-                    <!-- <th>status pembayaran</th> -->
-                    <!-- <th>Total</th> -->
-                    <!-- <th>Bukti pembayaran</th> -->
-                    <!-- <th>Tanggal pembayaran</th> -->
-                    <!-- <th>Approve Payment</th> -->
-                    <!-- <th>Cetak Invoice</th> -->
-                    <!-- <th><button type="button" name="bulk_delete" id="bulk_delete" class="btn btn-danger btn-xs">Delete</button></th> -->
                 </tr>
             </thead>
             <tbody>
@@ -77,10 +70,13 @@ Sliders
                 @foreach($data as $payment)
                 <tr>
                     <td>
-                        1
+                    {{ $loop->iteration }} 
                     </td>
                     <td>
                         #{{$payment->invoice_id}}
+                    </td>
+                    <td>
+                        ORD{{$payment->order_id}}
                     </td>
                     <td>
                         {{$payment->tanggal_pembayaran}}

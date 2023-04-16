@@ -21,7 +21,7 @@
             <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">Virtual Account Name#</p>
             <p class="text-footer text-[35px] mr-[30px] font-interRegular">Travel Blizz Trip</p>
             <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">Amount to Pay</p>
-            <p class="text-footer text-[35px] mr-[30px] font-interRegular">@currency($payment->total)</p>
+            <p class="text-footer text-[35px] mr-[30px] font-interRegular">@currency($payment->grand_total)</p>
 
             <p class="mt-[104px] mb-[30px] font-interRegular text-[18px] font-bold"> Cara Pembayaran</p>
             <div class="pb-[50px] lg:pb-[164px] w-[90%] lg:w-full">
@@ -94,28 +94,44 @@
             <p class="text-[16px] font-bold font-interRegular text-footer border-b border-greyTbliss pb-[41px]">Pay before {{$dueDate}}</p>
             <div class="flex mt-[51px] mb-[30px]">
                 <p class="text-[16px] font-bold font-interRegular w-3/4 pr-[40px] ">
-                    {{$payment->trip->title}} {{ date('d', strtotime($payment->trip->date_from)) }} - {{ date('d M Y', strtotime($payment->trip->date_to)) }} Bayar Uang Muka
+                    {{$payment->trip->title}} {{ date('d', strtotime($payment->trip->date_from)) }} - {{ date('d M Y', strtotime($payment->trip->date_to)) }} {{$status}}
                 </p>
                 <p class="text-[16px] font-bold font-interRegular w-1/2 text-end">@currency($payment->total)</p>
             </div>
-            <p class="text-[16px] font-bold font-interRegular  border-b border-greyTbliss pb-[41px]">{{$payment->qty}} x @currency($payment->price_dp)</p>
+            <p class="text-[16px] font-bold font-interRegular">{{$payment->qty}} x @currency($payment->price_dp)</p>
+            @if($payment->visa != 0)
+            <div class="flex mt-[51px] mb-[30px]">
+                <p class="text-[16px] font-bold font-interRegular w-3/4 pr-[40px] ">
+                    Visa Korea 
+                </p>
+                <p class="text-[16px] font-bold font-interRegular w-1/2 text-end">@currency($payment->visa)</p>
+            </div>
+            @endif
+            @if($payment->tipping !=0)
+            <div class="flex mt-[51px] mb-[30px]">
+                <p class="text-[16px] font-bold font-interRegular w-3/4 pr-[40px] ">
+                    Tipping 
+                </p>
+                <p class="text-[16px] font-bold font-interRegular w-1/2 text-end">@currency($payment->total_tipping)</p>
+            </div>
+            @endif
             <div class="flex mt-[51px] mb-[30px]">
                 <p class="text-[16px] font-bold font-interRegular w-2/3  text-end">
                     Subtotal
                 </p>
-                <p class="text-[16px] font-bold font-interRegular w-1/3 text-end">@currency($payment->total)</p>
+                <p class="text-[16px] font-bold font-interRegular w-1/3 text-end">@currency($payment->grand_total)</p>
             </div>
             <div class="flex">
                 <p class="text-[16px] font-bold font-interRegular w-2/3  text-end">
                     Total Fees
                 </p>
-                <p class="text-[16px] font-bold font-interRegular w-1/3 text-end">@currency($payment->total)</p>
+                <p class="text-[16px] font-bold font-interRegular w-1/3 text-end">@currency($payment->grand_total)</p>
             </div>
             <div class="flex border-t border-greyTbliss pt-[40px] mt-[40px]">
                 <p class="text-[16px] font-bold font-interRegular w-2/3  text-end">
                     Total Amount Due
                 </p>
-                <p class="text-[16px] font-bold font-interRegular w-1/3 text-end">@currency($payment->total)</p>
+                <p class="text-[16px] font-bold font-interRegular w-1/3 text-end">@currency($payment->grand_total)</p>
             </div>
             <div class="h-[400px] lg:h-[350px] p-4 lg:p-10 bg-footer text-white mt-[117px] mb-[102px] rounded-[20px]">
                 <h1 class="text-center mt-[30px] text-[22px]">

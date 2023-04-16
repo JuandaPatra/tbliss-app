@@ -439,7 +439,7 @@ Sliders
         <div class="col-md-6 col-lg-4 mb-3">
             <div class="card h-100 ms-2">
                 @if($data->foto_diunggah == null)
-                <img class="card-img-top" src="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template-free/demo/assets/img/elements/2.jpg" alt="Card image cap">
+                <img class="card-img-top" src="{{ asset('images/header/images_not_found.png') }}" alt="Card image cap">
                 @else
                 <!-- <div id="my-zoomist" class="card-img-top" data-zoomist-src="{{ url('storage/'.$data->foto_diunggah) }}"></div> -->
                 <div id="image-payment">
@@ -462,11 +462,17 @@ Sliders
                             Status: {{$data->status}}
                         </b>
                     </p>
+                    @if($data->foto_diunggah != '')
                     <div class="d-flex justify-content-end">
                         <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.confirm', ['id'=>$data->id]) }}" class="btn btn-outline-success">Pembayaran Lunas</a>
                         <!-- <a onclick="return confirm('Are you sure cancel this payment');" href="{{ route('payments.confirm', ['id'=>$data->id]) }}"  class="btn btn-outline-danger">Batalkan status Pembayaran</a> -->
 
                     </div>
+                    @else
+                    <div class="d-flex justify-content-end">
+                        <a  class="btn btn-disabled">Pembayaran Lunas</a>
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>
@@ -532,6 +538,39 @@ Sliders
                                 @currency($data->price_dp)
                             </td>
                         </tr>
+                        {{-- <tr>
+                            <td>
+                                Visa
+                            </td>
+                            <td>
+                                @currency($data->trip->visa)
+                            </td>
+                        </tr> --}}
+                        <tr>
+                            <td>
+                                Total Visa
+                            </td>
+                            <td>
+                                @currency($data->visa)
+                            </td>
+                        </tr>
+                        {{-- <tr>
+                            <td>
+                                Tipping
+                            </td>
+                            <td>
+                                @currency($data->trip->total_tipping)
+                            </td>
+                        </tr>--}}
+                        <tr>
+                        <tr>
+                            <td>
+                                Total Tipping
+                            </td>
+                            <td>
+                                @currency($data->total_tipping)
+                            </td>
+                        </tr>
                         <tr>
                             <td>
                                 Qty
@@ -545,7 +584,7 @@ Sliders
                                 Total Payment
                             </td>
                             <td>
-                                @currency($data->total)
+                                @currency($data->grand_total)
                             </td>
                         </tr>
                         <tr>

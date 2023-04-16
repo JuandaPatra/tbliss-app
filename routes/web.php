@@ -1,5 +1,6 @@
 <?php
 
+use App\Events\MessageCreated;
 use App\Http\Controllers\Admin\CategoriesController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ContinentController;
@@ -65,7 +66,8 @@ Route::resource('checkout', CheckoutController::class);
 // Route::get('/booking-trip', [HomeController::class, 'booking'])->name('booking');
 Route::get('/booking-trip', [HomeController::class, 'booking1'])->name('booking');
 // Route::post('booking-order', [HomeController::class, 'bookingOrder'])->name('booking.order');
-Route::post('booking-order', [HomeController::class, 'bookingOrder1'])->name('booking.order');
+// Route::post('booking-order', [HomeController::class, 'bookingOrder1'])->name('booking.order');
+Route::post('booking-order', [HomeController::class, 'bookingOrder2'])->name('booking.order');
 Route::get('/payment/{ids}', [HomeController::class, 'payment'])->name('payment');
 Route::get('/upload/{ids}', [HomeController::class, 'upload'])->name('upload');
 Route::post('/upload', [HomeController::class, 'uploadImage'])->name('uploadImages');
@@ -82,6 +84,22 @@ Route::get('email-test', function () {
     $details['email'] = 'patrajuanda10@gmail.com';
     dispatch(new App\Jobs\SendEmailJob($details));
     dd('done');
+});
+
+Route::get('/push', function(){
+    // MessageCreated::dispatch('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, ipsam.');
+    // MessageCreated::dispatch('Lorem');
+
+    
+
+    // event(new MessageCreated());
+    // dd('done');
+    return view('web.login.index');
+});
+
+Route::get('/ges', function(){
+    event(new MessageCreated('Lorem Ipsum'));
+
 });
 
 

@@ -19,6 +19,11 @@ class Payment extends Model
         'total',
         'tanggal_pembayaran',
         'status',
+        'visa',
+        'total_tipping',
+        'grand_total',
+        'due_date',
+        'opsi_pembayaran'
     ];
 
     public function trip()

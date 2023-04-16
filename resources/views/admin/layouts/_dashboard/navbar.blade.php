@@ -6,6 +6,7 @@ id="layout-navbar"
 <div class="layout-menu-toggle navbar-nav align-items-xl-center me-3 me-xl-0 d-xl-none">
   <a class="nav-item nav-link px-0 me-xl-4" href="javascript:void(0)">
     <i class="bx bx-menu bx-sm"></i>
+    
   </a>
 </div>
 
@@ -34,9 +35,12 @@ id="layout-navbar"
         data-size="large"
         data-show-count="true"
         aria-label="Star themeselection/sneat-html-admin-template-free on GitHub"
-        >{{Auth::user()->name}}</a
+        >{{Auth::user()->name}} <span class="badge badge-center rounded-pill bg-danger badge-notif"></span></a
       >
+      
+      
     </li>
+    
 
     <!-- User -->
     <li class="nav-item navbar-dropdown dropdown-user dropdown">
