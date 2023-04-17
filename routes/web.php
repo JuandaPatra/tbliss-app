@@ -98,7 +98,10 @@ Route::get('/push', function(){
 });
 
 Route::get('/ges', function(){
-    event(new MessageCreated('Lorem Ipsum'));
+    $data['tes'] = 'Lorem';
+    event(new MessageCreated($data[
+        'tes'
+    ]));
 
 });
 

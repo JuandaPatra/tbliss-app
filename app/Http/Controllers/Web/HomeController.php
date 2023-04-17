@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Web;
-
+use App\Events\MessageCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Hidden_gem;
 use App\Models\Place_categories;
@@ -1177,7 +1177,9 @@ class HomeController extends Controller
                 );
             });
             // $id = Payment::where('invoice_id', '=', $invoice_id)->first('id')->id;
+            $invoice_idInstallment = $invoice_time . '01' . $telephone;
             $id = $paymentId->id;
+            event(new MessageCreated($invoice_idInstallment));
             // return $id;
             // return $id;
             $ids = encrypt($id);
@@ -1288,6 +1290,7 @@ class HomeController extends Controller
                 );
             });
             $id = Payment::where('invoice_id', '=', $invoice_id)->first('id');
+            event(new MessageCreated($invoice_id));
             // return $id->id;
             $ids = encrypt($id->id);
             return redirect()->route('payment', $ids);

@@ -16,7 +16,7 @@ class MessageCreated implements ShouldBroadcast
     /**
      * @var string
      */
-    public $data = 'ini data';
+    public $data;
     /**
      * Create a new event instance.
      *
@@ -43,5 +43,8 @@ class MessageCreated implements ShouldBroadcast
         // return new PrivateChannel('messages');
     }
 
-    
+    public function broadcastWith()
+    {
+        return ['pos_invoice' => $this->data];
+    }
 }
