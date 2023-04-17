@@ -42,6 +42,7 @@
         <!-- Content wrapper -->
         <div class="content-wrapper">
           <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="toast-new"></div>
             @yield('breadcrumbs')
             @yield('content')
           </div>
@@ -57,8 +58,7 @@
   </div>
 
   <!-- scripts -->
-  <!-- @vite(['resources/css/app.css'])
-  @vite(['resources/js/app.js']) -->
+  <script src="https://js.pusher.com/7.2/pusher.min.js"></script>
   <script src="{{ asset('vendor/my-dashboard/js/jquery/jquery.js') }}"></script>
   <script src="{{ asset('vendor/my-dashboard/js/bootstrap.js') }}"></script>
   <script src="{{ asset('vendor/my-dashboard/js/popper/popper.js') }}"></script>
@@ -93,6 +93,37 @@
         }
       })
     })
+
+    // Enable pusher logging - don't include this in production
+    Pusher.logToConsole = true;
+
+    var pusher = new Pusher('dcfca9ae57e3fd3cee06', {
+      cluster: 'ap1'
+    });
+
+    var channel = pusher.subscribe('messages');
+    channel.bind("App\\Events\\MessageCreated", function(data) {
+      // alert(JSON.stringify(data));
+      $('.badge-notif').empty()
+      $('.badge-notif').append("1")
+
+//       $('.toast-new').append(`
+//       <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
+
+//   <!-- Then put toasts within -->
+//   <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+//     <div class="toast-header">
+//       <img src="..." class="rounded me-2" alt="...">
+//       <strong class="me-auto">Bootstrap</strong>
+//       <small>11 mins ago</small>
+//       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+//     </div>
+//     <div class="toast-body">
+//       Hello, world! This is a toast message.
+//     </div>
+//   </div>
+// </div>`)
+    });
   </script>
 </body>
 

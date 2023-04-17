@@ -66,14 +66,36 @@ class PaymentController extends Controller
      */
     public function show($id)
     {
-        $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status','visa','total_tipping','grand_total','due_date', 'opsi_pembayaran']);
+        $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status', 'visa', 'total_tipping', 'grand_total', 'due_date', 'opsi_pembayaran']);
         // return $data;
+        // $orderId = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('order_id','=', $data->order_id)->where('status','=', 'Menunggu Pembayaran')->get();
+
+        $datas = substr($data->invoice_id, 0, 11);
+        $middle = 5;
+
+        $finish = substr($data->invoice_id, 12, 17);
+        $combine = $datas.$middle.$finish;
+        // return $combine;
+        $data5 = Payment::where('invoice_id', '=',$finish)->get();
+        // return $data5;
+        $isInstallmentPayment =0;
+        if(count($data5) == 0){
+            $isInstallmentPayment = 1;
+        }
+        
         $statusPayment = '';
         if ($data->opsi_pembayaran == 0) {
             $statusPayment = 'Pembayaran Cicilan';
         }
 
-        return view('admin.payment.details', compact('data', 'statusPayment'));
+        $finishInstallment = 0;
+        if($middle == 5){
+            $finishInstallment = 1;
+        }
+
+
+
+        return view('admin.payment.details', compact('data', 'statusPayment', 'finishInstallment', 'isInstallmentPayment'));
     }
 
     /**
@@ -273,6 +295,179 @@ class PaymentController extends Controller
             );
         });
 
+        return redirect()->back();
+    }
+
+    public function finishPayment(Request $request, $id)
+    {
+        // return $id;
+        $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status', 'visa', 'total_tipping', 'grand_total', 'due_date', 'opsi_pembayaran']);
+        // return $data;
+        // $orderId = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('order_id','=', $data->order_id)->where('status','=', 'Menunggu Pembayaran')->get();
+        // return $orderId;
+        $datas = substr($data->invoice_id, 0, 11);
+        $middle = 5;
+
+        $finish = substr($data->invoice_id, 12, 17);
+        $newId = $datas.$middle.$finish;
+        // return $finish;
+        $finishPayment = [];
+        $finishVisa = 0;
+        $finishGrandTotal = 0;
+        $finishTotalTipping = 0;
+        $dateNow = Carbon::now()->toDateString();
+        for ($i = 1; $i <= 3; $i++) {
+            $fnish = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('invoice_id', '=', $datas . $i . $finish)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status', 'visa', 'total_tipping', 'grand_total', 'due_date', 'opsi_pembayaran']);
+            if ($fnish != null) {
+                array_push($finishPayment, $fnish);
+
+                $finishVisa += $fnish->visa;
+                $finishGrandTotal += $fnish->grand_total;
+                $finishTotalTipping += $fnish->total_tipping;
+            }
+        }
+
+        // return $finishPayment;
+        // return $finishVisa;
+        $statusPayment = '';
+        if ($data->opsi_pembayaran == 0) {
+            $statusPayment = 'Pembayaran Cicilan';
+        }
+
+
+        DB::beginTransaction();
+        try {
+            $paymentDetails = Payment::create([
+                'order_id'              => $data->order_id,
+                'invoice_id'            => $datas.$middle.$finish,
+                'user_id'               => $data->user_id,
+                'trip_categories_id'    => $data->trip_categories_id,
+                'qty'                   => $data->qty,
+                'price'                 => $data->price,
+                'price_dp'              =>  $data->price_dp,
+                'total'                 =>  $data->total,
+                'tanggal_pembayaran'    => $dateNow,
+                'due_date'              => $dateNow,
+                'status'                => 'Menunggu Pembayaran',
+                'visa'                  => $finishVisa,
+                'total_tipping'         => $finishTotalTipping,
+                'grand_total'           => $finishGrandTotal,
+                'opsi_pembayaran'       => 1
+
+            ]);
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Booking Trip', 'error' . $th->getMessage());
+            // return redirect()->back()->withInput($request->all());
+            return $th->getMessage();
+        } finally {
+            DB::commit();
+        }
+        return $newId;
+        $newPayments = Payment::where('id', '=', $newId )->first();
+        return redirect()->back();
+        // return $newPayments;
+
+        // $dataCoba = [
+        //     'title'             =>  $user,
+        //     'data'              =>  'tes data',
+        //     'orderid'           =>  'ORD' . $newPayment->order_id,
+        //     'invoice_id'        =>  $payment->invoice_id,
+        //     // 'trip'              =>  $newCart,
+        //     'price'             =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
+        //     'trip_name'         =>  $payment->trip->title,
+        //     'trip_qty'          =>  $payment->qty,
+        //     'trip_price'        =>  'Rp.' . number_format($payment->price_dp, 0, ',', '.'),
+        //     'statusPembayaran'  =>  'Lunas',
+        //     'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
+        //     // 'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days'))
+        // ];
+
+        // $pdf = PDF::loadView('admin.payment.coba1', compact('dataCoba'));
+        // // User::sendEMail($email, $pdf);
+        // PDF::getOptions()->set([
+        //     'defaultFont' => 'helvetica',
+        //     'chroot' => '/var/www/myproject/public',
+        // ]);
+        // $path = Storage::put('public/storage/uploads/' . '-' . rand() . '_' . time() . '.' . 'pdf', $pdf->output());
+        // $email = [
+        //     'email'         => $dataCoba['title']['email'],
+        //     'nama'          => $dataCoba['title']['name'],
+        //     'telephone'     => $dataCoba['title']['phone'],
+        //     'invoiceId'     => $payment->invoice_id,
+        //     'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
+        //     'qty'           => $payment->qty,
+        //     'trip_name'     => $payment->trip->title,
+        //     'price'         =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
+        // ];
+
+        // Storage::put($path, $pdf->output());
+
+        // Mail::send('web.emails.order', $email, function ($message) use ($email, $pdf, $path) {
+        //     $message->from('patrajuanda10@gmail.com');
+        //     $message->to($email['email']);
+        //     $message->subject('Order-' . $email['nama']);
+        //     $message->attachData(
+        //         $pdf->output(),
+        //         $email['nama'] . time() . '.' . 'pdf'
+        //     );
+        // });
+
+        return redirect()->back();
+    }
+
+    public function sendEmailUnpaid($id)
+    {
+        $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status', 'visa', 'total_tipping', 'grand_total', 'due_date', 'opsi_pembayaran']);
+        // return $data;
+
+        $user = User::where('id', '=', $data->user->id)->first(['id','name', 'email','phone','alamat']);
+        $invoiceDate= Carbon::now()->toDateString();
+
+         $dataCoba = [
+            'title'             =>  $user,
+            'data'              =>  'tes data',
+            'orderid'           =>  'ORD' . $data->order_id,
+            'invoice_id'        =>  $data->invoice_id,
+            // 'trip'              =>  $newCart,
+            'price'             =>  'Rp.' . number_format(($data->grand_total), 0, ',', '.'),
+            'trip_name'         =>  $data->trip->title,
+            'trip_qty'          =>  $data->qty,
+            'trip_price'        =>  'Rp.' . number_format($data->price_dp, 0, ',', '.'),
+            'statusPembayaran'  =>  'Lunas',
+            'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
+            // 'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days'))
+        ];
+
+        $pdf = PDF::loadView('admin.payment.coba2', compact('dataCoba'));
+        // User::sendEMail($email, $pdf);
+        PDF::getOptions()->set([
+            'defaultFont' => 'helvetica',
+            'chroot' => '/var/www/myproject/public',
+        ]);
+        $path = Storage::put('public/storage/uploads/' . '-' . rand() . '_' . time() . '.' . 'pdf', $pdf->output());
+        $email = [
+            'email'         => $dataCoba['title']['email'],
+            'nama'          => $dataCoba['title']['name'],
+            'telephone'     => $dataCoba['title']['phone'],
+            'invoiceId'     => $data->invoice_id,
+            'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
+            'qty'           => $data->qty,
+            'trip_name'     => $data->trip->title,
+            'price'         =>  'Rp.' . number_format(($data->grand_total), 0, ',', '.'),
+        ];
+
+        Storage::put($path, $pdf->output());
+
+        Mail::send('web.emails.order2', $email, function ($message) use ($email, $pdf, $path) {
+            $message->from('patrajuanda10@gmail.com');
+            $message->to($email['email']);
+            $message->subject('Order-' . $email['nama']);
+            $message->attachData(
+                $pdf->output(),
+                $email['nama'] . time() . '.' . 'pdf'
+            );
+        });
         return redirect()->back();
     }
 }

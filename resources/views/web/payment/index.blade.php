@@ -107,7 +107,7 @@
                 <p class="text-[16px] font-bold font-interRegular w-1/2 text-end">@currency($payment->visa)</p>
             </div>
             @endif
-            @if($payment->tipping !=0)
+            @if($payment->total_tipping !=0)
             <div class="flex mt-[51px] mb-[30px]">
                 <p class="text-[16px] font-bold font-interRegular w-3/4 pr-[40px] ">
                     Tipping 

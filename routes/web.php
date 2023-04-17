@@ -123,6 +123,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/payments/confirm/{id}', [PaymentController::class, 'paymentConfirm'])->name('payments.confirm');
     Route::get('/payments/cancel/{id}', [PaymentController::class, 'cancelSuccess'])->name('payments.cancel');
     Route::get('/payments/send-invoice/{id}', [PaymentController::class, 'emailInvoice'])->name('payments.invoice');
+    Route::get('/payments/finish-payment/{id}', [PaymentController::class,'finishPayment'])->name('payments.finishPayment');
+    Route::get('/payments/sendUnpaid/{id}', [PaymentController::class,'sendEmailUnpaid'])->name('payments.sendEmailUnpaid');
     Route::resource('payments', PaymentController::class);
 
     Route::resource('sosmed', SosmedController::class);

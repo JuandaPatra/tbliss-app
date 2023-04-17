@@ -428,6 +428,14 @@ Sliders
 <div class="card">
     <h5 class="card-header">List Payment</h5>
     <div class="d-flex justify-content-end px-4 mb-4">
+        @if($finishInstallment == 1)
+        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.sendEmailUnpaid', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Kirim Invoice unpaid</a>
+        @endif
+        @if($isInstallmentPayment == 0)
+        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.finishPayment', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3 disabled">Selesaikan Pembayaran</a>
+        @elseif($isInstallmentPayment ==1)
+        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.finishPayment', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Selesaikan Pembayaran</a>
+        @endif
         <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.invoice', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Kirim Email Invoice</a>
         @if($data->status == 'Lunas')
         <a onclick="return confirm('Are you sure cancel this payment');" href="{{ route('payments.cancel', ['id'=>$data->id]) }}" class="btn btn-outline-danger">Batalkan status Pembayaran {{$data->status}}</a>

@@ -1167,7 +1167,7 @@ class HomeController extends Controller
     
             // return 'tes';
     
-            Mail::send('web.emails.order', $email, function ($message) use ($email, $pdf, $path) {
+            Mail::send('web.emails.order2', $email, function ($message) use ($email, $pdf, $path) {
                 $message->from('patrajuanda10@gmail.com');
                 $message->to($email['email']);
                 $message->subject('Order-' . $email['nama']);
@@ -1259,6 +1259,9 @@ class HomeController extends Controller
                 'qty'           => $qty,
                 'trip_name'     => $newCart->trip->title,
                 'price'         =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
+                'visa'          =>  'Rp.' . number_format(($totalVisa), 0, ',', '.'),
+                'tipping'       =>  'Rp.' . number_format(($newCart->trip->total_tipping), 0, ',', '.'),
+                'grandTotal'    =>  'Rp.' . number_format((($dp_price * $qty) + $totalTipping + $totalVisa), 0, ',', '.'),
                 'path'          => $paths . 'pdf'
             ];
 
@@ -1274,7 +1277,6 @@ class HomeController extends Controller
             // $details['email'] = 'patrajuanda10@gmail.com';
             // dispatch(new SendEmailJob($details));
 
-            // return 'tes';
 
             Mail::send('web.emails.order', $email, function ($message) use ($email, $pdf, $path) {
                 $message->from('patrajuanda10@gmail.com');

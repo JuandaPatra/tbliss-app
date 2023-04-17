@@ -110,9 +110,6 @@
                     <p class="mb-0">
                         Invoice Date :{{$dataCoba['invoice_date']}}
                     </p>
-                    <p class="mb-0">
-                        Due Date : {{$dataCoba['due_date']}}
-                    </p>
                 </td>
                 <td style="background:#eee;padding:20px;">
                     <!-- <strong>Order-nr:</strong> 27100<br>
@@ -200,20 +197,6 @@
                     <td class="text-end">{{$dataCoba['price']}}</td>
                     <!-- <td>@mdo</td> -->
                 </tr>
-                @if($dataCoba['totalVisa'] != "Rp.0")
-                <tr>
-                    <!-- <th scope="row"></th> -->
-                    <td colspan="3" class="text-center">Visa </td>
-                    <td class="text-end">{{$dataCoba['totalVisa']}}</td>
-                    <!-- <td>@mdo</td> -->
-                </tr>
-                @endif
-                @if($dataCoba['total_tipping_price'] != "Rp.0")
-                <tr>
-                    <td colspan="3" class="text-center">Tipping </td>
-                    <td class="text-end">{{$dataCoba['total_tipping_price']}}</td>
-                </tr>
-                @endif
             </tbody>
         </table>
         <br>
@@ -221,18 +204,17 @@
             <tr>
                 <td>
                     <table width="300px" style="float:right">
-                        <!-- <tr>
+                        <tr>
                             <td><strong>Sub-total:</strong></td>
                             <td style="text-align:right">{{$dataCoba['price']}}</td>
-                        </tr> -->
+                        </tr>
                         <tr>
                             <td><strong>Grand total:</strong></td>
-                            <td style="text-align:right">{{$dataCoba['grandTotal']}}
+                            <td style="text-align:right">{{$dataCoba['price']}}</td>
+                        </tr>
+                    </table>
                 </td>
             </tr>
-        </table>
-        </td>
-        </tr>
         </table>
         <br>
         <br>
