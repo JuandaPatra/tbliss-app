@@ -32,6 +32,7 @@ Sliders
               <div class="dropdown-menu">
                 {{--<a class="dropdown-item" href="{{ route('slider.edit',['slider'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>--}}
                 <a class="dropdown-item" href="{{ route('activities.edit',['activity'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                <a class="dropdown-item" href="{{ route('activities.images',['id'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
                 
                 <form action="{{ route('activities.destroy',['activity'=>$row]) }}" method="post">
                 @csrf

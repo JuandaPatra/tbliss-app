@@ -272,6 +272,52 @@ class HiddenGemController extends Controller
         return redirect()->back();
     }
 
+    public function images($id)
+    {
+        // return $id;
+        $data = Hidden_gem::where('id', '=', $id)->first();
+
+        return view('admin.hidden_gem.images', compact('data'));
+    }
+
+    public function updateImages(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'banner'         =>  'required',
+            ]
+        );
+
+        //// jika gagal di validasi maka akan kembali kehalaman edit
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        DB::beginTransaction();
+
+        try {
+            //// temukan trip dengan id di parameter
+
+            $post = Hidden_gem::whereId($id);
+
+            //// update trip tersebut
+
+            $post->update([
+                'banner'         =>  $request->banner,
+            ]);
+
+            Alert::success('Edit Trip', 'Berhasil');
+            return redirect()->route('activities.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Edit Trip', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
+    }
+
     private function statuses()
     {
 

@@ -276,9 +276,53 @@ class ProductController extends Controller
         $slug           =   $slug;
         return view('admin.products.includes', compact('datas', 'includes', 'excludes', 'slug'));
     }
-    public function images(Request $request)
+    public function images($id)
     {
-        return $request;
+        // return $id;
+        $data = Trip_categories::where('id','=', $id)->first();
+
+        return view('admin.products.images', [
+            'statuses' => $this->statuses(),
+            'data'  => $data
+        ]);
+    }
+
+    public function updateImages(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'banner'         =>  'required',
+            ]
+        );
+
+        //// jika gagal di validasi maka akan kembali kehalaman edit
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        DB::beginTransaction();
+
+        try {
+            //// temukan trip dengan id di parameter
+
+            $post = Trip_categories::whereId($id);
+
+            //// update trip tersebut
+
+            $post->update([
+                'banner'         =>  $request->banner,
+            ]);
+
+            Alert::success('Edit Trip', 'Berhasil');
+            return redirect()->route('product.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Edit Trip', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
     }
     public function pick_hidden_gem(Request $request, $slug)
     {

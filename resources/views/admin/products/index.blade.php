@@ -39,7 +39,7 @@
               <div class="dropdown-menu">
                 <a class="dropdown-item" href="{{ route('product.edit',['product'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                 <a class="dropdown-item" href="{{ route('product.include',$row) }}"><i class="bx bx-edit-alt me-1"></i> Includes/Excludes</a>
-                <a class="dropdown-item" href="{{ route('product.images',['product'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
+                <a class="dropdown-item" href="{{ route('product.images',$row) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
                 <a class="dropdown-item" href="{{ route('product.pick',$row) }}"><i class="bx bx-edit-alt me-1"></i> Choose Hidden Gems</a>
                 
                 <form action="{{ route('product.destroy',['product'=>$row]) }}" method="post">

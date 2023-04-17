@@ -98,7 +98,7 @@ Route::get('/push', function(){
 });
 
 Route::get('/ges', function(){
-    $data['tes'] = 'Lorem';
+    $data['tes'] = '33087512525613';
     event(new MessageCreated($data[
         'tes'
     ]));
@@ -115,7 +115,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('product/includes/{product}', [ProductController::class, 'include'])->name('product.include');
     Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
     Route::get('product/choose/{product}', [ProductController::class, 'choose'])->name('product.choose');
-    Route::get('product/images', [ProductController::class, 'images'])->name('product.images');
+    Route::post('product/images/{id}/update',[ProductController::class,'updateImages'])->name('product.updateImages');
+    Route::get('product/images/{id}', [ProductController::class, 'images'])->name('product.images');
     Route::post('product/edit/{id}/update', [ProductController::class, 'updateTrip'])->name('product.updateTrip');
 
     Route::resource('product', ProductController::class);
@@ -147,6 +148,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('hashtag', HashtagController::class);
     Route::resource('edit-hashtag-trip', EditHashtagTripController::class);
 
+    Route::get('/activities/images/{id}', [HiddenGemController::class,'images'])->name('activities.images');
+    Route::post('/activities/images/{id}/update', [HiddenGemController::class,'updateImages'])->name('activities.updateImages');
     Route::resource('activities', HiddenGemController::class);
 
     Route::resource('includes', IncludesController::class);

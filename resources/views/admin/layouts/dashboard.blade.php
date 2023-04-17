@@ -105,6 +105,8 @@
     var channel = pusher.subscribe('messages');
     channel.bind("App\\Events\\MessageCreated", function(data) {
       // alert(JSON.stringify(data));
+      let datas = JSON.stringify(data.pos_invoice)
+      var result = datas.slice(1, -1);
       $('.badge-notif').empty()
       $('.badge-notif').append("1")
       $('.list-group').append(`
@@ -114,31 +116,15 @@
                         
                       </div>
                       <div class="flex-grow-1">
-                        <h6 class="mb-1">Pembayaran Diterima 🎉</h6>
+                        <h6 class="mb-1">Pembayaran #${result} Diterima 🎉</h6>
                       </div>
                       <div class="flex-shrink-0 dropdown-notifications-actions">
                         <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
                         <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
                       </div>
                     </div>
-                  </li>`)
-
-      //       $('.toast-new').append(`
-      //       <div aria-live="polite" aria-atomic="true" class="d-flex justify-content-center align-items-center w-100">
-
-      //   <!-- Then put toasts within -->
-      //   <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
-      //     <div class="toast-header">
-      //       <img src="..." class="rounded me-2" alt="...">
-      //       <strong class="me-auto">Bootstrap</strong>
-      //       <small>11 mins ago</small>
-      //       <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-      //     </div>
-      //     <div class="toast-body">
-      //       Hello, world! This is a toast message.
-      //     </div>
-      //   </div>
-      // </div>`)
+                  </li>
+                  `)
     });
   </script>
 </body>
