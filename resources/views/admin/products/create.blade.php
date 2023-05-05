@@ -67,7 +67,7 @@ Category Add
                </div>
                <div class="mb-3">
                   <label for="input_post_price" class="form-label">Price</label>
-                  <input id="input_post_price" name="price" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price') }}" />
+                  <input id="input_post_price" name="price" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror tourPrice" name="price" value="{{ old('price') }}" />
                   @error('title')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -133,7 +133,7 @@ Category Add
                <div class="row">
                   <div class="col-6">
                      <label for="input_days" class="form-label">Hari</label>
-                     <input id="input_days" name="day" type="number" placeholder="" class="form-control @error('day') is-invalid @enderror" name="day" value="{{ old('day') }}" />
+                     <input id="input_days" name="day" type="number" placeholder="" class="form-control @error('day') is-invalid @enderror days-total" name="day" value="{{ old('day') }}" />
                      @error('day')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -152,19 +152,19 @@ Category Add
                </div>
             </div>
             <div class="mb-3">
-                  <label for="input_post_seat" class="form-label">Visa</label>
-                  <input id="input_post_price" name="visa" type="text" placeholder="" class="form-control @error('visa') is-invalid @enderror" name="visa" value="{{ old('visa') }}" />
-                  @error('visa')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
+               <label for="input_post_seat" class="form-label">Visa</label>
+               <input id="input_post_price" name="visa" type="text" placeholder="" class="form-control @error('visa') is-invalid @enderror visa-input" name="visa" value="{{ old('visa') }}" />
+               @error('visa')
+               <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+               </span>
+               @enderror
+            </div>
             <div class="mb-3">
                <div class="row">
                   <div class="col-6">
                      <label for="input_days" class="form-label">Tipping PerDay (Rp.)</label>
-                     <input id="input_post_price" name="tipping" type="text" placeholder="" class="form-control @error('tipping') is-invalid @enderror" name="tipping" value="{{ old('tipping') }}" />
+                     <input id="input_post_price" name="tipping" type="text" placeholder="" class="form-control @error('tipping') is-invalid @enderror tipping-price" name="tipping" value="{{ old('tipping') }}" />
                      @error('tipping')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -173,7 +173,7 @@ Category Add
                   </div>
                   <div class="col-6">
                      <label for="input_nights" class="form-label">Total Tipping (Rp.)</label>
-                     <input id="input_post_price" name="total_tipping" type="text" placeholder="" class="form-control @error('total_tipping') is-invalid @enderror" name="total_tipping" value="{{ old('total_tipping') }}" />
+                     <input id="input_post_price" name="total_tipping" type="text" placeholder="" class="form-control @error('total_tipping') is-invalid @enderror total-tipping-price" name="total_tipping" value="{{ old('total_tipping') }}" readonly />
                      @error('total_tipping')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -263,40 +263,53 @@ Category Add
             </div>
 
          </div>
-         
+
       </div>
    </div>
    <div class="card mb-4">
-      <h5 class="card-header">DP Price & Installment</h5>
+      <h5 class="card-header">Total Price</h5>
       <div class="card-body">
          <div class="mb-3">
-            <label for="input_post_price" class="form-label">DP</label>
-            <input id="input_post_price" name="dp_price" type="text" placeholder="" class="form-control @error('dp_price') is-invalid @enderror" name="dp_price" value="{{ old('dp_price') }}" />
-            @error('dp_price')
+            <label for="input_post_price" class="form-label">Total Price</label>
+            <input id="input_post_prices_total" name="prices_total" type="text" placeholder="" class="form-control @error('prices_total') is-invalid @enderror" name="prices_total" value="0" readonly />
+            @error('prices_total')
             <span class="invalid-feedback" role="alert">
                <strong>{{ $message }}</strong>
             </span>
             @enderror
          </div>
-         <div class="mb-3">
-            <label for="input_post_price" class="form-label">Installment 1</label>
-            <input id="input_post_price" name="installment1" type="text" placeholder="" class="form-control @error('installment1') is-invalid @enderror" name="installment1" value="{{ old('installment1') }}" />
-            @error('installment1')
-            <span class="invalid-feedback" role="alert">
-               <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-         </div>
-         <div class="mb-3">
-            <label for="input_post_price" class="form-label">Installment 2</label>
-            <input id="input_post_price" name="installment2" type="text" placeholder="" class="form-control @error('installment2') is-invalid @enderror" name="installment2" value="{{ old('installment2') }}" />
-            @error('installment2')
-            <span class="invalid-feedback" role="alert">
-               <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-         </div>
-         {{--<div class="mb-3">
+      </div>
+      <div class="card mb-4">
+         <h5 class="card-header">DP Price & Installment</h5>
+         <div class="card-body">
+            <div class="mb-3">
+               <label for="input_post_price" class="form-label">DP</label>
+               <input id="input_post_price" name="dp_price" type="text" placeholder="" class="form-control @error('dp_price') is-invalid @enderror dp-price" name="dp_price" value="{{ old('dp_price')  }}" />
+               @error('dp_price')
+               <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+               </span>
+               @enderror
+            </div>
+            <div class="mb-3">
+               <label for="input_post_price" class="form-label">Installment 1</label>
+               <input id="input_post_price" name="installment1" type="text" placeholder="" class="form-control @error('installment1') is-invalid @enderror installment1-price" name="installment1" value="{{ old('installment1')  }}" />
+               @error('installment1')
+               <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+               </span>
+               @enderror
+            </div>
+            <div class="mb-3">
+               <label for="input_post_price" class="form-label">Installment 2</label>
+               <input id="input_post_price" name="installment2" type="text" placeholder="" class="form-control @error('installment2') is-invalid @enderror installment2-price" name="installment2" value="{{ old('installment2') }}" />
+               @error('installment2')
+               <span class="invalid-feedback" role="alert">
+                  <strong>{{ $message }}</strong>
+               </span>
+               @enderror
+            </div>
+            {{--<div class="mb-3">
             <label for="input_post_price" class="form-label">Installment 3</label>
             <input id="input_post_price" name="installment3" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror" name="installment3" value="{{ old('installment3') }}" />
             @error('installment3')
@@ -417,10 +430,110 @@ Category Add
          }
       });
 
+      $(".visa-input").on("input", function() {
+         let visaPrice = 0
+         let price = 0
+
+         let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+         visaPrice = parseInt(visaInput)
+
+         let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+         price = parseInt(priceTrip)
+
+         if (priceTrip == '') {
+            price = 0
+
+         } else if (visaInput == '') {
+            visaPrice = 0
+         }
+
+         let total = visaPrice + price
+
+         // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
+         // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
+         // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
+
+         // $('.installment2-price').val(installment2Price).change()
+
+         // easyNumberSeparator({
+         //    selector: '#input_post_price',
+         //    separator: '.'
+         // })
+         $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0
+         })).change()
+      });
+
+      $('.tourPrice').on("input", function() {
+         let visaPrice = 0
+         let price = 0
+
+         let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+         visaPrice = parseInt(visaInput)
+
+         let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+         price = parseInt(priceTrip)
+
+         if (priceTrip == '') {
+            price = 0
+
+         } else if (visaInput == '') {
+            visaPrice = 0
+         }
+
+
+
+         let total = visaPrice + price
+
+         // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
+         // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
+         // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
+
+         // $('.installment2-price').val(installment2Price).change()
+
+         // easyNumberSeparator({
+         //    selector: '#input_post_price',
+         //    separator: '.'
+         // })
+         $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0
+         })).change()
+      })
+
+
+      $('.tipping-price').on("input", function(){
+         let tip = 0
+         let tipPrice = $(this).val().replace(/[.]+/g, "")
+         let days = $('.days-total').val()
+         if(tipPrice == ''){
+            tip = 0
+         }else{
+            tip = tipPrice
+         }
+         $('.total-tipping-price').val(tip * days).change()
+         easyNumberSeparator({
+            selector: '#input_post_price',
+            separator: '.'
+         })
+
+
+      })
+      // $('.dp-price').on("input", function(){
+      //    let datas = $('.dp-price').val()
+      //    console.log(datas)
+         
+      // })
+
       $("#btn-add-post-images").click(function() {
          var hmtl = $(".clone").html();
          $(".increment").after(hmtl);
       });
+
+
       $("body").on("click", ".btn-danger", function() {
          $(this).parents(".control-group").remove();
       });

@@ -44,9 +44,13 @@ class CronEmail extends Command
             
             if ($date == $current_date ) {
                 // $com = array("date" => $commande->available_date, "fournisseur" => $commande->fournisseur);
+                $payments =[
+                    'tes' => $payment
+
+                ];
 
                 Mail::to($payment->user->email)
-                    ->send(new sendEmailWithCron());
+                    ->send(new sendEmailWithCron($payments));
                     Log::info('email sent');
             } 
              else {

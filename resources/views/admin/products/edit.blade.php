@@ -67,7 +67,7 @@ Category Add
                     </div>
                     <div class="mb-3">
                         <label for="input_post_price" class="form-label">Price</label>
-                        <input id="input_post_price" name="price" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror" name="price" value="{{ old('price', $trip->price) }}" />
+                        <input id="input_post_price" name="price" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror tourPrice" name="price" value="{{ old('price', $trip->price) }}" />
                         @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -126,7 +126,7 @@ Category Add
                         <div class="row">
                             <div class="col-6">
                                 <label for="input_days" class="form-label">Hari</label>
-                                <input id="input_days" name="day" type="number" placeholder="" class="form-control @error('day') is-invalid @enderror" name="day" value="{{ old('day', $trip->day) }}" />
+                                <input id="input_days" name="day" type="number" placeholder="" class="form-control @error('day') is-invalid @enderror  days-total" name="day" value="{{ old('day', $trip->day) }}" />
                                 @error('day')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -146,7 +146,7 @@ Category Add
                     </div>
                     <div class="mb-3">
                         <label for="input_post_seat" class="form-label">Visa</label>
-                        <input id="input_post_price" name="visa" type="text" placeholder="" class="form-control @error('visa') is-invalid @enderror" name="visa" value="{{ old('visa', $trip->visa) }}" />
+                        <input id="input_post_price" name="visa" type="text" placeholder="" class="form-control @error('visa') is-invalid @enderror visa-input" name="visa" value="{{ old('visa', $trip->visa) }}" />
                         @error('visa')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -157,7 +157,7 @@ Category Add
                         <div class="row">
                             <div class="col-6">
                                 <label for="input_days" class="form-label">Tipping PerDay (Rp.)</label>
-                                <input id="input_post_price" name="tipping" type="text" placeholder="" class="form-control @error('tipping') is-invalid @enderror" name="tipping" value="{{ old('tipping', $trip->tipping) }}" />
+                                <input id="input_post_price" name="tipping" type="text" placeholder="" class="form-control @error('tipping') is-invalid @enderror tipping-price" name="tipping" value="{{ old('tipping', $trip->tipping) }}" />
                                 @error('tipping')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -166,7 +166,7 @@ Category Add
                             </div>
                             <div class="col-6">
                                 <label for="input_nights" class="form-label">Total Tipping (Rp.)</label>
-                                <input id="input_post_price" name="total_tipping" type="text" placeholder="" class="form-control @error('total_tipping') is-invalid @enderror" name="total_tipping" value="{{ old('total_tipping', $trip->total_tipping) }}" />
+                                <input id="input_post_price" name="total_tipping" type="text" placeholder="" class="form-control @error('total_tipping') is-invalid @enderror total-tipping-price" name="total_tipping" value="{{ old('total_tipping', $trip->total_tipping) }}" readonly />
                                 @error('total_tipping')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -195,69 +195,83 @@ Category Add
             </div>
 
     </div>
+
     <div class="col-12 col-md-4">
         <div class="card mb-4">
-            <h5 class="card-header">DP Price & Installment</h5>
+            <h5 class="card-header">Total Price</h5>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="input_post_price" class="form-label">DP</label>
-                    <input id="input_post_price" name="dp_price" type="text" placeholder="" class="form-control @error('dp_price') is-invalid @enderror" name="dp_price" value="{{ old('dp_price', $trip->dp_price) }}" />
-                    @error('dp_price')
+                    <label for="input_post_price" class="form-label">Total Price</label>
+                    <input id="input_post_prices_total" name="prices_total" type="text" placeholder="" class="form-control @error('prices_total') is-invalid @enderror" name="prices_total" value="{{ old('tipping', $total_price) }}" readonly />
+                    @error('prices_total')
                     <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
                     </span>
                     @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="input_post_price" class="form-label">Installment 1</label>
-                    <input id="input_post_price" name="installment1" type="text" placeholder="" class="form-control @error('installment1') is-invalid @enderror" name="installment1" value="{{ old('installment1', $trip->installment1) }}" />
-                    @error('installment1')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                <div class="mb-3">
-                    <label for="input_post_price" class="form-label">Installment 2</label>
-                    <input id="input_post_price" name="installment2" type="text" placeholder="" class="form-control @error('installment2') is-invalid @enderror" name="installment2" value="{{ old('installment2', $trip->installment2) }}" />
-                    @error('installment2')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
-                {{-- <div class="mb-3">
-                    <label for="input_post_price" class="form-label">Installment 3</label>
-                    <input id="input_post_price" name="installment3" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror" name="installment3" value="{{ old('installment3', $trip->installment3) }}" />
-                @error('installment3')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-                @enderror
-            </div> --}}
-            </form>
-        </div>
-    </div>
-
-    <div class="card mb-4 ">
-        <h5 class="card-header">Edit Negara</h5>
-        <div class="country-list">
-            <div class="card-body ">
-                <div class="d-flex justify-content-between">
-                    <div class="text-light small fw-semibold">Negara</div>
-                    <a class="btn btn-warning btn-sm text-white" id="edit-item">Edit Negara</a>
-                </div>
-
-                <div class="demo-inline-spacing">
-                    @foreach($trip->place_trip_categories as $country)
-                    <span class="badge bg-primary"> {{$country->place_categories->title}}</span>
-                    @endforeach
                 </div>
             </div>
-
+            <div class="card mb-4">
+                <h5 class="card-header">DP Price & Installment</h5>
+                <div class="card-body">
+                    <div class="mb-3">
+                        <label for="input_post_price" class="form-label">DP</label>
+                        <input id="input_post_price" name="dp_price" type="text" placeholder="" class="form-control @error('dp_price') is-invalid @enderror" name="dp_price" value="{{ old('dp_price', $trip->dp_price) }}" />
+                        @error('dp_price')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="input_post_price" class="form-label">Installment 1</label>
+                        <input id="input_post_price" name="installment1" type="text" placeholder="" class="form-control @error('installment1') is-invalid @enderror" name="installment1" value="{{ old('installment1', $trip->installment1) }}" />
+                        @error('installment1')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="input_post_price" class="form-label">Installment 2</label>
+                        <input id="input_post_price" name="installment2" type="text" placeholder="" class="form-control @error('installment2') is-invalid @enderror" name="installment2" value="{{ old('installment2', $trip->installment2) }}" />
+                        @error('installment2')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                    {{-- <div class="mb-3">
+                    <label for="input_post_price" class="form-label">Installment 3</label>
+                    <input id="input_post_price" name="installment3" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror" name="installment3" value="{{ old('installment3', $trip->installment3) }}" />
+                    @error('installment3')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div> --}}
+                </form>
+            </div>
         </div>
 
-        {{--<div class="card-body">
+        <div class="card mb-4 ">
+            <h5 class="card-header">Edit Negara</h5>
+            <div class="country-list">
+                <div class="card-body ">
+                    <div class="d-flex justify-content-between">
+                        <div class="text-light small fw-semibold">Negara</div>
+                        <a class="btn btn-warning btn-sm text-white" id="edit-item">Edit Negara</a>
+                    </div>
+
+                    <div class="demo-inline-spacing">
+                        @foreach($trip->place_trip_categories as $country)
+                        <span class="badge bg-primary"> {{$country->place_categories->title}}</span>
+                        @endforeach
+                    </div>
+                </div>
+
+            </div>
+
+            {{--<div class="card-body">
                 <div class="d-flex justify-content-between">
                     <div class="text-light small fw-semibold">Kota</div>
                     <button class="btn btn-warning btn-sm">Edit Kota</button>
@@ -268,91 +282,91 @@ Category Add
                     @foreach($trip->place_trip_categories_cities as $city)
                     @if($city->id %2 == 0)
                     <span class="badge bg-info">{{$city->place_categories->title}}</span>
-        @else
-        <span class="badge bg-primary">{{$city->place_categories->title}}</span>
-        @endif
+            @else
+            <span class="badge bg-primary">{{$city->place_categories->title}}</span>
+            @endif
 
-        @endforeach
-    </div>
-</div>--}}
+            @endforeach
+        </div>
+    </div>--}}
 
-<div class="country-add d-none">
-    <div class="card-body ">
-        <form action="{{ route('edit-country.store') }}" method="post">
-            @csrf
-            <input type="hidden" name="trip_categories_id" class="form-control" value="{{ $trip->id }}">
-            <div class="accordion mt-3 mb-3" id="accordionExample">
-                <div class="card accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="false" aria-controls="accordionOne">
-                            Tambah Negara
-                        </button>
-                    </h2>
-                    <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-                        <div class="card-body">
-                            <div class="row gy-3">
-                                <div class="col-md">
-                                    @foreach($destinations as $checkbox)
-                                    @foreach($checkbox->descendants as $checkbox1)
-                                    <div class="form-check mt-3">
-                                        <input class="form-check-input" type="checkbox" value="{{$checkbox1->id}}" id="defaultCheck1" name="countries[]">
-                                        <label class="form-check-label" for="defaultCheck1">
-                                            {{$checkbox1->title}}
-                                        </label>
+    <div class="country-add d-none">
+        <div class="card-body ">
+            <form action="{{ route('edit-country.store') }}" method="post">
+                @csrf
+                <input type="hidden" name="trip_categories_id" class="form-control" value="{{ $trip->id }}">
+                <div class="accordion mt-3 mb-3" id="accordionExample">
+                    <div class="card accordion-item">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="false" aria-controls="accordionOne">
+                                Tambah Negara
+                            </button>
+                        </h2>
+                        <div id="accordionOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                            <div class="card-body">
+                                <div class="row gy-3">
+                                    <div class="col-md">
+                                        @foreach($destinations as $checkbox)
+                                        @foreach($checkbox->descendants as $checkbox1)
+                                        <div class="form-check mt-3">
+                                            <input class="form-check-input" type="checkbox" value="{{$checkbox1->id}}" id="defaultCheck1" name="countries[]">
+                                            <label class="form-check-label" for="defaultCheck1">
+                                                {{$checkbox1->title}}
+                                            </label>
+                                        </div>
+                                        @endforeach
+                                        @endforeach
                                     </div>
-                                    @endforeach
-                                    @endforeach
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="d-flex justify-content-end">
-                <a id="edit-item-country" class="btn btn-danger px-4 me-2 text-white"><i class="menu-icon bx bx-save"></i>Cancel</a>
-                <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
-            </div>
+                <div class="d-flex justify-content-end">
+                    <a id="edit-item-country" class="btn btn-danger px-4 me-2 text-white"><i class="menu-icon bx bx-save"></i>Cancel</a>
+                    <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
+                </div>
 
-        </form>
-        <div class="table-responsive text-nowrap" style="height:300px;overflow: auto;">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>No.</th>
-                        <th>Title</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="table-border-bottom-0">
-                    @foreach($trip->place_trip_categories as $country)
-                    <tr>
-                        <td>{{ $loop->index+1}}</td>
-                        <td><strong>{{$country->place_categories->title}}</strong></td>
-                        <td>
-                            <div class="dropdown">
-                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" fdprocessedid="o9k5ac" aria-expanded="false">
-                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                </button>
-                                <div class="dropdown-menu" style="">
+            </form>
+            <div class="table-responsive text-nowrap" style="height:300px;overflow: auto;">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>No.</th>
+                            <th>Title</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                        @foreach($trip->place_trip_categories as $country)
+                        <tr>
+                            <td>{{ $loop->index+1}}</td>
+                            <td><strong>{{$country->place_categories->title}}</strong></td>
+                            <td>
+                                <div class="dropdown">
+                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown" fdprocessedid="o9k5ac" aria-expanded="false">
+                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu" style="">
 
-                                    <form action="{{ route('edit-country.destroy',$country->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $country->id }}" onclick="this.closest('form').submit();return false;">
-                                            <i class="bx bx-trash me-1"></i>Delete
-                                        </a>
-                                    </form>
+                                        <form action="{{ route('edit-country.destroy',$country->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $country->id }}" onclick="this.closest('form').submit();return false;">
+                                                <i class="bx bx-trash me-1"></i>Delete
+                                            </a>
+                                        </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            </form>
         </div>
-        </form>
     </div>
-</div>
 </div>
 
 <div class="card mb-4">
@@ -493,6 +507,104 @@ Category Add
             selector: '#input_post_price',
             separator: '.'
         })
+
+        easyNumberSeparator({
+            selector: '#input_post_prices_total',
+            separator: '.'
+        })
+
+        $(".visa-input").on("input", function() {
+         let visaPrice = 0
+         let price = 0
+
+         let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+         visaPrice = parseInt(visaInput)
+
+         let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+         price = parseInt(priceTrip)
+
+         if (priceTrip == '') {
+            price = 0
+
+         } else if (visaInput == '') {
+            visaPrice = 0
+         }
+
+         let total = visaPrice + price
+
+         // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
+         // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
+         // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
+
+         // $('.installment2-price').val(installment2Price).change()
+
+         // easyNumberSeparator({
+         //    selector: '#input_post_price',
+         //    separator: '.'
+         // })
+         $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0
+         })).change()
+      });
+
+      $('.tourPrice').on("input", function() {
+         let visaPrice = 0
+         let price = 0
+
+         let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+         visaPrice = parseInt(visaInput)
+
+         let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+         price = parseInt(priceTrip)
+
+         if (priceTrip == '') {
+            price = 0
+
+         } else if (visaInput == '') {
+            visaPrice = 0
+         }
+
+         let total = visaPrice + price
+
+         // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
+         // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
+         // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
+
+         // $('.installment2-price').val(installment2Price).change()
+
+         // easyNumberSeparator({
+         //    selector: '#input_post_price',
+         //    separator: '.'
+         // })
+         
+         $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0
+         })).change()
+      })
+
+
+      $('.tipping-price').on("input", function(){
+         let tip = 0
+         let tipPrice = $(this).val().replace(/[.]+/g, "")
+         let days = $('.days-total').val()
+         if(tipPrice == ''){
+            tip = 0
+         }else{
+            tip = tipPrice
+         }
+         $('.total-tipping-price').val(tip * days).change()
+         easyNumberSeparator({
+            selector: '#input_post_price',
+            separator: '.'
+         })
+
+
+      })
+        
 
         // tinymce for content
         $("#input_post_content").tinymce({

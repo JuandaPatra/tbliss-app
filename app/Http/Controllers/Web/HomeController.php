@@ -25,6 +25,7 @@ use App\Models\PaymentDetails;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use PDF;
 use Illuminate\Support\Facades\Storage;
@@ -91,6 +92,7 @@ class HomeController extends Controller
 
         //// ambil trip lainnya
         $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
+        // return $detailTrip;
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip'));
     }
 
@@ -376,12 +378,14 @@ class HomeController extends Controller
 
         if ($dayRange >= 1 and $dayRange <= 30) {
             $monthly = [
-                $price = $newCart->price,
-                // $perMonth =date('d M Y', strtotime($current_date)),
-                $perMonth = Carbon::today()->toDateString(),
-                $visaperMonth = $newCart->trip->visa,
-                $tippingPerMonth = $newCart->trip->total_tipping,
-                $totalPerMonth =$price + $visaperMonth + $tippingPerMonth
+                [
+                    $price = $newCart->price,
+                    // $perMonth =date('d M Y', strtotime($current_date)),
+                    $perMonth = Carbon::today()->toDateString(),
+                    $visaperMonth = $newCart->trip->visa,
+                    $tippingPerMonth = $newCart->trip->total_tipping,
+                    $totalPerMonth =$price + $visaperMonth + $tippingPerMonth
+                ]
             ];
         } elseif ($dayRange >= 31 and $dayRange <= 60) {
             $monthly = [
@@ -517,14 +521,10 @@ class HomeController extends Controller
         //         array_push($monthly, $arrays);
         //     }
         // }
+
         $months = count($monthly);
         $pricePerMonths = 20000;
-        // return $monthly;
 
-        // return $newCart;
-
-        // return view('web.booking.index1', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
-        // return view('web.booking.index2', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
         return view('web.booking.index3', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
     }
 

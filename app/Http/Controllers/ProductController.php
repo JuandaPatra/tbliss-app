@@ -41,6 +41,7 @@ class ProductController extends Controller
 
         //// ambil negara dan kota
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
+        
 
         return view('admin.products.create', [
             'statuses' => $this->statuses(),
@@ -113,9 +114,9 @@ class ProductController extends Controller
                 'date_from'     =>  $request->date_from,
                 'date_to'       =>  $request->date_to,
                 'status'        =>  $request->status,
-                'dp_price'      => (int) $dp_price,
-                'installment1'  => (int) $installment1,
-                'installment2'  => (int) $installment2,
+                'dp_price'      =>  (int) $dp_price,
+                'installment1'  =>  (int) $installment1,
+                'installment2'  =>  (int) $installment2,
                 'visa'          =>  (int) $visa,
                 'tipping'       =>  (int) $tipping,
                 'total_tipping' =>  (int) $total_tipping
@@ -202,16 +203,19 @@ class ProductController extends Controller
     public function edit($id)
     {
         //// controller edit Trip 
+
  
         $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status','dp_price', 'installment1','installment2','installment3','visa','tipping','total_tipping']);
 
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $hashtags = Hashtag::all(['id', 'title']);
+        $total_price = $trip->price + $trip->visa;
         return view('admin.products.edit', [
-            'statuses' => $this->statuses(),
-            'destinations' => $negara,
-            'hashtags' => $hashtags,
-            'trip'     => $trip
+            'statuses'      => $this->statuses(),
+            'destinations'  => $negara,
+            'hashtags'      => $hashtags,
+            'trip'          => $trip,
+            'total_price'   => $total_price
         ]);
     }
 

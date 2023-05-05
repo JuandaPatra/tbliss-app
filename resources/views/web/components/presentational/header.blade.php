@@ -65,7 +65,8 @@
                 </ul>
             </div>
 
-            <div class="hidden lg:block basis-full lg:basis-3/12 ">
+           {{--
+             <div class="hidden lg:block basis-full lg:basis-3/12 ">
                 <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
                     <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
                     @if(Auth::user()->name )
@@ -82,6 +83,7 @@
                     </form>
                 </div>
             </div>
+            --}}
             @endauth
         </div>
     </div>
