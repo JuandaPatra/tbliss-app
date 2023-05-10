@@ -44,18 +44,6 @@ class HomeController extends Controller
 
     public function country($id)
     {
-        // $payments = PaymentDetails::with(['user:id,email,alamat,phone', 'trip:id,title'])->get(['id', 'installment_id', 'amount', 'qty', 'total', 'due_date', 'user_id', 'trip_categories_id']);
-        // // return $payments;
-        // $date = date('Y-m-d', strtotime($payments[0]->due_date . ' -' . 7 . 'days'));
-        // // return $date;
-        // $current_date = Carbon::now();
-        // $current_date = $current_date->toDateString();
-        // if($date == $current_date){
-        //     return $current_date.' = '.$date;
-        // }else{
-        //     return $current_date.'!= '.$date;
-        // }
-
         $slug = $id;
 
         ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
@@ -90,9 +78,14 @@ class HomeController extends Controller
         //// ambil detail trip
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to']);
 
+        // ambil koleksi array kota yang memuat kota
+        $pickCitiesTrip = place_trip_categories_cities::where('trip_categories_id' , '=', $detailTrip->id)->get('place_categories_id')->pluck('place_categories_id');
+
+        // ambil semua trip yang memuat kooleksi kota
+        $selectTrip = place_trip_categories_cities::whereIn('place_categories_id',$pickCitiesTrip)->get()->pluck('trip_categories_id')->unique();
         //// ambil trip lainnya
-        $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
-        // return $detailTrip;
+        $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('id', '!=', $detailTrip->id)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
+        // $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip'));
     }
 
@@ -186,6 +179,7 @@ class HomeController extends Controller
 
 
         // return $reservationsq;
+        return $reservationsq;
         return response()->json($reservationsq);
         // return response()->json($reservations);
     }
@@ -420,7 +414,7 @@ class HomeController extends Controller
                     $perMonth = 'DP / Uang Muka',
                     $visaperMonth = 0,
                     $tippingPerMonth = 0,
-                    $totalPerMonth =$price + $visaperMonth + $tippingPerMonth
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
                 ],
                 [
                     $price = $newCart->trip->installment1,
@@ -551,7 +545,12 @@ class HomeController extends Controller
         $monthly = array();
 
         if ($dayRange >= 1 and $dayRange <= 30) {
-            return 'bayar lunas' . $dayRange;
+            $monthly = [
+                [
+                    $price = $newCart->trip->installment1 + $newCart->trip->installment2 + $newCart->trip->installment3,
+                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
+                ],
+            ];
             // $monthly = array();
             // for ($i = 1; $i <= $monthRange; $i++) {
             //     $arrays = [

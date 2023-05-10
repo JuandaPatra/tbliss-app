@@ -384,7 +384,7 @@
             responsive: [{
                 breakpoint: 450,
                 settings: "unslick"
-            }]
+            }],
         };
         // $('.hg-slider').not('.slick-initialized').slick();
         var slicky = $('.hg-slider');
