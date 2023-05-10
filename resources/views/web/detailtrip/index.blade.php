@@ -216,7 +216,7 @@
         <div class="flex flex-wrap hg-slider">
             @foreach($otherTrips as $trip)
             <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
-                <div class="max-w-md lg:max-w-sm bg-white ">
+                <div class="max-w-full lg:max-w-lg bg-white ">
                     <a href="{{route('home.detail' ,['id'=>$trip->slug,'trip'=>$trip->slug])}}">
                         <img src="{{$trip->thumbnail}}" alt="" class="w-full">
                     </a>
@@ -327,24 +327,24 @@
 <div class="bg-[#ff5055]  lg:h-[73px] w-full text-white fixed  bottom-0 z-20 ">
     <form action="{{route('home.addToCart')}}" method="post">
         @csrf
-    <div class="container-lg pt-3 pb-3 lg:pb-0">
-        <div class="flex flex-wrap justify-between">
-            <div class="basis-full lg:basis-1/2 pt-2 mb-[30px] lg:mb-0">
-                <span class="font-bold font-interRegular text-[14px]">
-                    Harga Rp.<span>@currency($detailTrip->price)</span> / pax
-                </span>
-                <span class=" ml-4 font-interRegular text-[14px]">
-                    Open Trip {{$detailTrip->day}} Hari {{$detailTrip->night}} Malam
-                </span>
-                <input type="hidden" name="id" value="{{$detailTrip->id}}">
-            </div>
-            <div class="basis-full lg:basis-1/2 text-[15px]">
-                <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
-                <!-- <button type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button> -->
-                <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
+        <div class="container-lg pt-3 pb-3 lg:pb-0">
+            <div class="flex flex-wrap justify-between">
+                <div class="basis-full lg:basis-1/2 pt-2 mb-[30px] lg:mb-0">
+                    <span class="font-bold font-interRegular text-[14px]">
+                        Harga Rp.<span>@currency($detailTrip->price)</span> / pax
+                    </span>
+                    <span class=" ml-4 font-interRegular text-[14px]">
+                        Open Trip {{$detailTrip->day}} Hari {{$detailTrip->night}} Malam
+                    </span>
+                    <input type="hidden" name="id" value="{{$detailTrip->id}}">
+                </div>
+                <div class="basis-full lg:basis-1/2 text-[15px]">
+                    <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
+                    <!-- <button type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button> -->
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
+                </div>
             </div>
         </div>
-    </div>
     </form>
 </div>
 
@@ -388,7 +388,23 @@
         };
         // $('.hg-slider').not('.slick-initialized').slick();
         var slicky = $('.hg-slider');
-        slicky.slick(options);
+        // slicky.slick(options);
+        slicky.slick({
+            dots: false,
+            infinite: false,
+            slidesToShow: 3,
+            responsive: [
+                
+                {
+                    breakpoint: 480,
+                    settings: {
+                        slidesToShow: 1,
+                        slidesToScroll: 1
+                    }
+                }
+                
+            ]
+        })
 
         $(window).resize(function() {
 
