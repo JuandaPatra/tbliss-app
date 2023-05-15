@@ -5,9 +5,9 @@
 <div class="header">
     <!-- <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="" class="w-full"> -->
     <picture>
-        <source media="(min-width:1000px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">
-        <source media="(min-width:320px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">
-        <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="Flowers" class="w-full">
+        <source media="(min-width:1000px)" srcset="{{$detailTrip->banner}}">
+        <source media="(min-width:320px)" srcset="{{$detailTrip->banner}}">
+        <img src="{{$detailTrip->banner}}" alt="Flowers" class="w-full">
     </picture>
 </div>
 

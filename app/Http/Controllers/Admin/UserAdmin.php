@@ -154,22 +154,22 @@ class UserAdmin extends Controller
      */
     public function update(Request $request, $id)
     {
-        // $validator = Validator::make(
-        //     $request->all(),
-        //     [
-        //         'name'                 =>   'required|string',
-        //         'password'             =>   'required|min:6|same:confirmPassword',
-        //         'confirmPassword'      =>   'required|string|min:8',
-        //         'oldPassword'          =>   'required',
-        //         'email'                =>   'required|email', 
-        //         'role'                 =>   'required'
-        //     ]
-        // );
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'                 =>   'required|string',
+                'password'             =>   'required|min:8|same:confirmPassword',
+                'confirmPassword'      =>   'required|string|min:8',
+                'oldPassword'          =>   'required',
+                'email'                =>   'required|email', 
+                'role'                 =>   'required'
+            ]
+        );
 
 
-        // if ($validator->fails()) {
-        //     return redirect()->back()->withInput($request->all())->withErrors($validator);
-        // }
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
         $user = User::where('id', '=', $id)->first();
 
         if (Hash::check($request->oldPassword, $user->password)) {
@@ -214,6 +214,13 @@ class UserAdmin extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::where('id', '=', $id)->first();
+        try {
+            $user->delete();
+            Alert::success('Delete User Admin', 'Berhasil');
+        } catch (\throwable $th) {
+            Alert::error('Delete User Admin', 'error' . $th->getMessage());
+        }
+        return redirect()->back();
     }
 }

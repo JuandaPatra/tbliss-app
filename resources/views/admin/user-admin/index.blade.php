@@ -39,6 +39,13 @@
                              </button>
                              <div class="dropdown-menu">
                                  <a class="dropdown-item" href="{{ route('user-admin.edit',['user_admin'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                                 <form action="{{ route('user-admin.destroy',['user_admin'=>$row]) }}" method="post">
+                                     @csrf
+                                     @method('DELETE')
+                                     <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
+                                         <i class="bx bx-trash me-1"></i>Delete
+                                     </a>
+                                 </form>
                              </div>
                          </div>
                      </td>
@@ -124,21 +131,21 @@
                      searchable: false
                  },
                  {
-                    data: 'name',
-                    name: 'name'
+                     data: 'name',
+                     name: 'name'
                  },
                  {
                      data: 'email',
                      name: 'email'
                  },
                  {
-                    data: 'role',
-                    name: 'role'
+                     data: 'role',
+                     name: 'role'
                  },
-                //  {
-                //      data: 'finish_date',
-                //      name: 'finish_date'
-                //  },
+                 //  {
+                 //      data: 'finish_date',
+                 //      name: 'finish_date'
+                 //  },
                  // {
                  //    data: 'created_at',
                  //    render: function(d) {

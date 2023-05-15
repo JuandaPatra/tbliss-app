@@ -22,7 +22,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('email:reminder')->everyMinute();
         // $schedule->command('email:reminder')->daily();
         $details['email'] = 'patrajuanda10@gmail.com';
-        $schedule->job(new SendEmailJob($details))->everyMinute();
+        // $schedule->job(new SendEmailJob($details))->everyMinute();
 
     }
 
