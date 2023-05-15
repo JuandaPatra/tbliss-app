@@ -12,10 +12,11 @@ Dashboard
       <div class="card">
          <div class="card-header">
             {{-- Data Leads Promo : {{ $namePromo }} --}}
-            <a href="" class="btn btn-success float-right">
+            <!-- <a href="" class="btn btn-success float-right">
                <i class='bx bx-spreadsheet'></i>
                <span class="glyphicon glyphicon-th-list"></span> EXPORT EXCEL
-            </a>
+            </a> -->
+            Contact
          </div>
          <div class="card-body">
             <div class="row">
@@ -23,14 +24,9 @@ Dashboard
                   <table class="table table-bordered data-table">
                      <thead>
                         <tr>
-                           <th>FullName</th>
+                           <th>No.</th>
                            <th>Email</th>
-                           <th>Company</th>
-                           <th>Subject</th>
-                           <th>Address</th>
-                           <th>Phone</th>
-                           <th>Messages</th>
-
+                           <th>Submitted Date</th>
                         </tr>
                      </thead>
                      <tbody>
@@ -70,34 +66,45 @@ Dashboard
          ajax: "{{ route('contact') }}",
          columns: [
             //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            {
-               data: 'fullname',
-               name: 'fullname'
-            },
+            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
+            // {
+            //    data: 'email',
+            //    name: 'fullname'
+            // },
             {
                data: 'email',
                name: 'email'
             },
+            // {
+            //    data: 'created_at',
+            //    name: 'created_at'
+            // },
             {
-               data: 'company',
-               name: 'company'
+               data: 'finish_date',
+               name: 'finish_date'
             },
-            {
-               data: 'subject',
-               name: 'subject'
-            },
-            {
-               data: 'address',
-               name: 'address'
-            },
-            {
-               data: 'phone',
-               name: 'phone'
-            },
-            {
-               data: 'message',
-               name: 'message'
-            }
+            // {
+            //    data: 'created_at',
+            //    render: function(d) {
+            //       return moment(d).format("DD/MM/YYYY HH:mm");
+            //    }
+            // },
+            // {
+            //    data: 'email',
+            //    name: 'subject'
+            // },
+            // {
+            //    data: 'email',
+            //    name: 'address'
+            // },
+            // {
+            //    data: 'email',
+            //    name: 'phone'
+            // },
+            // {
+            //    data: 'email',
+            //    name: 'message'
+            // }
 
          ]
       });

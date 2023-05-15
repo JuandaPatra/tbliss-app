@@ -13,23 +13,28 @@ use Illuminate\Support\Carbon;
 
 use App\Exports\ContactExport;
 use Alert;
+use App\Models\emails;
 
 class ContactController extends Controller
 {
     public function index(Request $request)
     {
 
-        if ($request->ajax()) 
-        {
-            $data = Contact::select('*');
+        if ($request->ajax()) {
+            $data = emails::select('*');
+            // $data = Contact::select('*');
             return Datatables::of($data)
-                        ->addIndexColumn()
-                        ->make(true);
+                ->addIndexColumn()
+                ->addColumn('finish_date', function ($row) {
+                    $date = date("d F Y h:m", strtotime($row->created_at));
+                    return $date;
+                })
+                ->make(true);
         }
         return view('admin.contact.index');
     }
 
-    public function export(Request $request) 
+    public function export(Request $request)
     {
         return Excel::download(new ContactExport($request->slug), 'leads.xlsx');
     }

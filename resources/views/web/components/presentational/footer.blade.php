@@ -8,12 +8,15 @@
                 <p class="text-white text-[14px] mb-4 w-[80%]">
                     Kirimkan saya email kalau ada promosi, berita dan topik menarik!
                 </p>
-                <div class="flex">
-                    <input type="text" id="base-input" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email Anda">
-                    <button class="focus:outline-none  text-white bg-[#102448] w-[150px] rounded-none px-2 py-3">
-                        Subscribe
-                    </button>
-                </div>
+                <form action="{{  route('email-leads') }}" method="POST" >
+                    @csrf
+                    <div class="flex">
+                        <input type="email" id="base-input" name="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-none focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Email Anda">
+                        <button type="submit" class="focus:outline-none  text-white bg-[#102448] w-[150px] rounded-none px-2 py-3">
+                            Subscribe
+                        </button>
+                    </div>
+                    </form>
 
                 <div class="flex mt-4">
                     <img src="{{ asset('images/footer/fb.png') }}" alt="" class="mr-3">

@@ -16,11 +16,13 @@ use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PickHiddenGemsController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TripController;
+use App\Http\Controllers\Admin\UserAdmin;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\Web\CheckoutController;
+use App\Http\Controllers\Web\EmailsController;
 use App\Http\Controllers\Web\HomeController;
 use App\Http\Controllers\Web\SearchTripController;
 use App\Http\Controllers\Web\UserLoginController;
@@ -63,6 +65,8 @@ Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities'
 
 Route::resource('checkout', CheckoutController::class);
 
+
+Route::post('/email-leads', [EmailsController::class, 'index'])->name('email-leads');
 // Route::get('/booking-trip', [HomeController::class, 'booking'])->name('booking');
 Route::get('/booking-trip', [HomeController::class, 'booking1'])->name('booking');
 // Route::post('booking-order', [HomeController::class, 'bookingOrder'])->name('booking.order');
@@ -157,6 +161,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('excludes', ExcludesController::class);
 
     Route::resource('pick-hidden-gem', PickHiddenGemsController::class);
+
+    Route::get('/users/all', [UserAdmin::class, 'table'])->name('table');
+    Route::resource('user-admin', UserAdmin::class);
 
     Route::get('contact', [ContactController::class, 'index'])->middleware('isAdmin')->name('contact');
 });

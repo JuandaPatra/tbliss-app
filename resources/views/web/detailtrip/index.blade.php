@@ -231,7 +231,7 @@
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">{{$trip->title}}</h5>
                         </a>
                         <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
-                            {{$trip->day}} H {{$trip->night}} M
+                            {{$trip->day}}H{{$trip->night}} M
                         </span>
                         <span>
                             |

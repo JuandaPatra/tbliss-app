@@ -182,36 +182,43 @@
             </h1>
         </div>
         <div class="trip-search">
+            @foreach($trips as $trip)
+            @if($loop->iteration % 2 == 0)
             <div class="flex flex-wrap flex-col-reverse md:flex-row">
                 <div class="basis-full lg:basis-1/2 lg:order-first">
                     <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
-                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Autumn in Korea</h1>
+                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">{{$trip->title}}</h1>
                         <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                             <div>
                                 <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                    6H5M
+                                    {{$trip->day}}H{{$trip->night}}M
                                 </span>
                                 <span>
                                     |
                                 </span>
                                 <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                    23 - 28 APR 2023
+                                    {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
                                 </span>
                             </div>
                             <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                                Rp. 12.000.000
+                                @currency($trip->price)
                             </span>
                         </div>
                         <div class="text-[18px] pt-3 pb-3">
                             <h1 class="font-bold uppercase">
-                                Busan - Pohang - Jeonju - Seoul
+                                @foreach($trip->place_trip_categories_cities as $index => $city)
+                                @if($index == 0)
+                                {{$city->place_categories->title}} -
+                                @elseif($loop->count == $index+1)
+                                {{$city->place_categories->title}}
+                                @else
+                                {{$city->place_categories->title}} -
+                                @endif
+                                @endforeach
                             </h1>
                             <p>Pohang Space Walk</p>
                             <p>Canola Flower Field</p>
-                            <p>Haeundae Blue Line Park</p>
-                            <p>Overnight Jeonju Hanok Village </p>
-                            <p>Picnic Dinner</p>
-                            <p>K-drama Shooting Location</p>
+                            {!! $trip->itinerary !!}
                         </div>
                         <div class="flex justify-between w-full lg:w-[90%]">
                             <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
@@ -219,11 +226,11 @@
                             </a>
                             <div class="flex pt-[11px] lg:pt-0">
                                 <h5 class="text-[#4A5CED] mr-3">
-                                    3 seats left
+                                    {{$trip->seat}} seats left
                                 </h5>
                                 <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
@@ -231,6 +238,7 @@
                     <img src="{{ asset('images/details/korea-1.jpg') }}" alt="" class="h-[450px] w-full object-cover">
                 </div>
             </div>
+            @else
             <div class="flex flex-wrap">
                 <!-- batas antar gambar dan tujuan perjalanan -->
                 <div class="basis-full lg:basis-1/2">
@@ -238,33 +246,39 @@
                 </div>
                 <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
                     <div class="container-lg pl-[10%]  lg:pl-[20%] mb-[40px] lg:mb-0 ">
-                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Explore Culinary in Korea</h1>
+                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">{{$trip->title}}</h1>
                         <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                             <div>
                                 <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                    6H5M
+                                    {{$trip->day}}H{{$trip->night}}M
                                 </span>
                                 <span>
                                     |
                                 </span>
                                 <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                    23 - 28 APR 2023
+                                    {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
                                 </span>
                             </div>
                             <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                                Rp. 12.000.000
+                                @currency($trip->price)
                             </span>
                         </div>
                         <div class="text-[18px] pt-3 pb-3">
                             <h1 class="font-bold uppercase">
-                                Busan - Pohang - Jeonju - Seoul
+                                @foreach($trip->place_trip_categories_cities as $index => $city)
+                                @if($index == 0)
+                                {{$city->place_categories->title}} -
+                                @elseif($loop->count == $index+1)
+                                {{$city->place_categories->title}}
+                                @else
+                                {{$city->place_categories->title}} -
+                                @endif
+                                @endforeach
+                                <!-- Busan - Pohang - Jeonju - Seoul -->
                             </h1>
+                            {!! $trip->itinerary !!}
                             <p>Pohang Space Walk</p>
                             <p>Canola Flower Field</p>
-                            <p>Haeundae Blue Line Park</p>
-                            <p>Overnight Jeonju Hanok Village </p>
-                            <p>Picnic Dinner</p>
-                            <p>K-drama Shooting Location</p>
                         </div>
                         <div class="flex justify-between w-full lg:w-[90%]">
                             <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
@@ -272,117 +286,20 @@
                             </a>
                             <div class="flex pt-[11px] lg:pt-0">
                                 <h5 class="text-[#4A5CED] mr-3">
-                                    3 seats left
+                                    {{$trip->seat}} seats left
                                 </h5>
                                 <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
                             </div>
-    
+
                         </div>
                     </div>
                 </div>
-    
+
             </div>
-            <div class="flex flex-wrap flex-col-reverse md:flex-row">
-                <!-- batas antar gambar dan tujuan perjalanan -->
-                <div class="basis-full lg:basis-1/2">
-                    <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0">
-                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Cultural Walk in Korea</h1>
-                        <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
-                            <div>
-                                <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                    6H5M
-                                </span>
-                                <span>
-                                    |
-                                </span>
-                                <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                    23 - 28 APR 2023
-                                </span>
-                            </div>
-                            <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                                Rp. 12.000.000
-                            </span>
-                        </div>
-                        <div class="text-[18px] pt-3 pb-3">
-                            <h1 class="font-bold uppercase">
-                                Busan - Pohang - Jeonju - Seoul
-                            </h1>
-                            <p>Pohang Space Walk</p>
-                            <p>Canola Flower Field</p>
-                            <p>Haeundae Blue Line Park</p>
-                            <p>Overnight Jeonju Hanok Village </p>
-                            <p>Picnic Dinner</p>
-                            <p>K-drama Shooting Location</p>
-                        </div>
-                        <div class="flex justify-between w-full lg:w-[90%]">
-                            <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
-                            </a>
-                            <div class="flex pt-[11px] lg:pt-0">
-                                <h5 class="text-[#4A5CED] mr-3">
-                                    3 seats left
-                                </h5>
-                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
-                            </div>
-    
-                        </div>
-                    </div>
-                </div>
-                <div class="basis-full lg:basis-1/2">
-                    <img src="{{ asset('images/details/korea-3.jpg') }}" alt="" class="h-[450px] w-full object-cover">
-                </div>
-    
-            </div>
-            <div class="flex flex-wrap">
-                <!-- batas gambar dan tujuan perjalanan -->
-                <div class="basis-full lg:basis-1/2 ">
-                    <img src="{{ asset('images/details/korea-4.jpg') }}" alt="" class="h-[450px] w-full object-cover">
-                </div>
-                <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
-                    <div class="container-lg pl-[10%] lg:pl-[20%] mb-[40px] lg:mb-0 ">
-                        <h1 class="mb-2 pt-10 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">Korean 101 Trip </h1>
-                        <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
-                            <div>
-                                <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                    6H5M
-                                </span>
-                                <span>
-                                    |
-                                </span>
-                                <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                    23 - 28 APR 2023
-                                </span>
-                            </div>
-                            <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
-                                Rp. 12.000.000
-                            </span>
-                        </div>
-                        <div class="text-[18px] pt-3 pb-3">
-                            <h1 class="font-bold uppercase">
-                                Busan - Pohang - Jeonju - Seoul
-                            </h1>
-                            <p>Pohang Space Walk</p>
-                            <p>Canola Flower Field</p>
-                            <p>Haeundae Blue Line Park</p>
-                            <p>Overnight Jeonju Hanok Village </p>
-                            <p>Picnic Dinner</p>
-                            <p>K-drama Shooting Location</p>
-                        </div>
-                        <div class="flex justify-between w-full lg:w-[90%]">
-                            <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
-                                <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
-                            </a>
-                            <div class="flex pt-[11px] lg:pt-0">
-                                <h5 class="text-[#4A5CED] mr-3">
-                                    3 seats left
-                                </h5>
-                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-5">
-                            </div>
-    
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endif
+            @endforeach
+
+
 
         </div>
     </section>
@@ -464,65 +381,6 @@
         </div>
     </section>
 
-    <!-- <section class="container-lg pt-[121px]">
-        <h1 class="text-[#414141] text-[30px]">
-            Yuk, eksplor Destinasi di <span>Korea</span> !
-        </h1>
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8 pt-[54px] destination-slider">
-            <div>
-                <div class="max-w-sm bg-white ">
-                    <a href="#">
-                        <img class="w-full" src="{{ asset('images/details/korea-btm-1.jpg') }}" alt="" />
-                    </a>
-                    <div class="pt-4">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Seoul</h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">498 options</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="max-w-sm bg-white ">
-                    <a href="#">
-                        <img class="w-full" src="{{ asset('images/details/korea-btm-2.jpg') }}" alt="" />
-                    </a>
-                    <div class="pt-4">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Busan</h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">490 options</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="max-w-sm bg-white ">
-                    <a href="#">
-                        <img class="w-full" src="{{ asset('images/details/korea-btm-3.jpg') }}" alt="" />
-                    </a>
-                    <div class="pt-4">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Jeju-si</h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">164 options</p>
-                    </div>
-                </div>
-            </div>
-            <div>
-                <div class="max-w-sm bg-white ">
-                    <a href="#">
-                        <img class="w-full" src="{{ asset('images/details/korea-btm-4.jpg') }}" alt="" />
-                    </a>
-                    <div class="pt-4">
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Daegu</h5>
-                        </a>
-                        <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">68 options</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section> -->
     @include('web.components.presentational.login')
     @include('web.components.presentational.whatsapp')
     @include('web.components.presentational.footer')

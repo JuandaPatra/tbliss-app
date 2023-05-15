@@ -25,6 +25,9 @@ class SearchTripController extends Controller
         //// list negara
         $result = Place_categories::with(['children'])->where('parent_id', '=', null)->get();
 
+        $trips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title'])->get(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
+        // return $trips;
+
         //// list trip berdasarkan kota
         // $citiesTrip = place_trip_categories_cities::groupBy('place_categories_id')->selectRaw('count(*) as total')->with(['place_categories'])->get();
         // $citiesTrip = place_trip_categories_cities::with(['place_categories'])->groupBy('place_categories_id')->get();
@@ -131,7 +134,7 @@ class SearchTripController extends Controller
 
         // return $result;
 
-        return view('web.details.index', compact('result','tripByCity'));
+        return view('web.details.index', compact('result','tripByCity','trips'));
     }
 
     public function getCities($id)
