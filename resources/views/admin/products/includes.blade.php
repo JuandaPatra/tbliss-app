@@ -13,7 +13,7 @@ $postId = last(request()->segments());
 
 <!-- Basic Bootstrap Table -->
 <div class="">
-    <h5 class="card-header">Includes/Excludes</h5>
+    <h5 class="card-header">Includes/Excludes : <span>{{$datas->title}}</span></h5>
     <div class="row">
         <div class="col-12">
             <h5 class="card-header">Includes</h5>

@@ -11,7 +11,7 @@ Category Add
         <form action="{{route('product.updateImages', ['id'=>$data->id])}}" method="POST">
             @csrf
             <div class="card mb-4">
-                <h5 class="card-header">Trip Banner</h5>
+                <h5 class="card-header">Trip Banner : <span>{{$data->title}}</span></h5>
                 <div class="card-body">
 
                     <!-- image -->

@@ -279,7 +279,8 @@ class ProductController extends Controller
 
     public function include(Request $request, $slug)
     {
-        $datas          =   Trip_categories::all();
+        // $datas          =   Trip_categories::all();
+        $datas          = Trip_categories::where('id', '=', $slug)->first();
         $includes       =   Trip_includes::where('trip_cat_id', '=', $slug)->get(['id', 'title', 'slug', 'icon_image', 'trip_cat_id']);
         $excludes       =   Trip_exclude::where('trip_cat_id', '=', $slug)->get(['id', 'title', 'slug', 'icon_image', 'trip_cat_id']);
         $slug           =   $slug;
@@ -341,10 +342,10 @@ class ProductController extends Controller
 
         // $cities = place_trip_categories_cities::all();
         $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id', 'trip_categories_id']);
-
+        $datas = Trip_categories::where('id','=', $slug)->first();
         // return $cities;
 
-        return view('admin.products.pickhiddengem', compact('cities', 'slug'));
+        return view('admin.products.pickhiddengem', compact('cities', 'slug', 'datas'));
     }
 
     public function choose(Request $request, $slug)

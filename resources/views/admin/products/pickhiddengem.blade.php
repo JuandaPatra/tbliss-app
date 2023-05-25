@@ -13,7 +13,7 @@ $postId = last(request()->segments());
 
 <!-- Basic Bootstrap Table -->
 <div class="">
-    <h5 class="card-header">Select Hidden Gems/Activities</h5>
+    <h5 class="card-header">Select Hidden Gems/Activities : {{$datas->title}}</h5>
     @forelse($cities as $city)
     <div class="row">
         <div class="col-12">

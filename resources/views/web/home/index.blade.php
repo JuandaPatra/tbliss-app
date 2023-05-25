@@ -106,7 +106,7 @@
                             </h5>
                             <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
                         </div>
-                        <a href="#">
+                        <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">{{$trip->title}}</h5>
                         </a>
                         <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
