@@ -10,7 +10,7 @@ Sliders
     <h3 class="card-header text-uppercase">List Payment</h3>
     <div class="table-responsive text-nowrap px-3" style="height:1000px">
 
-        <table class="table table-bordered data-table">
+        <table class="table table-bordered data-table" style="margin: 20px 0 !important;">
             <thead>
                 <tr>
                     <th>No</th>
@@ -70,7 +70,7 @@ Sliders
                 @foreach($data as $payment)
                 <tr>
                     <td>
-                    {{ $loop->iteration }} 
+                        {{ $loop->iteration }}
                     </td>
                     <td>
                         #{{$payment->invoice_id}}
@@ -107,6 +107,10 @@ Sliders
         background-repeat: no-repeat;
         background-position: center;
         background-size: cover;
+    }
+
+    table.dataTable {
+        margin: 20px 0 !important;
     }
 </style>
 @endpush

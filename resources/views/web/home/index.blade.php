@@ -3,6 +3,7 @@
 @section('container')
 @include('web.components.presentational.header')
 
+
 <section>
     <div class="relative">
         <div class="banner-slider">
@@ -142,7 +143,7 @@
                     <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->slug])}}">
                         <img class=" w-full" src="{{$hiddenGem->image_desktop}}" alt="" />
                     </a>
-                    <div class="p-3">
+                    <div class="p-3 h-[200px]">
                         <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->slug])}}">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$hiddenGem->title}}</h5>
                         </a>

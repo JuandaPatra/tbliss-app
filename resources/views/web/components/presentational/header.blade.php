@@ -225,9 +225,9 @@
                             <div class=" p-3 flex items-center ">
                                 <a href="">Bantuan</a>
                             </div>
-                            <div class=" p-3 flex items-center ">
+                            <!-- <div class=" p-3 flex items-center ">
                                 <a href="">Korporat</a>
-                            </div>
+                            </div> -->
                             <div class=" p-3 flex items-center ">
                                 <a href="{{route('home.cerita')}}">Cerita Kami</a>
                             </div>
@@ -265,8 +265,8 @@
     <div class="container-lg bg-white mx-auto">
         <div class=" container hidden lg:flex flex-wrap justify-center mb-[33px]">
             <button data-drop="destinasi" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">DESTINASI</button>
-            <button data-drop="bantuan" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">BANTUAN</button>
-            <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KORPORAT</button>
+            <!-- <button data-drop="bantuan" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">BANTUAN</button> -->
+            <!-- <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KORPORAT</button> -->
             <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">CERITA KAMI</a>
             <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">FAQ</a>
             <a href="{{route('home.kontak')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KONTAK KAMI</a>

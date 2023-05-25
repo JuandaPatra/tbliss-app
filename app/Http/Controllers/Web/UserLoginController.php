@@ -111,9 +111,13 @@ class UserLoginController extends Controller
         ];
 
         // return $data;
+        $checkUser = User::where('email','=',$data['email'])->get();
         $user = User::firstOrCreate([
             'email' =>$data['email']
         ], $data);
+        if(count($checkUser) == 0){
+            $user->assignRole('user');
+        }
 
         Auth::login($user);
 

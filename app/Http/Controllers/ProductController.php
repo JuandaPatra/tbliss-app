@@ -26,7 +26,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $datas = Trip_categories::all();
+        // $datas = Trip_categories::all();
+        $datas = Trip_categories::where('status', '=', 'publish')->get();
+        // return $datas;
         return view('admin.products.index', compact('datas'));
     }
 
@@ -264,7 +266,10 @@ class ProductController extends Controller
         // return $id;
         try {
             $product = Trip_categories::whereId($id);
-            $product->delete();
+            $product->update([
+                'status'         =>  'deleted',
+            ]);
+            // $product->delete();
             Alert::success('Delete Product', 'Berhasil');
         } catch (\throwable $th) {
             Alert::error('Delete Product', 'error' . $th->getMessage());

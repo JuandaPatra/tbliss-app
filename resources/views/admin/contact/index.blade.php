@@ -21,7 +21,7 @@ Dashboard
          <div class="card-body">
             <div class="row">
                <div class="col-md-12">
-                  <table class="table table-bordered data-table">
+                  <table class="table table-bordered data-table" style="margin: 20px 0 !important;">
                      <thead>
                         <tr>
                            <th>No.</th>
@@ -55,6 +55,10 @@ Dashboard
       background-position: center;
       background-size: cover;
    }
+
+   table.dataTable {
+      margin: 20px 0 !important;
+   }
 </style>
 @endpush
 @push('javascript-internal')
@@ -65,47 +69,22 @@ Dashboard
          serverSide: true,
          ajax: "{{ route('contact') }}",
          columns: [
-            //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
-            { data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false },
-            // {
-            //    data: 'email',
-            //    name: 'fullname'
-            // },
+            // {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {
+               data: 'DT_RowIndex',
+               name: 'DT_RowIndex',
+               orderable: false,
+               searchable: false
+            },
+            
             {
                data: 'email',
                name: 'email'
             },
-            // {
-            //    data: 'created_at',
-            //    name: 'created_at'
-            // },
             {
                data: 'finish_date',
                name: 'finish_date'
             },
-            // {
-            //    data: 'created_at',
-            //    render: function(d) {
-            //       return moment(d).format("DD/MM/YYYY HH:mm");
-            //    }
-            // },
-            // {
-            //    data: 'email',
-            //    name: 'subject'
-            // },
-            // {
-            //    data: 'email',
-            //    name: 'address'
-            // },
-            // {
-            //    data: 'email',
-            //    name: 'phone'
-            // },
-            // {
-            //    data: 'email',
-            //    name: 'message'
-            // }
-
          ]
       });
    });

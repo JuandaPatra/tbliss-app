@@ -55,7 +55,7 @@
          </table>
 
          {{--
-            <table class="table table-bordered data-table">
+            <table class="table table-bordered data-table mx-3">
                 <thead>
                     <tr>
                         <th>No.</th>
@@ -69,6 +69,7 @@
                 </tbody>
             </table>
             --}}
+            
 
      </div>
  </div>
@@ -124,6 +125,7 @@
              ajax: "{{ route('table') }}",
              columns: [
                  //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                //  { "width": "20%" },
                  {
                      data: 'DT_RowIndex',
                      name: 'DT_RowIndex',
@@ -134,13 +136,17 @@
                      data: 'name',
                      name: 'name'
                  },
+                //  {
+                //      data: 'email',
+                //      name: 'email'
+                //  },
                  {
-                     data: 'email',
-                     name: 'email'
+                     data: 'roles',
+                     name: 'roles'
                  },
                  {
-                     data: 'role',
-                     name: 'role'
+                     data: 'action',
+                     name: 'action'
                  },
                  //  {
                  //      data: 'finish_date',

@@ -29,7 +29,7 @@ class UserAdmin extends Controller
                 ->orWhere("name", "admin");
         })->get();
 
-        
+
         return view('admin.user-admin.index', compact('datas'));
     }
 
@@ -37,8 +37,9 @@ class UserAdmin extends Controller
     {
         if ($request->ajax()) {
             $data = User::with('roles')->select('*');
-            $data = User::select([])->with('roles');
-            
+            // $data = User::select([])->with('roles');
+            $data = User::with('roles:name');
+
             // $data = Contact::select('*');
             return Datatables::of($data)
                 ->addIndexColumn()
@@ -46,9 +47,27 @@ class UserAdmin extends Controller
                     $date = date("d F Y h:m", strtotime($row->created_at));
                     return $date;
                 })
-                // ->addColumn('roles', function ($user) {
-                //     return '<a class="btn btn-primary" href="#">'. ucfirst($user->roles->first()->name) .'</a>';
-                // })
+                ->addColumn('roles', function ($user) {
+                    $roles = $user->roles->first()->name;
+                    // $rolef = $roles->name;
+                    return  ucfirst($roles);
+                })
+                ->addColumn('action', function ($user) {
+
+
+                    return '
+                    <a href="'.route('user-admin.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                    
+                    <a href="'.route('user-admin.destroy', $user->id).'" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>';
+
+                    // return '<div class="dropdown-menu">
+                    //      <a class="dropdown-item" href="' . route('user-admin.edit', $user->id) . '"><i class="bx bx-edit-alt me-1"></i> Edit</a>             
+                    //      <a class="dropdown-item" href="' . route('user-admin.destroy', $user->id) . '" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest("form").submit();return false;">
+                    //         <i class="bx bx-trash me-1"></i>Delete
+                    //     </a>
+                         
+                    //  </div>';
+                })
                 // ->addColumn('roles', function($row){
                 //     $role = $row->roles[0]->name;
                 //     return $role;
@@ -161,7 +180,7 @@ class UserAdmin extends Controller
                 'password'             =>   'required|min:8|same:confirmPassword',
                 'confirmPassword'      =>   'required|string|min:8',
                 'oldPassword'          =>   'required',
-                'email'                =>   'required|email', 
+                'email'                =>   'required|email',
                 'role'                 =>   'required'
             ]
         );
