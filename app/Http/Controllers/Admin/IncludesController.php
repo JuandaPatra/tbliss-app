@@ -130,7 +130,8 @@ class IncludesController extends Controller
                 'trip_cat_id' => $request->trip_cat_id,
             ]);
             Alert::success('Update Includes', 'Berhasil');
-            return redirect()->route('product.index');
+            // return redirect()->route('product.index');
+            return redirect()->back();
         } catch (\throwable $th) {
             DB::rollBack();
             Alert::error('Update Includes', 'error' . $th->getMessage());

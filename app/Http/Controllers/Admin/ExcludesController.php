@@ -105,7 +105,6 @@ class ExcludesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request;
         $validator = Validator::make(
             $request->all(),
             [

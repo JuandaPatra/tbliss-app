@@ -105,7 +105,7 @@ $postId = last(request()->segments());
                     </div>
                     <div class="card mb-4 px-3 pb-3 d-none" id="includes-edit">
                         <h5 class="card-header">Edit Includes</h5>
-                        <form id="include-update-form" method="POST">
+                        <form id="include-update-form" method="POST" action="{{ route('includes.update',$row->id) }}">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="trip_cat_id" class="form-control" id="input-id">
@@ -234,10 +234,10 @@ $postId = last(request()->segments());
                     </div>
                     <div class="card mb-4 px-3 pb-3 d-none" id="excludes-edit">
                         <h5 class="card-header">Edit Excludes</h5>
-                        <form id="exclude-update-form" method="POST">
+                        <form id="exclude-update-form" method="POST" action="{{ route('excludes.update',$row->id) }}">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="trip_cat_id" class="form-control" id="input-id-excludes">
+                            <input type="hidden" name="trip_cat_id" class="form-control" id="input-id-excludes" value="{{$row->trip_cat_id}}">
                             <div class="mb-3">
                                 <label for="input_post_title1" class="form-label">Title</label>
                                 <input id="input-title-excludes" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
@@ -471,6 +471,8 @@ $postId = last(request()->segments());
             $("#edit-post-images").val(images);
 
             form = document.getElementById('include-update-form');
+            // alert(id)
+            // form.action = "{{ route('includes.update','')}}" + "/" + id;
             form.action = "{{ route('includes.update','')}}" + "/" + id;
         })
 
@@ -487,12 +489,13 @@ $postId = last(request()->segments());
             var slug = el.data('item-slug');
 
             // // fill the data in the input fields
-            $("#input-id-excludes").val(id);
+            // $("#input-id-excludes").val(id);
             $("#input-title-excludes").val(title);
             $("#input-slug-excludes").val(slug);
             $("#edit-post-images-excludes").val(images);
 
             form = document.getElementById('exclude-update-form');
+            // alert(id)
             form.action = "{{ route('excludes.update','')}}" + "/" + id;
         })
 
