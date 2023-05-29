@@ -1150,7 +1150,9 @@ class HomeController extends Controller
                 'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
                 'qty'           => $qty,
                 'trip_name'     => $newCart->trip->title,
-                'price'         =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
+                'price'         =>  'Rp.' . number_format(($dp_price), 0, ',', '.'),
+                'price_total'   =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
+                'grandTotal'    => 'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
                 'path'          => $paths . 'pdf'
             ];
     
@@ -1261,9 +1263,12 @@ class HomeController extends Controller
                 'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
                 'qty'           => $qty,
                 'trip_name'     => $newCart->trip->title,
-                'price'         =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
-                'visa'          =>  'Rp.' . number_format(($totalVisa), 0, ',', '.'),
+                'price'         =>  'Rp.' . number_format(($dp_price), 0, ',', '.'),
+                'price_total'   =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
+                'visa'          =>  'Rp.' . number_format(($visa_price), 0, ',', '.'),
+                'visa_total'          =>  'Rp.' . number_format(($totalVisa), 0, ',', '.'),
                 'tipping'       =>  'Rp.' . number_format(($newCart->trip->total_tipping), 0, ',', '.'),
+                'total_tipping' =>  'Rp.' . number_format(($newCart->trip->total_tipping * $qty), 0, ',', '.'),
                 'grandTotal'    =>  'Rp.' . number_format((($dp_price * $qty) + $totalTipping + $totalVisa), 0, ',', '.'),
                 'path'          => $paths . 'pdf'
             ];
