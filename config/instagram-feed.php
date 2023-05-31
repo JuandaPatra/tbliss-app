@@ -16,7 +16,8 @@ return [
      * The base url used to generate to auth callback route for instagram.
      * This defaults to your APP_URL, so normally you may leave it as null
      */
-    'base_url' => null,
+    // 'base_url' => null,
+    'base_url' => 'https://tbliss.owlandfoxes.co.id/',
 
     /*
      * The route that will respond to the Instagram callback during the OAuth process.
@@ -24,7 +25,7 @@ return [
      * a redirect_uri for your instagram app that is equal to combining the
      *  app url (from config) and this route
      */
-    'auth_callback_route' => 'instagram/auth/callback',
+    'auth_callback_route' => env('INSTAGRAM_CLIENT_REDIRECT'),
 
     /*
      * On success of the OAuth process you will be redirected to this route.

@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Web;
+
 use App\Events\MessageCreated;
 use App\Http\Controllers\Controller;
 use App\Models\Hidden_gem;
@@ -44,6 +45,9 @@ class HomeController extends Controller
 
     public function country($id)
     {
+        // $profile = \Dymantic\InstagramFeed\Profile::where('username', 'juanda_p106')->first();
+        // return $profile;
+
         $slug = $id;
 
         ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
@@ -52,12 +56,12 @@ class HomeController extends Controller
         //// mendapatkan trip berdasarkan negara
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
-        })->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 90))->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat','status']);
+        })->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 90))->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
         // return $trips;
         // return $trips;
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
-        })->where('status', '=','publish')->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat',]);
+        })->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat',]);
         // return $trips;
 
         //// mendapatkan list negara di halaman home
@@ -80,12 +84,12 @@ class HomeController extends Controller
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner']);
 
         // ambil koleksi array kota yang memuat kota
-        $pickCitiesTrip = place_trip_categories_cities::where('trip_categories_id' , '=', $detailTrip->id)->get('place_categories_id')->pluck('place_categories_id');
+        $pickCitiesTrip = place_trip_categories_cities::where('trip_categories_id', '=', $detailTrip->id)->get('place_categories_id')->pluck('place_categories_id');
 
         // ambil semua trip yang memuat kooleksi kota
-        $selectTrip = place_trip_categories_cities::whereIn('place_categories_id',$pickCitiesTrip)->get()->pluck('trip_categories_id')->unique();
+        $selectTrip = place_trip_categories_cities::whereIn('place_categories_id', $pickCitiesTrip)->get()->pluck('trip_categories_id')->unique();
         //// ambil trip lainnya
-        $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat','status']);
+        $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
         // return $otherTrips;
         // $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip'));
@@ -380,7 +384,7 @@ class HomeController extends Controller
                     $perMonth = Carbon::today()->toDateString(),
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = $newCart->trip->total_tipping,
-                    $totalPerMonth =$price + $visaperMonth + $tippingPerMonth
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
                 ]
             ];
         } elseif ($dayRange >= 31 and $dayRange <= 60) {
@@ -390,7 +394,7 @@ class HomeController extends Controller
                     $perMonth = Carbon::today()->toDateString(),
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = $newCart->trip->total_tipping,
-                    $totalPerMonth =$price + $visaperMonth + $tippingPerMonth
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
                 ],
             ];
         } elseif ($dayRange >= 61 and $dayRange <= 90) {
@@ -400,7 +404,7 @@ class HomeController extends Controller
                     $perMonth = 'DP / Uang Muka',
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = 0,
-                    $totalPerMonth =$price + $visaperMonth + $tippingPerMonth
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
                 ],
                 [
                     $price = $newCart->trip->installment2,
@@ -602,7 +606,7 @@ class HomeController extends Controller
             ];
         }
 
-        
+
         // $months = $diff->format('%m');
         // if ($months <= 1) {
         // }
@@ -1067,7 +1071,7 @@ class HomeController extends Controller
             // $totalTipping       = 0;
             // $totalVisa          = 0;
 
-            for($i=1;$i<=$request->months;$i++){
+            for ($i = 1; $i <= $request->months; $i++) {
                 // return $monthly;
                 $bulan = $i;
                 DB::beginTransaction();
@@ -1086,7 +1090,7 @@ class HomeController extends Controller
                         'status'                => 'Menunggu Pembayaran',
                         'visa'                  => $monthly[$i - 1][2] * $request->qty,
                         'total_tipping'         => $monthly[$i - 1][3] * $request->qty,
-                        'grand_total'           => ($monthly[$i - 1][0] * $request->qty) + ($monthly[$i - 1][2] * $request->qty)+($monthly[$i - 1][3] * $request->qty),
+                        'grand_total'           => ($monthly[$i - 1][0] * $request->qty) + ($monthly[$i - 1][2] * $request->qty) + ($monthly[$i - 1][3] * $request->qty),
                         'opsi_pembayaran'       => $request->status
 
                     ]);
@@ -1103,7 +1107,7 @@ class HomeController extends Controller
 
             // $paymentId = Payment::where('invoice_id', '=', $invoice_time . '0' . 1 . $telephone)->first();
             // return $paymentId->visa;
-            
+
 
             $dataCoba = [
                 'title'             =>  $user,
@@ -1119,7 +1123,7 @@ class HomeController extends Controller
                 'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
                 'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
                 'visa'              => 'Rp.' . number_format($newCart->trip->visa, 0, ',', '.'),
-                'totalVisa'         => 'Rp.' . number_format($paymentId->visa , 0, ',', '.'),
+                'totalVisa'         => 'Rp.' . number_format($paymentId->visa, 0, ',', '.'),
                 'tipping'           => 'Rp.' . number_format($newCart->trip->tipping, 0, ',', '.'),
                 'total_tipping'     => 'Rp.' . number_format($newCart->trip->total_tipping, 0, ',', '.'),
                 'total_tipping_price' => 'Rp.' . number_format($totalTipping, 0, ',', '.'),
@@ -1155,21 +1159,21 @@ class HomeController extends Controller
                 'grandTotal'    => 'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
                 'path'          => $paths . 'pdf'
             ];
-    
+
             // return $email;
-    
+
             Storage::put($path, $pdf->output());
-    
+
             // $mails = new orderSendMail($email);
-    
+
             // $emailSend = new OrderEmailJob($email);
-    
+
             // dispatch(new OrderEmailJob($email));
             // $details['email'] = 'patrajuanda10@gmail.com';
             // dispatch(new SendEmailJob($details));
-    
+
             // return 'tes';
-    
+
             Mail::send('web.emails.order2', $email, function ($message) use ($email, $pdf, $path) {
                 $message->from('patrajuanda10@gmail.com');
                 $message->to($email['email']);
@@ -1187,7 +1191,6 @@ class HomeController extends Controller
             // return $id;
             $ids = encrypt($id);
             return redirect()->route('payment', $ids);
-
         } else if ($request->status == "1") {
             $statusPembayaran = 'Pembayaran Penuh';
             $totalTipping   = $tipping_price * $qty;
@@ -1469,9 +1472,9 @@ class HomeController extends Controller
         // return $payment;
 
         $status = '';
-        if($payment->opsi_pembayaran == 0){
+        if ($payment->opsi_pembayaran == 0) {
             $status = 'Bayar Uang Muka';
-        }else if($payment->opsi_pembayaran == 1){
+        } else if ($payment->opsi_pembayaran == 1) {
             $status = 'Pembayaran Penuh';
         }
         // if ($payment->price_dp < $payment->price) {
