@@ -261,6 +261,8 @@
 
 </section>
 
+<div id="instafeed"></div>
+
 @include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
 
@@ -271,6 +273,7 @@
 @endsection
 
 @push('javascript-internal')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/instafeed.js/1.4.1/instafeed.min.js" integrity="sha512-7vRrNQ5TnkhihLzA4Qd32yZP5A1oZvqmowU5OxgL612vmfd1eLgfgvB31J6Wdg8/tQqvikZdrNsZAj0WeONL/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script>
     $(document).ready(function() {
 
@@ -449,7 +452,10 @@
 
 
 
-
+        var feed = new Instafeed({
+            accessToken: 'your-token'
+        });
+        feed.run();
 
 
 
