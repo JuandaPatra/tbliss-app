@@ -26,6 +26,7 @@ use App\Models\PaymentDetails;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
+use Dymantic\InstagramFeed\Profile;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use PDF;
@@ -75,7 +76,12 @@ class HomeController extends Controller
             'image_mobile',
             'places_id'
         ]);
-        return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId'));
+
+        // $feed = \Dymantic\InstagramFeed\InstagramFeed::for('my profile');
+        // $instagram = $feed;
+        // return $instagram;
+
+        return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId', ));
     }
 
     public function detail($id, $trip)

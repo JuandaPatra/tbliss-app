@@ -90,4 +90,6 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('user-admin', UserAdmin::class);
 
     Route::get('contact', [ContactController::class, 'index'])->middleware('isAdmin')->name('contact');
+    Route::get('contact-email', [ContactController::class, 'createEmail'])->middleware('isAdmin')->name('contact.email');
+    Route::post('contact-send', [ContactController::class, 'sendEmail'])->middleware('isAdmin')->name('contact.send');
 });

@@ -345,6 +345,12 @@
       <div data-i18n="Tables">Contact</div>
     </a>
   </li>
+  <li class="menu-item">
+    <a href="{{ route('contact.email') }}" class="menu-link">
+      <i class="menu-icon bx bx-envelope"></i>
+      <div data-i18n="Tables">Create Email </div>
+    </a>
+  </li>
   </ul>
 </aside>
 <!-- / Menu -->

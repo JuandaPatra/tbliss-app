@@ -17,7 +17,8 @@ return [
      * This defaults to your APP_URL, so normally you may leave it as null
      */
     // 'base_url' => null,
-    'base_url' => 'https://tbliss.owlandfoxes.co.id/',
+    // 'base_url' => 'https://tbliss.owlandfoxes.co.id/',
+    'base_url' => 'https://127.0.0.1:8000',
 
     /*
      * The route that will respond to the Instagram callback during the OAuth process.
