@@ -46,6 +46,10 @@ class HomeController extends Controller
         if ($request->ajax()) {
             $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
             $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+            foreach($notifications as $notification){
+                $time = $this->timeAgo($notification->updated_at);
+                $notification['time'] = $time;
+            }
         }
 
         $results = [$notifications, $notificationsCount];
