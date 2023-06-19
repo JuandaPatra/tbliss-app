@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
 use App\Models\emails;
+use App\Models\logPayments;
 use Illuminate\Support\Facades\Hash;
 use DataTables;
 
@@ -29,8 +30,14 @@ class UserAdmin extends Controller
                 ->orWhere("name", "admin");
         })->get();
 
+        $notifications = logPayments::where('status','=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status','=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
 
-        return view('admin.user-admin.index', compact('datas'));
+        return view('admin.user-admin.index', compact('datas', 'notifications', 'notificationsCount'));
     }
 
     public function table(Request $request)
@@ -83,11 +90,17 @@ class UserAdmin extends Controller
      */
     public function create()
     {
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count(); 
         $roles = [
             'superadmin',
             'admin'
         ];
-        return view('admin.user-admin.create', compact('roles'));
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
+        return view('admin.user-admin.create', compact('roles', 'notifications', 'notificationsCount'));
     }
 
     /**
@@ -154,14 +167,20 @@ class UserAdmin extends Controller
     public function edit($id)
     {
         $user = User::with('roles')->where('id', '=', $id)->first();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
         // return $user;
         $roleOld = $user->roles[0]->name;
         $roles = [
             'superadmin',
             'admin'
         ];
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
 
-        return view('admin.user-admin.edit', compact('user', 'roles', 'roleOld'));
+        return view('admin.user-admin.edit', compact('user', 'roles', 'roleOld', 'notifications', 'notificationsCount'));
     }
 
     /**
@@ -241,5 +260,36 @@ class UserAdmin extends Controller
             Alert::error('Delete User Admin', 'error' . $th->getMessage());
         }
         return redirect()->back();
+    }
+
+    private function timeAgo($time_ago)
+    {
+        $time_ago =  strtotime($time_ago) ? strtotime($time_ago) : $time_ago;
+        $time  = time() - $time_ago;
+
+        switch ($time):
+                // seconds
+            case $time <= 60;
+                return 'lessthan a minute ago';
+                // minutes
+            case $time >= 60 && $time < 3600;
+                return (round($time / 60) == 1) ? 'a minute' : round($time / 60) . ' minutes ago';
+                // hours
+            case $time >= 3600 && $time < 86400;
+                return (round($time / 3600) == 1) ? 'a hour ago' : round($time / 3600) . ' hours ago';
+                // days
+            case $time >= 86400 && $time < 604800;
+                return (round($time / 86400) == 1) ? 'a day ago' : round($time / 86400) . ' days ago';
+                // weeks
+            case $time >= 604800 && $time < 2600640;
+                return (round($time / 604800) == 1) ? 'a week ago' : round($time / 604800) . ' weeks ago';
+                // months
+            case $time >= 2600640 && $time < 31207680;
+                return (round($time / 2600640) == 1) ? 'a month ago' : round($time / 2600640) . ' months ago';
+                // years
+            case $time >= 31207680;
+                return (round($time / 31207680) == 1) ? 'a year ago' : round($time / 31207680) . ' years ago';
+
+        endswitch;
     }
 }

@@ -158,7 +158,11 @@
             </h3>
             @foreach($detailTrip->trip_include as $include)
             <div class="mb-3">
-                <span><img src="{{$include->icon_image}}" alt="" class="mr-12 inline">{{$include->title}}</span>
+                <div class="flex">
+                    <img src="{{$include->icon_image}}" alt="" class="mr-12 inline">
+                    <h1 class=" inline-block mt-[10px]">{{$include->title}}</h1>
+                </div>
+                <!-- <span><img src="{{$include->icon_image}}" alt="" class="mr-12 inline">{{$include->title}}</span> -->
             </div>
             @endforeach
         </div>
@@ -168,7 +172,11 @@
             </h3>
             @foreach($detailTrip->trip_exclude as $exclude)
             <div class="mb-3">
-                <span><img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline"> {{$exclude->title}}</span>
+                <div class="flex">
+                    <img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">
+                    <h1 class=" inline-block mt-[10px]">{{$exclude->title}}</h1>
+                </div>
+                <!-- <span><img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">  {{$exclude->title}}</span> -->
             </div>
             @endforeach
         </div>
@@ -394,7 +402,7 @@
             infinite: false,
             slidesToShow: 3,
             responsive: [
-                
+
                 {
                     breakpoint: 480,
                     settings: {
@@ -402,7 +410,7 @@
                         slidesToScroll: 1
                     }
                 }
-                
+
             ]
         })
 

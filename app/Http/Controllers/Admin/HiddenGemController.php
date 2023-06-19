@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use App\Models\logPayments;
 use App\Models\PickHiddenGem;
 use App\Models\Trip_cities_hidden_gem_hashtag;
 
@@ -25,7 +26,13 @@ class HiddenGemController extends Controller
     public function index()
     {
         $datas = Hidden_gem::all();
-        return view('admin.hidden_gem.index', compact('datas'));
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
+        return view('admin.hidden_gem.index', compact('datas', 'notifications', 'notificationsCount'));
     }
 
     /**
@@ -35,10 +42,18 @@ class HiddenGemController extends Controller
      */
     public function create()
     {
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
         return view('admin.hidden_gem.create', [
             'statuses' => $this->statuses(),
             'orders' => $this->orders(),
-            'checkboxes' => $this->checkbox()
+            'checkboxes' => $this->checkbox(),
+            'notifications'=> $notifications,
+            'notificationsCount'=> $notificationsCount
         ]);
     }
 
@@ -130,15 +145,20 @@ class HiddenGemController extends Controller
     public function edit($id)
     {
         
-        // $hiddem_gem = Hidden_gem::whereId($id)->get();
         $hiddem_gem = Hidden_gem::whereId($id)->with(['place', 'hidden_hashtag'])->get(['id','title','slug','description1','image_desktop','image_mobile', 'places_id','status']);
-        // return $hiddem_gem;
-        // return $this->checkbox();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
 
         return view('admin.hidden_gem.edit',[
             'hidden_gem' => $hiddem_gem[0],
             'statuses'  => $this->statuses(),
-            'checkboxes' => $this->checkbox()
+            'checkboxes' => $this->checkbox(),
+            'notifications'=> $notifications,
+            'notificationsCount'=> $notificationsCount
         ]);
     }
 
@@ -274,10 +294,15 @@ class HiddenGemController extends Controller
 
     public function images($id)
     {
-        // return $id;
         $data = Hidden_gem::where('id', '=', $id)->first();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
 
-        return view('admin.hidden_gem.images', compact('data'));
+        return view('admin.hidden_gem.images', compact('data', 'notifications', 'notificationsCount'));
     }
 
     public function updateImages(Request $request, $id)
@@ -341,5 +366,35 @@ class HiddenGemController extends Controller
         $hashtags = Hashtag::all(['id', 'title']);
 
         return $hashtags;
+    }
+    private function timeAgo($time_ago)
+    {
+        $time_ago =  strtotime($time_ago) ? strtotime($time_ago) : $time_ago;
+        $time  = time() - $time_ago;
+
+        switch ($time):
+                // seconds
+            case $time <= 60;
+                return 'lessthan a minute ago';
+                // minutes
+            case $time >= 60 && $time < 3600;
+                return (round($time / 60) == 1) ? 'a minute' : round($time / 60) . ' minutes ago';
+                // hours
+            case $time >= 3600 && $time < 86400;
+                return (round($time / 3600) == 1) ? 'a hour ago' : round($time / 3600) . ' hours ago';
+                // days
+            case $time >= 86400 && $time < 604800;
+                return (round($time / 86400) == 1) ? 'a day ago' : round($time / 86400) . ' days ago';
+                // weeks
+            case $time >= 604800 && $time < 2600640;
+                return (round($time / 604800) == 1) ? 'a week ago' : round($time / 604800) . ' weeks ago';
+                // months
+            case $time >= 2600640 && $time < 31207680;
+                return (round($time / 2600640) == 1) ? 'a month ago' : round($time / 2600640) . ' months ago';
+                // years
+            case $time >= 31207680;
+                return (round($time / 31207680) == 1) ? 'a year ago' : round($time / 31207680) . ' years ago';
+
+        endswitch;
     }
 }

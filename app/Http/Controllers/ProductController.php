@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 use Alert;
 use App\Models\Hashtag_place_trip;
 use App\Models\Hidden_gem;
+use App\Models\logPayments;
 use App\Models\Place_trip_categories;
 use App\Models\place_trip_categories_cities;
 use App\Models\Trip_categories;
@@ -26,10 +27,14 @@ class ProductController extends Controller
      */
     public function index()
     {
-        // $datas = Trip_categories::all();
         $datas = Trip_categories::where('status', '=', 'publish')->get();
-        // return $datas;
-        return view('admin.products.index', compact('datas'));
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
+        return view('admin.products.index', compact('datas', 'notifications', 'notificationsCount'));
     }
 
     /**
@@ -43,11 +48,19 @@ class ProductController extends Controller
 
         //// ambil negara dan kota
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
         
 
         return view('admin.products.create', [
             'statuses' => $this->statuses(),
             'destinations' => $negara,
+            'notifications' => $notifications,
+            'notificationsCount'=> $notificationsCount
         ]);
     }
 
@@ -212,12 +225,20 @@ class ProductController extends Controller
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $hashtags = Hashtag::all(['id', 'title']);
         $total_price = $trip->price + $trip->visa;
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
         return view('admin.products.edit', [
             'statuses'      => $this->statuses(),
             'destinations'  => $negara,
             'hashtags'      => $hashtags,
             'trip'          => $trip,
-            'total_price'   => $total_price
+            'total_price'   => $total_price,
+            'notifications' => $notifications,
+            'notificationsCount'=>$notificationsCount
         ]);
     }
 
@@ -284,16 +305,30 @@ class ProductController extends Controller
         $includes       =   Trip_includes::where('trip_cat_id', '=', $slug)->get(['id', 'title', 'slug', 'icon_image', 'trip_cat_id']);
         $excludes       =   Trip_exclude::where('trip_cat_id', '=', $slug)->get(['id', 'title', 'slug', 'icon_image', 'trip_cat_id']);
         $slug           =   $slug;
-        return view('admin.products.includes', compact('datas', 'includes', 'excludes', 'slug'));
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
+        return view('admin.products.includes', compact('datas', 'includes', 'excludes', 'slug', 'notifications', 'notificationsCount'));
     }
     public function images($id)
     {
-        // return $id;
         $data = Trip_categories::where('id','=', $id)->first();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
+
 
         return view('admin.products.images', [
             'statuses' => $this->statuses(),
-            'data'  => $data
+            'data'  => $data,
+            'notifications' => $notifications,
+            'notificationsCount'=>$notificationsCount
         ]);
     }
 
@@ -340,26 +375,32 @@ class ProductController extends Controller
         // $cities = place_trip_categories_cities::with(['place_categories:id,title','place_categories.hidden_gem:places_id,id,title,image_desktop','pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gems_id','pick_hidden_gem.hidden_gems:id,title,image_desktop' ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
         // $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop','pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id', ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
 
-        // $cities = place_trip_categories_cities::all();
         $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id', 'trip_categories_id']);
         $datas = Trip_categories::where('id','=', $slug)->first();
-        // return $cities;
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
 
-        return view('admin.products.pickhiddengem', compact('cities', 'slug', 'datas'));
+        return view('admin.products.pickhiddengem', compact('cities', 'slug', 'datas', 'notifications', 'notificationsCount'));
     }
 
     public function choose(Request $request, $slug)
     {
-        // return $slug;
         // $cities = place_trip_categories_cities::with(['place_categories:id,title','place_categories.hidden_gem:places_id,id,title,image_desktop','pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gems_id','pick_hidden_gem.hidden_gems:id,title,image_desktop' ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
         // $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop','pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id', ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
 
-        // $cities = place_trip_categories_cities::all();
         $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop'])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id', 'trip_categories_id']);
         $country = Place_trip_categories::where('trip_categories_id', '=', $slug)->get();
-        // return $country;
-        // return $cities;
-        return view('admin.products.pickCityWithHiddenGems', compact('cities', 'slug'));
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        foreach($notifications as $notification){
+            $time = $this->timeAgo($notification->updated_at);
+            $notification['time'] = $time;
+        }
+        return view('admin.products.pickCityWithHiddenGems', compact('cities', 'slug', 'notifications', 'notificationsCount'));
     }
 
     public function updateTrip(Request $request, $id)
@@ -459,5 +500,35 @@ class ProductController extends Controller
             'draft' => 'draft',
             'publish' => 'publish',
         ];
+    }
+    private function timeAgo($time_ago)
+    {
+        $time_ago =  strtotime($time_ago) ? strtotime($time_ago) : $time_ago;
+        $time  = time() - $time_ago;
+
+        switch ($time):
+                // seconds
+            case $time <= 60;
+                return 'lessthan a minute ago';
+                // minutes
+            case $time >= 60 && $time < 3600;
+                return (round($time / 60) == 1) ? 'a minute' : round($time / 60) . ' minutes ago';
+                // hours
+            case $time >= 3600 && $time < 86400;
+                return (round($time / 3600) == 1) ? 'a hour ago' : round($time / 3600) . ' hours ago';
+                // days
+            case $time >= 86400 && $time < 604800;
+                return (round($time / 86400) == 1) ? 'a day ago' : round($time / 86400) . ' days ago';
+                // weeks
+            case $time >= 604800 && $time < 2600640;
+                return (round($time / 604800) == 1) ? 'a week ago' : round($time / 604800) . ' weeks ago';
+                // months
+            case $time >= 2600640 && $time < 31207680;
+                return (round($time / 2600640) == 1) ? 'a month ago' : round($time / 2600640) . ' months ago';
+                // years
+            case $time >= 31207680;
+                return (round($time / 31207680) == 1) ? 'a year ago' : round($time / 31207680) . ' years ago';
+
+        endswitch;
     }
 }

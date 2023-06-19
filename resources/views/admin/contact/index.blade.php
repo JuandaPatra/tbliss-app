@@ -90,7 +90,14 @@ Dashboard
                data: 'finish_date',
                name: 'finish_date'
             },
-         ]
+         ],
+         stateSave: true,
+            stateSaveCallback: function(settings, data) {
+                localStorage.setItem('DataTables1_' + settings.sInstance, JSON.stringify(data))
+            },
+            stateLoadCallback: function(settings) {
+                return JSON.parse(localStorage.getItem('DataTables1_' + settings.sInstance))
+            }
       });
       $("#input_career_title").change(function (event) {
          $("#input_career_slug").val(

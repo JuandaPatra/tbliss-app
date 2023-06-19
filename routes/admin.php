@@ -17,6 +17,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\TripController;
 use App\Http\Controllers\Admin\UserAdmin;
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SosmedController;
@@ -92,4 +93,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('contact', [ContactController::class, 'index'])->middleware('isAdmin')->name('contact');
     Route::get('contact-email', [ContactController::class, 'createEmail'])->middleware('isAdmin')->name('contact.email');
     Route::post('contact-send', [ContactController::class, 'sendEmail'])->middleware('isAdmin')->name('contact.send');
+
+    Route::get('notifications', [HomeController::class, 'notification'])->middleware('isAdmin')->name('notifications.admin');
+
+    Route::get('notification-close/{id}', [HomeController::class, 'notificationRead'])->middleware('isAdmin')->name('notifications.close');
 });

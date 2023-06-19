@@ -95,6 +95,30 @@
       })
     })
 
+    $('.close-notif').on('click', function() {
+      let close = $(this).attr('data-close');
+
+
+      $.ajax({
+        url: `${base_url}/notification-close/${close}`,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        error: function(xhr, error) {
+          if (xhr.status === 500) {}
+        },
+        success: (response) => {
+          $('.badge-notif').empty()
+          $('.badge-notif').text(response[1])
+
+          let itemList = $(`.item-notif-list-${close}`)
+          itemList.remove()
+        }
+      })
+
+
+    })
+
     // Enable pusher logging - don't include this in production
     Pusher.logToConsole = true;
 
@@ -107,24 +131,39 @@
       // alert(JSON.stringify(data));
       let datas = JSON.stringify(data.pos_invoice)
       var result = datas.slice(1, -1);
-      $('.badge-notif').empty()
-      $('.badge-notif').append("1")
-      $('.list-group').append(`
-                  <li class="list-group-item list-group-item-action dropdown-notifications-item">
-                    <div class="d-flex">
-                      <div class="flex-shrink-0 me-3">
-                        
-                      </div>
-                      <div class="flex-grow-1">
-                        <h6 class="mb-1">Pembayaran #${result} Diterima 🎉</h6>
-                      </div>
-                      <div class="flex-shrink-0 dropdown-notifications-actions">
-                        <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
-                        <a href="javascript:void(0)" class="dropdown-notifications-archive"><span class="bx bx-x"></span></a>
-                      </div>
-                    </div>
-                  </li>
-                  `)
+
+      $.ajax({
+        url: `${base_url}/notifications`,
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        error: function(xhr, error) {
+          if (xhr.status === 500) {}
+        },
+        success: (response) => {
+          $('.badge-notif').empty()
+          $('.badge-notif').append(response[1])
+          for (let i = 0; i <= response[0].length; i++) {
+            $('.list-group').append(`
+                        <li class="list-group-item list-group-item-action dropdown-notifications-item">
+                          <div class="d-flex">
+                            <div class="flex-shrink-0 me-3">
+                              
+                            </div>
+                            <div class="flex-grow-1">
+                              <h6 class="mb-1">Pembayaran Diterima 🎉</h6>
+                              <p class="mb-1"> ${response[0][i].name}</p>
+                            </div>
+                            <div class="flex-shrink-0 dropdown-notifications-actions">
+                            <a href="javascript:void(0)" class="dropdown-notifications-read"><span class="badge badge-dot"></span></a>
+                            <a href="javascript:void(0)" class="dropdown-notifications-archive close-notif" data-toggle="tooltip" data-placement="right" title="Click to make this notifications read" data-close="${response[0][i].id}" ><span class="bx bx-x"></span></a>
+                          </div>
+                          </div>
+                        </li>
+                        `)
+          }
+        }
+      })
     });
   </script>
 </body>

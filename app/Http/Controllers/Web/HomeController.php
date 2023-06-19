@@ -21,6 +21,7 @@ use App\Jobs\OrderEmailJob;
 use App\Jobs\SendEmailJob;
 use App\Mail\orderSendMail;
 use App\Models\Cart;
+use App\Models\logPayments;
 use App\Models\Payment;
 use App\Models\PaymentDetails;
 use App\Models\User;
@@ -971,6 +972,7 @@ class HomeController extends Controller
                 $email['nama'] . time() . '.' . 'pdf'
             );
         });
+
         $id = Payment::where('invoice_id', '=', $invoice_id)->first('id');
         $ids = encrypt($id);
         return redirect()->route('payment', $ids);
@@ -982,7 +984,6 @@ class HomeController extends Controller
             redirect('/');
         }
 
-        // return $request;
 
         $user = Auth::user();
 
@@ -999,7 +1000,6 @@ class HomeController extends Controller
 
 
         $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price,installment1,installment2,installment3,visa,total_tipping,tipping,dp_price'])->where('user_id', '=', $user->id)->orderBy('created_at', 'asc')->get()->last();
-        // return $newCart;
 
         $dates1 = $newCart->trip->date_from;
         $dates2 = Carbon::today()->toDateString();
@@ -1193,8 +1193,12 @@ class HomeController extends Controller
             $invoice_idInstallment = $invoice_time . '01' . $telephone;
             $id = $paymentId->id;
             event(new MessageCreated($invoice_idInstallment));
-            // return $id;
-            // return $id;
+            logPayments::create([
+                'name'      => 'ORD' . $newCart->id . 'telah membuat pesanan',
+                'status'    => 'belum dibaca'
+            ]);
+            
+
             $ids = encrypt($id);
             return redirect()->route('payment', $ids);
         } else if ($request->status == "1") {
@@ -1306,6 +1310,10 @@ class HomeController extends Controller
             });
             $id = Payment::where('invoice_id', '=', $invoice_id)->first('id');
             event(new MessageCreated($invoice_id));
+            logPayments::create([
+                'name'      => 'ORD' . $newCart->id . 'telah membuat pesanan',
+                'status'    => 'belum dibaca'
+            ]);
             // return $id->id;
             $ids = encrypt($id->id);
             return redirect()->route('payment', $ids);
