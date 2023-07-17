@@ -94,7 +94,7 @@
         </h1>
         <div class="flex flex-wrap home-section">
             @foreach($trips as $trip)
-            <div class="basis-full lg:basis-4/12 p-3">
+            <div class="basis-full lg:basis-4/12 p-3 hover:drop-shadow-lg hover:cursor-pointer">
                 <div class="max-w-sm bg-white ">
                     <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}">
                         <img src="{{$trip->thumbnail}}" alt="" class="w-full">
@@ -138,7 +138,7 @@
         </h1>
         <div class="flex flex-wrap hg-slider">
             @foreach($hiddenGems as $hiddenGem)
-            <div class="basis-full lg:basis-3/12 gap-8 p-3">
+            <div class="basis-full lg:basis-3/12 gap-8 p-3 hover:drop-shadow-lg hover:cursor-pointer">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->slug])}}">
                         <img class=" w-full" src="{{$hiddenGem->image_desktop}}" alt="" />
@@ -207,6 +207,8 @@
     </div>
 </section>
 
+
+
 <section class="p-4">
     <div class="container-lg">
         <div class="flex justify-center  mt-[59px]">
@@ -221,7 +223,9 @@
             </p>
             <a href="" class="text-[#2EC4DD] ml-2 font-interRegular text-[14px] lg:text-[15px]"> @travelibiss</a>
         </div>
-        <div class="grid grid-cols-4 gap-x-2 gap-y-3 mb-[111px]">
+        <ul class="juicer-feed" data-feed-id="travelbliss-tours" data-origin="embed-code"></ul>
+
+        <!-- <div class="grid grid-cols-4 gap-x-2 gap-y-3 mb-[111px]">
             <div><img src="{{ asset('images/instagram/ig-1.jpg') }}" alt="" class="w-full"></div>
             <div><img src="{{ asset('images/instagram/ig-2.jpg') }}" alt="" class="w-full"></div>
             <div><img src="{{ asset('images/instagram/ig-3.jpg') }}" alt="" class="w-full"></div>
@@ -230,51 +234,13 @@
             <div><img src="{{ asset('images/instagram/ig-6.jpg') }}" alt="" class="w-full"></div>
             <div><img src="{{ asset('images/instagram/ig-7.jpg') }}" alt="" class="w-full"></div>
             <div><img src="{{ asset('images/instagram/ig-8.jpg') }}" alt="" class="w-full"></div>
-        </div>
-        <!-- <div class="flex flex-wrap">
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-1.jpg') }}" alt="" class="">
-            </div>
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-2.jpg') }}" alt="" class="">
-            </div>
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-3.jpg') }}" alt="" class="">
-            </div>
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-4.jpg') }}" alt="" class="">
-            </div>
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-5.jpg') }}" alt="" class="">
-            </div>
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-6.jpg') }}" alt="" class="">
-            </div>
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-7.jpg') }}" alt="" class="">
-            </div>
-            <div class="basis-3/12 mb-3">
-                <img src="{{ asset('images/instagram/ig-8.jpg') }}" alt="" class="">
-            </div>
         </div> -->
+
     </div>
 
 </section>
 
-{{--
-<div class=" row no-gutters popup-gallery">
-    @isset($data[instagram_feed])
-    @foreach($data[instagram_feed] as $feed)
-    <div class="col-xl-1 col-lg-2 col-sm-3 col-4">
-        <a href="{{$item['permalink']}}" target="_blank" class="portfolio-box">
-<img src="{{$item['url']}}" class="img-fluid" style="width:100%;height:100%;" alt="">
-</a>
-</div>
-@endforeach
-@endisset
-</div>
---}}
-<div id="instafeed"></div>
+
 
 @include('web.components.presentational.whatsapp')
 @include('web.components.presentational.footer')
@@ -387,6 +353,8 @@
 
 
         })
+
+
         $('.banner-slider').slick({
             dots: false,
             infinite: true,
@@ -396,6 +364,7 @@
         });
         $('.banner-slider').not('.slick-initialized').slick();
 
+        console.log('tes-gagal')
 
         $('.testimoni-slider').slick({
             dots: false,

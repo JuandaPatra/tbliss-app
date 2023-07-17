@@ -37,23 +37,22 @@ class CronEmail extends Command
 
         $current_date = Carbon::now();
         $current_date = $current_date->toDateString();
-        
+
 
         foreach ($payments as $payment) {
             $date = date('Y-m-d', strtotime($payment->due_date . ' -' . 7 . 'days'));
-            
-            if ($date == $current_date ) {
+
+            if ($date == $current_date) {
                 // $com = array("date" => $commande->available_date, "fournisseur" => $commande->fournisseur);
-                $payments =[
+                $payments = [
                     'tes' => $payment
 
                 ];
-
+                Log::info($payment);
                 Mail::to($payment->user->email)
                     ->send(new sendEmailWithCron($payments));
-                    Log::info('email sent');
-            } 
-             else {
+                Log::info('email sent');
+            } else {
                 $this->info("No mail to send !");
                 Log::warning('email not sent');
             }

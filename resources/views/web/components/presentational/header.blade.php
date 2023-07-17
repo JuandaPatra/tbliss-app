@@ -7,7 +7,7 @@
                     <h5>Gift an Adventure</h5>
                 </div>
             </div>
-            <div class="hidden basis-full lg:basis-6/12 bg-footer lg:flex justify-center">
+            <div class="hidden basis-full lg:basis-6/12 bg-[#BF1E5F] lg:flex justify-center">
                 <div class="flex justify-items-center mt-1 lg:mt-3 text-center">
                     <h5 class="me-2  text-sm">
                         Boleh kakak kami bantu buat itinerari seru! hubungi kami!
@@ -65,27 +65,27 @@
                 </ul>
             </div>
 
-           {{--
+            {{--
              <div class="hidden lg:block basis-full lg:basis-3/12 ">
                 <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
                     <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
-                    @if(Auth::user()->name )
-                    <a href="" data-modal-target="authentication-modal">{{Auth::user()->name}}</a>
-                    @endif
-                    <span class="mr-5 ml-5">|</span>
-                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+            @if(Auth::user()->name )
+            <a href="" data-modal-target="authentication-modal">{{Auth::user()->name}}</a>
+            @endif
+            <span class="mr-5 ml-5">|</span>
+            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a>
+                {{ __('Logout') }}
+            </a>
 
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                        @csrf
-                    </form>
-                </div>
-            </div>
-            --}}
-            @endauth
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
         </div>
+    </div>
+    --}}
+    @endauth
+    </div>
     </div>
 
     <div class="container-full mt-[57px] mb-[79px]">
@@ -264,12 +264,12 @@
 
     <div class="container-lg bg-white mx-auto">
         <div class=" container hidden lg:flex flex-wrap justify-center mb-[33px]">
-            <button data-drop="destinasi" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">DESTINASI</button>
+            <button data-drop="destinasi" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls hover:text-footer">DESTINASI</button>
             <!-- <button data-drop="bantuan" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">BANTUAN</button> -->
             <!-- <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KORPORAT</button> -->
-            <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">CERITA KAMI</a>
-            <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px]">FAQ</a>
-            <a href="{{route('home.kontak')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KONTAK KAMI</a>
+            <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">CERITA KAMI</a>
+            <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">FAQ</a>
+            <a href="{{route('home.kontak')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">KONTAK KAMI</a>
         </div>
     </div>
     <div>
