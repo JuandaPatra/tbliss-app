@@ -34,7 +34,7 @@ class sendEmailWithCron extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Send Email With Cron',
+            subject: 'Tagihan Pembayaran '. $this->details['tes']['user']['email'],
         );
     }
 
@@ -47,7 +47,9 @@ class sendEmailWithCron extends Mailable
     {
         return new Content(
             view: 'emails.cron',
-            with: $this->details
+            with: [
+                'details' => $this->details['tes'],
+            ]
         );
     }
 
@@ -58,15 +60,13 @@ class sendEmailWithCron extends Mailable
      */
     public function attachments()
     {
-        // return [];
-        // $this->details;
-        $pdf = PDF::loadView('admin.payment.coba', compact('dataCoba'));
-        // User::sendEMail($email, $pdf);
-        PDF::getOptions()->set([
-            'defaultFont' => 'helvetica',
-            'chroot' => '/var/www/myproject/public',
-        ]);
-        $paths = $this->details['nama'] . '-' . rand() . '_' . time();
-        $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
+
+        // $pdf = PDF::loadView('admin.payment.coba', compact('dataCoba'));
+        // PDF::getOptions()->set([
+        //     'defaultFont' => 'helvetica',
+        //     'chroot' => '/var/www/myproject/public',
+        // ]);
+        // $paths = $this->details['nama'] . '-' . rand() . '_' . time();
+        // $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
     }
 }

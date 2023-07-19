@@ -41,6 +41,9 @@ class HomeController extends Controller
         ///// negara default adalah korea
         $id = 'korea';
 
+       
+
+
         ///// kirim id ke halaman home
         return redirect()->route('home.country', $id);
     }
@@ -49,6 +52,9 @@ class HomeController extends Controller
     {
         // $profile = \Dymantic\InstagramFeed\Profile::where('username', 'juanda_p106')->first();
         // return $profile;
+       
+
+        // return $contractDateBegin;
 
         $slug = $id;
 
