@@ -1,4 +1,4 @@
- @extends('admin.layouts.dashboard')
+@extends('admin.layouts.dashboard')
  @section('title')
  Sliders
  @endsection
@@ -6,75 +6,43 @@
  {{-- {{ Breadcrumbs::render('sliders') }} --}}
  @endsection
  @section('content')
- <div class="card">
-     <h5 class="card-header">List User</h5>
-     <div class="table-responsive text-nowrap px-4" >
-         {{--
-         <table class="table ">
-             <thead>
-                 <tr>
-                     <th>No.</th>
-                     <th>Name</th>
-                     <th>Role</th>
-                     <th>Actions</th>
-                 </tr>
-             </thead>
-             <tbody class="table-border-bottom-0">
-                 @foreach ($datas as $row)
-                 <tr>
-                     <td>
-                         {{$loop->iteration}}
-         </td>
-         <td><strong>{{ $row->name }}</strong></td>
-         <td>
-             @if($row->roles[0]->name == 'admin')
-             <span class="badge bg-label-secondary">{{$row->roles[0]->name}}</span>
-             @else
-             <span class="badge bg-label-primary">{{$row->roles[0]->name}}</span>
-             @endif
-         </td>
-         <td>
-             <div class="dropdown">
-                 <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                     <i class="bx bx-dots-vertical-rounded"></i>
-                 </button>
-                 <div class="dropdown-menu">
-                     <a class="dropdown-item" href="{{ route('user-admin.edit',['user_admin'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                     <form action="{{ route('user-admin.destroy',['user_admin'=>$row]) }}" method="post">
-                         @csrf
-                         @method('DELETE')
-                         <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
-                             <i class="bx bx-trash me-1"></i>Delete
-                         </a>
-                     </form>
-                 </div>
-             </div>
-         </td>
-         </tr>
-         @endforeach
-         </tbody>
-         </table>
-
-         --}}
-
-         <table class="table table-bordered data-table mx-3">
-             <thead>
-                 <tr>
-                     <th>No.</th>
-                     <th>Name</th>
-                     <th>Role</th>
-                     <!-- <th>Roles</th> -->
-                     <th>Action</th>
-                 </tr>
-             </thead>
-             <tbody>
-             </tbody>
-         </table>
-
-
-
-     </div>
- </div>
+ <div class="row">
+   <div class="col-md-11">
+      <form action="{{  route('policy.storeSyarat') }}" method="POST">
+         @csrf
+         <div class="card mb-4">
+            <h5 class="card-header">Syarat & Ketentuan</h5>
+            <div class="card-body">
+               <div class="mb-3">
+                  <label for="input_post_title" class="form-label">Title</label>
+                  <input id="input_post_title" name="name" type="text" placeholder="" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name', $syarat->name) }}" readonly />
+                  @error('name')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+                
+               <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">PDF File</label>
+                  <div class="input-group">
+                     <button id="button_post_pdf" data-input="input_post_pdf" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_pdf" name="description" value="{{ old('description', $syarat->description) }}" type="text" class="form-control" placeholder="" readonly />
+                     @error('description')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+               </div>
+               
+               <a class="btn btn-warning px-4" href="">Back</a>
+               <button type="submit" class="btn btn-primary px-4">Save</button>
+            </div>
+         </div>
+      </form>
+   </div>
  @endsection
  @push('javascript-internal')
  <script>
@@ -122,10 +90,11 @@
  @push('javascript-internal')
  <script>
      $(document).ready(function() {
+        $('#button_post_pdf').filemanager('application');
          var table = $('.data-table').DataTable({
              processing: true,
              serverSide: true,
-             ajax: "{{ route('table') }}",
+             ajax: "",
              columns: [
                  //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
                  //  { "width": "20%" },

@@ -1,4 +1,4 @@
- @extends('admin.layouts.dashboard')
+@extends('admin.layouts.dashboard')
  @section('title')
  Sliders
  @endsection
@@ -7,7 +7,7 @@
  @endsection
  @section('content')
  <div class="card">
-     <h5 class="card-header">List User</h5>
+     <h5 class="card-header">List Testimoni</h5>
      <div class="table-responsive text-nowrap px-4" >
          {{--
          <table class="table ">
@@ -62,8 +62,6 @@
                  <tr>
                      <th>No.</th>
                      <th>Name</th>
-                     <th>Role</th>
-                     <!-- <th>Roles</th> -->
                      <th>Action</th>
                  </tr>
              </thead>
@@ -125,7 +123,7 @@
          var table = $('.data-table').DataTable({
              processing: true,
              serverSide: true,
-             ajax: "{{ route('table') }}",
+             ajax: "{{ route('tableTestimoni') }}",
              columns: [
                  //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
                  //  { "width": "20%" },
@@ -143,10 +141,10 @@
                  //      data: 'email',
                  //      name: 'email'
                  //  },
-                 {
-                     data: 'roles',
-                     name: 'roles'
-                 },
+                //  {
+                //      data: 'roles',
+                //      name: 'roles'
+                //  },
                  {
                      data: 'action',
                      name: 'action'

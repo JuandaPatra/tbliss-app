@@ -3,7 +3,7 @@
 @section('container')
 @include('web.components.presentational.header')
 <div class="flex items-center px-4 bg-white justify-center">
-    <h1 class=" font-bely text-footer text-[45px]">Login</h1>
+    <h1 class=" font-bely text-footer text-[45px]">Masuk</h1>
 </div>
 <div class="flex items-center h-[550px] px-4 py-2 bg-white lg:justify-center">
     <div class="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md w-100 md:w-auto">

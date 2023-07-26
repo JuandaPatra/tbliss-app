@@ -19,8 +19,10 @@
                     </form>
 
                 <div class="flex mt-4">
-                    <img src="{{ asset('images/footer/fb.png') }}" alt="" class="mr-3">
-                    <img src="{{ asset('images/footer/ig.png') }}" alt="">
+                    <!-- <img src="{{ asset('images/footer/fb.png') }}" alt="" class="mr-3"> -->
+                    <a href="https://www.instagram.com/travelbliss.tours">
+                        <img src="{{ asset('images/footer/ig.png') }}" alt="">
+                    </a>
 
 
                 </div>
@@ -30,47 +32,23 @@
                     <h2 class="mb-[10px] text-lg font-semibold text-white text-[15px] font-interRegular">t'Bliss</h2>
                     <ul class="text-white text-[13px] font-interRegular">
                         <li class="mb-2">
-                            <a href="https://flowbite.com/" class="hover:underline">Our Story</a>
+                            <a href="https://tbliss.owlandfoxes.co.id/cerita-kami" class="hover:underline">Cerita Kami</a>
                         </li>
                         <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Our Founders</a>
+                            <a href="https://tbliss.owlandfoxes.co.id/search" class="hover:underline">Destinasi</a>
                         </li>
                         <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Quality Standards</a>
+                            <a href="https://tbliss.owlandfoxes.co.id/FAQ" class="hover:underline">FAQ</a>
                         </li>
-                        <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Covid Policies</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Sitemap</a>
-                        </li>
+
                     </ul>
                 </div>
-                <div>
-                    <h2 class="mb-[10px] text-lg font-semibold text-white text-[15px] uppercase font-interRegular">Discover More</h2>
-                    <ul class="text-white text-[13px] font-interRegular">
-                        <li class="mb-2">
-                            <a href="https://flowbite.com/" class="hover:underline">Corporate Experiences</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Invite a Friend</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Current Promotions</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Redeem Gift Experinces</a>
-                        </li>
-                    </ul>
-                </div>
+
                 <div>
                     <h2 class="mb-[10px] text-lg font-semibold text-white text-[15px] uppercase font-interRegular">Get in Touch</h2>
                     <ul class="text-white text-[13px] font-interRegular">
                         <li class="mb-2">
-                            <a href="https://flowbite.com/" class="hover:underline">Contact Us</a>
-                        </li>
-                        <li class="mb-2">
-                            <a href="https://tailwindcss.com/" class="hover:underline">Become our Creators</a>
+                            <a href="https://tbliss.owlandfoxes.co.id/kontak-kami" class="hover:underline">Contact Us</a>
                         </li>
                     </ul>
                 </div>
@@ -78,9 +56,10 @@
         </div>
 
         <div class="sm:flex sm:items-center sm:justify-between mt-[30px] text-center lg:text-start">
-            <span class="text-sm text-white sm:text-center">© <a href="https://flowbite.com/" class="hover:underline">Travel Bliss</a> 2022 Privacy Terms.
+            <span class="text-sm text-white sm:text-center">2023 <a href="https://tbliss.owlandfoxes.co.id" class="hover:underline">Travel Bliss</a> - All Rights Reserved.
             </span>
 
         </div>
     </div>
 </footer>
+

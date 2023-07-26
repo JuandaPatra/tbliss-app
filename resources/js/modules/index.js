@@ -274,12 +274,7 @@ export class DetailPages {
                                                                                  
                                             </h1>
                                             
-                                            <p>Pohang Space Walk</p>
-                                            <p>Canola Flower Field</p>
-                                            <p>Haeundae Blue Line Park</p>
-                                            <p>Overnight Jeonju Hanok Village </p>
-                                            <p>Picnic Dinner</p>
-                                            <p>K-drama Shooting Location</p>
+                                            
                                         </div>
                                         <div class="flex justify-between w-full lg:w-[90%]">
                                             <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
@@ -345,12 +340,7 @@ export class DetailPages {
                                                 ].place_trip_categories_cities[0].place_categories.title.toUpperCase()}
                                             </h1>
                                             ${result[i].itinerary}
-                                            <p>Pohang Space Walk</p>
-                                            <p>Canola Flower Field</p>
-                                            <p>Haeundae Blue Line Park</p>
-                                            <p>Overnight Jeonju Hanok Village </p>
-                                            <p>Picnic Dinner</p>
-                                            <p>K-drama Shooting Location</p>
+                                            
                                         </div>
                                         <div class="flex justify-between w-full lg:w-[90%]">
                                             <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang

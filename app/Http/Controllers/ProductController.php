@@ -9,11 +9,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use DataTables;
 use App\Models\Hashtag_place_trip;
 use App\Models\Hidden_gem;
 use App\Models\logPayments;
 use App\Models\Place_trip_categories;
 use App\Models\place_trip_categories_cities;
+use App\Models\ReviewTrip;
 use App\Models\Trip_categories;
 use App\Models\Trip_exclude;
 use App\Models\Trip_includes;
@@ -30,7 +32,7 @@ class ProductController extends Controller
         $datas = Trip_categories::where('status', '=', 'publish')->get();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -50,17 +52,17 @@ class ProductController extends Controller
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
-        
+
 
         return view('admin.products.create', [
             'statuses' => $this->statuses(),
             'destinations' => $negara,
             'notifications' => $notifications,
-            'notificationsCount'=> $notificationsCount
+            'notificationsCount' => $notificationsCount
         ]);
     }
 
@@ -219,15 +221,15 @@ class ProductController extends Controller
     {
         //// controller edit Trip 
 
- 
-        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status','dp_price', 'installment1','installment2','installment3','visa','tipping','total_tipping']);
+
+        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status', 'dp_price', 'installment1', 'installment2', 'installment3', 'visa', 'tipping', 'total_tipping']);
 
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $hashtags = Hashtag::all(['id', 'title']);
         $total_price = $trip->price + $trip->visa;
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -238,7 +240,7 @@ class ProductController extends Controller
             'trip'          => $trip,
             'total_price'   => $total_price,
             'notifications' => $notifications,
-            'notificationsCount'=>$notificationsCount
+            'notificationsCount' => $notificationsCount
         ]);
     }
 
@@ -307,7 +309,7 @@ class ProductController extends Controller
         $slug           =   $slug;
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -315,10 +317,10 @@ class ProductController extends Controller
     }
     public function images($id)
     {
-        $data = Trip_categories::where('id','=', $id)->first();
+        $data = Trip_categories::where('id', '=', $id)->first();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -328,7 +330,7 @@ class ProductController extends Controller
             'statuses' => $this->statuses(),
             'data'  => $data,
             'notifications' => $notifications,
-            'notificationsCount'=>$notificationsCount
+            'notificationsCount' => $notificationsCount
         ]);
     }
 
@@ -376,10 +378,10 @@ class ProductController extends Controller
         // $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop','pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id', ])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id','trip_categories_id']);
 
         $cities = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'])->where('trip_categories_id', '=', $slug)->get(['id', 'place_categories_id', 'trip_categories_id']);
-        $datas = Trip_categories::where('id','=', $slug)->first();
+        $datas = Trip_categories::where('id', '=', $slug)->first();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -396,7 +398,7 @@ class ProductController extends Controller
         $country = Place_trip_categories::where('trip_categories_id', '=', $slug)->get();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -442,7 +444,7 @@ class ProductController extends Controller
                 'installment2'  =>  'required',
                 'visa'          =>  'required',
                 'tipping'       =>  'required',
-                'total_tipping' =>  'required' 
+                'total_tipping' =>  'required'
             ]
         );
 
@@ -492,6 +494,200 @@ class ProductController extends Controller
             DB::commit();
         }
     }
+
+    public function review($id)
+    {
+
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+
+        $review = Trip_categories::whereId($id)->first();
+
+        return view('admin.products.review', compact('id', 'notifications', 'notificationsCount', 'review'));
+    }
+
+    public function reviewAdd(Request $request, $id)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'trip_review'           =>  'required',
+                'trip_star'             => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        DB::beginTransaction();
+        try {
+            $updateTrip = Trip_categories::whereId($id);
+
+            $post = $updateTrip->update([
+                'trip_review'           =>  $request->trip_review,
+                'trip_star'             => $request->trip_star,
+
+            ]);
+            DB::commit();
+
+            Alert::success('Tambah Review', 'Berhasil');
+            return redirect()->route('product.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Tambah Review', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
+    }
+
+    public function testimoni($id)
+    {
+
+
+        $data = ReviewTrip::where('categories_trip_id','=',$id)->get();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        return view('admin.products.testimoni' , compact('notifications', 'notificationsCount', 'id', 'data'));
+    }
+
+    public function testimoniAdd(Request $request, $id)
+    {
+        // return $request;
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'         =>  'required|string|max:100',
+                'description'   => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        DB::beginTransaction();
+        try {
+            $post = ReviewTrip::create([
+                'name'                      =>  $request->name,
+                'description'               =>  $request->description,
+                'categories_trip_id'         => $id,
+                
+            ]);
+            DB::commit();
+            
+            Alert::success('Tambah Testimoni Trip', 'Berhasil');
+            return redirect()->route('product.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Tambah Testimoni Trip', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
+    }
+
+    public function editTestimoni($id)
+    {
+        $testimoni = ReviewTrip::where('id', '=', $id)->first();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
+        return view('admin.products.editTestimoni',compact('testimoni', 'notifications', 'notificationsCount'));
+
+    }
+
+    public function updateEditTestimoni(Request $request, $id)
+    {
+        $category = ReviewTrip::whereId($id)->first();
+        $validator = Validator::make(
+            $request->all(),
+            [
+                'name'         =>  'required|string|max:100',
+                'description'   => 'required',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        DB::beginTransaction();
+        try {
+            $testimoni = ReviewTrip::whereId($id);
+            $post = $testimoni->update([
+                'name'                          =>  $request->name,
+                'description'                   =>  $request->description,
+                'categories_trip_id'            =>  $category->categories_trip_id,
+                
+            ]);
+            DB::commit();
+            
+            Alert::success('Update Testimoni Trip', 'Berhasil');
+            return redirect()->route('product.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Update Testimoni', 'error' . $th->getMessage());
+            return redirect()->back()->withInput($request->all());
+        } finally {
+            DB::commit();
+        }
+
+    }
+
+    public function deleteTestimoni($id)
+    {
+        $testimoni = ReviewTrip::where('id', '=', $id)->first();
+        try {
+            $testimoni->delete();
+            Alert::success('Delete Testimoni Trip', 'Berhasil');
+        } catch (\throwable $th) {
+            Alert::error('Delete Testimoni Trip', 'error' . $th->getMessage());
+        }
+        return redirect()->back();
+    }
+
+    public function table(Request $request)
+    {
+        if ($request->ajax()) {
+
+
+            $data = ReviewTrip::where('categories_trip_id','=',$request->id)->get();
+
+            // $data = Contact::select('*');
+            return Datatables::of($data)
+                ->addIndexColumn()
+                // ->addColumn('finish_date', function ($row) {
+                //     $date = date("d F Y h:m", strtotime($row->created_at));
+                //     return $date;
+                // })
+                // ->addColumn('roles', function ($user) {
+                //     $roles = $user->roles->first()->name;
+                //     // $rolef = $roles->name;
+                //     return  ucfirst($roles);
+                // })
+                ->addColumn('action', function ($user) {
+
+
+                    return '
+                    <a href="'.route('testimoni-trip.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                    
+                    <a href="'.route('testimoni-trip.destroy1', $user->id).'" class="btn btn-xs btn-danger deleteUser"><i class="fa fa-trash"></i> Delete</a>
+                    ';
+
+                    // return '<div class="dropdown-menu">
+                    //      <a class="dropdown-item" href="' . route('user-admin.edit', $user->id) . '"><i class="bx bx-edit-alt me-1"></i> Edit</a>             
+                    //      <a class="dropdown-item" href="' . route('user-admin.destroy', $user->id) . '" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest("form").submit();return false;">
+                    //         <i class="bx bx-trash me-1"></i>Delete
+                    //     </a>
+                         
+                    //  </div>';
+                })
+                // ->addColumn('roles', function($row){
+                //     $role = $row->roles[0]->name;
+                //     return $role;
+                // })
+                ->make(true);
+        }
+    }
+
 
     private function statuses()
     {

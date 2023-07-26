@@ -27,7 +27,8 @@ class UserAdmin extends Controller
         // $datas = Slider::all();
         $datas = User::with('roles:name')->whereHas("roles", function ($q) {
             $q->where("name", "superadmin")
-                ->orWhere("name", "admin");
+                ->orWhere("name", "admin")
+                ->orWhere("name" , "user");
         })->get();
 
         $notifications = logPayments::where('status','=', 'belum dibaca')->get();

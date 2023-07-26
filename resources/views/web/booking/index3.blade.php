@@ -7,21 +7,13 @@
 </div>
 <section>
     <div class="flex items-center px-4 bg-white justify-center pt-[24px]">
-        <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[20px] h-[20px] mr-[12px]">
+        <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[40px] h-[40px] mr-[12px]">
         <h1 class=" font-interRegular text-[15px]">Trusted Booking</h1>
     </div>
     <div class="flex flex-wrap">
         <div class="basis-full lg:basis-3/12"></div>
         <div class="basis-full lg:basis-6/12 p-[10px] lg:p-0">
-            <h1 class="mb-[18px] mt-[80px]">
-                Kamu cukup membayar deposit terlebih dahulu.
-            </h1>
-            <button class="w-full bg-blueTbliss h-[39px] text-white" type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal">
-                <p class=" text-center py-2 text-[15px]">
-                    Skema Pembayaran
-                </p>
-            </button>
-            <h1 class="mt-[34px]">
+            <h1 class="mt-[71px]">
                 Opsi Pembayaran
             </h1>
             <div class="grid grid-cols-2 gap-x-3 mt-[16px]">
@@ -153,6 +145,14 @@
             <h1 class="mt-2 mb-[30px] font-semibold text-[30px] full-pay-price  hidden">
                 @currency($newCart->price)
             </h1>
+            <h1 class="mb-[18px] mt-[30px]">
+                Kamu cukup membayar deposit terlebih dahulu.
+            </h1>
+            <button class="w-full bg-blueTbliss h-[39px] text-white" type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal">
+                <p class=" text-center py-2 text-[15px]">
+                    Skema Pembayaran
+                </p>
+            </button>
         </div>
     </div>
     <div class="container-lg px-4">

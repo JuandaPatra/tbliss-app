@@ -41,6 +41,8 @@
                 <a class="dropdown-item" href="{{ route('product.include',$row) }}"><i class="bx bx-edit-alt me-1"></i> Includes/Excludes</a>
                 <a class="dropdown-item" href="{{ route('product.images',$row) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
                 <a class="dropdown-item" href="{{ route('product.pick',$row) }}"><i class="bx bx-edit-alt me-1"></i> Choose Hidden Gems</a>
+                <a class="dropdown-item" href="{{ route('product.review',$row) }}"><i class="bx bx-edit-alt me-1"></i> Review & Star</a>
+                <a class="dropdown-item" href="{{ route('product.testimoni',$row) }}"><i class="bx bx-edit-alt me-1"></i> Add Testimoni</a>
                 
                 <form action="{{ route('product.destroy',['product'=>$row]) }}" method="post">
                 @csrf

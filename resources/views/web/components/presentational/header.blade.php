@@ -3,8 +3,8 @@
         <div class="flex flex-wrap bg-[#102448] h-[35px] lg:h-[48px] text-white text-sm ">
             <div class="basis-full lg:basis-3/12">
                 <div class="flex flex-wrap ml-0 mt-[3px] justify-center lg:justify-start lg:ml-7 lg:mt-3 pt-[4px] lg:pt-0">
-                    <img src="{{ asset('images/header/gift.png') }}" alt="" style="height: 18px;width:18px" class="me-2">
-                    <h5>Gift an Adventure</h5>
+                    <!-- <img src="{{ asset('images/header/gift.png') }}" alt="" style="height: 18px;width:18px" class="me-2"> -->
+                    <h5 class=" text-transparent">Gift an Adventure</h5>
                 </div>
             </div>
             <div class="hidden basis-full lg:basis-6/12 bg-[#BF1E5F] lg:flex justify-center">
@@ -38,14 +38,14 @@
                                     <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
                                     <circle cx="12" cy="7" r="4"></circle>
                                 </svg>
-                            </span> Profile</a>
+                            </span> Profil</a>
                     </li>
                     <li>
                         <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"> <span class="inline-block mb-[-5px] mr-[10px]">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="27" viewBox="0 0 28 27" fill="none" class="tw-text-black">
                                     <path fill-rule="evenodd" clip-rule="evenodd" d="M8.71875 0.649902H19.1813C20.1443 0.649902 20.925 1.43061 20.925 2.39365V5.88115H26.1563C27.1193 5.88115 27.9 6.66186 27.9 7.6249V25.0624C27.9 26.0254 27.1193 26.8062 26.1563 26.8062H1.74375C0.780704 26.8062 0 26.0254 0 25.0624V7.6249C0 6.66186 0.780704 5.88115 1.74375 5.88115H6.975V2.39365C6.975 1.43061 7.7557 0.649902 8.71875 0.649902ZM8.71875 5.88115H19.1813V2.39365H8.71875V5.88115ZM19.1813 7.6249H8.71875H1.74375V25.0624H26.1563V7.6249H19.1813ZM3.80545 14.1701L9.14861 9.6866L12.5112 13.6939L11.0066 17.2329L7.16804 18.1775L3.80545 14.1701ZM7.80582 16.2248L9.74307 15.748L10.4881 13.9957L8.93367 12.1433L6.26209 14.3849L7.80582 16.2248ZM20.0531 21.5749C21.4977 21.5749 22.6688 20.4039 22.6688 18.9593C22.6688 17.5147 21.4977 16.3437 20.0531 16.3437C18.6085 16.3437 17.4375 17.5147 17.4375 18.9593C17.4375 20.4039 18.6085 21.5749 20.0531 21.5749Z" fill="currentColor"></path>
                                 </svg>
-                            </span> Cart</a>
+                            </span> Pemesanan</a>
                     </li>
 
                     <li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -55,7 +55,7 @@
                                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                     <polyline points="16 17 21 12 16 7"></polyline>
                                     <line x1="21" y1="12" x2="9" y2="12"></line>
-                                </svg></span> {{ __('Logout') }}
+                                </svg></span>  Keluar
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -88,7 +88,7 @@
     </div>
     </div>
 
-    <div class="container-full mt-[57px] mb-[79px]">
+    <div class="container-full mt-[80px] mb-[57px]">
         <div class="d-flex justify-between mr-2 lg:justify-center px-[3px] lg:px-0">
             <button type="button" class="hamburger-menu inline-flex lg:hidden items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 mt-[12px]" aria-controls="navbar-hamburger" aria-expanded="false">
                 <span class="sr-only">Open main menu</span>
@@ -241,7 +241,7 @@
                     </div>
                     <div class="sidenav__footer absolute z-50 bottom-0 left-0 bg-white w-[320px]  border-gray-300  border-t-2 p-3 ">
                         @guest
-                        <a href="{{ route('signin.index') }}" class="mr-3">Login</a>
+                        <a href="{{ route('signin.index') }}" class="mr-3">Masuk</a>
                         <a href="{{ route('signup.index') }}">Register</a>
                         @endguest
                         @auth
@@ -264,9 +264,8 @@
 
     <div class="container-lg bg-white mx-auto">
         <div class=" container hidden lg:flex flex-wrap justify-center mb-[33px]">
-            <button data-drop="destinasi" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls hover:text-footer">DESTINASI</button>
-            <!-- <button data-drop="bantuan" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] dropdown-cls">BANTUAN</button> -->
-            <!-- <button data-drop="korporat" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] ">KORPORAT</button> -->
+            
+            <a href="https://tbliss.owlandfoxes.co.id/search" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">DESTINASI</a>
             <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">CERITA KAMI</a>
             <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">FAQ</a>
             <a href="{{route('home.kontak')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">KONTAK KAMI</a>

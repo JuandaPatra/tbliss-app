@@ -5,7 +5,7 @@
 <div class="flex items-center px-4 bg-white justify-center">
     <h1 class=" font-bely text-footer text-[45px]">Konfirmasi Pembayaran</h1>
 </div>
-<div class="flex items-center px-4 bg-white justify-center mb-[79px]">
+<div class="flex items-center px-4 bg-white justify-center mb-[79px] mt-[50px]">
     <p class=" font-interRegular text-[16px] font-bold">Setelah melakukan pembayaran, silakan upload <br> bukti pembayaranmu disini untuk konfirmasi</p>
 </div>
 <section class="container-lg px-[10%] mb-[50px]">

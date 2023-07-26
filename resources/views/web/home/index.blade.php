@@ -17,6 +17,8 @@
                     <div class="flex justify-center mt-[20px]">
                         <h1 class="text-center text-[15px] lg:text-[20px]  w-[500px] font-normal">
                             Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy.
+
+
                         </h1>
                     </div>
                 </div>
@@ -37,7 +39,7 @@
                     </h3>
                     <div class="flex justify-center mx-auto">
                         <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option>Korea</option>
+                            <option>Pilih Kota</option>
                             @foreach($hiddenGemId as $cities)
                             <option value="{{$cities->id}}">{{$cities->title}}</option>
                             @endforeach
@@ -47,6 +49,23 @@
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
+                            <option value="3">4</option>
+                            <option value="3">5</option>
+                            <option value="3">6</option>
+                            <option value="3">7</option>
+                            <option value="3">8</option>
+                            <option value="3">9</option>
+                            <option value="3">10</option>
+                            <option value="3">11</option>
+                            <option value="3">12</option>
+                            <option value="3">13</option>
+                            <option value="3">14</option>
+                            <option value="3">15</option>
+                            <option value="3">16</option>
+                            <option value="3">17</option>
+                            <option value="3">18</option>
+                            <option value="3">19</option>
+                            <option value="3">20</option>
                         </select>
                         <div class="relative max-w-sm">
                             <!-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -54,8 +73,7 @@
                                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
                                 </svg>
                             </div> -->
-                            <input type="text" class="selector" placeholder="Select Dates">
-                            <!-- <input datepicker datepicker-orientation="bottom right" datepicker-autohide datepicker-format="dd/mm/yyyy" type="text" class="bg-gray-50 border border-gray-300 rounded-none text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  " placeholder="Select date" id="dateTrips"> -->
+                            <input type="text" class="selector" placeholder="Pilih Tanggal">
                         </div>
                         <button class="focus:outline-none  text-white bg-tbliss w-[40px] rounded-r-lg px-2" id="searchTrips">
                             <img src="{{ asset('images/title/search.png') }}" alt="" class="">
@@ -69,16 +87,20 @@
     <div class="container mt-[53px]">
         <div class="flex justify-center">
             <h3 class=" text-center text-[30px] w-full lg:w-[50%] font-normal font-interRegular">
-                Memang kalau gak berkunjung yah gak akan tau. Buktikan langsung Aja!
+                Masih bingung milih trip yang tepat?
             </h3>
         </div>
-        <div class="flex justify-center mt-[40px] lg:mt-[69px] mb-[70px] lg:mb-[119px]">
+        <div class="flex justify-center">
+            <h3 class="text-center text-[30px] w-full lg:w-[50%] font-normal font-interRegular">Boleh kita bantu untuk buat itin-nya kak?</h3>
+        </div>
+
+        <div class="flex justify-center mt-[40px] lg:mt-[39px] mb-[70px] lg:mb-[119px]">
             <div>
                 <div class=" flex justify-center mb-3">
-                    <img src="{{ asset('images/title/bp.png') }}" alt="" class="  p-3 h-[120px]">
+                    <img src="{{ asset('images/title/plan.jpg') }}" alt="" class="  p-3 h-[160px]">
                 </div>
                 <div class="flex justify-center mb-4 h-[100px]">
-                    <h1 class="w-[60%] lg:w-[45%] text-center text-[30px]">Baru rencana, mohon dibantu Kak!</h1>
+                    <h1 class="w-[60%] lg:w-[55%] text-center text-[30px]">Gak usah bingung! pake fitur pintar kami</h1>
                 </div>
                 <a href="{{ route('search')}}" class="text-footer text-[20px] block text-center">Baiklah, sini Kami bantu! <span><img src="{{ asset('images/title/arrow.png') }}" alt="" class="w-[20px] inline"></span></a>
             </div>
@@ -89,41 +111,47 @@
 
 <section>
     <div class="container-lg pb-[50px] lg:pb-[164px]">
-        <h1 class="text-[30px] ml-[15px]">
-            Mari, Pilih trip perjalanan {{$country->title}} kak!
+        <h1 class="text-[30px] ml-[15px] mb-[30px]">
+            Mari, pilih trip perjalanan {{$country->title}} kak!
         </h1>
         <div class="flex flex-wrap home-section">
             @foreach($trips as $trip)
-            <div class="basis-full lg:basis-4/12 p-3 hover:drop-shadow-lg hover:cursor-pointer">
+            <div class="basis-full lg:basis-4/12 px-3 pt-[50px] pb-3 hover:drop-shadow-md hover:cursor-pointer ">
                 <div class="max-w-sm bg-white ">
                     <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}">
                         <img src="{{$trip->thumbnail}}" alt="" class="w-full">
                     </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-blueTbliss mr-3">
+                    <div class="mt-3 flex flex-col">
+                        <div class="flex flex-1">
+                            <h5 class="text-blueTbliss mr-3 text-[12px]">
                                 {{$trip->seat}} seats left
                             </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-[12px]">
                         </div>
-                        <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">{{$trip->title}}</h5>
-                        </a>
-                        <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-                            {{$trip->day}}H{{$trip->night}}M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
 
-                            {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
-                        </span>
-                        <p class="text-redTbliss font-bold text-[19px]">
+                        <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}" class="flex-1">
+                            <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[28px] h-[95px]">{{$trip->title}}</h5>
+                        </a>
+                        <div class="flex-1">
+                            <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                                {{$trip->day}}H{{$trip->night}}M
+                            </span>
+                            <span>
+                                |
+                            </span>
+                            <span class="ml-3 text-[16px]">
+
+                                {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
+                            </span>
+                        </div>
+                        <p class="text-redTbliss font-bold text-[19px] flex-1">
                             @currency($trip->price)
                         </p>
                     </div>
                 </div>
+
+
+
             </div>
             @endforeach
 
@@ -137,19 +165,22 @@
             Hidden Gems di {{$country->title}}
         </h1>
         <div class="flex flex-wrap hg-slider">
-            @foreach($hiddenGems as $hiddenGem)
+            @foreach($pickHiddenGems as $hiddenGem)
             <div class="basis-full lg:basis-3/12 gap-8 p-3 hover:drop-shadow-lg hover:cursor-pointer">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
-                    <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->slug])}}">
-                        <img class=" w-full" src="{{$hiddenGem->image_desktop}}" alt="" />
+                    <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->hidden_gem->slug])}}">
+                        <img class=" w-full" src="{{$hiddenGem->hidden_gem->image_desktop}}" alt="" />
                     </a>
-                    <div class="p-3 h-[200px]">
-                        <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->slug])}}">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$hiddenGem->title}}</h5>
+
+                    <div class="p-3 h-[150px]">
+
+                        <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->hidden_gem->slug])}}">
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$hiddenGem->hidden_gem->title}}</h5>
                         </a>
                         <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">57.6 views</p>
 
                     </div>
+
                 </div>
             </div>
             @endforeach
@@ -163,8 +194,14 @@
         <h1 class="font-bold w-full lg:w-[25%] text-[30px] mb-3 lg:mb-0">
             Kesan yang pernah ikut t'bliss
         </h1>
-        <div class="flex flex-wrap justify-end">
-            <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="">
+        <div class="flex flex-wrap justify-end ">
+            <div class="slider-for w-[550px]">
+                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
+                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
+                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
+
+            </div>
+            <!-- <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-[500px] w-[500px]"> -->
         </div>
         <div class="relative">
             <div class="absolute top-[0px] lg:top-[-470px] left-0 lg:left-[15%] bg-white w-full lg:w-[45%] p-6  lg:p-5">
@@ -209,7 +246,8 @@
 
 
 
-<section class="p-4">
+
+<section class="px-4 pb-[80px] pt-4">
     <div class="container-lg">
         <div class="flex justify-center  mt-[59px]">
             <h1 class=" mr-1 lg:mr-3 font-bold font-interRegular text-[15px] lg:text-[26px]">
@@ -258,6 +296,7 @@
 
         let base_url = window.location.origin;
         $(".selector").flatpickr({
+            dateFormat: "d/m/Y",
             minDate: "today",
             maxDate: "31.12.2029",
             altInput: true,
@@ -303,47 +342,56 @@
                     }
                 },
                 success: function(data) {
-                    // console.log(data);
+                    // console.log(data.length);
                     $('.home-section').empty()
                     let result = data
-                    result.forEach(function(item, index) {
+                    if(data.length === 0){
                         $('.home-section').append(
-                            `
-                                <div class="basis-full lg:basis-4/12 p-3">
-                                    <div class="max-w-sm bg-white ">
-                                        <a href="/countries/korea/detail/${item.slug}">
-                                            <img src="${item.thumbnail}" alt="" class="w-full">
-                                        </a>
-                                        <div class="mt-3 ">
-                                            <div class="flex ">
-                                                <h5 class="text-blueTbliss mr-3">
-                                                    ${item.seat} seats left
-                                                </h5>
-                                                <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-                                            </div>
-                                            <a href="#">
-                                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">${item.title}</h5>
+                            `<div class=" w-full flex justify-center text-[20px] text-footer">
+                            Maaf Kak, tidak ada jadwal trip pada saat ini
+                            </div>`
+                        )
+                    }
+                    else{
+                        result.forEach(function(item, index) {
+                            $('.home-section').append(
+                                `
+                                    <div class="basis-full lg:basis-4/12 p-3">
+                                        <div class="max-w-sm bg-white ">
+                                            <a href="/countries/korea/detail/${item.slug}">
+                                                <img src="${item.thumbnail}" alt="" class="w-full">
                                             </a>
-                                            <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-                                                ${item.day}H${item.night}M
-                                            </span>
-                                            <span>
-                                                |
-                                            </span>
-                                            <span class="ml-3 text-[16px]">
-
-                                                ${new Date(item.date_from).getDay()} - ${item.date_to}
-                                            </span>
-                                            <p class="text-redTbliss font-bold text-[19px]">
-                                                ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
-                                            </p>
+                                            <div class="mt-3 ">
+                                                <div class="flex ">
+                                                    <h5 class="text-blueTbliss mr-3">
+                                                        ${item.seat} seats left
+                                                    </h5>
+                                                    <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                                                </div>
+                                                <a href="#">
+                                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">${item.title}</h5>
+                                                </a>
+                                                <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                                                    ${item.day}H${item.night}M
+                                                </span>
+                                                <span>
+                                                    |
+                                                </span>
+                                                <span class="ml-3 text-[16px]">
+    
+                                                    ${new Date(item.date_from).getDay()} - ${item.date_to}
+                                                </span>
+                                                <p class="text-redTbliss font-bold text-[19px]">
+                                                    ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
+                                                </p>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            `
-                        )
-
-                    })
+                                `
+                            )
+    
+                        })
+                    }
 
                     // let allData = [...allData, data]
                     // allData.push(data)
@@ -353,6 +401,16 @@
 
 
         })
+
+        $('.slider-for').slick({
+            slidesToShow: 1,
+            slidesToScroll: 1,
+            arrows: false,
+            // fade: true,
+            asNavFor: '.testimoni-slider'
+        });
+
+        $('.slider-for').not('.slick-initialized').slick();
 
 
         $('.banner-slider').slick({
@@ -371,6 +429,7 @@
             infinite: true,
             slidesToShow: 1,
             autoplay: false,
+            asNavFor: '.slider-for',
             arrows: true,
             prevArrow: '.left-testimoni-arrow',
             nextArrow: '.right-testimoni-arrow',

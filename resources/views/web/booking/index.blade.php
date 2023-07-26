@@ -7,7 +7,7 @@
 </div>
 <section>
     <div class="flex items-center px-4 bg-white justify-center pt-[24px]">
-        <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[20px] h-[20px] mr-[12px]">
+        <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[40px] h-[40px] mr-[12px]">
         <h1 class=" font-interRegular text-[15px]">Trusted Booking</h1>
     </div>
     <div class="flex flex-wrap">

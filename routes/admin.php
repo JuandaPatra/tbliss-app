@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\CategoriesController;
+use App\Http\Controllers\Admin\ChooseHiddenGemController;
 use App\Http\Controllers\Admin\CityController;
 use App\Http\Controllers\Admin\ContinentController;
 use App\Http\Controllers\Admin\CountryController;
@@ -13,7 +14,11 @@ use App\Http\Controllers\Admin\HiddenGemController;
 use App\Http\Controllers\Admin\IncludesController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PickHiddenGemsController;
+use App\Http\Controllers\Admin\PolicyController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\TestimoniController;
+use App\Http\Controllers\Admin\TestimoniHomepage;
+use App\Http\Controllers\Admin\TestimoniHomepageController;
 use App\Http\Controllers\Admin\TripController;
 use App\Http\Controllers\Admin\UserAdmin;
 use App\Http\Controllers\ContactController;
@@ -41,6 +46,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isAdmin');
 
+   Route::put('product/testimoni-per-trip/{product}/update', [ProductController::class,'updateEditTestimoni'])->name('product.updateTestimoniTrip'); 
+    Route::get('product/testimoni-per-trip/{product}/edit', [ProductController::class,'editTestimoni'])->name('product.editTestimoniTrip');
+    Route::delete('product/testimoni-per-trip/{product}/delete', [ProductController::class,'deleteTestimoni'])->name('product.destroyTestimoniTrip');
+    Route::post('product/testimoni-per-trip/table', [ProductController::class, 'table'])->name('tableTestimoniTrip');
+    Route::get('product/testimoni-per-trip/{id}', [ProductController::class, 'testimoni'])->name('product.testimoni');
+    Route::post('product/testimoni-per-trip/{id}', [ProductController::class, 'testimoniAdd'])->name('product.testimoniAdd');
+    Route::post('product/review-star/{id}', [ProductController::class, 'reviewAdd'])->name('product.reviewAdd');
+    Route::get('product/review-star/{id}', [ProductController::class,'review'])->name('product.review');
     Route::get('product/includes/{product}', [ProductController::class, 'include'])->name('product.include');
     Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
     Route::get('product/choose/{product}', [ProductController::class, 'choose'])->name('product.choose');
@@ -64,6 +77,17 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('slider', SliderController::class);
 
     Route::resource('categories', CategoriesController::class);
+
+    Route::get('/policy/syaratketentuan', [PolicyController::class,'index2'])->name('policy.syarat');
+    Route::post('/policy/syaratketentuan', [PolicyController::class, 'storeSyarat'])->name('policy.storeSyarat');
+    Route::resource('policy', PolicyController::class);
+
+    Route::get('/table-testimoni', [TestimoniController::class, 'table'])->name('tableTestimoni');
+    Route::get('/delete-tes/{id}', [TestimoniController::class, 'destroy1'])->name('testimoni-trip.destroy1');
+    Route::resource('testimoni-trip', TestimoniController::class );
+
+    Route::resource('choose-hidden-gem', ChooseHiddenGemController::class);
+
 
     Route::get('/continent/select', [ContinentController::class, 'select'])->name('continent.select');
     Route::resource('continent', ContinentController::class);
@@ -97,4 +121,5 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notifications', [HomeController::class, 'notification'])->middleware('isAdmin')->name('notifications.admin');
 
     Route::get('notification-close/{id}', [HomeController::class, 'notificationRead'])->middleware('isAdmin')->name('notifications.close');
+    
 });

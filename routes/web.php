@@ -24,6 +24,7 @@ use App\Http\Controllers\SosmedController;
 use App\Http\Controllers\Web\CheckoutController;
 use App\Http\Controllers\Web\EmailsController;
 use App\Http\Controllers\Web\HomeController;
+use App\Http\Controllers\Web\pdfOpenerController;
 use App\Http\Controllers\Web\SearchTripController;
 use App\Http\Controllers\Web\UserLoginController;
 use App\Http\Controllers\Web\UserRegisterController;
@@ -108,6 +109,10 @@ Route::get('/ges', function(){
     ]));
 
 });
+
+Route::get('/teskirimpdf', [pdfOpenerController::class, 'index'])->name('bukaPDF');
+
+Route::get('/visa-policy', [pdfOpenerController::class, 'index2'])->name('bukaPDF2');
 
 
 Auth::routes();

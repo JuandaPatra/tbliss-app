@@ -21,6 +21,12 @@
   <link rel="stylesheet" href="{{ asset('vendor/my-dashboard/js/perfect-scrollbar/perfect-scrollbar.css') }}">
   <script src="{{ asset('vendor/my-dashboard/js/helpers.js') }}"></script>
   <script src="{{ asset('vendor/my-dashboard/js/config.js') }}"></script>
+  
+  <style>
+    .sorting_1{
+      text-align: center;
+    }
+  </style>
 
   {{-- css:external --}}
   @stack('css-external')

@@ -40,6 +40,11 @@ class Hidden_gem extends Model
         return $this->belongsTo(PickHiddenGem::class);
     }
 
+    public function pick_hidden_gem_homepage()
+    {
+        return $this->belongsTo(HiddenGemHomepage::class);
+    }
+
     // public function pick_hidden_gem()
     // {
     //     return $this->belongsTo(PickHiddenGem::class,'hidden_gem_id');

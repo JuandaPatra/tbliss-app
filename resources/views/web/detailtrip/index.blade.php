@@ -84,8 +84,15 @@
 
             <div class="text-[18px] pt-3 pb-3">
                 <h1 class="font-bold uppercase">
-                    @foreach($detailTrip->place_trip_categories_cities as $city)
+                    @foreach($detailTrip->place_trip_categories_cities as $index => $city)
+
+                    @if($index == 0)
+                    {{$city->place_categories->title}} -
+                    @elseif($loop->count == $index+1)
                     {{$city->place_categories->title}}
+                    @else
+                    {{$city->place_categories->title}} -
+                    @endif
                     @endforeach
                 </h1>
                 {!! $detailTrip->itinerary !!}
@@ -93,7 +100,7 @@
 
             <div class="flex mb-3">
                 <img src="{{ asset('images/detailtrip/itin.png') }}" alt="" class="inline w-[34px] h-[34px] mr-3">
-                <a href="{{$detailTrip->link_g_drive}}" class="underline text-blue-500">Unduh detail itinerary</a>
+                <a href="{{$detailTrip->link_g_drive}}" target="_blank" class="underline text-blue-500">Unduh detail itinerary</a>
             </div>
 
             <ul class="list-inside list-disc">
@@ -110,20 +117,7 @@
         </div>
         <div class="basis-full lg:basis-1/2">
             <div class="flex flex-col items-center mt-[22px] lg:mt-">
-                <div class="flex justify-between w-1/2 border-b-4 pb-4 mb-5">
-                    <img src="{{ asset('images/detailtrip/cov.png') }}" alt="" class=" inline-block h-[42px] w-[42px]">
-                    <div class="ml-5">
-                        <h1 class="text-[#414141] text-[18px] font-bold mb-1">
-                            Kebijakan Covid19
-                        </h1>
-                        <p class="text-[16px] mb-3">
-                            Kakak wajib sudah vaksin lengkap + booster.
-                        </p>
 
-                        <a href="" class="underline text-blue-500 ">Pelajari detail</a>
-                    </div>
-
-                </div>
                 <div class="flex justify-between w-1/2 border-b-4 pb-4 mb-5">
                     <img src="{{ asset('images/detailtrip/kebijakan.png') }}" alt="" class=" inline-block h-[42px] w-[42px]">
                     <div class="ml-5">
@@ -134,7 +128,7 @@
                             Kakak wajib sudah vaksin lengkap + booster.
                         </p>
 
-                        <a href="" class="underline text-blue-500 ">Pelajari detail</a>
+                        <a href="/visa-policy" target="_blank" class="underline text-blue-500 ">Pelajari detail</a>
                     </div>
 
                 </div>
@@ -147,7 +141,7 @@
                         <p class="text-[16px] mb-3">
                             Seputar visa, tiket pesawat dan lainny
                         </p>
-                        <a href="" class="underline text-blue-500 ">Pelajari detail</a>
+                        <a href="/teskirimpdf" target="_blank" class="underline text-blue-500 ">Pelajari detail</a>
                     </div>
                 </div>
             </div>

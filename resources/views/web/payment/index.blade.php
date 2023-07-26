@@ -7,7 +7,7 @@
 </div>
 <section>
     <div class="flex items-center px-4 bg-white justify-center pt-[24px] mb-[47px]">
-        <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[20px] h-[20px] mr-[12px]">
+        <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[40px] h-[40px] mr-[12px]">
         <h1 class=" font-interRegular text-[15px]">Trusted Booking</h1>
     </div>
     <div class="flex flex-wrap">
@@ -18,9 +18,9 @@
                 <p class="text-footer text-[35px] mr-0 lg:mr-[30px] font-interRegular virtual-akun">8890948593849284959</p>
                 <button class="w-[35px] h-[35px] px-2 py-2 button-copy"><img src="{{ asset('images/payment/copy.png') }}" alt="" ></button>
             </div>
-            <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">Virtual Account Name#</p>
-            <p class="text-footer text-[35px] mr-[30px] font-interRegular">Travel Blizz Trip</p>
-            <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">Amount to Pay</p>
+            <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">No. Rekening</p>
+            <p class="text-footer text-[35px] mr-[30px] font-interRegular">an. PT. Travel Blizz Trip</p>
+            <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">Total </p>
             <p class="text-footer text-[35px] mr-[30px] font-interRegular">@currency($payment->grand_total)</p>
 
             <p class="mt-[104px] mb-[30px] font-interRegular text-[18px] font-bold"> Cara Pembayaran</p>
@@ -86,12 +86,12 @@
             </div>
         </div>
         <div class="basis-full lg:basis-5/12 bg-yellowTbliss pl-3 lg:pl-7 pr-3 lg:pr-16">
-            <h1 class="mt-[49px] mb-[51px] text-[22px] font-bold font-interRegular ">Order Summary</h1>
+            <h1 class="mt-[49px] mb-[51px] text-[22px] font-bold font-interRegular ">Ringkasan Pemesana</h1>
             <p class="text-[16px] font-bold font-interRegular ">
                 Invoice #{{$payment->invoice_id}}
             </p>
             <!-- <p class="text-[16px] font-bold font-interRegular text-footer border-b border-greyTbliss pb-[41px]">Pay before 27 June 2023 05:04 PM</p> -->
-            <p class="text-[16px] font-bold font-interRegular text-footer border-b border-greyTbliss pb-[41px]">Pay before {{$dueDate}}</p>
+            <p class="text-[16px] font-bold font-interRegular text-footer border-b border-greyTbliss pb-[41px]">bayar sebelum tanggal {{$dueDate}}</p>
             <div class="flex mt-[51px] mb-[30px]">
                 <p class="text-[16px] font-bold font-interRegular w-3/4 pr-[40px] ">
                     {{$payment->trip->title}} {{ date('d', strtotime($payment->trip->date_from)) }} - {{ date('d M Y', strtotime($payment->trip->date_to)) }} {{$status}}
