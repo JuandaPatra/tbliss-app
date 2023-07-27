@@ -43,7 +43,7 @@ class HomeController extends Controller
         ///// negara default adalah korea
         $id = 'korea';
 
-       
+
 
 
         ///// kirim id ke halaman home
@@ -52,34 +52,41 @@ class HomeController extends Controller
 
     public function country($id)
     {
-        // $profile = \Dymantic\InstagramFeed\Profile::where('username', 'juanda_p106')->first();
-        // return $profile;
-       
-
-        // return $contractDateBegin;
+        
 
         $slug = $id;
 
-        ////mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
+        /**
+         * mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
+         */
+
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
 
-        //// mendapatkan trip berdasarkan negara
+         /**
+         * mendapatkan trip berdasarkan negara
+         */
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
         })->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 90))->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
-        
+
 
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
         })->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat',]);
 
-        // mengambil semua hidden gem yang sudah dipilih dari cms
-        $pickHiddenGems = HiddenGemHomepage::with(['hidden_gem:id,title,image_desktop,slug'])->get(['id', 'hidden_gem_id', ]);
+         /**
+         * mengambil semua hidden gem yang sudah dipilih dari cms
+         */
+        $pickHiddenGems = HiddenGemHomepage::with(['hidden_gem:id,title,image_desktop,slug'])->get(['id', 'hidden_gem_id',]);
 
-        //// mendapatkan list negara di halaman home
+        /**
+         * mendapatkan list negara di halaman home
+         */
         $hiddenGemId = Place_categories::where('parent_id', '=', $country->id)->get(['id', 'title', 'parent_id']);
 
-        //// mendapatkan list hidden gem di halaman home
+        /**
+         * mendapatkan list hidden gem di halaman home
+         */
         $hiddenGems = Hidden_gem::whereIn('places_id', $hiddenGemId->pluck('id'))->where('status', 'publish')->get([
             'title',
             'slug',
@@ -88,14 +95,23 @@ class HomeController extends Controller
             'places_id'
         ]);
 
+         /**
+         * mendapatkan list testimoni di halaman home
+         */
+        $testimonies = globalData::where('categories', '=', 3)->get([ 'name','description','image']);
 
-        return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId', 'pickHiddenGems' ));
+
+        return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId', 'pickHiddenGems', 'testimonies'));
     }
 
-    public function detail($id, $trip)
+    public function detail(Request $request,$id, $trip)
     {
+
+
+        
         //// ambil detail trip
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner']);
+
 
         // ambil koleksi array kota yang memuat kota
         $pickCitiesTrip = place_trip_categories_cities::where('trip_categories_id', '=', $detailTrip->id)->get('place_categories_id')->pluck('place_categories_id');
@@ -106,7 +122,7 @@ class HomeController extends Controller
         $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
         // $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
         $syarat = globalData::where('categories', '=', 2)->first(['description']);
-        
+
 
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip', 'syarat'));
     }
@@ -1206,7 +1222,7 @@ class HomeController extends Controller
                 'name'      => 'ORD' . $newCart->id . 'telah membuat pesanan',
                 'status'    => 'belum dibaca'
             ]);
-            
+
 
             $ids = encrypt($id);
             return redirect()->route('payment', $ids);
@@ -1526,9 +1542,6 @@ class HomeController extends Controller
 
     public function uploadImage(Request $request)
     {
-        // $this->validate($request, [
-        //     'file' => 'required',
-        // ]);
 
         $validator = Validator::make(
             $request->all(),

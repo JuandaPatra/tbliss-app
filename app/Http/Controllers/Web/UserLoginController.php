@@ -15,8 +15,12 @@ class UserLoginController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $url = url()->previous();
+
+        $request->session()->put('url-prev', $url);
+        
         return view('web.login.index');
     }
 
@@ -86,9 +90,9 @@ class UserLoginController extends Controller
         //
     }
 
-    public function google()
+    public function google(Request $request)
     {
-        // return 'google';
+
         try {
             // return Socialite::driver($driver)->redirect();
             return Socialite::driver('google')->stateless()->redirect();
@@ -99,7 +103,7 @@ class UserLoginController extends Controller
         
     }
 
-    public function handleGoogleCallback()
+    public function handleGoogleCallback(Request $request)
     {
         $callback = Socialite::driver('google')->stateless()->user();
         // return $callback;
@@ -121,6 +125,10 @@ class UserLoginController extends Controller
 
         Auth::login($user);
 
-        return redirect('/');
+        // return redirect('/');
+
+        
+       $url= $request->session()->get('url-prev');
+        return redirect()->to($url);
     }
 }

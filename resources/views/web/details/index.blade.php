@@ -14,13 +14,13 @@
                     <div class="flex">
                         <select id="countries" class="bg-gray-50 border border-gray-300 rounded-l-lg text-greyDetTbliss font-interRegular text-[13px]  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <!-- <option value="">Pilih Negara</option> -->
-                            
-                                @foreach($result as $choice)
-                                @foreach($choice->children as $select)
-                                <option value="{{$select->id}}">{{$select->title}}</option>
-                                @endforeach
-                                @endforeach
-                                
+
+                            @foreach($result as $choice)
+                            @foreach($choice->children as $select)
+                            <option value="{{$select->id}}">{{$select->title}}</option>
+                            @endforeach
+                            @endforeach
+
                         </select>
                         <button class="focus:outline-none  text-white bg-tbliss w-[46px] rounded-r-lg px-2" id="search-country">
                             <img src="{{ asset('images/title/search.png') }}" alt="" class="">
@@ -33,37 +33,24 @@
                 <p class="text-[20px] text-[#102448] mb-2">
                     Kota yang ingin dikunjungi :
                 </p>
-               
+
                 <div class="row-button w-[80%]">
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Seoul</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Busan</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Jeju Island</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Gyeongju</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Gangneung</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Jeonju</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Incheon</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Suwon</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Chuncheon</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Paju</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Inje</button>
-                    <button type="button" class="w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  ">Other</button>
+                    @foreach($cityArray as $city)
+                    <button type="button" id="city-{{$city->id}}" value="{{$city->id}}" class="cityX w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  " data-pickCity="{{$city->id}}">{{$city->title}}</button>
+                    @endforeach
                 </div>
 
 
-                
+
                 <h1 class="my-3 text-[#102448] text-[20px] mt-4 mb-3">
                     Aktivitas yang ingin dilakukan
                 </h1>
-                
+
                 <div class="hashtag-row w-full lg:w-[100%] mb-8">
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#EnjoyK-pop</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#From the Sea, From the River</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Flavors of the City</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#convenientTravelServices</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#History / Traditional Tour</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Only in Korea</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Healing in Nature</button>
-                    <button class="bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium">#Food Trip</button>
+                    @foreach($hashtags as $hashtag)
+                    <button class="hashtagX bg-transparent border border-gray-300 rounded-full px-3 py-3 mr-2 my-1 text-gray-900 text-sm font-medium" data-hashtag="{{$hashtag->id}}">{{$hashtag->title}}</button>
+                    @endforeach
+
                 </div>
                 <a type="button" class="text-white bg-[#BF1E5F] hover:bg-[#BF1E5F] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-5 py-2.5 text-center mr-2 mb-2" id="searchTrip">Lihat hasil itinerari kakak
                     <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
@@ -97,7 +84,7 @@
 
 <div>
 
-    
+
     <section class="container-full">
         <div class="flex justify-center">
             <h1 class="text-center w-[80%] lg:w-[35%] text-[30px] pb-10 mt-[71px]">
@@ -130,6 +117,10 @@
                         <div class="text-[18px] pt-3 pb-3">
                             <h1 class="font-bold uppercase">
                                 @foreach($trip->place_trip_categories_cities as $index => $city)
+                                @if($trip->place_trip_categories_cities->count() == 1)
+                                {{$city->place_categories->title}}
+
+                                @else
                                 @if($index == 0)
                                 {{$city->place_categories->title}} -
                                 @elseif($loop->count == $index+1)
@@ -137,13 +128,24 @@
                                 @else
                                 {{$city->place_categories->title}} -
                                 @endif
+                                @endif
                                 @endforeach
                             </h1>
-                           
-                            {!! $trip->itinerary !!}
+
+
+                            
+                            <div class="h-[180px]">
+                                @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
+                                <p>
+                                    {{$hidden_gem->hidden_gems->title}}
+                                </p>
+                                @endforeach
+                            </div>
+
+
                         </div>
                         <div class="flex justify-between w-full lg:w-[90%]">
-                            <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
+                            <a href="{{route('home.detail' ,['id'=>'korea','trip'=>$trip->slug])}}" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                                 <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                             </a>
                             <div class="flex pt-[11px] lg:pt-0">
@@ -188,6 +190,10 @@
                         <div class="text-[18px] pt-3 pb-3">
                             <h1 class="font-bold uppercase">
                                 @foreach($trip->place_trip_categories_cities as $index => $city)
+                                @if($trip->place_trip_categories_cities->count() == 1)
+                                {{$city->place_categories->title}}
+
+                                @else
                                 @if($index == 0)
                                 {{$city->place_categories->title}} -
                                 @elseif($loop->count == $index+1)
@@ -195,13 +201,23 @@
                                 @else
                                 {{$city->place_categories->title}} -
                                 @endif
+                                @endif
                                 @endforeach
                             </h1>
-                            {!! $trip->itinerary !!}
-                            
+
+
+                            <div class="h-[180px]">
+                                @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
+                                <p>
+                                    {{$hidden_gem->hidden_gems->title}}
+                                </p>
+                                @endforeach
+                            </div>
+
+
                         </div>
                         <div class="flex justify-between w-full lg:w-[90%]">
-                            <a href="" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
+                            <a href="{{route('home.detail' ,['id'=>'korea','trip'=>$trip->slug])}}" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                                 <img src="{{ asset('images/details/arrow.png') }}" alt="" class="h-[10px] w-[10px] inline-block ">
                             </a>
                             <div class="flex pt-[11px] lg:pt-0">
@@ -246,7 +262,7 @@
                 </div>
             </div>
             @endforeach
-            
+
         </div>
     </section>
 

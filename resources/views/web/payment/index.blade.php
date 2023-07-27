@@ -6,7 +6,7 @@
     <h1 class=" font-bely text-footer text-[45px]">Panduan Pembayaran</h1>
 </div>
 <section>
-    <div class="flex items-center px-4 bg-white justify-center pt-[24px] mb-[47px]">
+    <div class="flex items-center px-4 bg-white justify-center pt-[24px] mb-[55px]">
         <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[40px] h-[40px] mr-[12px]">
         <h1 class=" font-interRegular text-[15px]">Trusted Booking</h1>
     </div>
@@ -86,11 +86,10 @@
             </div>
         </div>
         <div class="basis-full lg:basis-5/12 bg-yellowTbliss pl-3 lg:pl-7 pr-3 lg:pr-16">
-            <h1 class="mt-[49px] mb-[51px] text-[22px] font-bold font-interRegular ">Ringkasan Pemesana</h1>
+            <h1 class="mt-[49px] mb-[51px] text-[22px] font-bold font-interRegular ">Ringkasan Pemesanan</h1>
             <p class="text-[16px] font-bold font-interRegular ">
                 Invoice #{{$payment->invoice_id}}
             </p>
-            <!-- <p class="text-[16px] font-bold font-interRegular text-footer border-b border-greyTbliss pb-[41px]">Pay before 27 June 2023 05:04 PM</p> -->
             <p class="text-[16px] font-bold font-interRegular text-footer border-b border-greyTbliss pb-[41px]">bayar sebelum tanggal {{$dueDate}}</p>
             <div class="flex mt-[51px] mb-[30px]">
                 <p class="text-[16px] font-bold font-interRegular w-3/4 pr-[40px] ">
@@ -133,17 +132,20 @@
                 </p>
                 <p class="text-[16px] font-bold font-interRegular w-1/3 text-end">@currency($payment->grand_total)</p>
             </div>
-            <div class="h-[400px] lg:h-[350px] p-4 lg:p-10 bg-footer text-white mt-[117px] mb-[102px] rounded-[20px]">
-                <h1 class="text-center mt-[30px] text-[22px]">
-                    Konfirmasi Pembayaran
-                </h1>
-                <p class="text-center mt-[24px] mb-[44px] text-[16px]">
-                    Setelah melakukan pembayaran, silakan upload bukti pembayaranmu <a href="{{route('upload' ,['ids'=>$id])}}" class=" text-authbutton">disini</a> untuk konfirmasi
-                </p>
-                <div class="flex justify-center mb-[41px]">
-                    <img src="{{ asset('images/payment/upload.png') }}" alt="" class=" inline">
+            <a href="{{route('upload' ,['ids'=>$id])}}">
+                <div class="h-[400px] lg:h-[350px] p-4 lg:p-10 bg-footer text-white mt-[117px] mb-[102px] rounded-[20px]">
+                    <h1 class="text-center mt-[30px] text-[22px]">
+                        Konfirmasi Pembayaran
+                    </h1>
+                    <p class="text-center mt-[24px] mb-[44px] text-[16px]">
+                        Setelah melakukan pembayaran, silakan upload bukti pembayaranmu disini untuk konfirmasi
+                    </p>
+                    <div class="flex justify-center mb-[41px]">
+                        <img src="{{ asset('images/payment/upload.png') }}" alt="" class=" inline">
+                    </div>
                 </div>
-            </div>
+
+            </a>
         </div>
     </div>
     <style>

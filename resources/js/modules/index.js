@@ -5,6 +5,7 @@ let allData = [];
 let allHashtag = [];
 
 let allCities = [];
+let saveAllCities = [];
 
 export class DetailPages {
     selectCountry() {
@@ -41,13 +42,9 @@ export class DetailPages {
                     }
                 },
                 success: function (data) {
-                    // console.log(data.children);
                     let result = data.children;
                     $(`.row-button`).empty();
                     $(`.loading-animation`).addClass("hidden");
-                    // if(result = 0){
-                    //     console.log('nol datanya')
-                    // }
                     result.forEach(function (value) {
                         $(".row-button").append(
                             `
@@ -64,8 +61,15 @@ export class DetailPages {
         $(".row-button ").each(function () {
             $(this).on("click", ".cityX", function (e) {
                 let id = $(e.target).attr("data-pickCity");
+
                 $(this).addClass("border-4 border-redTbliss");
-                // console.log(id);
+                saveAllCities.push(id);
+                if (saveAllCities.length > 1) {
+                    let uniqueArr = [...new Set(saveAllCities)];
+
+                    saveAllCities = uniqueArr;
+                }
+
                 $.ajax({
                     type: "GET",
                     url: `${base_url}/search-hashtag/${id}`,
@@ -155,8 +159,9 @@ export class DetailPages {
 
     searchItinerary() {
         $("#searchTrip").on("click", function (e) {
-            // console.log(allHashtag);
             let post = allHashtag;
+            let cities = saveAllCities;
+            console.log("cities", cities);
 
             $.ajax({
                 type: "POST",
@@ -168,6 +173,7 @@ export class DetailPages {
                 },
                 data: {
                     post,
+                    cities,
                 },
                 error: function (xhr, error) {
                     if (xhr.status === 500) {
@@ -181,34 +187,15 @@ export class DetailPages {
                     }
                 },
                 success: function (data) {
-                    console.log(data);
+                    console.log('data', data);
                     let result = data;
-                    // $(`.row-button`).empty();
-                    // $(`.loading-animation`).addClass("hidden");
-                    // // if(result = 0){
-                    // //     console.log('nol datanya')
-                    // // }
                     $(".trip-search").empty();
 
                     for (let i = 0; i <= result.length; i++) {
                         let data = [];
                         allCities.push(data);
-                        // console.log(result);
 
                         if (i % 2 === 0) {
-                            // console.log(result)
-                            // console.log(result[i].place_trip_categories_cities)
-                            // console.log(result[i].place_trip_categories_cities.length)
-                            // for(let k= 0;k<=result[i].place_trip_categories_cities.length;k++){
-                            //     // console.log(`k adalah ${place_trip_categories_cities[k]}`)
-                            // }
-
-                            // console.log(result[i].place_trip_categories_cities)
-                            // for(let x=0;x<result[i].place_trip_categories_cities.length;x++ ){
-                            //     console.log(result[i].place_trip_categories_cities[x].place_categories.title)
-                            // }
-                            // $(`city-${i}`).append(
-                            //     );
                             result[i].place_trip_categories_cities.forEach(
                                 function (item, index) {
                                     // console.log(
@@ -249,9 +236,7 @@ export class DetailPages {
                                         <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                                             <div>
                                                 <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                                    ${result[i].day}H${
-                                    result[i].night
-                                }M
+                                                    ${result[i].day}H${result[i].night}M
                                                 </span>
                                                 <span>
                                                     |
@@ -268,10 +253,7 @@ export class DetailPages {
                                         </div>
                                         <div class="text-[18px] pt-3 pb-3">
                                             <h1 class="font-bold uppercase city-${i}">
-
-
-                                            
-                                                                                 
+                                            tes
                                             </h1>
                                             
                                             

@@ -130,7 +130,7 @@
                         </div>
 
                         <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}" class="flex-1">
-                            <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[28px] h-[95px]">{{$trip->title}}</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[28px] h-[130px]">{{$trip->title}}</h5>
                         </a>
                         <div class="flex-1">
                             <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
@@ -175,7 +175,7 @@
                     <div class="p-3 h-[150px]">
 
                         <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->hidden_gem->slug])}}">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{$hiddenGem->hidden_gem->title}}</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white h-[80px]">{{$hiddenGem->hidden_gem->title}}</h5>
                         </a>
                         <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">57.6 views</p>
 
@@ -196,42 +196,30 @@
         </h1>
         <div class="flex flex-wrap justify-end ">
             <div class="slider-for w-[550px]">
-                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
+                {{-- 
+                    @foreach($testimonies as $testimoni)
+                    <img src="{{$testimoni->image}}" alt="" class="h-auto w-[500px]">
+                    @endforeach
+                    --}}
                 <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
                 <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
 
             </div>
-            <!-- <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-[500px] w-[500px]"> -->
         </div>
         <div class="relative">
             <div class="absolute top-[0px] lg:top-[-470px] left-0 lg:left-[15%] bg-white w-full lg:w-[45%] p-6  lg:p-5">
                 <img src="{{ asset('images/testimoni/svg.png') }}" alt="" class="">
                 <div class="testimoni-slider">
+                    @foreach($testimonies as $testimoni)
                     <div>
                         <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
-                            The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
+                        {{$testimoni->description}}
                         </h1>
                         <p class="text-[15px] lg:text-[20px]">
-                            - Dian Wijaya, Jakarta
+                            {{$testimoni->name}}
                         </p>
                     </div>
-                    <div>
-                        <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
-                            The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
-                        </h1>
-                        <p class="text-[15px] lg:text-[20px]">
-                            - Dian Wijaya, Jakarta
-                        </p>
-                    </div>
-                    <div>
-                        <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
-                            The perfect way to explore amazing places. The team is extremely passionate, super responsive and always willing to go the extra mile even on short notice.
-                        </h1>
-                        <p class="text-[15px] lg:text-[20px]">
-                            - Dian Wijaya, Jakarta
-                        </p>
-                    </div>
-
+                    @endforeach
                 </div>
             </div>
             <div class="absolute top-[240px] lg:top-[-130px] left-0 lg:left-[15%] w-[15%] lg:w-[5%] mt-3">
@@ -262,18 +250,6 @@
             <a href="" class="text-[#2EC4DD] ml-2 font-interRegular text-[14px] lg:text-[15px]"> @travelibiss</a>
         </div>
         <ul class="juicer-feed" data-feed-id="travelbliss-tours" data-origin="embed-code"></ul>
-
-        <!-- <div class="grid grid-cols-4 gap-x-2 gap-y-3 mb-[111px]">
-            <div><img src="{{ asset('images/instagram/ig-1.jpg') }}" alt="" class="w-full"></div>
-            <div><img src="{{ asset('images/instagram/ig-2.jpg') }}" alt="" class="w-full"></div>
-            <div><img src="{{ asset('images/instagram/ig-3.jpg') }}" alt="" class="w-full"></div>
-            <div><img src="{{ asset('images/instagram/ig-4.jpg') }}" alt="" class="w-full"></div>
-            <div><img src="{{ asset('images/instagram/ig-5.jpg') }}" alt="" class="w-full"></div>
-            <div><img src="{{ asset('images/instagram/ig-6.jpg') }}" alt="" class="w-full"></div>
-            <div><img src="{{ asset('images/instagram/ig-7.jpg') }}" alt="" class="w-full"></div>
-            <div><img src="{{ asset('images/instagram/ig-8.jpg') }}" alt="" class="w-full"></div>
-        </div> -->
-
     </div>
 
 </section>

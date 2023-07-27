@@ -62,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-wrap mt-20 border-b-4 border-gray-200 pb-4">
+    <div class="flex flex-wrap mt-20 pb-4">
         <div class="basis-full lg:basis-1/2">
             <h3 class="text-[18px] text-[#414141]">
                 {{$detailTrip->description}}
@@ -146,39 +146,49 @@
                 </div>
             </div>
         </div>
-        <div class="basis-full lg:basis-1/2">
-            <h3 class="mb-4 text-[28px]">
-                Sudah termasuk
-            </h3>
-            @foreach($detailTrip->trip_include as $include)
-            <div class="mb-3">
-                <div class="flex">
-                    <img src="{{$include->icon_image}}" alt="" class="mr-12 inline">
-                    <h1 class=" inline-block mt-[10px]">{{$include->title}}</h1>
+
+    </div>
+</section>
+
+
+<section class="container-full bg-greyBGTbliss">
+    <div class="container-lg border-b border-b-[#6A6A6A] pb-[30px]">
+        <div class="flex flex-wrap mt-30 pt-[45px]">
+
+            <div class="basis-full lg:basis-1/2">
+                <h3 class="mb-4 text-[28px]">
+                    Sudah termasuk
+                </h3>
+                @foreach($detailTrip->trip_include as $include)
+                <div class="mb-3">
+                    <div class="flex">
+                        <img src="{{$include->icon_image}}" alt="" class="mr-12 inline">
+                        <h1 class=" inline-block mt-[10px]">{{$include->title}}</h1>
+                    </div>
+                    <!-- <span><img src="{{$include->icon_image}}" alt="" class="mr-12 inline">{{$include->title}}</span> -->
                 </div>
-                <!-- <span><img src="{{$include->icon_image}}" alt="" class="mr-12 inline">{{$include->title}}</span> -->
+                @endforeach
             </div>
-            @endforeach
-        </div>
-        <div class="basis-full lg:basis-1/2">
-            <h3 class="mb-4 text-[28px]">
-                Tidak termasuk
-            </h3>
-            @foreach($detailTrip->trip_exclude as $exclude)
-            <div class="mb-3">
-                <div class="flex">
-                    <img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">
-                    <h1 class=" inline-block mt-[10px]">{{$exclude->title}}</h1>
+            <div class="basis-full lg:basis-1/2">
+                <h3 class="mb-4 text-[28px]">
+                    Tidak termasuk
+                </h3>
+                @foreach($detailTrip->trip_exclude as $exclude)
+                <div class="mb-3">
+                    <div class="flex">
+                        <img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">
+                        <h1 class=" inline-block mt-[10px]">{{$exclude->title}}</h1>
+                    </div>
+                    <!-- <span><img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">  {{$exclude->title}}</span> -->
                 </div>
-                <!-- <span><img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">  {{$exclude->title}}</span> -->
+                @endforeach
             </div>
-            @endforeach
         </div>
     </div>
 </section>
 
-<section class="container-full">
-    <div class="container-lg mt-[27px] mb-[54px]">
+<section class="container-full bg-greyBGTbliss pb-[150px]">
+    <div class="container-lg pt-[27px] mb-[54px]">
         <h1 class="text-[28px]">
             Highlight Trip
         </h1>
@@ -211,45 +221,54 @@
 </section>
 
 <section>
-    <div class="container-lg pb-[164px]">
-        <h1 class="text-[30px]">
+    <div class="container-lg pb-[164px] mt-[50px]">
+        <h1 class="text-[30px] px-3">
             Eksplor Trip Lainnya
         </h1>
-        <div class="flex flex-wrap hg-slider">
+
+        <div class="flex flex-wrap other-trip-section">
             @foreach($otherTrips as $trip)
-            <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
-                <div class="max-w-full lg:max-w-lg bg-white ">
-                    <a href="{{route('home.detail' ,['id'=>$trip->slug,'trip'=>$trip->slug])}}">
+            <div class="basis-full lg:basis-4/12 px-3 pt-[50px] pb-3 hover:drop-shadow-md hover:cursor-pointer ">
+                <div class="max-w-sm bg-white ">
+                    <a href="{{route('home.detail' ,['id'=>'korea','trip'=>$trip->slug])}}">
                         <img src="{{$trip->thumbnail}}" alt="" class="w-full">
                     </a>
-                    <div class="mt-3 ">
-                        <div class="flex ">
-                            <h5 class="text-[#4A5CED] mr-3">
+                    <div class="mt-3 flex flex-col">
+                        <div class="flex flex-1">
+                            <h5 class="text-blueTbliss mr-3 text-[12px]">
                                 {{$trip->seat}} seats left
                             </h5>
-                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                            <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-[12px]">
                         </div>
-                        <a href="#">
-                            <h5 class="mb-2 text-2xl font-bold tracking-tight text-[#414141] text-[28px]">{{$trip->title}}</h5>
+
+                        <a href="{{route('home.detail' ,['id'=>'korea','trip'=>$trip->slug])}}" class="flex-1">
+                            <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[28px] h-[130px]">{{$trip->title}}</h5>
                         </a>
-                        <span class="text-[#6A6A6A] font-bold text-[22px] mr-5">
-                            {{$trip->day}}H{{$trip->night}} M
-                        </span>
-                        <span>
-                            |
-                        </span>
-                        <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
-                        </span>
-                        <p class="text-[#FF5055] font-bold text-[19px]">
+                        <div class="flex-1">
+                            <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                                {{$trip->day}}H{{$trip->night}}M
+                            </span>
+                            <span>
+                                |
+                            </span>
+                            <span class="ml-3 text-[16px]">
+
+                                {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
+                            </span>
+                        </div>
+                        <p class="text-redTbliss font-bold text-[19px] flex-1">
                             @currency($trip->price)
                         </p>
                     </div>
                 </div>
-            </div>
 
+
+
+            </div>
             @endforeach
+
         </div>
+
     </div>
 </section>
 

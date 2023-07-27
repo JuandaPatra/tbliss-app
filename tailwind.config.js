@@ -16,7 +16,8 @@ module.exports = {
             greyDetTbliss : '#6A6A6A',
             greyRgba    : 'rgba(65,65,65,0.5)',
             authbutton  : '#2ec4dd',
-            yellowTbliss: '#FAF8ED'
+            yellowTbliss: '#FAF8ED',
+            greyBGTbliss :  '#F8F8F8',
 
         },
         extend: {

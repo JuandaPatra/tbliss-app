@@ -171,7 +171,7 @@
         <div class="container-lg px-2 lg:px-4">
             <div class="relative overflow-x-auto">
                 <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
-                    <thead class=" font-interRegular text-sm border-b border-[#9F9F9F]">
+                    <thead class=" font-interRegular text-sm border-y border-[#9F9F9F]">
                         <tr>
                             <th scope="col" class="pl-0 pr-6 py-3 w-[55%]">
                                 Item Pembayaran
@@ -362,8 +362,8 @@
                         </tr>
                     </tbody>
                 </table>
-                <p class="installment-includes">* Visa untuk pembayaran Uang Muka akan di kenakan pada saat cicilan pertama</p>
-                <p class="installment-includes">* Tipping untuk pembayaran Uang Muka akan di kenakan pada saat cicilan Kedua</p>
+                <p class="installment-includes text-[12px] mt-[30px]">* Visa untuk pembayaran Uang Muka akan di kenakan pada saat cicilan pertama</p>
+                <p class="installment-includes text-[12px] mb-[30px]">* Tipping untuk pembayaran Uang Muka akan di kenakan pada saat cicilan Kedua</p>
             </div>
             <div class="btn-group w-full">
                 <button class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] " type="submit">Bayar Sekarang</button>
@@ -382,7 +382,7 @@
             </div>
         </div>
     </form>
-    <div class="container-lg pb-[50px] lg:pb-[164px] px-4">
+    <div class="container-lg pb-[50px] lg:pb-[164px] mt-[65px]">
         <h1 class=" font-interRegular text-[16px] font-bold text-[#414141] mb-[20px] mt-[35px]">
             Syarat dan Ketentuan
         </h1>
