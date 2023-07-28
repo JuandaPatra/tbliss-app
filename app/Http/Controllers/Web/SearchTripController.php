@@ -204,8 +204,26 @@ class SearchTripController extends Controller
             array_push($cobaTrip, $tes->id);
         }
 
-        // return $cobaTrip;
         $allTrip = Trip_categories::with(['place_trip_categories_cities', 'place_trip_categories_cities.place_categories'])->whereIn('id', $cobaTrip)->get();
+
+        foreach($allTrip as $trip){
+            $trip['date_from'] = date('d', strtotime($trip->date_from));
+            $trip['date_to'] = date('d M Y', strtotime($trip->date_to));
+            $trip['cities']=  '';
+
+
+            for($i=0;$i<count($trip['place_trip_categories_cities']);$i++){
+                if(count($trip['place_trip_categories_cities']) == 1){
+                    $trip['cities'] = $trip['cities'] .''. $trip['place_trip_categories_cities'][$i]['place_categories']['title'];    
+                }else{
+                    if($i == count($trip['place_trip_categories_cities'])-1 ){
+                        $trip['cities'] = $trip['cities'] .''. $trip['place_trip_categories_cities'][$i]['place_categories']['title'];
+                    }else{
+                        $trip['cities'] = $trip['cities'] .''. $trip['place_trip_categories_cities'][$i]['place_categories']['title'] . '-';
+                    }
+                }
+            }
+        }
 
         return response()->json($allTrip);
         // return response()->json($trips->unique('trip_categories_id'));

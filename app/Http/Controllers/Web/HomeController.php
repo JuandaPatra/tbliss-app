@@ -40,13 +40,17 @@ class HomeController extends Controller
     public function index()
     {
 
-        ///// negara default adalah korea
+        /**
+         * negara default adalah korea
+         */
         $id = 'korea';
 
 
 
 
-        ///// kirim id ke halaman home
+        /**
+         * kirim id ke halaman home
+         */
         return redirect()->route('home.country', $id);
     }
 
@@ -108,19 +112,27 @@ class HomeController extends Controller
     {
 
 
-        
-        //// ambil detail trip
+         /**
+         * ambil detail trip
+         */
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner']);
 
 
-        // ambil koleksi array kota yang memuat kota
+        /**
+         * ambil koleksi array kota yang memuat kota
+         */
         $pickCitiesTrip = place_trip_categories_cities::where('trip_categories_id', '=', $detailTrip->id)->get('place_categories_id')->pluck('place_categories_id');
 
-        // ambil semua trip yang memuat kooleksi kota
+        /**
+         * ambil semua trip yang memuat kooleksi kota
+         */
         $selectTrip = place_trip_categories_cities::whereIn('place_categories_id', $pickCitiesTrip)->get()->pluck('trip_categories_id')->unique();
-        //// ambil trip lainnya
-        $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
-        // $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->where('slug', '!=', $trip)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat']);
+        
+        /**
+         * ambil trip lainnya
+         */
+        $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
+        
         $syarat = globalData::where('categories', '=', 2)->first(['description']);
 
 
@@ -194,11 +206,20 @@ class HomeController extends Controller
         return view('web.hidden.index', compact('tripHiddenGemsResult', 'hiddenGem'));
     }
 
+     /**
+         * Search trip di homepage 
+         * flow convert tanggal from dd/mm/yyyy to Y-m-d
+         * query data sesuai input yang tanggal awal, tanggal akhir dan seat
+         * kirim response berupa json
+        */
     public function searchTripByDates(Request $request)
     {
-        $now    =   date("Y-m-d", strtotime($request->dateFrom));
-        $to     =   date("Y-m-d", strtotime($request->dateTo));
+        $dateFrom = str_replace('/', '-', $request->dateFrom);
+        $dateTo = str_replace('/', '-', $request->dateTo);
+        $now    =   date("Y-m-d", strtotime($dateFrom));
+        $to     =   date("Y-m-d", strtotime($dateTo));
         $seat   =   $request->seats;
+
 
         $searchByPlace = place_trip_categories_cities::where('place_categories_id', '=', $request->id)->get(['trip_categories_id'])->pluck('trip_categories_id');
 
@@ -216,10 +237,8 @@ class HomeController extends Controller
             ->get();
 
 
-        // return $reservationsq;
         return $reservationsq;
         return response()->json($reservationsq);
-        // return response()->json($reservations);
     }
 
     public function profile()
@@ -274,7 +293,6 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $histories = Payment::where('user_id', '=', $user->id)->get(['id', 'invoice_id', 'status',]);
-        // return $histories;
         return view('web.cart.index', compact('histories'));
     }
 
@@ -333,80 +351,35 @@ class HomeController extends Controller
             redirect('/');
         }
         $user = Auth::user();
-        // return $user;
 
         $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price,dp_price,installment1,installment2,installment3,visa,tipping,total_tipping,day'])->where('user_id', '=', $user->id)->orderBy('created_at', 'asc')->get()->last();
-        // return $newCart;
 
         $dates1 = $newCart->trip->date_from;
+
         $dates2 = Carbon::today()->toDateString();
 
         $date1 = new DateTime($dates1);
+
         $date2 = new DateTime($dates2);
+
+        /**
+         * ambil perbedaan hari keberangkatan trip dibanding hari ini
+         */
         $diff = $date1->diff($date2);
-        // return $diff->format("%a");
 
         $dayRange = $diff->format("%a");
+
         $monthRange = $diff->format('%m');
+
         $monthly = array();
 
         $current_date = Carbon::now();
+
         $current_date = $current_date->toDateString();
-        //coba
-        // if ($dayRange >= 1 and $dayRange <= 30) {
-        //     $monthly = [
-        //         $price = $newCart->price,
-        //         // $perMonth =date('d M Y', strtotime($current_date)),
-        //         $perMonth = 'Pelunasan',
-        //     ];
-        // } elseif ($dayRange >= 31 and $dayRange <= 60) {
-        //     $monthly = [
-        //         [
-        //             $price = $newCart->trip->price,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-        //         ],
-        //     ];
-        //     // return $monthly;
-        //     // return $dayRange;
-        // } elseif ($dayRange >= 61 and $dayRange <= 90) {
-        //     // return 'sama dengan 3 bulan'.$dayRange;
-        //     $monthly = [
-        //         [
-        //             $price = $newCart->trip->dp_price + $newCart->trip->installment1,
-        //             $perMonth = 'DP / Uang Muka.'
-        //         ],
-        //         // [
-        //         //     $price = $newCart->trip->installment1 + $newCart->trip->installment2,
-        //         //     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days'))
-        //         // ],
-        //         [
-        //             $price = $newCart->trip->installment2,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-        //         ],
-        //     ];
-        //     // return $monthly;
-        // } elseif ($dayRange >= 91) {
-        //     // return 'lebih dari 3 bulan'.$dayRange;
-        //     $monthly = [
-        //         [
-        //             $price = $newCart->trip->dp_price,
-        //             $perMonth = 'DP / Uang Muka.'
-        //         ],
-        //         [
-        //             $price = $newCart->trip->installment1,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days'))
-        //         ],
-        //         [
-        //             $price = $newCart->trip->installment2,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-        //         ],
-        //         // [
-        //         //     $price = $newCart->trip->installment3,
-        //         //     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-        //         // ],
-        //     ];
-        //     // return $monthly;
-        // }
+        
+        /**
+         *  logic perbandingan jml hari dengan harga, cicilan perbulan visa,
+         */
 
         if ($dayRange >= 1 and $dayRange <= 30) {
             $monthly = [
@@ -416,33 +389,52 @@ class HomeController extends Controller
                     $perMonth = Carbon::today()->toDateString(),
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = $newCart->trip->total_tipping,
-                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth,
+                    $hari = $dayRange
                 ]
             ];
         } elseif ($dayRange >= 31 and $dayRange <= 60) {
-            $monthly = [
-                [
-                    $price = $newCart->trip->price,
-                    $perMonth = Carbon::today()->toDateString(),
-                    $visaperMonth = $newCart->trip->visa,
-                    $tippingPerMonth = $newCart->trip->total_tipping,
-                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
-                ],
-            ];
-        } elseif ($dayRange >= 61 and $dayRange <= 90) {
+            
             $monthly = [
                 [
                     $price = $newCart->trip->dp_price + $newCart->trip->installment1,
                     $perMonth = 'DP / Uang Muka',
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = 0,
-                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth,
+                    $hari = $dayRange
                 ],
                 [
                     $price = $newCart->trip->installment2,
                     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
                     $visaperMonth = 0,
                     $tippingPerMonth = $newCart->trip->total_tipping
+                ],
+            ];
+        } elseif ($dayRange >= 61 and $dayRange <= 90) {
+           
+            $monthly = [
+                [
+                    $price = $newCart->trip->dp_price,
+                    $perMonth = 'DP / Uang Muka',
+                    $visaperMonth = 0,
+                    $tippingPerMonth = 0,
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth,
+                    $hari = $dayRange
+                ],
+                [
+                    $price = $newCart->trip->installment1,
+                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
+                    $visaperMonth = $newCart->trip->visa,
+                    $tippingPerMonth = 0,
+                    $hari = $dayRange
+                ],
+                [
+                    $price = $newCart->trip->installment2,
+                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
+                    $visaperMonth = 0,
+                    $tippingPerMonth = $newCart->trip->total_tipping,
+                    $hari = $dayRange
                 ],
             ];
         } elseif ($dayRange >= 91) {
@@ -452,107 +444,28 @@ class HomeController extends Controller
                     $perMonth = 'DP / Uang Muka',
                     $visaperMonth = 0,
                     $tippingPerMonth = 0,
-                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth
+                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth,
+                    $hari = $dayRange
                 ],
                 [
                     $price = $newCart->trip->installment1,
                     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
                     $visaperMonth = $newCart->trip->visa,
-                    $tippingPerMonth = 0
+                    $tippingPerMonth = 0,
+                    $hari = $dayRange
                 ],
                 [
                     $price = $newCart->trip->installment2,
                     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
                     $visaperMonth = 0,
-                    $tippingPerMonth = $newCart->trip->total_tipping
+                    $tippingPerMonth = $newCart->trip->total_tipping,
+                    $hari = $dayRange
                 ],
             ];
         }
 
-        // return $monthly;
 
-        //true
-        // if ($dayRange >= 1 and $dayRange <= 30) {
-        //     return 'bayar lunas' . $dayRange;
-        //     // $monthly = array();
-        //     // for ($i = 1; $i <= $monthRange; $i++) {
-        //     //     $arrays = [
-        //     //         $price = $newCart->price,
-        //     //         $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . $i * 30 . 'days'))
-        //     //     ];
-        //     //     array_push($monthly, $arrays);
-        //     // }
-        //     // return $newCart->trip->installment1 + $newCart->trip->installment2 + $newCart->trip->installment3;
-        // } elseif ($dayRange >= 31 and $dayRange <= 60) {
-        //     // return 'bayar cicl 2 bulan'.$dayRange;
-        //     $monthly = [
-        //         [
-        //             $price = $newCart->trip->installment1 + $newCart->trip->installment2 + $newCart->trip->installment3,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-        //         ],
-        //     ];
-        //     // return $monthly;
-        // } elseif ($dayRange >= 61 and $dayRange <= 90) {
-        //     // return 'sama dengan 3 bulan'.$dayRange;
-        //     $monthly = [
-        //         [
-        //             $price = $newCart->trip->installment1 + $newCart->trip->installment2,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days'))
-        //         ],
-        //         [
-        //             $price = $newCart->trip->installment3,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-        //         ],
-        //     ];
-        //     // return $monthly;
-        // } elseif ($dayRange >= 91) {
-        //     // return 'lebih dari 3 bulan'.$dayRange;
-        //     $monthly = [
-        //         [
-        //             $price = $newCart->trip->installment1,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 3 * 30 . 'days'))
-        //         ],
-        //         [
-        //             $price = $newCart->trip->installment2,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days'))
-        //         ],
-        //         [
-        //             $price = $newCart->trip->installment3,
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-        //         ],
-        //     ];
-        //     // return $monthly;
-        // }
-
-        // $months = $diff->format('%m');
-        // if ($months <= 1) {
-        // }
-        // $pricePerMonths = 0;
-        // $monthly = array();
-        // if ($diff->format('%m') > 3) {
-
-        //     $pricePerMonths = round($newCart->trip->price / 3);
-        //     // return $pricePerMonths;
-        //     for ($i = 1; $i <= 3; $i++) {
-        //         $arrays = [
-        //             $price = round($pricePerMonths),
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . $i * 30 . 'days'))
-
-        //         ];
-        //         array_push($monthly, $arrays);
-        //     }
-        // } else {
-        //     $pricePerMonths = round($newCart->trip->price / $diff->format('%m'));
-        //     // return $pricePerMonths;
-        //     for ($i = 1; $i <= $diff->format('%m'); $i++) {
-        //         $arrays = [
-        //             $price = round($pricePerMonths),
-        //             $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . $i * 30 . 'days'))
-
-        //         ];
-        //         array_push($monthly, $arrays);
-        //     }
-        // }
+       
 
         $months = count($monthly);
         $pricePerMonths = 20000;
@@ -1136,10 +1049,6 @@ class HomeController extends Controller
             }
             $paymentId = Payment::where('invoice_id', '=', $invoice_time . '0' . 1 . $telephone)->first();
 
-            // $paymentId = Payment::where('invoice_id', '=', $invoice_time . '0' . 1 . $telephone)->first();
-            // return $paymentId->visa;
-
-
             $dataCoba = [
                 'title'             =>  $user,
                 'data'              =>  'tes data',
@@ -1166,9 +1075,6 @@ class HomeController extends Controller
             $pdf = PDF::loadView('admin.payment.dPayment', compact('dataCoba'));
             // User::sendEMail($email, $pdf);
 
-            // return $pdf;
-            // return $dataCoba;
-            // return view('admin.payment.dPayment', compact('dataCoba'));
 
             PDF::getOptions()->set([
                 'defaultFont' => 'helvetica',
@@ -1176,7 +1082,6 @@ class HomeController extends Controller
             ]);
             $paths = $dataCoba['title']['name'] . '-' . rand() . '_' . time();
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
-            // return $paths;
             $email = [
                 'email'         => $dataCoba['title']['email'],
                 'nama'          => $dataCoba['title']['name'],
@@ -1191,7 +1096,6 @@ class HomeController extends Controller
                 'path'          => $paths . 'pdf'
             ];
 
-            // return $email;
 
             Storage::put($path, $pdf->output());
 
@@ -1202,8 +1106,6 @@ class HomeController extends Controller
             // dispatch(new OrderEmailJob($email));
             // $details['email'] = 'patrajuanda10@gmail.com';
             // dispatch(new SendEmailJob($details));
-
-            // return 'tes';
 
             Mail::send('web.emails.order2', $email, function ($message) use ($email, $pdf, $path) {
                 $message->from('patrajuanda10@gmail.com');
@@ -1311,7 +1213,6 @@ class HomeController extends Controller
                 'path'          => $paths . 'pdf'
             ];
 
-            // return $email;
 
             Storage::put($path, $pdf->output());
 
@@ -1339,7 +1240,6 @@ class HomeController extends Controller
                 'name'      => 'ORD' . $newCart->id . 'telah membuat pesanan',
                 'status'    => 'belum dibaca'
             ]);
-            // return $id->id;
             $ids = encrypt($id->id);
             return redirect()->route('payment', $ids);
         }
@@ -1348,167 +1248,15 @@ class HomeController extends Controller
 
 
 
-        // $paymentId = Payment::where('invoice_id', '=', $invoice_id)->first('id');
-
-        // $visaInstallmentPayment = 0;
-        // if ($statusPembayaran == 'DownPayment') {
-        //     for ($i = 1; $i <= $request->months; $i++) {
-        //         $bulan = $i;
-        //         // if ($i == 1) {
-
-        //         //     DB::beginTransaction();
-        //         //     try {
-        //         //         $paymentDetails = Payment::create([
-        //         //             'order_id'              => $newCart->id,
-        //         //             'invoice_id'            => $invoice_time . '0' . $bulan . $telephone,
-        //         //             'user_id'               => $user->id,
-        //         //             'trip_categories_id'    => $request->trip_categories_id,
-        //         //             'qty'                   => $request->qty,
-        //         //             'price'                 => $newCart->price,
-        //         //             'price_dp'              =>  $monthly[$i - 1][0],
-        //         //             'total'                 =>  $monthly[$i - 1][0] * $request->qty,
-        //         //             'tanggal_pembayaran'    => $monthly[$i - 1][1],
-        //         //             'due_date'              => $monthly[$i - 1][1],
-        //         //             'status'                => 'Menunggu Pembayaran',
-        //         //             'visa'                  => $totalVisa ,
-        //         //             'total_tipping'         => nu,
-        //         //             'grand_total'           => ($monthly[$i - 1][0] * $request->qty) + $totalVisa
-        //         //         ]);
-        //         //     } catch (\throwable $th) {
-        //         //         DB::rollBack();
-        //         //         Alert::error('Booking Trip', 'error' . $th->getMessage());
-        //         //         // return redirect()->back()->withInput($request->all());
-        //         //         return $th->getMessage();
-        //         //     } finally {
-        //         //         DB::commit();
-        //         //     }
-        //         // }
-        //         DB::beginTransaction();
-        //         try {
-        //             $paymentDetails = Payment::create([
-        //                 'order_id'              => $newCart->id,
-        //                 'invoice_id'            => $invoice_time . '0' . $bulan . $telephone,
-        //                 'user_id'               => $user->id,
-        //                 'trip_categories_id'    => $request->trip_categories_id,
-        //                 'qty'                   => $request->qty,
-        //                 'price'                 => $newCart->price,
-        //                 'price_dp'              =>  $monthly[$i - 1][0],
-        //                 'total'                 =>  $monthly[$i - 1][0] * $request->qty,
-        //                 'tanggal_pembayaran'    => $monthly[$i - 1][1],
-        //                 'due_date'              => $monthly[$i - 1][1],
-        //                 'status'                => 'Menunggu Pembayaran',
-        //                 'visa'                  => 0,
-        //                 'total_tipping'         => $totalTipping,
-        //                 'grand_total'           => ($monthly[$i - 1][0] * $request->qty) + $totalTipping
-
-        //             ]);
-        //         } catch (\throwable $th) {
-        //             DB::rollBack();
-        //             Alert::error('Booking Trip', 'error' . $th->getMessage());
-        //             // return redirect()->back()->withInput($request->all());
-        //             return $th->getMessage();
-        //         } finally {
-        //             DB::commit();
-        //         }
-        //     }
-        // }
-
-
-        // if ($statusPembayaran == 'DownPayment') {
-        //     $dataCoba = [
-        //         'title'             =>  $user,
-        //         'data'              =>  'tes data',
-        //         'orderid'           =>  'ORD' . $newCart->id,
-        //         'invoice_id'        =>  $invoice_id,
-        //         'trip'              =>  $newCart,
-        //         'price'             =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
-        //         'trip_name'         =>  $newCart->trip->title,
-        //         'trip_qty'          =>  $qty,
-        //         'trip_price'        =>  'Rp.' . number_format($request->dp_price, 0, ',', '.'),
-        //         'statusPembayaran'  =>  $statusPembayaran,
-        //         'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
-        //         'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
-        //     ];
-        // } else {
-        //     $dataCoba = [
-        //         'title'             =>  $user,
-        //         'data'              =>  'tes data',
-        //         'orderid'           =>  'ORD' . $newCart->id,
-        //         'invoice_id'        =>  $invoice_id,
-        //         'trip'              =>  $newCart,
-        //         'price'             =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
-        //         'trip_name'         =>  $newCart->trip->title,
-        //         'trip_qty'          =>  $qty,
-        //         'trip_price'        =>  'Rp.' . number_format($request->dp_price, 0, ',', '.'),
-        //         'statusPembayaran'  =>  $statusPembayaran,
-        //         'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
-        //         'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
-        //         'visa'              => 'Rp.' . number_format($newCart->trip->visa, 0, ',', '.'),
-        //         'totalVisa'         => 'Rp.' . number_format($totalVisa, 0, ',', '.'),
-        //         'tipping'           => 'Rp.' . number_format($newCart->trip->tipping, 0, ',', '.'),
-        //         'total_tipping'     => 'Rp.' . number_format($newCart->trip->total_tipping, 0, ',', '.'),
-        //         'total_tipping_price' => 'Rp.' . number_format($totalTipping, 0, ',', '.'),
-        //         'grandTotal'        => 'Rp.' . number_format((($dp_price * $qty) + $totalTipping + $totalVisa), 0, ',', '.'),
-        //     ];
-        // }
-
-
-        // $pdf = PDF::loadView('admin.payment.coba', compact('dataCoba'));
-        // // User::sendEMail($email, $pdf);
-        // PDF::getOptions()->set([
-        //     'defaultFont' => 'helvetica',
-        //     'chroot' => '/var/www/myproject/public',
-        // ]);
-        // $paths = $dataCoba['title']['name'] . '-' . rand() . '_' . time();
-        // $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
-        // // return $paths;
-        // $email = [
-        //     'email'         => $dataCoba['title']['email'],
-        //     'nama'          => $dataCoba['title']['name'],
-        //     'telephone'     => $dataCoba['title']['phone'],
-        //     'invoiceId'     => $invoice_id,
-        //     'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
-        //     'qty'           => $qty,
-        //     'trip_name'     => $newCart->trip->title,
-        //     'price'         =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
-        //     'path'          => $paths . 'pdf'
-        // ];
-
-        // // return $email;
-
-        // Storage::put($path, $pdf->output());
-
-        // // $mails = new orderSendMail($email);
-
-        // // $emailSend = new OrderEmailJob($email);
-
-        // // dispatch(new OrderEmailJob($email));
-        // // $details['email'] = 'patrajuanda10@gmail.com';
-        // // dispatch(new SendEmailJob($details));
-
-        // // return 'tes';
-
-        // Mail::send('web.emails.order', $email, function ($message) use ($email, $pdf, $path) {
-        //     $message->from('patrajuanda10@gmail.com');
-        //     $message->to($email['email']);
-        //     $message->subject('Order-' . $email['nama']);
-        //     $message->attachData(
-        //         $pdf->output(),
-        //         $email['nama'] . time() . '.' . 'pdf'
-        //     );
-        // });
-        // $id = Payment::where('invoice_id', '=', $invoice_id)->first('id');
-        // $ids = encrypt($id);
-        // return redirect()->route('payment', $ids);
+        
     }
 
     public function payment($id)
     {
         $decId = decrypt($id);
-        // return $decId;
+
         $payment = Payment::with(['trip:id,title,date_from,date_to,visa,total_tipping'])->where('id', '=', $decId)->first(['id', 'user_id', 'invoice_id', 'qty', 'price', 'price_dp', 'total', 'trip_categories_id', 'tanggal_pembayaran', 'created_at', 'visa', 'total_tipping', 'grand_total', 'opsi_pembayaran']);
 
-        // return $payment;
 
         $status = '';
         if ($payment->opsi_pembayaran == 0) {
@@ -1516,13 +1264,7 @@ class HomeController extends Controller
         } else if ($payment->opsi_pembayaran == 1) {
             $status = 'Pembayaran Penuh';
         }
-        // if ($payment->price_dp < $payment->price) {
-        //     $status = 'Bayar Uang Muka';
-        // } else {
-        //     $status = 'Pembayaran Penuh';
-        // }
-
-        // return $payment;
+       
         if (Carbon::now()->greaterThan($payment->created_at->addDay('2'))) {
             $payment->update([
                 'status'    => 'cancelled'
@@ -1542,7 +1284,6 @@ class HomeController extends Controller
 
     public function uploadImage(Request $request)
     {
-
         $validator = Validator::make(
             $request->all(),
             [
@@ -1557,7 +1298,6 @@ class HomeController extends Controller
 
 
 
-        // return $request;
         // return $request->upload->extension();
         $fileName = null;
         if ($request->hasFile('upload')) {
@@ -1566,11 +1306,9 @@ class HomeController extends Controller
             Storage::putFileAs('./public/images/bukti', $photoFile, $fileName);
             $image_path = $request->file('upload')->store('image/bukti', 'public');
         }
-        // return $image_path;
-        // return $fileName;
+
 
         $decId = decrypt($request->id);
-        // return $decId;
         DB::beginTransaction();
 
         try {
@@ -1583,8 +1321,7 @@ class HomeController extends Controller
             ]);
 
             Alert::success('Edit Profile', 'Berhasil');
-            // return 'tes';
-            return redirect()->to('/');
+            return redirect()->back()->with('success', 'add');
         } catch (\throwable $th) {
             DB::rollBack();
             Alert::error('Edit Slider', 'error' . $th->getMessage());

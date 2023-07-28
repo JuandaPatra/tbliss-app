@@ -187,7 +187,7 @@ export class DetailPages {
                     }
                 },
                 success: function (data) {
-                    console.log('data', data);
+                    console.log("data", data);
                     let result = data;
                     $(".trip-search").empty();
 
@@ -236,13 +236,17 @@ export class DetailPages {
                                         <div class="flex justify-between  border-b-2 border-gray-200 w-[90%] pb-2">
                                             <div>
                                                 <span class="text-[#6A6A6A] font-bold text-[14px] lg:text-[22px] mr-2 lg:mr-5">
-                                                    ${result[i].day}H${result[i].night}M
+                                                    ${result[i].day}H${
+                                    result[i].night
+                                }M
                                                 </span>
                                                 <span>
                                                     |
                                                 </span>
                                                 <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                                    23 - 28 APR 2023
+                                                ${result[i].date_from} - ${
+                                    result[i].date_to
+                                }
                                                 </span>
                                             </div>
                                             <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
@@ -253,9 +257,9 @@ export class DetailPages {
                                         </div>
                                         <div class="text-[18px] pt-3 pb-3">
                                             <h1 class="font-bold uppercase city-${i}">
-                                            tes
+                                            ${result[i].cities}
                                             </h1>
-                                            
+                                            ${result[i].itinerary}
                                             
                                         </div>
                                         <div class="flex justify-between w-full lg:w-[90%]">
@@ -305,7 +309,9 @@ export class DetailPages {
                                                     |
                                                 </span>
                                                 <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
-                                                    23 - 28 APR 2023
+                                                    ${result[i].date_from} - ${
+                                    result[i].date_to
+                                }
                                                 </span>
                                             </div>
                                             <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
@@ -317,9 +323,7 @@ export class DetailPages {
                                         <div class="text-[18px] pt-3 pb-3">
                                             <h1 class="font-bold uppercase">
                                                 
-                                                Busan - Pohang - Jeonju - Seoul  ${result[
-                                                    i
-                                                ].place_trip_categories_cities[0].place_categories.title.toUpperCase()}
+                                                ${result[i].cities}
                                             </h1>
                                             ${result[i].itinerary}
                                             
@@ -330,7 +334,7 @@ export class DetailPages {
                                             </a>
                                             <div class="flex pt-[11px] lg:pt-0">
                                                 <h5 class="text-[#4A5CED] mr-3">
-                                                    3 seats left
+                                                    ${result[i].seat} seats left
                                                 </h5>
                                                 <img src="/images/trip/seat.png" alt="" class="inline h-5">
                                             </div>

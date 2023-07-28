@@ -101,7 +101,7 @@
                     </svg>
 
                     <span class="ml-2">
-                        Bayar Uang Muka
+                        Bayar Uang Muka 
                     </span>
 
 

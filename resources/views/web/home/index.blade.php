@@ -318,7 +318,7 @@
                     }
                 },
                 success: function(data) {
-                    // console.log(data.length);
+                    console.log(data);
                     $('.home-section').empty()
                     let result = data
                     if(data.length === 0){

@@ -6,37 +6,6 @@
     <h1 class=" font-bely text-footer text-[45px]">Konfirmasi Pembayaran</h1>
 </div>
 
-<button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Toggle modal
-</button>
-
-<!-- Main modal -->
-<div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative w-full max-w-2xl max-h-full">
-        <!-- Modal content -->
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <!-- Modal header -->
-            <div class="flex items-start justify-between p-2  rounded-t dark:border-gray-600">
-                
-                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-            </div>
-            <!-- Modal body -->
-            <div class="p-6 space-y-6 h-[245px]">
-                <div class="flex justify-center">
-                    <h1 class=" font-interRegular text-[28px] text-footer">Upload Sukses</h1>
-                </div>
-               <img src="{{ asset('images/upload/success-popup.png') }}" alt="" class="mx-auto">
-            </div>
-           
-        </div>
-    </div>
-</div>
-
 <div class="flex items-center px-4 bg-white justify-center mb-[79px] mt-[50px]">
     <p class=" font-interRegular text-[16px] font-bold">Setelah melakukan pembayaran, silakan upload <br> bukti pembayaranmu disini untuk konfirmasi</p>
 </div>
@@ -70,7 +39,7 @@
             </label>
         </div>
         <div class="btn-group w-full">
-            <button type="submit" class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] ">Upload Sekarang</button>
+            <button type="submit" id="btn-submit-upload" class=" w-full h-[49px] mt-[14px] text-white bg-blueTbliss cursor-pointer text-center py-[10px] ">Upload Sekarang</button>
         </div>
     </form>
 </section>
@@ -81,6 +50,36 @@
 
 
 
+@if(session('success'))
+<!-- Main modal -->
+<div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50  w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full flex popup-{{session('success')}}">
+    <div class="relative w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-2  rounded-t dark:border-gray-600">
+
+                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ml-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="defaultModal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-6 h-[245px]">
+                <div class="flex justify-center">
+                    <h1 class=" font-interRegular text-[28px] text-footer">Upload Sukses</h1>
+                </div>
+                <img src="{{ asset('images/upload/success-popup.png') }}" alt="" class="mx-auto">
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@endif
 
 </div>
 @endsection
@@ -89,6 +88,8 @@
 @push('javascript-internal')
 <script>
     $(document).ready(function() {
+
+        
 
         function readURL(input) {
             if (input.files && input.files[0]) {
@@ -103,11 +104,6 @@
 
                     let uploadImage = reader.result
 
-                    // $('.image-position').empty()
-
-                    // document.querySelector('.image-position').style.backgroundImage = `url(${uploadImage})`
-
-
                     document.querySelector(".image-position").src = URL.createObjectURL(uploadImage);
 
                     $('.image-position').append(`<img height='200' width='200' alt='testImage' src='url(${uploadImage})' styl> </img>`)
@@ -120,6 +116,12 @@
             }
         }
 
+
+        if ($('.popup-add').length > 0) { 
+            setTimeout(function () {
+                    window.location.href = "/";
+                }, 5000); 
+        }
         $('#dropzone-file').change(function(e) {
             readURL(this);
             var path, url;
@@ -144,140 +146,9 @@
             altInput: true,
             mode: "range",
             onChange: function(selectedDates, datestr, instance) {
-
-
-                // $(".selector").val(selectedDates[0] + ' - ' + this.formatDate(selectedDates[0], "j F Y"));
                 $(".selector").val(datestr.replace('to', '-'));
             }
         });
-
-        // $('#searchTrips').on('click', function(e) {
-        //     let id = $('#countries').val()
-        //     let dates = $('.selector').val()
-        //     let dateFrom = dates.slice(0, 10)
-        //     let dateTo = dates.slice(13, 23)
-        //     let seats = $('#seats').val()
-
-        //     $.ajax({
-        //         type: "POST",
-        //         url: `${base_url}/seacrhByDate`,
-        //         headers: {
-        //             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-        //                 "content"
-        //             ),
-        //         },
-        //         data: {
-        //             id,
-        //             dateFrom,
-        //             dateTo,
-        //             seats
-        //         },
-        //         error: function(xhr, error) {
-        //             if (xhr.status === 500) {
-        //                 console.log(error);
-
-        //                 $(e.target).html("Gagal Terkirim");
-
-        //                 setTimeout(() => {
-        //                     location.reload();
-        //                 }, 2500);
-        //             }
-        //         },
-        //         success: function(data) {
-        //             // console.log(data);
-        //             $('.home-section').empty()
-        //             let result = data
-        //             result.forEach(function(item, index) {
-        //                 $('.home-section').append(
-        //                     `
-        //                         <div class="basis-full lg:basis-4/12 p-3">
-        //                             <div class="max-w-sm bg-white ">
-        //                                 <a href="/countries/korea/detail/${item.slug}">
-        //                                     <img src="${item.thumbnail}" alt="" class="w-full">
-        //                                 </a>
-        //                                 <div class="mt-3 ">
-        //                                     <div class="flex ">
-        //                                         <h5 class="text-blueTbliss mr-3">
-        //                                             ${item.seat} seats left
-        //                                         </h5>
-        //                                         <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
-        //                                     </div>
-        //                                     <a href="#">
-        //                                         <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">${item.title}</h5>
-        //                                     </a>
-        //                                     <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-        //                                         ${item.day}H${item.night}M
-        //                                     </span>
-        //                                     <span>
-        //                                         |
-        //                                     </span>
-        //                                     <span class="ml-3 text-[16px]">
-
-        //                                         ${new Date(item.date_from).getDay()} - ${item.date_to}
-        //                                     </span>
-        //                                     <p class="text-redTbliss font-bold text-[19px]">
-        //                                         ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
-        //                                     </p>
-        //                                 </div>
-        //                             </div>
-        //                         </div>
-        //                     `
-        //                 )
-
-        //             })
-
-        //             // let allData = [...allData, data]
-        //             // allData.push(data)
-
-        //         },
-        //     });
-
-
-        // })
-        // $('.banner-slider').slick({
-        //     dots: false,
-        //     infinite: true,
-        //     slidesToShow: 1,
-        //     autoplay: false,
-        //     // autoplaySpeed: 2000,
-        // });
-        // $('.banner-slider').not('.slick-initialized').slick();
-
-
-        // $('.testimoni-slider').slick({
-        //     dots: false,
-        //     infinite: true,
-        //     slidesToShow: 1,
-        //     autoplay: false,
-        //     arrows: true,
-        //     prevArrow: '.left-testimoni-arrow',
-        //     nextArrow: '.right-testimoni-arrow',
-        // });
-        // $('.testimoni-slider').not('.slick-initialized').slick();
-
-        // const options = {
-        //     mobileFirst: true,
-        //     responsive: [{
-        //         breakpoint: 450,
-        //         settings: "unslick"
-        //     }]
-        // };
-
-        // var slicky = $('.hg-slider');
-        // slicky.slick(options);
-
-        // $(window).resize(function() {
-
-        //     setTimeout(function() {
-
-        //         if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
-        //             slicky.slick(options);
-        //         }
-        //     }, 100);
-        // });
-        // // $('.hg-slider').not('.slick-initialized').slick();
-
-
 
     });
 </script>
