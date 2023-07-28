@@ -164,10 +164,6 @@ Sliders
                         data: 'name',
                         name: 'name'
                     },
-                    //  {
-                    //      data: 'email',
-                    //      name: 'email'
-                    //  },
                     {
                         data: 'roles',
                         name: 'roles'
@@ -176,32 +172,7 @@ Sliders
                         data: 'action',
                         name: 'action'
                     },
-                    //  {
-                    //      data: 'finish_date',
-                    //      name: 'finish_date'
-                    //  },
-                    // {
-                    //    data: 'created_at',
-                    //    render: function(d) {
-                    //       return moment(d).format("DD/MM/YYYY HH:mm");
-                    //    }
-                    // },
-                    // {
-                    //    data: 'email',
-                    //    name: 'subject'
-                    // },
-                    // {
-                    //    data: 'email',
-                    //    name: 'address'
-                    // },
-                    // {
-                    //    data: 'email',
-                    //    name: 'phone'
-                    // },
-                    // {
-                    //    data: 'email',
-                    //    name: 'message'
-                    // }
+                    
 
                 ]
             });
@@ -212,25 +183,6 @@ Sliders
 
                 console.log(id)
 
-                // var deleteConfirm = confirm("Are you sure?");
-                // if (deleteConfirm == true) {
-                //      // AJAX request
-                //      $.ajax({
-                //          url: "{{ route('deleteEmployee') }}",
-                //          type: 'post',
-                //          data: {_token: CSRF_TOKEN,id: id},
-                //          success: function(response){
-                //               if(response.success == 1){
-                //                    alert("Record deleted.");
-
-                //                    // Reload DataTable
-                //                    empTable.ajax.reload();
-                //               }else{
-                //                     alert("Invalid ID.");
-                //               }
-                //          }
-                //      });
-                // }
 
             });
         });

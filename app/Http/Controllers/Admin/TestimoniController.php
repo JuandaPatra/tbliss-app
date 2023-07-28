@@ -41,15 +41,6 @@ class TestimoniController extends Controller
             // $data = Contact::select('*');
             return Datatables::of($data)
                 ->addIndexColumn()
-                // ->addColumn('finish_date', function ($row) {
-                //     $date = date("d F Y h:m", strtotime($row->created_at));
-                //     return $date;
-                // })
-                // ->addColumn('roles', function ($user) {
-                //     $roles = $user->roles->first()->name;
-                //     // $rolef = $roles->name;
-                //     return  ucfirst($roles);
-                // })
                 ->addColumn('action', function ($user) {
 
 
@@ -59,18 +50,8 @@ class TestimoniController extends Controller
                     <a href="'.route('testimoni-trip.destroy1', $user->id).'" class="btn btn-xs btn-danger deleteUser"><i class="fa fa-trash"></i> Delete</a>
                     ';
 
-                    // return '<div class="dropdown-menu">
-                    //      <a class="dropdown-item" href="' . route('user-admin.edit', $user->id) . '"><i class="bx bx-edit-alt me-1"></i> Edit</a>             
-                    //      <a class="dropdown-item" href="' . route('user-admin.destroy', $user->id) . '" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest("form").submit();return false;">
-                    //         <i class="bx bx-trash me-1"></i>Delete
-                    //     </a>
-                         
-                    //  </div>';
+                   
                 })
-                // ->addColumn('roles', function($row){
-                //     $role = $row->roles[0]->name;
-                //     return $role;
-                // })
                 ->make(true);
         }
     }

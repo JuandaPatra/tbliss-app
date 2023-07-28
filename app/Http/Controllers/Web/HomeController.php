@@ -37,36 +37,27 @@ use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
+    /**
+     * negara default adalah korea
+     * dan kirim parameter tersebut ke controller country
+     * untuk menampilkan halaman home
+     */
     public function index()
     {
-
-        /**
-         * negara default adalah korea
-         */
         $id = 'korea';
-
-
-
-
-        /**
-         * kirim id ke halaman home
-         */
         return redirect()->route('home.country', $id);
     }
 
+    /**
+     * mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
+     */
     public function country($id)
     {
-        
-
         $slug = $id;
-
-        /**
-         * mendapatkan id negara dari parameter yang dikirim (default 6 =>korea)
-         */
 
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
 
-         /**
+        /**
          * mendapatkan trip berdasarkan negara
          */
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
@@ -76,9 +67,21 @@ class HomeController extends Controller
 
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
-        })->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat',]);
+        })->where('status', '=', 'publish')
+            ->get([
+                'id',
+                'title',
+                'slug',
+                'price',
+                'day',
+                'night',
+                'date_from',
+                'date_to',
+                'thumbnail',
+                'seat',
+            ]);
 
-         /**
+        /**
          * mengambil semua hidden gem yang sudah dipilih dari cms
          */
         $pickHiddenGems = HiddenGemHomepage::with(['hidden_gem:id,title,image_desktop,slug'])->get(['id', 'hidden_gem_id',]);
@@ -99,20 +102,20 @@ class HomeController extends Controller
             'places_id'
         ]);
 
-         /**
+        /**
          * mendapatkan list testimoni di halaman home
          */
-        $testimonies = globalData::where('categories', '=', 3)->get([ 'name','description','image']);
+        $testimonies = globalData::where('categories', '=', 3)->get(['name', 'description', 'image']);
 
 
         return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId', 'pickHiddenGems', 'testimonies'));
     }
 
-    public function detail(Request $request,$id, $trip)
+    public function detail(Request $request, $id, $trip)
     {
 
 
-         /**
+        /**
          * ambil detail trip
          */
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner']);
@@ -127,12 +130,12 @@ class HomeController extends Controller
          * ambil semua trip yang memuat kooleksi kota
          */
         $selectTrip = place_trip_categories_cities::whereIn('place_categories_id', $pickCitiesTrip)->get()->pluck('trip_categories_id')->unique();
-        
+
         /**
          * ambil trip lainnya
          */
         $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
-        
+
         $syarat = globalData::where('categories', '=', 2)->first(['description']);
 
 
@@ -206,12 +209,12 @@ class HomeController extends Controller
         return view('web.hidden.index', compact('tripHiddenGemsResult', 'hiddenGem'));
     }
 
-     /**
-         * Search trip di homepage 
-         * flow convert tanggal from dd/mm/yyyy to Y-m-d
-         * query data sesuai input yang tanggal awal, tanggal akhir dan seat
-         * kirim response berupa json
-        */
+    /**
+     * Search trip di homepage 
+     * flow convert tanggal from dd/mm/yyyy to Y-m-d
+     * query data sesuai input yang tanggal awal, tanggal akhir dan seat
+     * kirim response berupa json
+     */
     public function searchTripByDates(Request $request)
     {
         $dateFrom = str_replace('/', '-', $request->dateFrom);
@@ -376,7 +379,7 @@ class HomeController extends Controller
         $current_date = Carbon::now();
 
         $current_date = $current_date->toDateString();
-        
+
         /**
          *  logic perbandingan jml hari dengan harga, cicilan perbulan visa,
          */
@@ -394,7 +397,7 @@ class HomeController extends Controller
                 ]
             ];
         } elseif ($dayRange >= 31 and $dayRange <= 60) {
-            
+
             $monthly = [
                 [
                     $price = $newCart->trip->dp_price + $newCart->trip->installment1,
@@ -412,7 +415,7 @@ class HomeController extends Controller
                 ],
             ];
         } elseif ($dayRange >= 61 and $dayRange <= 90) {
-           
+
             $monthly = [
                 [
                     $price = $newCart->trip->dp_price,
@@ -465,7 +468,7 @@ class HomeController extends Controller
         }
 
 
-       
+
 
         $months = count($monthly);
         $pricePerMonths = 20000;
@@ -922,25 +925,33 @@ class HomeController extends Controller
             redirect('/');
         }
 
+        // return $request;
 
         $user = Auth::user();
 
         $dp_price = (int)$request->dp_price;
+       
         $qty = (int)$request->qty;
+        
         $visa_price = (int)$request->input_payment_visa;
+        
         $tipping_price = (int)$request->input_payment_tipping;
+        
         $telephone = substr($user->phone, -3);
+
         $invoice_id =   time() . '00' . $telephone;
+
         $invoiceDate = Carbon::now();
+
         $invoice_time = time();
-
-
-
 
         $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price,installment1,installment2,installment3,visa,total_tipping,tipping,dp_price'])->where('user_id', '=', $user->id)->orderBy('created_at', 'asc')->get()->last();
 
         $dates1 = $newCart->trip->date_from;
+
+        
         $dates2 = Carbon::today()->toDateString();
+
 
         $date1 = new DateTime($dates1);
         $date2 = new DateTime($dates2);
@@ -1048,6 +1059,7 @@ class HomeController extends Controller
                 }
             }
             $paymentId = Payment::where('invoice_id', '=', $invoice_time . '0' . 1 . $telephone)->first();
+
 
             $dataCoba = [
                 'title'             =>  $user,
@@ -1243,12 +1255,6 @@ class HomeController extends Controller
             $ids = encrypt($id->id);
             return redirect()->route('payment', $ids);
         }
-
-
-
-
-
-        
     }
 
     public function payment($id)
@@ -1264,7 +1270,7 @@ class HomeController extends Controller
         } else if ($payment->opsi_pembayaran == 1) {
             $status = 'Pembayaran Penuh';
         }
-       
+
         if (Carbon::now()->greaterThan($payment->created_at->addDay('2'))) {
             $payment->update([
                 'status'    => 'cancelled'

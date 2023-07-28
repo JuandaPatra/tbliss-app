@@ -70,8 +70,6 @@ Route::resource('checkout', CheckoutController::class);
 Route::post('/email-leads', [EmailsController::class, 'index'])->name('email-leads');
 // Route::get('/booking-trip', [HomeController::class, 'booking'])->name('booking');
 Route::get('/booking-trip', [HomeController::class, 'booking1'])->name('booking');
-// Route::post('booking-order', [HomeController::class, 'bookingOrder'])->name('booking.order');
-// Route::post('booking-order', [HomeController::class, 'bookingOrder1'])->name('booking.order');
 Route::post('booking-order', [HomeController::class, 'bookingOrder2'])->name('booking.order');
 Route::get('/payment/{ids}', [HomeController::class, 'payment'])->name('payment');
 Route::get('/upload/{ids}', [HomeController::class, 'upload'])->name('upload');

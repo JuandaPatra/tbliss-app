@@ -84,6 +84,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/table-testimoni', [TestimoniController::class, 'table'])->name('tableTestimoni');
     Route::get('/delete-tes/{id}', [TestimoniController::class, 'destroy1'])->name('testimoni-trip.destroy1');
+    Route::get('/testimoni-trip/{id}/edit', [TestimoniController::class, 'edit'])->name('testimoni-trip.edit');
     Route::resource('testimoni-trip', TestimoniController::class );
 
     Route::resource('choose-hidden-gem', ChooseHiddenGemController::class);

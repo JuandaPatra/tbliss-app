@@ -144,6 +144,8 @@
             }
         });
 
+        // var myContent = tinymce.get("#input_post_content").getContent({ format: "text" });
+
         $('#button_post_pdf').filemanager('image');
 
          var table = $('.data-table').DataTable({
@@ -163,10 +165,6 @@
                      data: 'name',
                      name: 'name'
                  },
-                 //  {
-                 //      data: 'email',
-                 //      name: 'email'
-                 //  },
                  {
                      data: 'roles',
                      name: 'roles'
@@ -175,32 +173,7 @@
                      data: 'action',
                      name: 'action'
                  },
-                 //  {
-                 //      data: 'finish_date',
-                 //      name: 'finish_date'
-                 //  },
-                 // {
-                 //    data: 'created_at',
-                 //    render: function(d) {
-                 //       return moment(d).format("DD/MM/YYYY HH:mm");
-                 //    }
-                 // },
-                 // {
-                 //    data: 'email',
-                 //    name: 'subject'
-                 // },
-                 // {
-                 //    data: 'email',
-                 //    name: 'address'
-                 // },
-                 // {
-                 //    data: 'email',
-                 //    name: 'phone'
-                 // },
-                 // {
-                 //    data: 'email',
-                 //    name: 'message'
-                 // }
+                 
 
              ]
          });
