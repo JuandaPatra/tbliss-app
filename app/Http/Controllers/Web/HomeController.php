@@ -317,8 +317,21 @@ class HomeController extends Controller
     public function cart()
     {
         $user = Auth::user();
-        $histories = Payment::where('user_id', '=', $user->id)->get(['id', 'invoice_id', 'status',]);
-        $histories = Payment::with(['trip:id,title'])->where('user_id', '=', $user->id)->orderBy('tanggal_pembayaran', 'desc')->get(['id', 'invoice_id', 'status', 'qty', 'tanggal_pembayaran', 'trip_categories_id']);
+        // $histories = Payment::where('user_id', '=', $user->id)->get(['id', 'invoice_id', 'status',]);
+        $datas = Payment::with(['trip:id,title'])->where('user_id', '=', $user->id)->orderBy('id', 'DESC')->get(['id', 'invoice_id', 'status', 'qty', 'tanggal_pembayaran', 'trip_categories_id']);
+
+        $histories = [];
+
+        
+        foreach($datas as $dt){
+            $int = $dt->invoice_id;
+            $str = (string) $int;
+            $orderId = substr($str,10,2);
+            $dt['tanggal_pembayaran_fix'] = date('d-m-Y', strtotime($dt->tanggal_pembayaran));
+            if($orderId == '00'){
+                array_push($histories,$dt);
+            }
+        }
         return view('web.cart.index', compact('histories'));
     }
 
@@ -1420,5 +1433,14 @@ class HomeController extends Controller
     public function kontak()
     {
         return view('web.kontakKami.index');
+    }
+
+    public function invoiceLunas($invoice_id)
+    {
+        $pdfSyaratUrl = Payment::where('invoice_id', '=', $invoice_id)->first();
+        $url= $pdfSyaratUrl->url_paid_invoice;
+        
+        return response()->file(storage_path('app/public/storage/uploads/'.$url),['content-type'=>'application/pdf']);
+
     }
 }

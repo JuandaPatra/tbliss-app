@@ -67,12 +67,17 @@
                             @foreach($histories as $history)
                             <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
                                 <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    {{$history->tanggal_pembayaran}}
+                                    {{$history->tanggal_pembayaran_fix}}
                                 </th>
                                 <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                     Invoice #{{$history->invoice_id}}
                                 </th>
-                                <th>@if($history->trip != null)
+                                <th>
+                                    @if($history->trip != null && $history->status == 'Lunas' )
+                                    <a href="{{route('home.invoice', $history->invoice_id)}}" class="hover:text-footer" target="_blank">
+                                        {{$history->trip->title}}
+                                    </a>
+                                    @elseif($history != null && $history->status != 'lunas')
                                     {{$history->trip->title}}
                                     @else
                                     null

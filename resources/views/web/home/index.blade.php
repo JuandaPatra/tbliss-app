@@ -148,6 +148,7 @@
                         <p class="text-redTbliss font-bold text-[19px] flex-1 px-[15px] pb-[20px]">
                             @currency($trip->price)
                         </p>
+                        
                     </div>
                 </div>
             </div>

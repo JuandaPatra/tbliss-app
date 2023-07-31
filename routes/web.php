@@ -66,6 +66,7 @@ Route::post('/selectcities/{id}', [UserRegisterController::class, 'selectcities'
 
 Route::resource('checkout', CheckoutController::class);
 
+Route::get('/get-invoice-id/{invoiceId}', [HomeController::class, 'invoiceLunas'])->name('home.invoice');
 
 Route::post('/email-leads', [EmailsController::class, 'index'])->name('email-leads');
 // Route::get('/booking-trip', [HomeController::class, 'booking'])->name('booking');
