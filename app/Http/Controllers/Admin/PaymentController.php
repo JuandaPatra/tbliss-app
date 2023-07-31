@@ -30,10 +30,7 @@ class PaymentController extends Controller
 
         $data = Payment::orderBy('id', 'DESC')->get();
         $ndata = [];
-        $int = 169052707900561;
-        $str = (string) $int;
-        $orderId = substr($str,10,2);
-        // return $data;
+        
         foreach($data as $dt){
             $int = $dt->invoice_id;
             $str = (string) $int;
@@ -42,7 +39,6 @@ class PaymentController extends Controller
                 array_push($ndata,$dt);
             }
         }
-        // return $ndata;
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
@@ -277,7 +273,6 @@ class PaymentController extends Controller
         $payment = Payment::with(['trip:id,title,seat'])->where('id', '=', $id)->first();
         $user = User::where('id', '=', $payment->user_id)->first();
         $invoiceDate = Carbon::now();
-        // return $payment;
 
         $dataCoba = [
             'title'             =>  $user,
@@ -294,13 +289,18 @@ class PaymentController extends Controller
             // 'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days'))
         ];
 
+        // return $dataCoba;
+
         $pdf = PDF::loadView('admin.payment.coba1', compact('dataCoba'));
         // User::sendEMail($email, $pdf);
         PDF::getOptions()->set([
             'defaultFont' => 'helvetica',
             'chroot' => '/var/www/myproject/public',
         ]);
-        $path = Storage::put('public/storage/uploads/' . '-' . rand() . '_' . time() . '.' . 'pdf', $pdf->output());
+
+        $paths=  '-' . rand() . '_' . time();
+        $path = Storage::put('public/storage/uploads/' . $paths . '.' . 'pdf', $pdf->output());
+        $savePath =  $paths . '.' . 'pdf';
         $email = [
             'email'         => $dataCoba['title']['email'],
             'nama'          => $dataCoba['title']['name'],
@@ -312,12 +312,22 @@ class PaymentController extends Controller
             'price'         =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
         ];
 
+        
+
         Storage::put($path, $pdf->output());
 
-        Mail::send('web.emails.order', $email, function ($message) use ($email, $pdf, $path) {
+        $paymentUpdatePaid = Payment::where('id', '=', $id);
+
+        $paymentUpdatePaid->update([
+            'url_paid_invoice' => $savePath
+        ]);
+
+
+
+        Mail::send('web.emails.successPayment', $email, function ($message) use ($email, $pdf, $path) {
             $message->from('patrajuanda10@gmail.com');
             $message->to($email['email']);
-            $message->subject('Order-' . $email['nama']);
+            $message->subject('payment-success' . $email['nama']);
             $message->attachData(
                 $pdf->output(),
                 $email['nama'] . time() . '.' . 'pdf'

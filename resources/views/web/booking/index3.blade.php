@@ -199,18 +199,18 @@
                                         <div class="hidden lg:flex mb-2">
                                             <p class="w-[30%]">Nama Trip</p>
                                             <p>:</p>
-                                            <p class="pl-1">{{$newCart->trip->title}}</p>
+                                            <p class="pl-1 w-[60%]">{{$newCart->trip->title}}</p>
                                         </div>
                                         <div class="hidden lg:flex mb-2">
                                             <p class="w-[30%]">Tanggal</p>
                                             <p>:</p>
-                                            <p class="pl-1">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
+                                            <p class="pl-1 w-[60%]">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
 
                                         </div>
                                         <div class="hidden lg:flex mb-2">
                                             <p class="w-[30%]">Opsi Pembayaran</p>
                                             <p>:</p>
-                                            <p class="pl-1 status-payment">Bayar Uang Muka</p>
+                                            <p class="pl-1 w-[60%] status-payment">Bayar Uang Muka</p>
                                             <input type="hidden" name="dp_price" value="{{$monthly[0][0]}}" class="input-payment">
                                             <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}">
                                             <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">

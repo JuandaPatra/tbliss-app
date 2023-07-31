@@ -7,6 +7,7 @@ use App\Models\globalData;
 use App\Models\Payment;
 use Illuminate\Http\Request;
 use file;
+use Illuminate\Support\Facades\Storage;
 
 class pdfOpenerController extends Controller
 {
@@ -30,9 +31,8 @@ class pdfOpenerController extends Controller
 
     public function invoice($id){
         $pdfSyaratUrl = Payment::where('id', '=', $id)->first();
+        $url= $pdfSyaratUrl->url_paid_invoice;
         
-        $urlParts = parse_url($pdfSyaratUrl->url_unpaid_invoice);
-
-        return response()->file(public_path($urlParts['path']),['content-type'=>'application/pdf']);
+        return response()->file(storage_path('app/public/storage/uploads/'.$url),['content-type'=>'application/pdf']);
     }
 }

@@ -19,7 +19,7 @@
 
         <p style="font-size:22px;font-weight:700;margin:0 0 20px 0">Order Summary</p>
         <p style="font-size:18px;margin:0">
-          Please finish your Order with invoice id <span style="font-size:18px;color:#ff0000">#{{$invoiceId}}</span> before {{$duedate}}
+        Thank you for your purchase with Invoice Id <span style="font-size:18px;color:#ff0000">#{{$invoiceId}}</span>
         </p>
       </div>
       <table style="border-collapse:collapse;color:#5b5b5b;text-align:left;width:100%">
@@ -43,37 +43,11 @@
               {{$qty}}
             </td>
             <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding:8px;vertical-align:top">
-              {{$price_total}}
+              tes
             </td>
           </tr>
-          <tr style="border-bottom:5px solid #ecf0f1;border-left:6px solid #ecf0f1;border-right:6px solid #ecf0f1;border-top:2px solid #ecf0f1">
-            <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding:8px;vertical-align:top">
-              Visa
-            </td>
-            <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding:8px;vertical-align:top">
-              {{$visa}}
-            </td>
-            <td style="padding: 0px 20px;">
-              {{$qty}}
-            </td>
-            <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding:8px;vertical-align:top">
-              {{$visa_total}}
-            </td>
-          </tr>
-          <tr style="border-bottom:5px solid #ecf0f1;border-left:6px solid #ecf0f1;border-right:6px solid #ecf0f1;border-top:2px solid #ecf0f1">
-            <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding:8px;vertical-align:top">
-              Tipping
-            </td>
-            <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding:8px;vertical-align:top">
-              {{$tipping}}
-            </td>
-            <td style="padding: 0px 20px;">
-              {{$qty}}
-            </td>
-            <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding:8px;vertical-align:top">
-              {{$total_tipping}}
-            </td>
-          </tr>
+         
+          
         </tbody>
       </table>
       <div>
@@ -82,7 +56,7 @@
             <tbody>
               <tr>
                 <td width="85%">CART TOTAL</td>
-                <td width="15%" style="text-align:right">{{$grandTotal}}</td>
+                <td width="15%" style="text-align:right">340000</td>
               </tr>
               <tr>
                 <td width="85%">Booking Fee</td>
@@ -91,7 +65,7 @@
               <tr style="color:#000;font-weight:700">
                 <td style="font-size:18px;padding-top:10px">TOTAL</td>
                 <td style="font-size:18px;padding-top:10px;text-align:right">
-                {{$grandTotal}}
+                3090000
                 </td>
               </tr>
             </tbody>
@@ -111,15 +85,15 @@
         <tbody>
           <tr style="height:30px">
             <td style="padding:10px" width="575" height="21">Name</td>
-            <td style="padding:10px" width="293" height="21" align="right">{{$nama}}</td>
+            <td style="padding:10px" width="293" height="21" align="right">Jon</td>
           </tr>
           <tr style="height:30px">
             <td style="padding:10px" width="575" height="21">Email</td>
-            <td style="padding:10px" width="293" height="21" align="right"><a href="mailto:patrajuanda10@gmail.com" target="_blank">{{$email}}</a></td>
+            <td style="padding:10px" width="293" height="21" align="right"><a href="mailto:patrajuanda10@gmail.com" target="_blank">tro</a></td>
           </tr>
           <tr style="height:30px">
             <td style="padding:10px" width="575" height="21">Telephone</td>
-            <td style="padding:10px" width="293" height="21" align="right">{{$telephone}}</td>
+            <td style="padding:10px" width="293" height="21" align="right">082735353</td>
           </tr>
 
         </tbody>

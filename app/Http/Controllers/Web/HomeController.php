@@ -1157,6 +1157,8 @@ class HomeController extends Controller
                 'chroot' => '/var/www/myproject/public',
             ]);
             $paths = $dataCoba['title']['name'] . '-' . rand() . '_' . time();
+            $savePath = '-' . $paths . '.' . 'pdf';
+            
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
 
             $email = [
@@ -1203,10 +1205,8 @@ class HomeController extends Controller
             ]);
            $paymentUpdateUrl = Payment::where('invoice_id', '=', $invoice_time . '0' . 0 . $telephone);
 
-           $url = 'http://127.0.0.1:8000/storage/uploads/';
-
            $paymentUpdateUrl->update([
-            'url_unpaid_invoice' => $url. '-' . $paths . '.' . 'pdf'
+            'url_unpaid_invoice' => $savePath
            ]);     
 
             $ids = encrypt($id);
@@ -1298,6 +1298,7 @@ class HomeController extends Controller
 
 
             Storage::put($path, $pdf->output());
+           
 
             // $mails = new orderSendMail($email);
 
@@ -1318,12 +1319,12 @@ class HomeController extends Controller
                 );
             });
             
-            $url = 'http://127.0.0.1:8000/storage/uploads/';
+            $savePath = '-' . $paths . '.' . 'pdf';
            
             $id = Payment::where('invoice_id', '=', $invoice_id)->first('id');
             $paymentUpdateUrl = Payment::where('invoice_id', '=', $invoice_id);
             $paymentUpdateUrl->update([
-                'url_unpaid_invoice' => $url. '-' . $paths . '.' . 'pdf'
+                'url_unpaid_invoice' => $savePath
                ]);     
             event(new MessageCreated($invoice_id));
             logPayments::create([

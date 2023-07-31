@@ -93,7 +93,7 @@ Dashboard
           <th>Installment 1</th>
           <th>Installment 2</th>
           <th>See Invoice</th>
-          <th>Status</th>
+          <!-- <th>Status</th> -->
         </tr>
         @foreach($data as $payment)
         <tr>
@@ -135,9 +135,11 @@ Dashboard
           <td class="text-center">
             <a href="{{route('invoicePDF', $payment->id)}}" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Invoice</a>
           </td>
-          <td class="text-center">
-            <a href="/" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Detail</a>
-          </td>
+          {{-- 
+            <td class="text-center">
+              <a href="/" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Detail</a>
+            </td>
+            --}}
         </tr>
         @endforeach
       </thead>
