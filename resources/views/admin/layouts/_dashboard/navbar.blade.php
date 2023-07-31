@@ -34,7 +34,7 @@
           <li class="dropdown-notifications-list scrollable-container ps">
             <ul class="list-group list-group-flush" style="width:300px;">
               @foreach($notifications as $notification)
-              <li class="list-group-item list-group-item-action dropdown-notifications-item item-notif-list-{{$notification->id}}">
+              <li class="list-group-item list-group-item-action dropdown-notifications-item item-notif-list-{{$notification->id}} cursor-pointer">
                 <div class="d-flex">
                   <div class="flex-shrink-0 me-3">
                     <div class="avatar">
@@ -44,6 +44,9 @@
                   <div class="flex-grow-1">
                     <h6 class="mb-1">Pembayaran Diterima🎉</h6>
                     <p class="mb-0">{{$notification->name}}</p>
+                    <div>
+                      <a href="{{route('notifications.to', $notification->id)}}" >check detail</a>
+                    </div>
                     <small class="text-muted">{{$notification->time}}</small>
                    
                   </div>

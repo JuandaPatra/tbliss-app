@@ -28,16 +28,37 @@ class PaymentController extends Controller
     public function index(Request $request)
     {
 
-        $data = Payment::all();
+        $data = Payment::orderBy('id', 'DESC')->get();
+        $ndata = [];
+        $int = 169052707900561;
+        $str = (string) $int;
+        $orderId = substr($str,10,2);
+        // return $data;
+        foreach($data as $dt){
+            $int = $dt->invoice_id;
+            $str = (string) $int;
+            $orderId = substr($str,10,2);
+            if($orderId == '00'){
+                array_push($ndata,$dt);
+            }
+        }
+        // return $ndata;
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
 
+        // foreach($notifications as $notification){
+        //     $notificationsplit = explode(' ', $notification->name);
+        //     $notification['order'] = $notificationsplit[0];
+        // }
 
         foreach($notifications as $notification){
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
+            $notificationsplit = explode(' ', $notification->name);
+            $notification['order'] = $notificationsplit[0];
         }
-        return view('admin.payment.index', compact('data', 'notifications', 'notificationsCount'));
+        return view('admin.payment.index', compact('data', 'notifications', 'notificationsCount', 'ndata'));
     }
 
     /**

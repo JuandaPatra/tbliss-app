@@ -49,23 +49,23 @@
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
-                            <option value="3">4</option>
-                            <option value="3">5</option>
-                            <option value="3">6</option>
-                            <option value="3">7</option>
-                            <option value="3">8</option>
-                            <option value="3">9</option>
-                            <option value="3">10</option>
-                            <option value="3">11</option>
-                            <option value="3">12</option>
-                            <option value="3">13</option>
-                            <option value="3">14</option>
-                            <option value="3">15</option>
-                            <option value="3">16</option>
-                            <option value="3">17</option>
-                            <option value="3">18</option>
-                            <option value="3">19</option>
-                            <option value="3">20</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                            <option value="13">13</option>
+                            <option value="14">14</option>
+                            <option value="15">15</option>
+                            <option value="16">16</option>
+                            <option value="17">17</option>
+                            <option value="18">18</option>
+                            <option value="19">19</option>
+                            <option value="20">20</option>
                         </select>
                         <div class="relative max-w-sm">
                             <!-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -114,6 +114,7 @@
         <h1 class="text-[30px] ml-[15px] mb-[30px]">
             Mari, pilih trip perjalanan {{$country->title}} kak!
         </h1>
+        <p class="ml-[15px] mb-[20px] text-greyDetTbliss font-interRegular result-text hidden">Trip yang tersedia pada tanggal 1 Juli 2023 - 20 Juli</p>
         <div class="flex flex-wrap home-section">
             @foreach($trips as $trip)
             <div class="basis-full lg:basis-4/12 px-3 pt-[50px] pb-3 hover:drop-shadow-md hover:cursor-pointer ">
@@ -123,16 +124,16 @@
                     </a>
                     <div class="mt-3 flex flex-col">
                         <div class="flex flex-1">
-                            <h5 class="text-blueTbliss mr-3 text-[12px]">
+                            <h5 class="text-blueTbliss mr-3 text-[12px] pl-[15px]">
                                 {{$trip->seat}} seats left
                             </h5>
                             <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline h-[12px]">
                         </div>
 
                         <a href="{{route('home.detail' ,['id'=>$country->slug,'trip'=>$trip->slug])}}" class="flex-1">
-                            <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[28px] h-[130px]">{{$trip->title}}</h5>
+                            <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[24px] h-[130px] px-[15px]">{{$trip->title}}</h5>
                         </a>
-                        <div class="flex-1">
+                        <div class="flex-1 px-[15px]">
                             <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
                                 {{$trip->day}}H{{$trip->night}}M
                             </span>
@@ -144,14 +145,11 @@
                                 {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
                             </span>
                         </div>
-                        <p class="text-redTbliss font-bold text-[19px] flex-1">
+                        <p class="text-redTbliss font-bold text-[19px] flex-1 px-[15px] pb-[20px]">
                             @currency($trip->price)
                         </p>
                     </div>
                 </div>
-
-
-
             </div>
             @endforeach
 
@@ -196,11 +194,11 @@
         </h1>
         <div class="flex flex-wrap justify-end ">
             <div class="slider-for w-[550px]">
-                {{-- 
+                {{--
                     @foreach($testimonies as $testimoni)
                     <img src="{{$testimoni->image}}" alt="" class="h-auto w-[500px]">
-                    @endforeach
-                    --}}
+                @endforeach
+                --}}
                 <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
                 <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
 
@@ -213,7 +211,7 @@
                     @foreach($testimonies as $testimoni)
                     <div>
                         <h1 class="bold mb-3 text-[20px] lg:text-[30px] font-semibold">
-                        {{$testimoni->description}}
+                            {{$testimoni->description}}
                         </h1>
                         <p class="text-[15px] lg:text-[20px]">
                             {{$testimoni->name}}
@@ -251,7 +249,6 @@
         </div>
         <ul class="juicer-feed" data-feed-id="travelbliss-tours" data-origin="embed-code"></ul>
     </div>
-
 </section>
 
 
@@ -318,60 +315,61 @@
                     }
                 },
                 success: function(data) {
-                    console.log(data);
+                    $('.result-text').removeClass('hidden')
                     $('.home-section').empty()
-                    let result = data
-                    if(data.length === 0){
+                    let result = data.result
+                    if (result.length === 0) {
                         $('.home-section').append(
-                            `<div class=" w-full flex justify-center text-[20px] text-footer">
+                            `<div class=" w-full flex justify-start text-[20px] text-greyDetTbliss ml-[15px]">
                             Maaf Kak, tidak ada jadwal trip pada saat ini
                             </div>`
                         )
-                    }
-                    else{
+                    } else {
+                        $('.result-text').text(
+                            `Trip yang tersedia pada tanggal ${data.dateReqFrom} - ${data.dateReqTo}`
+                        )
                         result.forEach(function(item, index) {
                             $('.home-section').append(
                                 `
-                                    <div class="basis-full lg:basis-4/12 p-3">
+                                    <div class="basis-full lg:basis-4/12 px-3 pt-[50px] pb-3 hover:drop-shadow-md hover:cursor-pointer ">
                                         <div class="max-w-sm bg-white ">
                                             <a href="/countries/korea/detail/${item.slug}">
                                                 <img src="${item.thumbnail}" alt="" class="w-full">
                                             </a>
-                                            <div class="mt-3 ">
-                                                <div class="flex ">
-                                                    <h5 class="text-blueTbliss mr-3">
+                                            <div class="mt-3 flex flex-col ">
+                                                <div class="flex  flex-1 ">
+                                                    <h5 class="text-blueTbliss mr-3 text-[12px] pl-[15px]">
                                                         ${item.seat} seats left
                                                     </h5>
-                                                    <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline">
+                                                    <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline  h-[12px]">
                                                 </div>
-                                                <a href="#">
-                                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-greyTbliss text-[28px]">${item.title}</h5>
+                                                <a href="/countries/korea/detail/${item.slug}">
+                                                    <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[24px] h-[130px] px-[15px]">${item.title}</h5>
                                                 </a>
-                                                <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
-                                                    ${item.day}H${item.night}M
-                                                </span>
-                                                <span>
-                                                    |
-                                                </span>
-                                                <span class="ml-3 text-[16px]">
-    
-                                                    ${new Date(item.date_from).getDay()} - ${item.date_to}
-                                                </span>
-                                                <p class="text-redTbliss font-bold text-[19px]">
-                                                    ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
-                                                </p>
+                                                <div class="flex-1 px-[15px]">
+                            <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                            ${item.day}H${item.night}M
+                            </span>
+                            <span>
+                                |
+                            </span>
+                            <span class="ml-3 text-[16px]">
+                            ${item.date_from_result} - ${item.date_to_result}
+
+                            </span>
+                        </div>
+                        <p class="text-redTbliss font-bold text-[19px] flex-1 px-[15px] pb-[20px]">
+                        ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
+                        </p>
+                                                
                                             </div>
                                         </div>
                                     </div>
                                 `
                             )
-    
+
                         })
                     }
-
-                    // let allData = [...allData, data]
-                    // allData.push(data)
-
                 },
             });
 
@@ -397,8 +395,6 @@
             // autoplaySpeed: 2000,
         });
         $('.banner-slider').not('.slick-initialized').slick();
-
-        console.log('tes-gagal')
 
         $('.testimoni-slider').slick({
             dots: false,
@@ -464,18 +460,6 @@
         //         console.log(e)
         //     }
         // })
-
-
-
-
-
-        // var feed = new Instafeed({
-        //     accessToken: 'Wx5EYvhNwEL4VSiL'
-        // });
-        // feed.run();
-
-
-
 
 
 

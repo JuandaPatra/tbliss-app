@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\globalData;
+use App\Models\Payment;
 use Illuminate\Http\Request;
 use file;
 
@@ -23,6 +24,14 @@ class pdfOpenerController extends Controller
         $pdfSyaratUrl = globalData::where('categories', '=', 1)->first();
         
         $urlParts = parse_url($pdfSyaratUrl->description);
+
+        return response()->file(public_path($urlParts['path']),['content-type'=>'application/pdf']);
+    }
+
+    public function invoice($id){
+        $pdfSyaratUrl = Payment::where('id', '=', $id)->first();
+        
+        $urlParts = parse_url($pdfSyaratUrl->url_unpaid_invoice);
 
         return response()->file(public_path($urlParts['path']),['content-type'=>'application/pdf']);
     }

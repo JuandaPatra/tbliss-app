@@ -23,7 +23,11 @@ class Payment extends Model
         'total_tipping',
         'grand_total',
         'due_date',
-        'opsi_pembayaran'
+        'opsi_pembayaran',
+        'url_unpaid_invoice',
+        'url_paid_invoice',
+        'due_date_satu',
+        'due_date_dua'
     ];
 
     public function trip()

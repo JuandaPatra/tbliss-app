@@ -148,7 +148,7 @@
             <h1 class="mb-[18px] mt-[30px]">
                 Kamu cukup membayar deposit terlebih dahulu.
             </h1>
-            <button class="w-full bg-blueTbliss h-[39px] text-white" type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal">
+            <button class="w-full bg-blueTbliss h-[39px] text-white button-popup-skema" type="button" data-modal-target="defaultModal" data-modal-toggle="defaultModal">
                 <p class=" text-center py-2 text-[15px]">
                     Skema Pembayaran
                 </p>
@@ -578,7 +578,14 @@
 <script>
     $(document).ready(function() {
 
+       ///// ini button dp payment
         $('.dp-button').on('click', function(e) {
+            $( ".button-popup-skema" ).prop( "disabled", false );
+            $( ".button-popup-skema" ).removeClass('bg-white');
+            $( ".button-popup-skema" ).addClass('bg-blueTbliss');
+            $( ".button-popup-skema" ).removeClass('text-[#6A6A6A]');
+            $( ".button-popup-skema" ).addClass('text-white');
+
             $(this).removeClass('text-[#6A6A6A]')
             $(this).removeClass('bg-white')
             $(this).addClass('bg-blueTbliss')
@@ -587,7 +594,7 @@
             $('.white-icon', this).addClass('hidden')
 
             $('.installment-excludes-dp').removeClass('hidden')
-
+            
 
             $('.full-pay-button .white-icon').addClass('hidden')
             $('.full-pay-button .blue-icon').removeClass('hidden')
@@ -656,7 +663,16 @@
             }))
         })
 
+        /// ini button full payment
         $('.full-pay-button').on('click', function(e) {
+            $( ".button-popup-skema" ).prop( "disabled", true );
+            $( ".button-popup-skema" ).removeClass('bg-blueTbliss');
+            $( ".button-popup-skema" ).addClass('bg-white');
+            $( ".button-popup-skema" ).removeClass('text-white');
+            $( ".button-popup-skema" ).addClass('text-[#6A6A6A]');
+
+
+
             $(this).removeClass('text-[#6A6A6A]')
             $(this).removeClass('bg-white')
             $(this).addClass('bg-blueTbliss')

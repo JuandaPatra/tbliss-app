@@ -51,9 +51,12 @@
                     <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
                         <thead class=" font-interRegular text-sm border-b border-[#9F9F9F]">
                             <tr>
+                                <th>Tanggal Pemesanan</th>
                                 <th scope="col" class="pl-0 pr-6 py-3 ">
                                     Invoice Number
                                 </th>
+                                <th>Nama Trip</th>
+                                <th>Pax</th>
                                 <th scope="col" class="pl-6 pr-0 py-3">
                                     Status
                                 </th>
@@ -64,8 +67,18 @@
                             @foreach($histories as $history)
                             <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
                                 <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
+                                    {{$history->tanggal_pembayaran}}
+                                </th>
+                                <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
                                     Invoice #{{$history->invoice_id}}
                                 </th>
+                                <th>@if($history->trip != null)
+                                    {{$history->trip->title}}
+                                    @else
+                                    null
+                                    @endif
+                                </th>
+                                <th>{{$history->qty}}</th>
                                 @if($history->status == 'Menunggu Pembayaran')
                                 <td class="pl-6 pr-0 py-4 text-footer">
                                     Menunggu Pembayaran
@@ -104,4 +117,3 @@
 
 </div>
 @endsection
-

@@ -26,6 +26,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SosmedController;
+use App\Http\Controllers\Web\pdfOpenerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -121,6 +122,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('notifications', [HomeController::class, 'notification'])->middleware('isAdmin')->name('notifications.admin');
 
+    Route::get('notification/{id}', [HomeController::class, 'notificationTo'])->middleware('isAdmin')->name('notifications.to');
+
     Route::get('notification-close/{id}', [HomeController::class, 'notificationRead'])->middleware('isAdmin')->name('notifications.close');
+
+    Route::get('/invoice-admin/{id}', [pdfOpenerController::class, 'invoice'])->name('invoicePDF');
     
 });

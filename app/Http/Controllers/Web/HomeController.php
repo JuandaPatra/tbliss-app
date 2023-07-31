@@ -26,6 +26,7 @@ use App\Models\HiddenGemHomepage;
 use App\Models\logPayments;
 use App\Models\Payment;
 use App\Models\PaymentDetails;
+use App\Models\ReviewTrip;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
@@ -114,12 +115,23 @@ class HomeController extends Controller
     public function detail(Request $request, $id, $trip)
     {
 
-
         /**
          * ambil detail trip
          */
-        $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner']);
+        $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile,title', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id', 'testimoniUser'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner', 'trip_review', 'trip_star']);
 
+
+        $hidden_gem = [];
+
+        foreach ($detailTrip->place_trip_categories_cities as $citiesCollections) {
+            if ($citiesCollections->pick_hidden_gem->count() != 0) {
+                foreach ($citiesCollections->pick_hidden_gem as $city) {
+                    array_push($hidden_gem, $city->hidden_gems->title);
+                }
+            }
+        }
+
+        $detailTrip['picked_hidden_gems'] = $hidden_gem;
 
         /**
          * ambil koleksi array kota yang memuat kota
@@ -232,16 +244,26 @@ class HomeController extends Controller
             // ->whereIn('id',$searchByPlace)
             ->get();
 
-
         $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
             ->where('date_from', '>=', $now)
             ->where('date_to', '<=', $to)
             ->where('seat', '>=', $seat)
             ->get();
 
+        foreach ($reservationsq as $reservation) {
+            $reservation['date_from_result'] = date('d', strtotime($reservation->date_from));
+            $reservation['date_to_result'] = date('d M Y', strtotime($reservation->date_to));
+        }
 
-        return $reservationsq;
-        return response()->json($reservationsq);
+        $response = [
+
+            'dateReqFrom'   => $request->dateFrom,
+            'dateReqTo'     => $request->dateTo,
+            'result'        => $reservationsq
+        ];
+
+
+        return $response;
     }
 
     public function profile()
@@ -296,6 +318,7 @@ class HomeController extends Controller
     {
         $user = Auth::user();
         $histories = Payment::where('user_id', '=', $user->id)->get(['id', 'invoice_id', 'status',]);
+        $histories = Payment::with(['trip:id,title'])->where('user_id', '=', $user->id)->orderBy('tanggal_pembayaran', 'desc')->get(['id', 'invoice_id', 'status', 'qty', 'tanggal_pembayaran', 'trip_categories_id']);
         return view('web.cart.index', compact('histories'));
     }
 
@@ -925,18 +948,16 @@ class HomeController extends Controller
             redirect('/');
         }
 
-        // return $request;
-
         $user = Auth::user();
 
         $dp_price = (int)$request->dp_price;
-       
+
         $qty = (int)$request->qty;
-        
+
         $visa_price = (int)$request->input_payment_visa;
-        
+
         $tipping_price = (int)$request->input_payment_tipping;
-        
+
         $telephone = substr($user->phone, -3);
 
         $invoice_id =   time() . '00' . $telephone;
@@ -947,9 +968,11 @@ class HomeController extends Controller
 
         $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price,installment1,installment2,installment3,visa,total_tipping,tipping,dp_price'])->where('user_id', '=', $user->id)->orderBy('created_at', 'asc')->get()->last();
 
+
+
         $dates1 = $newCart->trip->date_from;
 
-        
+
         $dates2 = Carbon::today()->toDateString();
 
 
@@ -971,27 +994,51 @@ class HomeController extends Controller
                 $tippingPerMonth = $newCart->trip->total_tipping
             ];
         } elseif ($dayRange >= 31 and $dayRange <= 60) {
+
+            //sudah betul
             $monthly = [
                 [
-                    $price = $newCart->trip->price,
+                    $price = $newCart->trip->dp_price + $newCart->trip->installment1,
                     $perMonth = Carbon::today()->toDateString(),
+                    $visaperMonth = 0,
+                    $tippingPerMonth = 0,
+                    $due_date_satu = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
+                    $due_date_dua  = NULL
+                ],
+                [
+                    $price = $newCart->trip->installment2,
+                    $perMonth = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
                     $visaperMonth = $newCart->trip->visa,
-                    $tippingPerMonth = $newCart->trip->total_tipping
+                    $tippingPerMonth = $newCart->trip->total_tipping,
+                    $due_date_satu = NULL,
+                    $due_date_dua  = NULL
                 ],
             ];
         } elseif ($dayRange >= 61 and $dayRange <= 90) {
             $monthly = [
                 [
-                    $price = $newCart->trip->dp_price + $newCart->trip->installment1,
+                    $price = $newCart->trip->dp_price,
                     $perMonth = Carbon::today()->toDateString(),
+                    $visaperMonth = 0,
+                    $tippingPerMonth = 0,
+                    $due_date_satu = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
+                    $due_date_dua  = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
+                ],
+                [
+                    $price = $newCart->trip->installment1,
+                    $perMonth = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
                     $visaperMonth = $newCart->trip->visa,
-                    $tippingPerMonth = 0
+                    $tippingPerMonth = 0,
+                    $due_date_satu = NULL,
+                    $due_date_dua  = NULL
                 ],
                 [
                     $price = $newCart->trip->installment2,
                     $perMonth = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
                     $visaperMonth = 0,
-                    $tippingPerMonth = $newCart->trip->total_tipping
+                    $tippingPerMonth = $newCart->trip->total_tipping,
+                    $due_date_satu = NULL,
+                    $due_date_dua  = NULL
                 ],
             ];
         } elseif ($dayRange >= 91) {
@@ -1000,19 +1047,26 @@ class HomeController extends Controller
                     $price = $newCart->trip->dp_price,
                     $perMonth = Carbon::today()->toDateString(),
                     $visaperMonth = 0,
-                    $tippingPerMonth = 0
+                    $tippingPerMonth = 0,
+                    $due_date_satu = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
+                    $due_date_dua  = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
                 ],
                 [
                     $price = $newCart->trip->installment1,
                     $perMonth = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
                     $visaperMonth = $newCart->trip->visa,
-                    $tippingPerMonth = 0
+                    $tippingPerMonth = 0,
+                    $due_date_satu = NULL,
+                    $due_date_dua  = NULL
+                    
                 ],
                 [
                     $price = $newCart->trip->installment2,
                     $perMonth = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
                     $visaperMonth = 0,
-                    $tippingPerMonth = $newCart->trip->total_tipping
+                    $tippingPerMonth = $newCart->trip->total_tipping,
+                    $due_date_satu = NULL,
+                    $due_date_dua  = NULL
                 ],
             ];
         }
@@ -1026,14 +1080,16 @@ class HomeController extends Controller
             // $totalTipping       = 0;
             // $totalVisa          = 0;
 
+            
+
             for ($i = 1; $i <= $request->months; $i++) {
-                // return $monthly;
                 $bulan = $i;
+
                 DB::beginTransaction();
                 try {
                     $paymentDetails = Payment::create([
                         'order_id'              => $newCart->id,
-                        'invoice_id'            => $invoice_time . '0' . $bulan . $telephone,
+                        'invoice_id'            => $invoice_time . '0' . $bulan - 1 . $telephone,
                         'user_id'               => $user->id,
                         'trip_categories_id'    => $request->trip_categories_id,
                         'qty'                   => $request->qty,
@@ -1046,7 +1102,9 @@ class HomeController extends Controller
                         'visa'                  => $monthly[$i - 1][2] * $request->qty,
                         'total_tipping'         => $monthly[$i - 1][3] * $request->qty,
                         'grand_total'           => ($monthly[$i - 1][0] * $request->qty) + ($monthly[$i - 1][2] * $request->qty) + ($monthly[$i - 1][3] * $request->qty),
-                        'opsi_pembayaran'       => $request->status
+                        'opsi_pembayaran'       => $request->status,
+                        'due_date_satu'         => $monthly[$i - 1][4],
+                        'due_date_dua'          => $monthly[$i - 1][5],
 
                     ]);
                 } catch (\throwable $th) {
@@ -1057,8 +1115,14 @@ class HomeController extends Controller
                 } finally {
                     DB::commit();
                 }
+                
+               
+
             }
-            $paymentId = Payment::where('invoice_id', '=', $invoice_time . '0' . 1 . $telephone)->first();
+
+            ///mendapatkan payment id dengan invoice
+            // $paymentId = Payment::where('invoice_id', '=', $invoice_time . '0' . 1 . $telephone)->first();
+            $paymentId = Payment::where('invoice_id', '=', $invoice_time . '0' . 0 . $telephone)->first();
 
 
             $dataCoba = [
@@ -1094,6 +1158,7 @@ class HomeController extends Controller
             ]);
             $paths = $dataCoba['title']['name'] . '-' . rand() . '_' . time();
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
+
             $email = [
                 'email'         => $dataCoba['title']['email'],
                 'nama'          => $dataCoba['title']['name'],
@@ -1136,7 +1201,13 @@ class HomeController extends Controller
                 'name'      => 'ORD' . $newCart->id . 'telah membuat pesanan',
                 'status'    => 'belum dibaca'
             ]);
+           $paymentUpdateUrl = Payment::where('invoice_id', '=', $invoice_time . '0' . 0 . $telephone);
 
+           $url = 'http://127.0.0.1:8000/storage/uploads/';
+
+           $paymentUpdateUrl->update([
+            'url_unpaid_invoice' => $url. '-' . $paths . '.' . 'pdf'
+           ]);     
 
             $ids = encrypt($id);
             return redirect()->route('payment', $ids);
@@ -1246,10 +1317,17 @@ class HomeController extends Controller
                     $email['nama'] . time() . '.' . 'pdf'
                 );
             });
+            
+            $url = 'http://127.0.0.1:8000/storage/uploads/';
+           
             $id = Payment::where('invoice_id', '=', $invoice_id)->first('id');
+            $paymentUpdateUrl = Payment::where('invoice_id', '=', $invoice_id);
+            $paymentUpdateUrl->update([
+                'url_unpaid_invoice' => $url. '-' . $paths . '.' . 'pdf'
+               ]);     
             event(new MessageCreated($invoice_id));
             logPayments::create([
-                'name'      => 'ORD' . $newCart->id . 'telah membuat pesanan',
+                'name'      => 'ORD' . $newCart->id . ' telah membuat pesanan',
                 'status'    => 'belum dibaca'
             ]);
             $ids = encrypt($id->id);

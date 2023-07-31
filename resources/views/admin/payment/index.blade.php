@@ -67,7 +67,7 @@ Sliders
                 </td>
                 </tr>
                 @endforeach--}}
-                @foreach($data as $payment)
+                @foreach($ndata as $payment)
                 <tr>
                     <td>
                         {{ $loop->iteration }}

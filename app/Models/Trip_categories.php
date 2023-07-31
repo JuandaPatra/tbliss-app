@@ -50,4 +50,9 @@ class Trip_categories extends Model
     {
         return $this->hasOne(PaymentDetails::class, 'trip_categories_id', 'id');
     }
+
+    public function testimoniUser()
+    {
+        return $this->hasMany(ReviewTrip::class, 'categories_trip_id', 'id');
+    }
 }

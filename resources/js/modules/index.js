@@ -241,12 +241,13 @@ export class DetailPages {
                                             <a href="/detail-trip" type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                                                 <img src="/images/details/arrow.png" alt="" class="h-[10px] w-[10px] inline-block ">
                                             </a>
-                                            <div class="flex pt-[11px] lg:pt-0">
-                                                <h5 class="text-[#4A5CED] mr-3">
+                                            <div class="flex pt-[11px] lg:pt-[15px]">
+                                                <h5 class="text-[#4A5CED] mr-3 text-[12px]">
                                                     ${result[i].seat} seats left
                                                 </h5>
-                                                <img src="/images/trip/seat.png" alt="" class="inline h-5">
+                                                <img src="/images/trip/seat.png" alt="" class="inline h-[12px]">
                                             </div>
+                                            
                     
                                         </div>
                                     </div>
@@ -307,11 +308,11 @@ export class DetailPages {
                                             <a type="button" class="text-white bg-[#FF5055] hover:bg-[#FF5055] focus:outline-none focus:ring-4 focus:ring-blue-300 font-medium rounded-full text-sm px-2 lg:px-5 py-2.5 text-center mr-2 mb-2 w-[210px]">Pesan Sekarang
                                                 <img src="/images/details/arrow.png" alt="" class="h-[10px] w-[10px] inline-block ">
                                             </a>
-                                            <div class="flex pt-[11px] lg:pt-0">
-                                                <h5 class="text-[#4A5CED] mr-3">
+                                            <div class="flex pt-[11px] lg:pt-[15px]">
+                                                <h5 class="text-[#4A5CED] mr-3 text-[12px]">
                                                     ${result[i].seat} seats left
                                                 </h5>
-                                                <img src="/images/trip/seat.png" alt="" class="inline h-5">
+                                                <img src="/images/trip/seat.png" alt="" class="inline h-[12px]">
                                             </div>
                     
                                         </div>

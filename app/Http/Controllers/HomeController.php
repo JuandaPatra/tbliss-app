@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Hidden_gem;
 use App\Models\logPayments;
+use App\Models\Payment;
 use App\Models\Trip_categories;
 use Illuminate\Http\Request;
 
@@ -28,25 +29,41 @@ class HomeController extends Controller
     {
         $countTrip = Trip_categories::all(['id'])->count();
         $countHiddenGems = Hidden_gem::all(['id'])->count();
-        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->orderBy('id', 'desc')->get();
+        foreach ($notifications as $notification) {
+            $notificationsplit = explode(' ', $notification->name);
+            $notification['order'] = $notificationsplit[0];
+        }
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
 
-        
-        foreach($notifications as $notification){
+
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
 
+        $datas = Payment::orderBy('id', 'DESC')->get();
+        $data = [];
+        
+        foreach($datas as $dt){
+            $int = $dt->invoice_id;
+            $str = (string) $int;
+            $orderId = substr($str,10,2);
+            if($orderId == '00'){
+                array_push($data,$dt);
+            }
+        }
 
-        return view('home', compact('countTrip', 'countHiddenGems', 'notifications', 'notificationsCount'));
+
+        return view('home', compact('countTrip', 'countHiddenGems', 'notifications', 'notificationsCount', 'data'));
     }
 
     public function notification(Request $request)
     {
         if ($request->ajax()) {
-            $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+            $notifications = logPayments::where('status', '=', 'belum dibaca')->orderBy('id', 'desc')->get();
             $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-            foreach($notifications as $notification){
+            foreach ($notifications as $notification) {
                 $time = $this->timeAgo($notification->updated_at);
                 $notification['time'] = $time;
             }
@@ -64,11 +81,27 @@ class HomeController extends Controller
         $notification->update([
             'status' => 'sudah dibaca'
         ]);
-        $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
+        $notifications = logPayments::where('status', '=', 'belum dibaca')->orderBy('id', 'desc')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
 
         $result = [$notifications, $notificationsCount];
         return response()->json($result);
+    }
+
+    public function notificationTo($id)
+    {
+        $notification = logPayments::whereId($id);
+        $notification->update([
+            'status' => 'sudah dibaca'
+        ]);
+        
+        $logPayment = logPayments::where('id', '=', $id)->first();
+
+        $explodeText = explode(' ', $logPayment->name);
+        $orderId = substr($explodeText[0], 3);
+        $data = Payment::where('order_id', '=', $orderId)->first(['id']);
+
+        return redirect()->route('payments.show', ['payment' => $data->id]);
     }
 
     private function timeAgo($time_ago)
