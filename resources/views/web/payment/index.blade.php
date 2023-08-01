@@ -13,13 +13,13 @@
     <div class="flex flex-wrap">
         <div class="basis-full lg:basis-7/12 pl-2 lg:pl-40">
             <img src="{{ asset('images/payment/bca.png') }}" alt="" class=" mb-[40px]">
-            <p class=" font-interRegular text-[18px] font-bold mb-[5px]">Virtual Account#</p>
+            <p class=" font-interRegular text-[18px] font-bold mb-[5px]">No. Rekening</p>
             <div class="flex">
                 <p class="text-footer text-[35px] mr-0 lg:mr-[30px] font-interRegular virtual-akun">8890948593849284959</p>
                 <button class="w-[35px] h-[35px] px-2 py-2 button-copy"><img src="{{ asset('images/payment/copy.png') }}" alt="" ></button>
             </div>
-            <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">No. Rekening</p>
-            <p class="text-footer text-[35px] mr-[30px] font-interRegular">an. PT. Travel Blizz Trip</p>
+            <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">Atas Nama Rekening</p>
+            <p class="text-footer text-[35px] mr-[30px] font-interRegular">PT. Travel Blizz Trip</p>
             <p class=" font-interRegular text-[18px] font-bold mt-[39px] mb-[5px]">Total </p>
             <p class="text-footer text-[35px] mr-[30px] font-interRegular">@currency($payment->grand_total)</p>
 

@@ -69,7 +69,7 @@
             </p>
 
             <div class="text-[18px] pt-3 pb-3">
-                <h1 class="font-bold uppercase">
+                <h1 class="font-bold uppercase mb-[20px]">
                     @foreach($detailTrip->place_trip_categories_cities as $index => $city)
 
                     @if($index == 0)
@@ -83,11 +83,11 @@
                 </h1>
                 
                 @foreach($detailTrip->picked_hidden_gems as $hidden_gem)
-                <p>{{$hidden_gem}}</p>
+                <p class="text-[16px] mt-[5px]">{{$hidden_gem}}</p>
                 @endforeach
             </div>
 
-            <div class="flex mb-3">
+            <div class="flex mb-3 mt-[20px]">
                 <img src="{{ asset('images/detailtrip/itin.png') }}" alt="" class="inline w-[34px] h-[34px] mr-3">
                 <a href="{{$detailTrip->link_g_drive}}" target="_blank" class="underline text-blue-500">Unduh detail itinerary</a>
             </div>

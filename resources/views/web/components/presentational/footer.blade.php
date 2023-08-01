@@ -48,7 +48,7 @@
                     <h2 class="mb-[10px] text-lg font-semibold text-white text-[15px] uppercase font-interRegular">Get in Touch</h2>
                     <ul class="text-white text-[13px] font-interRegular">
                         <li class="mb-2">
-                            <a href="https://tbliss.owlandfoxes.co.id/kontak-kami" class="hover:underline">Contact Us</a>
+                            <a href="https://tbliss.owlandfoxes.co.id/kontak-kami" class="hover:underline">Kontak kami</a>
                         </li>
                     </ul>
                 </div>

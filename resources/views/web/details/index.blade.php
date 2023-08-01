@@ -14,12 +14,15 @@
                     <div class="flex">
                         <select id="countries" class="bg-gray-50 border border-gray-300 rounded-l-lg text-greyDetTbliss font-interRegular text-[13px]  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <!-- <option value="">Pilih Negara</option> -->
+                            <option value="6">Korea</option>
 
+                            {{--
                             @foreach($result as $choice)
                             @foreach($choice->children as $select)
                             <option value="{{$select->id}}">{{$select->title}}</option>
                             @endforeach
                             @endforeach
+                            --}}
 
                         </select>
                         <button class="focus:outline-none  text-white bg-tbliss w-[46px] rounded-r-lg px-2" id="search-country">
@@ -133,7 +136,7 @@
                             </h1>
 
 
-                            
+
                             <div class="h-[180px]">
                                 @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
                                 <p>

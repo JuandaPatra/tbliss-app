@@ -338,10 +338,12 @@ class HomeController extends Controller
             $str = (string) $int;
             $orderId = substr($str, 10, 2);
             $dt['tanggal_pembayaran_fix'] = date('d-m-Y', strtotime($dt->tanggal_pembayaran));
+            $dt['encrypt_id'] = encrypt($dt->id);
             if ($orderId == '00') {
                 array_push($histories, $dt);
             }
         }
+
         return view('web.cart.index', compact('histories'));
     }
 

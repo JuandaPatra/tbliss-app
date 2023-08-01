@@ -106,7 +106,7 @@ class HomeController extends Controller
 
                         return '
                         
-                        <a href="'.route('invoicePDF', $user->id).'" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Invoice</a>
+                        <a href="'.route('invoicePDF', $user->id).'" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Invoice</a>
                         ';
                     }
 

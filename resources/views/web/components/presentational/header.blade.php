@@ -9,9 +9,11 @@
             </div>
             <div class="hidden basis-full lg:basis-6/12 bg-[#BF1E5F] lg:flex justify-center">
                 <div class="flex justify-items-center mt-1 lg:mt-3 text-center">
-                    <h5 class="me-2 mt-[7px]  text-sm">
-                        Boleh kakak kami bantu buat itinerari seru! hubungi kami!
-                    </h5>
+                    <a href="https://api.whatsapp.com/send?phone=6285157431699" method="get" target="_blank">
+                        <h5 class="me-2 mt-[7px]  text-sm">
+                            Boleh kakak kami bantu buat itinerari seru! hubungi kami!
+                        </h5>
+                    </a>
                     <img src="{{ asset('images/header/whatsapp.png') }}" alt="" style="height: 18px;width:18px" class="mt-[7px]">
                 </div>
             </div>

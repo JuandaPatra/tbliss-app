@@ -91,6 +91,7 @@ class SearchTripController extends Controller
 
         $findTrips = PickHiddenGem::whereIn('hidden_gem_id', $searchTrips)->whereIn('place_categories_id', [8])->get(['place_categories_categories_cities_id'])->pluck('place_categories_categories_cities_id');
 
+
         $results = Trip_categories::with(['place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title'])->whereIn('id', $findTrips)->get(['id', 'title', 'slug', 'thumbnail', 'price', 'day', 'night', 'seat']);
 
 
