@@ -82,10 +82,12 @@ Dashboard
     </div>
   </div>
   <div class="col-md-12 order-3">
-    <table class="table table-bordered data-table">
+    
+
+    <table class="table table-bordered data-table" style="width: 100%;">
       <thead>
         <tr>
-          <!-- <th>No</th> -->
+          <th>No</th>
           <th>InvoiceID</th>
           <th>OrderID</th>
           <th>Opsi Pembayaran</th>
@@ -95,53 +97,7 @@ Dashboard
           <th>See Invoice</th>
           <!-- <th>Status</th> -->
         </tr>
-        @foreach($data as $payment)
-        <tr>
-          {{--
-            <td>
-              {{ $loop->iteration }}
-          </td>
-          --}}
-          <td>
-            {{ $payment->invoice_id }}
-          </td>
-          <td>
-            {{$payment->order_id}}
-          </td>
-          <td>
-            @if($payment->opsi_pembayaran == 0)
-            DP Payment
-            @else
-            Pembayaran Penuh
-            @endif
-          </td>
-          <td>
-            {{$payment->status}}
-          </td>
-          <td>
-            @if($payment->due_date_satu == null)
-            -
-            @else
-            {{$payment->due_date_satu}}
-            @endif
-          </td>
-          <td>
-            @if($payment->due_date_dua == null)
-            -
-            @else
-            {{$payment->due_date_dua}}
-            @endif
-          </td>
-          <td class="text-center">
-            <a href="{{route('invoicePDF', $payment->id)}}" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Invoice</a>
-          </td>
-          {{-- 
-            <td class="text-center">
-              <a href="/" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Detail</a>
-            </td>
-            --}}
-        </tr>
-        @endforeach
+       
       </thead>
       <tbody>
 
@@ -150,3 +106,99 @@ Dashboard
   </div>
 </div>
 @endsection
+@push('javascript-internal')
+ <script>
+     $(document).ready(function() {
+         // event delete category
+         $("form[role='alert']").submit(function(event) {
+             event.preventDefault();
+             Swal.fire({
+                 title: "Apakah anda ingin menghapus ?",
+                 text: $(this).attr('alert-text'),
+                 icon: 'warning',
+                 allowOutsideClick: false,
+                 showCancelButton: true,
+                 cancelButtonText: "Cancel",
+                 reverseButtons: true,
+                 confirmButtonText: "Yes",
+             }).then((result) => {
+                 if (result.isConfirmed) {
+                     // todo: process of deleting categories
+                     event.target.submit();
+                 }
+             });
+         });
+     });
+ </script>
+ @endpush
+ @push('javascript-external')
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+ <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+ @endpush
+ @push('css-internal')
+ <style>
+     .post-tumbnail {
+         width: 100%;
+         height: 400px;
+         background-repeat: no-repeat;
+         background-position: center;
+         background-size: cover;
+     }
+     
+
+ </style>
+ @endpush
+ @push('javascript-internal')
+ <script>
+     $(document).ready(function() {
+         var table = $('.data-table').DataTable({
+             processing: true,
+             serverSide: true,
+             ajax: "{{ route('tableDashboard') }}",
+             columns: [
+                 //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                 //  { "width": "20%" },
+                 {
+                     data: 'DT_RowIndex',
+                     name: 'DT_RowIndex',
+                     orderable: false,
+                     searchable: false
+                 },
+                 
+                 {
+                     data: 'invoice_id',
+                     name: 'invoice_id'
+                 },
+                 {
+                     data: 'order_id',
+                     name: 'order_id'
+                 },
+                 {
+                     data: 'opsi_pembelian',
+                     name: 'opsi_pembayaran'
+                 },
+                 {
+                     data: 'status',
+                     name: 'status'
+                 },
+                 {
+                     data: 'due_satu',
+                     name: 'due_satu'
+                 },
+                  {
+                      data: 'due_dua',
+                      name: 'due_dua'
+                  },
+                 
+                 {
+                     data: 'invoice',
+                     name: 'invoice'
+                 },
+                 
+             ]
+         });
+     });
+ </script>
+ @endpush

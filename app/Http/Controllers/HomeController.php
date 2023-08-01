@@ -7,6 +7,7 @@ use App\Models\logPayments;
 use App\Models\Payment;
 use App\Models\Trip_categories;
 use Illuminate\Http\Request;
+use DataTables;
 
 class HomeController extends Controller
 {
@@ -54,8 +55,65 @@ class HomeController extends Controller
             }
         }
 
+        // return $data;
+
 
         return view('home', compact('countTrip', 'countHiddenGems', 'notifications', 'notificationsCount', 'data'));
+
+        
+    }
+
+    public function table(Request $request)
+    {
+        if ($request->ajax()) {
+            $datas = Payment::orderBy('id', 'DESC')->get();
+            $data = [];
+            
+            foreach($datas as $dt){
+                $int = $dt->invoice_id;
+                $str = (string) $int;
+                $orderId = substr($str,10,2);
+                if($orderId == '00'){
+                    array_push($data,$dt);
+                }
+            }
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('opsi_pembelian', function ($row) {
+                    if($row->opsi_pembayaran == 0){
+                        return 'DP Payment';
+                    }else{
+                        return 'Full Payment';
+                    }
+                })
+                ->addColumn('due_satu', function ($due) {
+                    if($due->due_date_satu == null){
+                        return '-';
+                    }else{
+                        
+                        return date('d-m-Y', strtotime($due->due_date_satu));
+                    }
+                })
+                ->addColumn('due_dua', function ($due) {
+                    if($due->due_date_dua == null){
+                        return '-';
+                    }else{
+                        return date('d-m-Y', strtotime($due->due_date_dua));
+                    }
+                })
+                ->addColumn('invoice', function ($user) {
+                    if($user->status == "Lunas"){
+
+                        return '
+                        
+                        <a href="'.route('invoicePDF', $user->id).'" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Lihat Invoice</a>
+                        ';
+                    }
+
+                })
+                ->rawColumns(['invoice'])
+                ->make(true);
+        }
     }
 
     public function notification(Request $request)

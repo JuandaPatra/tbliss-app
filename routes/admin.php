@@ -127,5 +127,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('notification-close/{id}', [HomeController::class, 'notificationRead'])->middleware('isAdmin')->name('notifications.close');
 
     Route::get('/invoice-admin/{id}', [pdfOpenerController::class, 'invoice'])->name('invoicePDF');
+
+    Route::get('/table-dashboard', [HomeController::class, 'table'])->name('tableDashboard');
     
 });

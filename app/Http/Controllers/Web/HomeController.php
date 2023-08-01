@@ -120,7 +120,9 @@ class HomeController extends Controller
          */
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile,title', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id', 'testimoniUser'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner', 'trip_review', 'trip_star']);
 
-
+        /**
+         * mendapatkan collections hidden gems di suatu trip
+         */
         $hidden_gem = [];
 
         foreach ($detailTrip->place_trip_categories_cities as $citiesCollections) {
@@ -156,16 +158,25 @@ class HomeController extends Controller
 
     public function addToCart(Request $request)
     {
+        /**
+         * check user
+         */
         if (!Auth::user()) {
             return redirect(route('signin.index'));
         }
         $user = Auth::user();
+
+        /**
+         * check kembali apakah alamt dan telp. user sudah diisi
+         */
         if ($user->alamat == '' || $user->phone == '') {
             return redirect(route('home.profile'));
         }
         $trip = Trip_categories::where('id', '=', $request->id)->first();
-        // proses insert
-
+        
+        /**
+         * proses insert ke db
+         */
         DB::beginTransaction();
         try {
             $post = Cart::create([
@@ -317,19 +328,18 @@ class HomeController extends Controller
     public function cart()
     {
         $user = Auth::user();
-        // $histories = Payment::where('user_id', '=', $user->id)->get(['id', 'invoice_id', 'status',]);
         $datas = Payment::with(['trip:id,title'])->where('user_id', '=', $user->id)->orderBy('id', 'DESC')->get(['id', 'invoice_id', 'status', 'qty', 'tanggal_pembayaran', 'trip_categories_id']);
 
         $histories = [];
 
-        
-        foreach($datas as $dt){
+
+        foreach ($datas as $dt) {
             $int = $dt->invoice_id;
             $str = (string) $int;
-            $orderId = substr($str,10,2);
+            $orderId = substr($str, 10, 2);
             $dt['tanggal_pembayaran_fix'] = date('d-m-Y', strtotime($dt->tanggal_pembayaran));
-            if($orderId == '00'){
-                array_push($histories,$dt);
+            if ($orderId == '00') {
+                array_push($histories, $dt);
             }
         }
         return view('web.cart.index', compact('histories'));
@@ -1071,7 +1081,7 @@ class HomeController extends Controller
                     $tippingPerMonth = 0,
                     $due_date_satu = NULL,
                     $due_date_dua  = NULL
-                    
+
                 ],
                 [
                     $price = $newCart->trip->installment2,
@@ -1093,7 +1103,7 @@ class HomeController extends Controller
             // $totalTipping       = 0;
             // $totalVisa          = 0;
 
-            
+
 
             for ($i = 1; $i <= $request->months; $i++) {
                 $bulan = $i;
@@ -1128,9 +1138,6 @@ class HomeController extends Controller
                 } finally {
                     DB::commit();
                 }
-                
-               
-
             }
 
             ///mendapatkan payment id dengan invoice
@@ -1171,7 +1178,7 @@ class HomeController extends Controller
             ]);
             $paths = $dataCoba['title']['name'] . '-' . rand() . '_' . time();
             $savePath = '-' . $paths . '.' . 'pdf';
-            
+
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
 
             $email = [
@@ -1216,11 +1223,11 @@ class HomeController extends Controller
                 'name'      => 'ORD' . $newCart->id . 'telah membuat pesanan',
                 'status'    => 'belum dibaca'
             ]);
-           $paymentUpdateUrl = Payment::where('invoice_id', '=', $invoice_time . '0' . 0 . $telephone);
+            $paymentUpdateUrl = Payment::where('invoice_id', '=', $invoice_time . '0' . 0 . $telephone);
 
-           $paymentUpdateUrl->update([
-            'url_unpaid_invoice' => $savePath
-           ]);     
+            $paymentUpdateUrl->update([
+                'url_unpaid_invoice' => $savePath
+            ]);
 
             $ids = encrypt($id);
             return redirect()->route('payment', $ids);
@@ -1311,7 +1318,7 @@ class HomeController extends Controller
 
 
             Storage::put($path, $pdf->output());
-           
+
 
             // $mails = new orderSendMail($email);
 
@@ -1331,14 +1338,14 @@ class HomeController extends Controller
                     $email['nama'] . time() . '.' . 'pdf'
                 );
             });
-            
+
             $savePath = '-' . $paths . '.' . 'pdf';
-           
+
             $id = Payment::where('invoice_id', '=', $invoice_id)->first('id');
             $paymentUpdateUrl = Payment::where('invoice_id', '=', $invoice_id);
             $paymentUpdateUrl->update([
                 'url_unpaid_invoice' => $savePath
-               ]);     
+            ]);
             event(new MessageCreated($invoice_id));
             logPayments::create([
                 'name'      => 'ORD' . $newCart->id . ' telah membuat pesanan',
@@ -1438,9 +1445,8 @@ class HomeController extends Controller
     public function invoiceLunas($invoice_id)
     {
         $pdfSyaratUrl = Payment::where('invoice_id', '=', $invoice_id)->first();
-        $url= $pdfSyaratUrl->url_paid_invoice;
-        
-        return response()->file(storage_path('app/public/storage/uploads/'.$url),['content-type'=>'application/pdf']);
+        $url = $pdfSyaratUrl->url_paid_invoice;
 
+        return response()->file(storage_path('app/public/storage/uploads/' . $url), ['content-type' => 'application/pdf']);
     }
 }

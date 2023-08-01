@@ -60,6 +60,9 @@
                                 <th scope="col" class="pl-6 pr-0 py-3">
                                     Status
                                 </th>
+                                <th scope="col" class="pl-0 pr-0 py-3">
+                                    Download Invoice
+                                </th>
 
                             </tr>
                         </thead>
@@ -93,16 +96,18 @@
                                     Lunas
                                 </td>
                                 @endif
+                                <th>
+                                    @if($history->trip != null && $history->status == 'Lunas' )
+                                    <a href="{{route('home.invoice', $history->invoice_id)}}" class="text-white bg-footer  focus:ring-4 focus:ring-blue-300 font-medium rounded-md mx-auto text-sm px-2 py-2   focus:outline-none  hover:text-footer" target="_blank">
+                                        Download
+                                    </a>
+                                    
+                                    
+                                    @endif
+                                </th>
                             </tr>
                             @endforeach
-                            <!-- <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer">
-                                <th scope="row" class="pl-0 pr-6 py-3 font-medium text-gray-900 whitespace-nowrap bg-gray-50 dark:text-white dark:bg-gray-800">
-                                    Invoice #TRAVELBLIZZ-BCA-2308
-                                </th>
-                                <td class="pl-6 pr-0 py-4 text-[#5C6CEF]">
-                                    Lunas
-                                </td>
-                            </tr> -->
+                           
 
                         </tbody>
                     </table>
