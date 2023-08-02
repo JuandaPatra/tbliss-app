@@ -2,9 +2,11 @@
     <div class="header-top fixed top-0 z-50 w-full">
         <div class="flex flex-wrap bg-[#102448] h-[35px] lg:h-[48px] text-white text-sm ">
             <div class="basis-full lg:basis-3/12">
-                <div class="flex flex-wrap ml-0 mt-[3px] justify-center lg:justify-start lg:ml-7 lg:mt-3 pt-[4px] lg:pt-0">
-                    <!-- <img src="{{ asset('images/header/gift.png') }}" alt="" style="height: 18px;width:18px" class="me-2"> -->
-                    <h5 class=" text-transparent">Gift an Adventure</h5>
+                <div class="flex flex-wrap ml-0 mt-[3px] justify-center lg:justify-start lg:ml-7 lg:mt-3 pt-[4px] lg:pt-0 py-2.5">
+                    <a href="/">
+                        <img src="{{ asset('images/header/tblis-logo.png') }}" alt="" class="ml-0 lg:ml-10 h-[1.3rem] pt-[5px]">
+                    </a>
+                    <h5 class=" text-transparent hidden">Gift an Adventure</h5>
                 </div>
             </div>
             <div class="hidden basis-full lg:basis-6/12 bg-[#BF1E5F] lg:flex justify-center">
@@ -30,7 +32,7 @@
             @auth
 
             <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-whit bg-transparent  font-medium rounded-lg text-sm px-4 py-2.5 text-center hidden lg:inline-flex items-center ml-[5%]  " type="button"><img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
-                <span class="p-1">{{Auth::user()->name}}</span></button>
+                <span class="p-1">hi, {{Auth::user()->name}}</span></button>
             <!-- Dropdown menu -->
             <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">
@@ -57,7 +59,7 @@
                                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
                                     <polyline points="16 17 21 12 16 7"></polyline>
                                     <line x1="21" y1="12" x2="9" y2="12"></line>
-                                </svg></span>  Keluar
+                                </svg></span> Keluar
                         </a>
 
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
@@ -115,7 +117,10 @@
             <div id="dropdownHoverX" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButtonX">
                     <li>
-                        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Cart</a>
+                        <a href="{{route('home.profile')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profil</a>
+                    </li>
+                    <li>
+                        <a href="{{route('home.cart')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pemesanan</a>
                     </li>
 
                     <li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
@@ -223,8 +228,8 @@
                                 </svg>
                                 <a href="" class="ml-3">Gift an Adventure</a>
                             </div>
-                            
- 
+
+
                             <div class=" p-3 flex items-center ">
                                 <a href="{{route('search')}}">Temukan Destinasi</a>
                             </div>
@@ -264,7 +269,7 @@
 
     <div class="container-lg bg-white mx-auto">
         <div class=" container hidden lg:flex flex-wrap justify-center mb-[33px]">
-            
+
             <a href="https://tbliss.owlandfoxes.co.id/search" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">DESTINASI</a>
             <a href="{{route('home.cerita')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">CERITA KAMI</a>
             <a href="{{route('home.faq')}}" class="mr-[10px] lg:mr-16  text-[11px] lg:text-[15px] hover:text-footer">FAQ</a>

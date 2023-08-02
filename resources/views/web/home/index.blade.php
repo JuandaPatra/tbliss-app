@@ -194,7 +194,7 @@
             Kesan yang pernah ikut t'bliss
         </h1>
         <div class="flex flex-wrap justify-end ">
-            <div class="slider-for w-[300px] lg:w-[550px]">
+            <div class="slider-for w-[100%] lg:w-[550px]">
                 {{--
                     @foreach($testimonies as $testimoni)
                     <img src="{{$testimoni->image}}" alt="" class="h-auto w-[500px]">

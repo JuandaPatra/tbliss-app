@@ -31,19 +31,7 @@ import { DetailPages } from "./modules";
     // The rest of your code goes here!
 });
 
-$(window).on("scroll", function () {
-    if (window.scrollY > 50) {
-        $(".header-top").removeClass("fixed");
-        $(".header-top").removeClass("top-0");
-        $("header.top").addClass("absolute");
-        $("header.top").addClass("top-[-30px]");
-    } else {
-        $("header.top").removeClass("absolute");
-        $("header.top").removeClass("top-[-30px]");
-        $(".header-top").addClass("fixed");
-        $(".header-top").addClass("top-0");
-    }
-});
+
 
 $(".hamburger-menu").on("click", function () {
     // $('.sidenav').css("transform","translateX(-100%)");

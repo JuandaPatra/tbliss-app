@@ -10,7 +10,7 @@
     </picture>
 </div>
 
-<section class="container-lg ">
+<section class="container-lg px-4 lg:px-0">
     <div class="flex flex-col lg:flex-row justify-between mt-[42px]">
         <div class="w-full lg:w-1/2">
             <h1 class="text-[15px] lg:text-[18px]">
@@ -18,9 +18,9 @@
             </h1>
         </div>
         <div class="flex flex-row lg:flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl mt-[30px] lg:mt-0  ">
-            <div class="flex flex-col justify-start px-4 py-1 leading-normal border-l-2 border-gray-200 w-1/2 mt-[-55px]">
+            <div class="flex flex-col justify-start px-3 lg:px-4 py-1 leading-normal border-l-2 border-gray-200 w-1/2 mt-[-55px]">
                 <div class="flex">
-                    <span class="font-bold text-[20px] lg:text-[30px] inline-block">{{$detailTrip->trip_star}}.0</span>
+                    <span class="font-bold text-[20px] lg:text-[30px] inline-block">{{$detailTrip->trip_star}}</span>
                     <span class="mx-2 block mt-[20px]">/</span>
                     <span class="block mt-[20px]">5</span>
                 </div>
@@ -42,8 +42,8 @@
                 <div class="flex justify-between">
                     <h5 class="mb-2 text-[15px] lg:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">What Guests Say</h5>
                 </div>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">"We came here in April 2018. We had the most wonderful time. Great accomodation,.."</p>
-                <p class="mb-3 font-normal text-gray-700">Travelswithlola, United Kingdom</p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-[12px] lg:text-[16px]">"We came here in April 2018. We had the most wonderful time. Great accomodation,.."</p>
+                <p class="mb-3 font-normal text-gray-700 text-[12px] lg:text-[16px]">Travelswithlola, United Kingdom</p>
             </div>
         </div>
     </div>
@@ -103,10 +103,10 @@
 
 
         </div>
-        <div class="basis-full lg:basis-1/2">
-            <div class="flex flex-col items-center mt-[22px] lg:mt-">
+        <div class="basis-full lg:basis-1/2 mt-[20px] lg:mt-0">
+            <div class="flex flex-col items-start lg:items-center mt-[22px] lg:mt-">
 
-                <div class="flex justify-between w-1/2 border-b-4 pb-4 mb-5">
+                <div class="flex justify-between w-full lg:w-1/2 border-b-4 pb-4 mb-5">
                     <img src="{{ asset('images/detailtrip/kebijakan.png') }}" alt="" class=" inline-block h-[42px] w-[42px]">
                     <div class="ml-5">
                         <h1 class="text-[#414141] text-[18px] font-bold mb-1">
@@ -120,7 +120,7 @@
                     </div>
 
                 </div>
-                <div class="flex justify-between w-1/2 border-b-4 pb-4 mb-5">
+                <div class="flex justify-between w-full lg:w-1/2 border-b-4 pb-4 mb-5">
                     <img src="{{ asset('images/detailtrip/visa.png') }}" alt="" class=" inline-block h-[50px] w-[50px]">
                     <div class="ml-5">
                         <h1 class="text-[#414141] text-[18px] font-bold mb-1">
@@ -140,7 +140,7 @@
 
 
 <section class="container-full bg-greyBGTbliss">
-    <div class="container-lg border-b border-b-[#6A6A6A] pb-[30px]">
+    <div class="container-lg px-4 lg:px-0 border-b border-b-[#6A6A6A] pb-[30px]">
         <div class="flex flex-wrap mt-30 pt-[45px]">
 
             <div class="basis-full lg:basis-1/2">
@@ -150,10 +150,9 @@
                 @foreach($detailTrip->trip_include as $include)
                 <div class="mb-3">
                     <div class="flex">
-                        <img src="{{$include->icon_image}}" alt="" class="mr-12 inline">
+                        <img src="{{$include->icon_image}}" alt="" class="mr-12 inline h-[30px] lg:h-auto">
                         <h1 class=" inline-block mt-[10px]">{{$include->title}}</h1>
                     </div>
-                    <!-- <span><img src="{{$include->icon_image}}" alt="" class="mr-12 inline">{{$include->title}}</span> -->
                 </div>
                 @endforeach
             </div>
@@ -164,10 +163,9 @@
                 @foreach($detailTrip->trip_exclude as $exclude)
                 <div class="mb-3">
                     <div class="flex">
-                        <img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">
+                        <img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline h-[30px] lg:h-auto">
                         <h1 class=" inline-block mt-[10px]">{{$exclude->title}}</h1>
                     </div>
-                    <!-- <span><img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline">  {{$exclude->title}}</span> -->
                 </div>
                 @endforeach
             </div>
@@ -176,8 +174,8 @@
 </section>
 
 <section class="container-full bg-greyBGTbliss pb-[150px]">
-    <div class="container-lg pt-[27px] mb-[54px]">
-        <h1 class="text-[28px]">
+    <div class="container-lg px-4 lg:px-0 pt-[27px] mb-[54px]">
+        <h1 class="text-[28px] ">
             Highlight Trip
         </h1>
     </div>

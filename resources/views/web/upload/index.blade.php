@@ -6,7 +6,7 @@
     <h1 class=" font-bely text-footer text-[45px]">Konfirmasi Pembayaran</h1>
 </div>
 
-<div class="flex items-center px-4 bg-white justify-center mb-[79px] mt-[50px]">
+<div class="flex items-center px-0 lg:px-4 bg-white justify-center mb-[79px] mt-[50px]">
     <p class=" font-interRegular text-[16px] font-bold">Setelah melakukan pembayaran, silakan upload <br> bukti pembayaranmu disini untuk konfirmasi</p>
 </div>
 <section class="container-lg px-[10%] mb-[50px]">
@@ -14,7 +14,7 @@
         @csrf
         <div class="flex items-center justify-center w-full ">
             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-[24rem] border-2 bg-footer border-gray-300  rounded-lg cursor-pointer hover:bg-footer ">
-                <p class="mb-2 pt-[40px] text-sm text-white font-semibold font-interRegular text-[22px] ">Upload Bukti Pembayaran</p>
+                <p class="mb-2 pt-[40px] text-sm text-white font-semibold font-interRegular text-[20px] lg:text-[22px] ">Upload Bukti Pembayaran</p>
                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
                     <div class="image-position">
                         <svg width="110" height="121" viewBox="0 0 110 121" fill="none" xmlns="http://www.w3.org/2000/svg" class="image-display">
@@ -32,7 +32,7 @@
                         <img class="image-contain hidden" style=" width:10em;height: 10em;" />
                     </div>
 
-                    <p class="mb-[51px] mt-[30px] text-sm text-white font-normal font-interRegular text-[18px] text-url">(maks 30MB, tipe file png / jpg / pdf)</p> <br>
+                    <p class="mb-[51px] mt-[30px] text-sm text-white font-normal font-interRegular text-[14px] lg:text-[18px] text-url">(maks 30MB, tipe file png / jpg / pdf)</p> <br>
                 </div>
                 <input id="dropzone-file" type="file" class="hidden" name="upload" />
                 <input type="hidden" name="id" value="{{$id}}">

@@ -1425,7 +1425,7 @@ class HomeController extends Controller
             $payment->update([
                 'tanggal_foto_diunggah' => Carbon::now(),
                 'foto_diunggah'         => $image_path,
-                'status'                => 'Menunggu Pembayaran'
+                'status'                => 'Menunggu Verifikasi'
             ]);
 
             Alert::success('Edit Profile', 'Berhasil');
@@ -1451,5 +1451,30 @@ class HomeController extends Controller
         $url = $pdfSyaratUrl->url_paid_invoice;
 
         return response()->file(storage_path('app/public/storage/uploads/' . $url), ['content-type' => 'application/pdf']);
+    }
+
+    public function cobaInvoice(){
+        $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price'])->where('user_id', '=', 7)->orderBy('created_at', 'desc')->get()->last();
+        $user = User::where('id', '=', 7)->get();
+        // return $newCart;
+        $dataCoba = [
+            'title'             =>  $user,
+            'data'              =>  'tes data',
+            'orderid'           =>  'ORD' . 300,
+            'invoice_id'        =>  '#394147109',
+            'trip'              =>  $newCart,
+            'price'             =>  'Rp.' . number_format((1500000 * 1), 0, ',', '.'),
+            'trip_name'         =>  $newCart->trip->title,
+            'trip_qty'          =>  1,
+            'trip_price'        =>  'Rp.' . number_format(1500000, 0, ',', '.'),
+            'statusPembayaran'  =>  "lunas",
+            'invoice_date'      => date('l,jS M Y', strtotime('2023-08-01')),
+            'due_date'          => date('l,jS M Y', strtotime('2023-08-01' . ' + 2 days'))
+        ];
+        return view('admin.invoice.index', compact('dataCoba'));
+    }
+
+    public function cobaOrderEmail(){
+        return view('web.emails.emailOrder');
     }
 }

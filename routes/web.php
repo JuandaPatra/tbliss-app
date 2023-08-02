@@ -94,8 +94,6 @@ Route::get('/push', function(){
     // MessageCreated::dispatch('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, ipsam.');
     // MessageCreated::dispatch('Lorem');
 
-    
-
     // event(new MessageCreated());
     // dd('done');
     return view('web.login.index');
@@ -113,6 +111,9 @@ Route::get('/teskirimpdf', [pdfOpenerController::class, 'index'])->name('bukaPDF
 
 Route::get('/visa-policy', [pdfOpenerController::class, 'index2'])->name('bukaPDF2');
 
+
+Route::get('/coba-invoice', [HomeController::class, 'cobaInvoice'])->name('cobaInvoice');
+Route::get('/coba-order', [HomeController::class, 'cobaOrderEmail'])->name('cobaOrder');
 
 Auth::routes();
 

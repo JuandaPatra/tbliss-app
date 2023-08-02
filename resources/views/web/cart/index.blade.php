@@ -97,7 +97,10 @@
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
                                     
-
+                                </td>
+                                @elseif($history->status == 'Menunggu Verifikasi')
+                                <td class="pl-6 pr-0 py-4 text-greyDetTbliss">
+                                    Menunggu Verifikasi
                                 </td>
                                 @else
                                 <td class="pl-6 pr-0 py-4 text-[#5C6CEF]">
@@ -109,20 +112,13 @@
                                     <a href="{{route('home.invoice', $history->invoice_id)}}" class="text-white bg-footer  focus:ring-4 focus:ring-blue-300 font-medium rounded-md mx-auto text-sm px-2 py-2   focus:outline-none  hover:text-footer" target="_blank">
                                         Download
                                     </a>
-
-
                                     @endif
                                 </th>
                             </tr>
                             @endforeach
-
-
                         </tbody>
                     </table>
                 </div>
-
-
-
             </div>
         </div>
     </div>
