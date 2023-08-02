@@ -187,6 +187,7 @@ export class DetailPages {
                 },
                 success: function (data) {
                     let result = data;
+                    console.log(result);
                     $(".trip-search").empty();
 
                     for (let i = 0; i <= result.length; i++) {
@@ -220,8 +221,9 @@ export class DetailPages {
                                                 </span>
                                                 <span class="ml-1 lg:ml-3 text-[14px] lg:text-[16px]">
                                                 ${result[i].date_from} - ${
-                                    result[i].date_to
+                                    result[i].date_to 
                                 }
+                                
                                                 </span>
                                             </div>
                                             <span class="ml-5 lg:ml-20 text-end text-[#FF5055] font-bold text-[14px] lg:text-[19px] ">
@@ -232,9 +234,9 @@ export class DetailPages {
                                         </div>
                                         <div class="text-[18px] pt-3 pb-3">
                                             <h1 class="font-bold uppercase city-${i}">
-                                            ${result[i].cities}
+                                            ${result[i].destinationCities}
                                             </h1>
-                                            ${result[i].itinerary}
+                                            ${result[i].hg}
                                             
                                         </div>
                                         <div class="flex justify-between w-full lg:w-[90%]">
@@ -299,9 +301,9 @@ export class DetailPages {
                                         <div class="text-[18px] pt-3 pb-3">
                                             <h1 class="font-bold uppercase">
                                                 
-                                                ${result[i].cities}
+                                                ${result[i].destinationCities}
                                             </h1>
-                                            ${result[i].itinerary}
+                                            ${result[i].hg}
                                             
                                         </div>
                                         <div class="flex justify-between w-full lg:w-[90%]">

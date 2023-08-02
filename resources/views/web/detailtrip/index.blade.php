@@ -3,7 +3,6 @@
 @section('container')
 @include('web.components.presentational.header')
 <div class="header">
-    <!-- <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="" class="w-full"> -->
     <picture>
         <source media="(min-width:1000px)" srcset="{{$detailTrip->banner}}">
         <source media="(min-width:320px)" srcset="{{$detailTrip->banner}}">
@@ -21,7 +20,7 @@
         <div class="flex flex-row lg:flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl mt-[30px] lg:mt-0  ">
             <div class="flex flex-col justify-start px-4 py-1 leading-normal border-l-2 border-gray-200 w-1/2 mt-[-55px]">
                 <div class="flex">
-                    <span class="font-bold text-[30px] inline-block">{{$detailTrip->trip_star}}.0</span>
+                    <span class="font-bold text-[20px] lg:text-[30px] inline-block">{{$detailTrip->trip_star}}.0</span>
                     <span class="mx-2 block mt-[20px]">/</span>
                     <span class="block mt-[20px]">5</span>
                 </div>
@@ -31,7 +30,7 @@
                 </div>
                 <div>
                     @for($i=1; $i<=$detailTrip->trip_star; $i++)
-                    <svg aria-hidden="true" class="w-5 h-5 text-[#5ec4dc] inline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <svg aria-hidden="true" class="w-[15px] lg:w-5 h-5 text-[#5ec4dc] inline" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <title>First star</title>
                         <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
                     </svg>
@@ -41,7 +40,7 @@
 
             <div class="flex flex-col justify-between p-4 leading-normal border-l-2 border-gray-200">
                 <div class="flex justify-between">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">What Guests Say</h5>
+                    <h5 class="mb-2 text-[15px] lg:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">What Guests Say</h5>
                 </div>
                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">"We came here in April 2018. We had the most wonderful time. Great accomodation,.."</p>
                 <p class="mb-3 font-normal text-gray-700">Travelswithlola, United Kingdom</p>
@@ -250,20 +249,13 @@
                         </p>
                     </div>
                 </div>
-
-
-
             </div>
             @endforeach
-
         </div>
-
     </div>
 </section>
 
-<!-- <button  class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
-    Toggle modal
-</button> -->
+
 
 <!-- Main modal -->
 <div id="defaultModal" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] md:h-full">
@@ -397,8 +389,13 @@
             }],
         };
         // $('.hg-slider').not('.slick-initialized').slick();
-        var slicky = $('.hg-slider');
-        // slicky.slick(options);
+        
+        var slicky = '';
+        if ($(window).width() < 750){
+            var slicky = $('.other-trip-section');
+        }else{
+            var slicky = 'tes'
+        }
         slicky.slick({
             dots: false,
             infinite: false,
@@ -420,52 +417,15 @@
 
             setTimeout(function() {
 
-                if ($(window).width() < 450 && !slicky.hasClass("slick-initialized")) {
+                if ($(window).width() < 750 && !slicky.hasClass("slick-initialized")) {
                     slicky.slick(options);
+                }else{
+                    slicky.slick("unslick");
                 }
             }, 100);
         });
 
-        $('.minus').click(function() {
-            var $input = $(this).parent().find('input');
-            var count = parseInt($input.val()) - 1;
-            count = count < 1 ? 1 : count;
-            $input.val(count);
-            $input.change();
-            var price = $('.count-price-input').val()
-            var $cartSeat = $('.count-seat')
-            $cartSeat.empty()
-            $cartSeat.append(`${count}`)
-            var newPrice = price * count
-            var $cartPrice = $('.count-price')
-            $cartPrice.data('price', newPrice)
-            $cartPrice.empty()
-            $cartPrice.append(`${newPrice.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}`)
-            $('.inputFinishPrice').val(newPrice)
-            $('.inputFinishPrice').change()
-            return false;
-        });
-        $('.plus').click(function() {
-            var $input = $(this).parent().find('input');
-            var count = $input.val(parseInt($input.val()) + 1);
-            var countPlus = parseInt($input.val()) + 1;
-            var cartseat = $('.cart-seat').val()
-            count = countPlus >= cartseat ? cartseat : parseInt($input.val());
-            $input.val(count);
-            $input.change();
-            var price = $('.count-price-input').val()
-            var $cartSeat = $('.count-seat')
-            $cartSeat.empty()
-            $cartSeat.append(`${count}`)
-            var newPrice = price * count
-            var $cartPrice = $('.count-price')
-            $cartPrice.data('price', newPrice)
-            $cartPrice.empty()
-            $cartPrice.append(`${newPrice.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}`)
-            $('.inputFinishPrice').val(newPrice)
-            $('.inputFinishPrice').change()
-            return false;
-        });
+        
 
 
 

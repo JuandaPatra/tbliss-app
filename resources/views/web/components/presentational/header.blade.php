@@ -202,8 +202,8 @@
                         <div class="sidenav__section">
                             <div class="p-3 ">
                                 <h1 class=" font-semibold mb-3">Destinasi</h1>
-                                <div class="pl-4 ">
-                                    <div class="flex items-center justify-between py-2 cursor-pointer menu-destination" data-hamburger="asia">
+                                <div class="pl-4 hidden">
+                                    <div class="flex items-center justify-between py-2 cursor-pointer menu-destination " data-hamburger="asia">
                                         <span>Asia</span>
                                         <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="20" width="20" xmlns="http://www.w3.org/2000/svg">
                                             <polyline points="9 18 15 12 9 6"></polyline>
@@ -216,20 +216,18 @@
                                         </svg>
                                     </div>
                                 </div>
-
                             </div>
-                            <div class=" p-3 border-gray-300  border-t-2 border-b-2 flex items-center ">
+                            <div class=" p-3 border-gray-300  border-t-2 border-b-2 flex items-center hidden">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" class="tw-mr-1 tw-text-black tw-align-top">
                                     <path d="M20 12v10H4V12M2 7h20v5H2zM12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"></path>
                                 </svg>
                                 <a href="" class="ml-3">Gift an Adventure</a>
                             </div>
+                            
+ 
                             <div class=" p-3 flex items-center ">
-                                <a href="">Bantuan</a>
+                                <a href="{{route('search')}}">Temukan Destinasi</a>
                             </div>
-                            <!-- <div class=" p-3 flex items-center ">
-                                <a href="">Korporat</a>
-                            </div> -->
                             <div class=" p-3 flex items-center ">
                                 <a href="{{route('home.cerita')}}">Cerita Kami</a>
                             </div>

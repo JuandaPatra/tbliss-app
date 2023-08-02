@@ -27,50 +27,6 @@ class SearchTripController extends Controller
          */
         $trips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,title'])->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
 
-        //// list trip berdasarkan kota
-        // $citiesTrip = place_trip_categories_cities::groupBy('place_categories_id')->selectRaw('count(*) as total')->with(['place_categories'])->get();
-        // $citiesTrip = place_trip_categories_cities::with(['place_categories'])->groupBy('place_categories_id')->get();
-
-        // $citiesTrip = place_trip_categories_cities::select([
-
-        //     // 'place_trip_categories_cities.*',
-
-        //     DB::raw('count(place_trip_categories_cities.trip_categories_id) as total',),
-
-        // ]
-        //     // 'place_trip_categories_cities.*',
-
-
-        // )
-        // ->leftJoin('place_categories', 'place_categories.id','=','place_trip_categories_cities.place_categories_id')
-        // ->where('place_categories.parent_id', 6)
-        // ->groupBy('place_categories_id')
-        // ->get();
-
-        // $citiesTrip = DB::table('place_trip_categories_cities')
-        //     ->leftJoin('place_categories', 'place_categories.id', '=', 'place_trip_categories_cities.place_categories_id')
-        //     ->select(DB::raw('count(place_trip_categories_cities.trip_categories_id) as total'))
-        //     ->where('place_categories.parent_id', 6)
-        //     ->groupBy('place_categories_id')
-        //     ->get();
-        // $citiesTrip = DB::select(DB::raw('select *, count(trip_categories_id) from place_trip_categories_cities  ptcc
-        // join place_categories pc on
-        // ptcc.place_categories_id = pc.id
-        // where pc.parent_id=6
-        // group by place_categories_id
-        // ;'));
-        // return $citiesTrip;
-
-        // $searchTrips = Trip_categories::with(['place_trip_categories_cities', 'place_trip_categories_cities.place_categories', 'place_trip_categories_cities.pick_hidden_gem' ,'place_trip_categories_cities.pick_hidden_gem.hidden_gems', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems.hidden_hashtag', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag' ])->get();
-
-
-        // $searchTrips = Trip_categories::whereHas('place_trip_categories_cities.pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag',function($query){
-        //     $query->leftJoin('trip_categories', 'trip_categories.id', '=', 'place_trip_categories_cities.trip_categories_id')->where('hashtag.id','=',9);
-        //     // $query->where('hashtag.id','=',9);
-        // })->get();
-
-        // $user_info = place_trip_categories_cities::groupBy('place_categories_id')->select('place_trip_categories_cities', DB::raw('count(place_categories_id) as total'))->get();
-        // return $user_info;
 
         /**
          * list trip berdasarkan kota
@@ -104,32 +60,7 @@ class SearchTripController extends Controller
 
 
 
-        // $cobaHashtag = Hashtag::with(['hidden_gem_hashtag','hidden_gem_hashtag.hidden_gem'])->whereId(1)->get();
-        // return $cobaHashtag;
 
-        // $cobaHashtag2 = place_trip_categories_cities::with(['pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'])->first(['id', 'trip_categories_id', 'place_categories_id']);
-        // // return $cobaHashtag2;
-
-        // $cobaHashtag3 = place_trip_categories_cities::query()->whereHas('pick_hidden_gem.hidden_gems',fn($query)=>$query->where(''))->get();
-        // return $cobaHashtag3;
-
-
-
-
-
-        // $hashtag = place_trip_categories_cities::with(['pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'])->where('place_categories_id', 7)->first(['id', 'trip_categories_id', 'place_categories_id']);
-        // return $hashtag;
-
-
-        // $coba = place_trip_categories_cities::with(['place_categories:id,title','place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id','pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'   ])->where('place_categories_id', 13)->get();
-        // return $coba;
-
-        // $hasil = Place_categories::with(['children'])->whereId('6')->get();
-        // $hasil = Trip_categories::all();
-
-        // return $hasil;
-        // $result = Place_categories::with(['children:id,title,slug,parent_id'])->whereId(6)->get(['id','title']);
-        // return $result;
 
 
         /**
@@ -138,7 +69,6 @@ class SearchTripController extends Controller
 
         $hashtag = PickHiddenGem::leftJoin('hidden_gem_hashtags', 'pick_hidden_gems.hidden_gem_id', '=', 'hidden_gem_hashtags.hidden_gem_id')->leftjoin('hashtags', 'pick_hidden_gems.hidden_gem_id', '=', 'hashtags.id')->where('pick_hidden_gems.place_categories_id', '=', 7)->get();
         $hashtags = $hashtag->unique();
-
 
 
 
@@ -180,12 +110,55 @@ class SearchTripController extends Controller
             $trips = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get();
 
             $tripsRes = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get(['trip_categories_id', 'place_categories_id'])->pluck('trip_categories_id');
-    
+
             $uniqueTripsRes = $tripsRes->unique();
-    
+
+            // $trips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,title'])->whereIn('id', $uniqueTripsRes)->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
+
             $trips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,title'])->whereIn('id', $uniqueTripsRes)->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
 
-    
+
+
+
+            foreach ($trips as $trip) {
+
+                //ganti format tanggal
+                $trip['date_from'] = date('d', strtotime($trip->date_from));
+                $trip['date_to'] = date('d M Y', strtotime($trip->date_to));
+
+                if ($trip->place_trip_categories_cities->count() >= 1) {
+                    $citiesPick = '';
+                    $hidg = '';
+                    foreach ($trip->place_trip_categories_cities as $cities) {
+                        if ($cities->count() > 1) {
+                            if ($cities->pick_hidden_gem->count() >= 1) {
+                                foreach ($cities->pick_hidden_gem as $hg) {
+                                    $hidg =  $hidg . '<p>' . $hg->hidden_gems->title
+                                        . '</p>';
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($trip->place_trip_categories_cities->count() == 1) {
+                    $citiesPick = $trip->place_trip_categories_cities[0]->place_categories->title;
+                } else {
+                    for ($i = 0; $i < $trip->place_trip_categories_cities->count(); $i++) {                       
+                        if ($i == 0) {
+                            $citiesPick =  $trip->place_trip_categories_cities[$i]->place_categories->title . '-';
+                        } else if ($i == $trip->place_trip_categories_cities->count() - 1) {
+                            $citiesPick = $citiesPick . $trip->place_trip_categories_cities[$i]->place_categories->title;
+                        } else if ($i != $trip->place_trip_categories_cities->count() - 1) {
+                            $citiesPick = $citiesPick . '-' . $trip->place_trip_categories_cities[$i]->place_categories->title . '-';
+                        }
+                    }
+                }
+
+                $trip['hg'] = $hidg;
+                $trip['destinationCities'] = $citiesPick;
+            }
+            return $trips;
         } else {
             $trips = DB::table('trip_cities_hidden_gem_hashtags')
                 ->leftJoin('trip_categories', 'trip_cities_hidden_gem_hashtags.trip_categories_id', '=', 'trip_categories.id')
@@ -207,31 +180,29 @@ class SearchTripController extends Controller
 
         $allTrip = Trip_categories::with(['place_trip_categories_cities', 'place_trip_categories_cities.place_categories'])->whereIn('id', $cobaTrip)->get();
 
-        foreach($allTrip as $trip){
+
+
+
+
+        foreach ($allTrip as $trip) {
             $trip['date_from'] = date('d', strtotime($trip->date_from));
             $trip['date_to'] = date('d M Y', strtotime($trip->date_to));
-            $trip['cities']=  '';
+            $trip['cities'] =  '';
 
 
-            for($i=0;$i<count($trip['place_trip_categories_cities']);$i++){
-                if(count($trip['place_trip_categories_cities']) == 1){
-                    $trip['cities'] = $trip['cities'] .''. $trip['place_trip_categories_cities'][$i]['place_categories']['title'];    
-                }else{
-                    if($i == count($trip['place_trip_categories_cities'])-1 ){
-                        $trip['cities'] = $trip['cities'] .''. $trip['place_trip_categories_cities'][$i]['place_categories']['title'];
-                    }else{
-                        $trip['cities'] = $trip['cities'] .''. $trip['place_trip_categories_cities'][$i]['place_categories']['title'] . '-';
+            for ($i = 0; $i < count($trip['place_trip_categories_cities']); $i++) {
+                if (count($trip['place_trip_categories_cities']) == 1) {
+                    $trip['cities'] = $trip['cities'] . '' . $trip['place_trip_categories_cities'][$i]['place_categories']['title'];
+                } else {
+                    if ($i == count($trip['place_trip_categories_cities']) - 1) {
+                        $trip['cities'] = $trip['cities'] . '' . $trip['place_trip_categories_cities'][$i]['place_categories']['title'];
+                    } else {
+                        $trip['cities'] = $trip['cities'] . '' . $trip['place_trip_categories_cities'][$i]['place_categories']['title'] . '-';
                     }
                 }
             }
         }
 
         return response()->json($allTrip);
-        // return response()->json($trips->unique('trip_categories_id'));
-        $shares = DB::table('shares')
-            ->join('users', 'users.id', '=', 'shares.user_id')
-            ->join('followers', 'followers.user_id', '=', 'users.id')
-            ->where('followers.follower_id', '=', 3)
-            ->get();
     }
 }

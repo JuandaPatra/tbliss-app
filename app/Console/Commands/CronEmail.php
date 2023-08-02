@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Mail\sendEmailWithCron;
+use App\Models\Payment;
 use App\Models\PaymentDetails;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -38,7 +39,8 @@ class CronEmail extends Command
         // $current_date = Carbon::now();
         // $current_date = $current_date->toDateString();
 
-        $payments = PaymentDetails::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('due_date', Carbon::now()->subDays(7))->get(['id', 'installment_id', 'amount', 'qty', 'total', 'due_date', 'user_id', 'trip_categories_id']);
+        // $payments = PaymentDetails::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('due_date', Carbon::now()->subDays(7))->get(['id', 'installment_id', 'amount', 'qty', 'total', 'due_date', 'user_id', 'trip_categories_id']);
+        $payments = Payment::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('due_date', Carbon::now()->subDays(7))->get();
 
         if (count($payments) >= 1) {
             foreach ($payments as $payment) {

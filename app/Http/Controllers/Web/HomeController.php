@@ -54,6 +54,7 @@ class HomeController extends Controller
      */
     public function country($id)
     {
+        
         $slug = $id;
 
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();

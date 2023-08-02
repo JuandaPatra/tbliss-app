@@ -86,12 +86,12 @@
 
     <div class="container mt-[53px]">
         <div class="flex justify-center">
-            <h3 class=" text-center text-[30px] w-full lg:w-[50%] font-normal font-interRegular">
+            <h3 class=" text-center text-[20px] lg:text-[30px] w-full lg:w-[50%] font-normal font-interRegular">
                 Masih bingung milih trip yang tepat?
             </h3>
         </div>
         <div class="flex justify-center">
-            <h3 class="text-center text-[30px] w-full lg:w-[50%] font-normal font-interRegular">Boleh kita bantu untuk buat itin-nya kak?</h3>
+            <h3 class="text-center text-[20px] lg:text-[30px] w-full lg:w-[50%] font-normal font-interRegular">Boleh kita bantu untuk buat itin-nya kak?</h3>
         </div>
 
         <div class="flex justify-center mt-[40px] lg:mt-[39px] mb-[70px] lg:mb-[119px]">
@@ -100,7 +100,7 @@
                     <img src="{{ asset('images/title/plan.jpg') }}" alt="" class="  p-3 h-[160px]">
                 </div>
                 <div class="flex justify-center mb-4 h-[100px]">
-                    <h1 class="w-[60%] lg:w-[55%] text-center text-[30px]">Gak usah bingung! pake fitur pintar kami</h1>
+                    <h1 class="w-[60%] lg:w-[55%] text-center text-[20px] lg:text-[30px]">Gak usah bingung! pake fitur pintar kami</h1>
                 </div>
                 <a href="{{ route('search')}}" class="text-footer text-[20px] block text-center">Baiklah, sini Kami bantu! <span><img src="{{ asset('images/title/arrow.png') }}" alt="" class="w-[20px] inline"></span></a>
             </div>
@@ -111,7 +111,7 @@
 
 <section>
     <div class="container-lg pb-[50px] lg:pb-[164px]">
-        <h1 class="text-[30px] ml-[15px] mb-[30px]">
+        <h1 class="text-[25px] lg:text-[30px] ml-[15px] mb-[30px]">
             Mari, pilih trip perjalanan {{$country->title}} kak!
         </h1>
         <p class="ml-[15px] mb-[20px] text-greyDetTbliss font-interRegular result-text hidden">Trip yang tersedia pada tanggal 1 Juli 2023 - 20 Juli</p>
@@ -194,14 +194,14 @@
             Kesan yang pernah ikut t'bliss
         </h1>
         <div class="flex flex-wrap justify-end ">
-            <div class="slider-for w-[550px]">
+            <div class="slider-for w-[300px] lg:w-[550px]">
                 {{--
                     @foreach($testimonies as $testimoni)
                     <img src="{{$testimoni->image}}" alt="" class="h-auto w-[500px]">
                 @endforeach
                 --}}
-                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
-                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[500px]">
+                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[300px] lg:w-[500px]">
+                <img src="{{ asset('images/testimoni/korean-girls.jpg') }}" alt="" class="h-auto w-[300px] lg:w-[500px]">
 
             </div>
         </div>
