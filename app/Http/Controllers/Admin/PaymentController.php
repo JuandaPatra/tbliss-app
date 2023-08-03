@@ -270,6 +270,36 @@ class PaymentController extends Controller
     public function emailInvoice($id)
     {
 
+        $posts = Payment::whereId($id)->first();
+
+        DB::beginTransaction();
+        try {
+            $post = Payment::whereId($id);
+            $trip = Trip_categories::where('id', '=', $posts->trip_categories_id)->first();
+            $post->update([
+                'tanggal_pembayaran_acc' => Carbon::now(),
+                'status'                 => 'Lunas'
+
+            ]);
+
+
+            $numseat = (int)$trip->seat;
+            $qty = $posts->qty;
+
+            $total = $numseat - $qty;
+            $trip->update([
+                'seat' => $total
+            ]);
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Edit Pembayaran', 'error' . $th->getMessage());
+            // return redirect()->back()->withInput($request->all());
+            return redirect()->back();
+        } finally {
+            DB::commit();
+        }
+        
+        
         $payment = Payment::with(['trip:id,title,seat'])->where('id', '=', $id)->first();
         $user = User::where('id', '=', $payment->user_id)->first();
         $invoiceDate = Carbon::now();
@@ -283,20 +313,27 @@ class PaymentController extends Controller
             'price'             =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
             'trip_name'         =>  $payment->trip->title,
             'trip_qty'          =>  $payment->qty,
+            'qty'               =>  $payment->qty,
             'trip_price'        =>  'Rp.' . number_format($payment->price_dp, 0, ',', '.'),
+            'onePrice'        =>  'Rp.' . 300000,
+            'priceTrip'         => 'Rp.' . $payment->price_dp,
             'statusPembayaran'  =>  'Lunas',
             'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
-            // 'due_date'          => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days'))
         ];
 
-        // return $dataCoba;
 
-        $pdf = PDF::loadView('admin.payment.coba1', compact('dataCoba'));
+        // $pdf = PDF::loadView('admin.payment.coba1', compact('dataCoba'));
+
+        // return view('admin.invoice.index', compact('dataCoba'));
+
+        $pdf= PDF::loadView('admin.invoice.index', compact('dataCoba'));
         // User::sendEMail($email, $pdf);
         PDF::getOptions()->set([
             'defaultFont' => 'helvetica',
             'chroot' => '/var/www/myproject/public',
         ]);
+        $pdf->setPaper('A4', 'potrait');
+        return $pdf->stream();
 
         $paths=  '-' . rand() . '_' . time();
         $path = Storage::put('public/storage/uploads/' . $paths . '.' . 'pdf', $pdf->output());
@@ -309,6 +346,7 @@ class PaymentController extends Controller
             'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
             'qty'           => $payment->qty,
             'trip_name'     => $payment->trip->title,
+            'trip_price'        =>  'Rp.' . number_format($payment->price_dp, 0, ',', '.'),
             'price'         =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
         ];
 
@@ -324,10 +362,19 @@ class PaymentController extends Controller
 
 
 
-        Mail::send('web.emails.successPayment', $email, function ($message) use ($email, $pdf, $path) {
+        // Mail::send('web.emails.successPayment', $email, function ($message) use ($email, $pdf, $path) {
+        //     $message->from('patrajuanda10@gmail.com');
+        //     $message->to($email['email']);
+        //     $message->subject('payment-success' . $email['nama']);
+        //     $message->attachData(
+        //         $pdf->output(),
+        //         $email['nama'] . time() . '.' . 'pdf'
+        //     );
+        // });
+        Mail::send('web.emails.emailPayment', $email, function ($message) use ($email, $pdf, $path) {
             $message->from('patrajuanda10@gmail.com');
             $message->to($email['email']);
-            $message->subject('payment-success' . $email['nama']);
+            $message->subject('Pembayaran Sukses  #' . $email['invoiceId']);
             $message->attachData(
                 $pdf->output(),
                 $email['nama'] . time() . '.' . 'pdf'

@@ -1195,7 +1195,8 @@ class HomeController extends Controller
                 'price'         =>  'Rp.' . number_format(($dp_price), 0, ',', '.'),
                 'price_total'   =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
                 'grandTotal'    => 'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
-                'path'          => $paths . 'pdf'
+                'path'          => $paths . 'pdf',
+                'status'        => 'Down Payment'
             ];
 
 
@@ -1209,16 +1210,14 @@ class HomeController extends Controller
             // $details['email'] = 'patrajuanda10@gmail.com';
             // dispatch(new SendEmailJob($details));
 
-            Mail::send('web.emails.order2', $email, function ($message) use ($email, $pdf, $path) {
+            
+            Mail::send('web.emails.emailOrder', $email, function ($message) use ($email, $pdf, $path) {
                 $message->from('patrajuanda10@gmail.com');
                 $message->to($email['email']);
-                $message->subject('Order-' . $email['nama']);
-                $message->attachData(
-                    $pdf->output(),
-                    $email['nama'] . time() . '.' . 'pdf'
-                );
+                $message->subject('Menunggu Pembayaran BCA untuk pembayaran #' . $email['invoiceId']);
             });
-            // $id = Payment::where('invoice_id', '=', $invoice_id)->first('id')->id;
+
+
             $invoice_idInstallment = $invoice_time . '01' . $telephone;
             $id = $paymentId->id;
             event(new MessageCreated($invoice_idInstallment));
@@ -1316,7 +1315,8 @@ class HomeController extends Controller
                 'tipping'       =>  'Rp.' . number_format(($newCart->trip->total_tipping), 0, ',', '.'),
                 'total_tipping' =>  'Rp.' . number_format(($newCart->trip->total_tipping * $qty), 0, ',', '.'),
                 'grandTotal'    =>  'Rp.' . number_format((($dp_price * $qty) + $totalTipping + $totalVisa), 0, ',', '.'),
-                'path'          => $paths . 'pdf'
+                'path'          => $paths . 'pdf',
+                'status'        => 'Full Payment'
             ];
 
 
@@ -1331,16 +1331,13 @@ class HomeController extends Controller
             // $details['email'] = 'patrajuanda10@gmail.com';
             // dispatch(new SendEmailJob($details));
 
-
-            Mail::send('web.emails.order', $email, function ($message) use ($email, $pdf, $path) {
+            Mail::send('web.emails.emailOrder', $email, function ($message) use ($email, $pdf, $path) {
                 $message->from('patrajuanda10@gmail.com');
                 $message->to($email['email']);
-                $message->subject('Order-' . $email['nama']);
-                $message->attachData(
-                    $pdf->output(),
-                    $email['nama'] . time() . '.' . 'pdf'
-                );
+                $message->subject('Menunggu Pembayaran BCA untuk pembayaran #' . $email['invoiceId']);
             });
+
+           
 
             $savePath = '-' . $paths . '.' . 'pdf';
 
@@ -1476,5 +1473,9 @@ class HomeController extends Controller
 
     public function cobaOrderEmail(){
         return view('web.emails.emailOrder');
+    }
+
+    public function successOrderEmail(){
+        return view('web.emails.emailPayment');
     }
 }

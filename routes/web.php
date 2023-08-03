@@ -114,6 +114,8 @@ Route::get('/visa-policy', [pdfOpenerController::class, 'index2'])->name('bukaPD
 
 Route::get('/coba-invoice', [HomeController::class, 'cobaInvoice'])->name('cobaInvoice');
 Route::get('/coba-order', [HomeController::class, 'cobaOrderEmail'])->name('cobaOrder');
+Route::get('/success-order', [HomeController::class, 'successOrderEmail'])->name('cobaOrder');
+
 
 Auth::routes();
 
