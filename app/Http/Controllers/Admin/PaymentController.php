@@ -333,7 +333,7 @@ class PaymentController extends Controller
             'chroot' => '/var/www/myproject/public',
         ]);
         $pdf->setPaper('A4', 'potrait');
-        return $pdf->stream();
+        // return $pdf->stream();
 
         $paths=  '-' . rand() . '_' . time();
         $path = Storage::put('public/storage/uploads/' . $paths . '.' . 'pdf', $pdf->output());
