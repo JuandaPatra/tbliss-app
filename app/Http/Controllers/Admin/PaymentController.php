@@ -326,12 +326,11 @@ class PaymentController extends Controller
 
         $pdf= PDF::loadView('admin.invoice.index', compact('dataCoba'));
         // User::sendEMail($email, $pdf);
-        PDF::getOptions()->set([
-            'defaultFont' => 'helvetica',
-            'chroot' => '/var/www/myproject/public',
-        ]);
+        PDF::getOptions()->set(
+            'fontDir', storage_path('fonts/Bely_Display_W00_Regular.woff2')
+        );
         $pdf->setPaper('A4', 'potrait');
-        return $pdf->stream();
+        // return $pdf->stream();
 
         $paths=  '-' . rand() . '_' . time();
         $path = Storage::put('public/storage/uploads/' . $paths . '.' . 'pdf', $pdf->output());

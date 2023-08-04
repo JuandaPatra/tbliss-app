@@ -17,25 +17,33 @@
             margin: 0;
         }
 
-        
-            @font-face {
-        font-family: 'bely';
-        font-weight: normal;
-        font-style: normal;
-        font-variant: normal;
-        src: url("{{storage_path('fonts/Bely_Display_W00_Regular.woff2')}}");
-      }
 
-      @font-face {
-        font-family: 'interRegular';
-        font-weight: normal;
-        font-style: normal;
-        font-variant: normal;
-        src: url("{{storage_path('fonts/Inter-Regular.woff2')}}");
-      }
+        @font-face {
+            font-family: 'bely';
+            font-weight: normal;
+            font-style: normal;
+            font-variant: normal;
+            src: url("{{storage_path('fonts/Bely_Display_W00_Regular.woff2')}}");
+        }
+
+        @font-face {
+            font-family: 'interRegular';
+            font-weight: normal;
+            font-style: normal;
+            font-variant: normal;
+            src: url("{{storage_path('fonts/Inter-Regular.woff2')}}");
+        }
+
+        body {
+            font-family: 'interRegular';
+        }
+
+        .font-bely {
+            font-family: 'bely';
+        }
     </style>
 
-    
+
     @vite(['resources/css/app.css'])
 
 
@@ -80,16 +88,16 @@
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding:1px" width="50%">
-                        <h1 style="font-size: 14px;font-weight:100;font-family:interRegular"> {{$dataCoba['title']['phone']}}</h1>
+                    <td style="padding:1px;font-size: 14px;font-weight:100;font-family:interRegular" width="50%">
+                        <h1 style="font-size: 14px;font-weight:lighter;font-family:interRegular"> {{$dataCoba['title']['phone']}}</h1>
                     </td>
                     <td style="padding:1px" width="50%" align="right">
 
                     </td>
                 </tr>
                 <tr>
-                    <td style="padding:1px" width="50%">
-                        <h1 style="font-size: 14px;font-weight:100;font-family:interRegular"> {{$dataCoba['title']['email']}}</h1>
+                    <td style="padding:1px;font-size: 14px;font-weight:100;font-family:interRegular" width="50%">
+                        <h1 style="font-size: 14px;font-weight:lighter;font-family:interRegular"> {{$dataCoba['title']['email']}}</h1>
                     </td>
                     <td style="padding:1px" width="50%" align="right">
                         <h1 style="color: #BF1E5F; font-weight:700;font-size: 14px;">Status : PAID</h1>
@@ -120,7 +128,7 @@
                         (Down Payment)
                     </td>
                     <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
-                        1
+                        {{$dataCoba['qty']}}
                     </td>
                     <td style="padding: 20px 8px;vertical-align:top">
                         {{$dataCoba['price']}}
@@ -154,7 +162,7 @@
             <tbody>
                 <tr style="height:30px">
                     <td style="padding-left:0px;padding-top:10px" width="50%">
-                        <h1 style="color:#102448;font-size :30px;font-weight:700; font-size:bely">
+                        <h1 style="color:#102448;font-size :30px;font-weight:700; font-size:bely; font-weight:600" class="font-bely">
                             Terima kasih Kak !
                         </h1>
                         <p style="font-size: 15px;font-family:interRegular">PT. Travel Blizz Trip</p>
