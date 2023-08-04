@@ -553,6 +553,7 @@ class HomeController extends Controller
                 [
                     $price = $newCart->trip->installment1 + $newCart->trip->installment2 + $newCart->trip->installment3,
                     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
+                    
                 ],
             ];
             // $monthly = array();
@@ -643,11 +644,11 @@ class HomeController extends Controller
 
     public function bookingOrder(Request $request)
     {
+        // return $request;
         if (!Auth::user()) {
             redirect('/');
         }
 
-        // return $request;
 
         $user = Auth::user();
 
@@ -975,6 +976,7 @@ class HomeController extends Controller
             redirect('/');
         }
 
+        // return $request;
         $user = Auth::user();
 
         $dp_price = (int)$request->dp_price;
@@ -1012,15 +1014,7 @@ class HomeController extends Controller
         $monthRange = $diff->format('%m');
         $monthly = array();
 
-        if ($dayRange >= 1 and $dayRange <= 30) {
-            $monthly = [
-                $price = $newCart->price,
-                // $perMonth =date('d M Y', strtotime($current_date)),
-                $perMonth = Carbon::today()->toDateString(),
-                $visaperMonth = $newCart->trip->visa,
-                $tippingPerMonth = $newCart->trip->total_tipping
-            ];
-        } elseif ($dayRange >= 31 and $dayRange <= 60) {
+       if ($dayRange >= 31 and $dayRange <= 60) {
 
             //sudah betul
             $monthly = [

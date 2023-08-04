@@ -30,17 +30,17 @@ class PaymentController extends Controller
 
         $data = Payment::orderBy('id', 'DESC')->get();
         $ndata = [];
-        
-        foreach($data as $dt){
+
+        foreach ($data as $dt) {
             $int = $dt->invoice_id;
             $str = (string) $int;
-            $orderId = substr($str,10,2);
-            if($orderId == '00'){
-                array_push($ndata,$dt);
+            $orderId = substr($str, 10, 2);
+            if ($orderId == '00') {
+                array_push($ndata, $dt);
             }
         }
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
-        
+
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
 
         // foreach($notifications as $notification){
@@ -48,7 +48,7 @@ class PaymentController extends Controller
         //     $notification['order'] = $notificationsplit[0];
         // }
 
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
             $notificationsplit = explode(' ', $notification->name);
@@ -92,28 +92,28 @@ class PaymentController extends Controller
         $middle = 5;
 
         $finish = substr($data->invoice_id, 12, 17);
-        $combine = $datas.$middle.$finish;
+        $combine = $datas . $middle . $finish;
         // return $combine;
-        $data5 = Payment::where('invoice_id', '=',$finish)->get();
+        $data5 = Payment::where('invoice_id', '=', $finish)->get();
         // return $data5;
-        $isInstallmentPayment =0;
-        if(count($data5) == 0){
+        $isInstallmentPayment = 0;
+        if (count($data5) == 0) {
             $isInstallmentPayment = 1;
         }
-        
+
         $statusPayment = '';
         if ($data->opsi_pembayaran == 0) {
             $statusPayment = 'Pembayaran Cicilan';
         }
 
         $finishInstallment = 0;
-        if($middle == 5){
+        if ($middle == 5) {
             $finishInstallment = 1;
         }
 
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -296,12 +296,20 @@ class PaymentController extends Controller
         // } finally {
         //     DB::commit();
         // }
-        
-        
-        $payment = Payment::with(['trip:id,title,seat'])->where('id', '=', $id)->first();
+
+
+        $payment = Payment::with(['trip:id,title,seat,visa,price,tipping,day'])->where('id', '=', $id)->first();
         $user = User::where('id', '=', $payment->user_id)->first();
         $invoiceDate = Carbon::now();
 
+
+
+        $opsiPembayaran = '';
+        if($payment->opsi_pembayaran == 0){
+            $opsiPembayaran = 'Down Payment';
+        }else{
+            $opsiPembayaran = 'Full Payment';
+        }
         $dataCoba = [
             'title'             =>  $user,
             'data'              =>  'tes data',
@@ -316,7 +324,14 @@ class PaymentController extends Controller
             'onePrice'        =>  'Rp.' . 300000,
             'priceTrip'         => 'Rp.' . $payment->price_dp,
             'statusPembayaran'  =>  'Lunas',
+            'opsiPembayaran'    => $opsiPembayaran,
             'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
+            'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
+            'visaTotal'         => 'Rp.' . number_format($payment->visa, 0, ',', '.'),
+            'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
+            'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
+            'tippingCaption'    => 'Tipping '.'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') .' x '. $payment->trip->day .'hari',
+            'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.')
         ];
 
 
@@ -324,15 +339,16 @@ class PaymentController extends Controller
 
         // return view('admin.invoice.index', compact('dataCoba'));
 
-        $pdf= PDF::loadView('admin.invoice.index', compact('dataCoba'));
+        $pdf = PDF::loadView('admin.invoice.index', compact('dataCoba'));
         // User::sendEMail($email, $pdf);
         PDF::getOptions()->set(
-            'fontDir', storage_path('fonts/Bely_Display_W00_Regular.woff2')
+            'fontDir',
+            storage_path('fonts/Bely_Display_W00_Regular.woff2')
         );
         $pdf->setPaper('A4', 'potrait');
         // return $pdf->stream();
 
-        $paths=  '-' . rand() . '_' . time();
+        $paths =  '-' . rand() . '_' . time();
         $path = Storage::put('public/storage/uploads/' . $paths . '.' . 'pdf', $pdf->output());
         $savePath =  $paths . '.' . 'pdf';
         $email = [
@@ -345,9 +361,17 @@ class PaymentController extends Controller
             'trip_name'     => $payment->trip->title,
             'trip_price'        =>  'Rp.' . number_format($payment->price_dp, 0, ',', '.'),
             'price'         =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
+            'opsiPembayaran'    => $opsiPembayaran,
+            'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
+            'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
+            'visaTotal'         => 'Rp.' . number_format($payment->visa, 0, ',', '.'),
+            'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
+            'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
+            'tippingCaption'    => 'Tipping '.'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') .' x '. $payment->trip->day .'hari',
+            'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.')
         ];
 
-        
+
 
         Storage::put($path, $pdf->output());
 
@@ -392,7 +416,7 @@ class PaymentController extends Controller
         $middle = 5;
 
         $finish = substr($data->invoice_id, 12, 17);
-        $newId = $datas.$middle.$finish;
+        $newId = $datas . $middle . $finish;
         // return $finish;
         $finishPayment = [];
         $finishVisa = 0;
@@ -422,7 +446,7 @@ class PaymentController extends Controller
         try {
             $paymentDetails = Payment::create([
                 'order_id'              => $data->order_id,
-                'invoice_id'            => $datas.$middle.$finish,
+                'invoice_id'            => $datas . $middle . $finish,
                 'user_id'               => $data->user_id,
                 'trip_categories_id'    => $data->trip_categories_id,
                 'qty'                   => $data->qty,
@@ -447,7 +471,7 @@ class PaymentController extends Controller
             DB::commit();
         }
         return $newId;
-        $newPayments = Payment::where('id', '=', $newId )->first();
+        $newPayments = Payment::where('id', '=', $newId)->first();
         return redirect()->back();
         // return $newPayments;
 
@@ -504,10 +528,10 @@ class PaymentController extends Controller
         $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status', 'visa', 'total_tipping', 'grand_total', 'due_date', 'opsi_pembayaran']);
         // return $data;
 
-        $user = User::where('id', '=', $data->user->id)->first(['id','name', 'email','phone','alamat']);
-        $invoiceDate= Carbon::now()->toDateString();
+        $user = User::where('id', '=', $data->user->id)->first(['id', 'name', 'email', 'phone', 'alamat']);
+        $invoiceDate = Carbon::now()->toDateString();
 
-         $dataCoba = [
+        $dataCoba = [
             'title'             =>  $user,
             'data'              =>  'tes data',
             'orderid'           =>  'ORD' . $data->order_id,
@@ -584,5 +608,4 @@ class PaymentController extends Controller
 
         endswitch;
     }
-    
 }

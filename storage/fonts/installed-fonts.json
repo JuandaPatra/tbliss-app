@@ -1,0 +1,22 @@
+{
+    "bely": {
+        "normal": "bely_normal_cde9807e22a5f0ab26762a3730817e55"
+    },
+    "inter": {
+        "100": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/inter_100_34d70a0ef39e9758ef49196d909f584f",
+        "200": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/inter_200_e6c1fbcf88f8b708cc1d3e57af1c144b",
+        "300": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/inter_300_6f003d6153bb6629d9efcdc027439d83",
+        "normal": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/inter_normal_4c1c39b2d60dc6de8a3bc272ce3fe7dc",
+        "500": "inter_500_73384d6e47fd66bbc719b75497af932b"
+    },
+    "nunito": {
+        "600_italic": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/nunito_600_italic_55ae7c1c92137c44af3f62173ef6a435",
+        "bold_italic": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/nunito_bold_italic_40a75c447f6a264e56b1e7e3549a9ccc",
+        "500": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/nunito_500_451723395e3197d7dde5899edd37d91e",
+        "600": "C:\\laravel\\tblis\\tblis-app\\storage\\fonts\/nunito_600_0275befc5ca0fc822c590fc63a6c14d5",
+        "800": "nunito_800_924d67a3f4e0c85d5e5695ded0fa98ec"
+    },
+    "bely display w00 regular": {
+        "normal": "bely_display_w00_regular_normal_6aecaa70f880f438f51d00b4b0ce4a02"
+    }
+}

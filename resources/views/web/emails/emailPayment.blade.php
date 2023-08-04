@@ -54,7 +54,7 @@
                     <tr style="height:30px">
                         <td style="padding:10px" width="235" height="21">Total Bayar</td>
                         <td style="padding:10px" width="30" height="21">:</td>
-                        <td style="padding:10px" width="293" height="21" align="left">{{$price}}</td>
+                        <td style="padding:10px" width="293" height="21" align="left">{{$grandTotal}}</td>
                     </tr>
 
                     <tr style="height:30px">
@@ -95,6 +95,42 @@
                             {{$price}}
                         </td>
                     </tr>
+
+                    @if($visaTotal != 'Rp.0')
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            Visa
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                           {{$visa}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$visaTotal}}
+                        </td>
+                    </tr>
+                    @endif
+
+                    @if($totalTipping != 'Rp.0')
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            {{$tippingCaption}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                           {{$totalTipping}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$totalTipping}}
+                        </td>
+                    </tr>
+                    @endif
+
+
                     <tr style="border-bottom:none;border-left:none;border-right:none;border-top:1px solid #102448; height:87px;">
                         <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
 
@@ -106,7 +142,7 @@
                             Subtotal
                         </td>
                         <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
-                            {{$price}}
+                            {{$grandTotal}}
                         </td>
                     </tr>
 
