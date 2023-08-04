@@ -18,6 +18,7 @@
             </h1>
             <div class="grid grid-cols-2 gap-x-3 mt-[16px]">
                 @if($months != 1)
+                
                 <div class=" bg-blueTbliss h-[39px] py-[7px] text-[14px] border text-white flex justify-center cursor-pointer dp-button" data-price="{{$monthly[0][0]}}" data-status="0" data-grand="{{$monthly[0][4]}}">
                     <svg width="17" height="17" viewBox="0 0 17 17" class="mt-[2px] white-icon hidden " fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_466_104)">
@@ -76,7 +77,7 @@
                     </span>
                 </div>
                 @else
-                <div class=" bg-white h-[39px] py-[7px] text-[14px] text-[#6A6A6A] border border-[#9F9F9F] flex justify-center cursor-pointer " data-price="{{$monthly[0][0]}}" data-status="0" data-grand="{{$monthly[0][4]}}">
+                <div class=" bg-white h-[39px] py-[7px] text-[14px] text-[#6A6A6A] border border-[#9F9F9F] flex justify-center cursor-pointer " data-price="{{$monthly[0][0]}}" data-status="1" data-grand="{{$monthly[0][4]}}">
                     <svg width="17" height="17" viewBox="0 0 17 17" class="mt-[2px] white-icon hidden " fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_466_104)">
                             <path d="M7.81378 0H9.17352C9.42887 0.035725 9.69827 0.0293457 9.95873 0.0599671C10.5832 0.144365 11.1926 0.316169 11.7692 0.570324C12.6451 0.928472 13.4538 1.43283 14.1605 2.06184C14.8574 2.67727 15.4513 3.40003 15.9199 4.20279C16.3646 4.96855 16.6885 5.79828 16.88 6.66271C16.9387 7.01035 16.9733 7.36164 16.9834 7.71405C16.9834 7.76764 16.9668 7.82378 17 7.87481V8.89808C16.9656 9.16474 16.9668 9.43523 16.9553 9.70317C16.9236 10.1374 16.8378 10.566 16.7 10.9791C16.3737 12.0812 15.8239 13.1044 15.0849 13.9851C13.8486 15.4721 12.1456 16.4977 10.2524 16.8954C9.9096 16.9481 9.56368 16.9779 9.21693 16.9847C9.15692 16.9847 9.09564 16.9668 9.03819 17H7.87762C7.62227 16.9681 7.36691 16.9719 7.11156 16.9451C6.51897 16.8709 5.93916 16.7168 5.38794 16.4871C4.5468 16.1609 3.76452 15.6997 3.07191 15.1219C2.00971 14.2458 1.17269 13.1285 0.630752 11.8633C0.351316 11.2482 0.162937 10.5957 0.0715341 9.92645C-0.000814329 9.26215 -0.0183229 8.59302 0.0191867 7.92585C0.0204483 7.55753 0.0498999 7.18985 0.107283 6.82603C0.372766 5.47513 0.964946 4.20966 1.83218 3.13997C2.68647 2.0686 3.78542 1.2176 5.03684 0.658361C5.58519 0.407918 6.16052 0.221264 6.75152 0.102072C7.06714 0.0557098 7.38514 0.0271693 7.70398 0.0165867C7.741 0.014035 7.78058 0.0280696 7.81378 0Z" fill="#5C6CEF" />
@@ -708,6 +709,7 @@
 @push('javascript-internal')
 <script>
     $(document).ready(function() {
+
 
         ///// ini button dp payment
         $('.dp-button').on('click', function(e) {

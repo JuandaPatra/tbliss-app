@@ -7,6 +7,7 @@
 <section>
     <div class="relative">
         <div class="banner-slider">
+            @foreach($banners as $banner)
             <div class="relative ">
                 <div class="absolute top-[150px] lg:top-[120px] left-0 right-0 text-white">
                     <div class="flex justify-center ">
@@ -22,12 +23,15 @@
                         </h1>
                     </div>
                 </div>
+
                 <picture>
                     <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
                     <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile-2.jpg') }}">
                     <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
+                
             </div>
+            @endforeach
 
         </div>
 
@@ -290,6 +294,7 @@
             let dateTo = dates.slice(13, 23)
             let seats = $('#seats').val()
 
+
             $.ajax({
                 type: "POST",
                 url: `${base_url}/seacrhByDate`,
@@ -316,6 +321,7 @@
                     }
                 },
                 success: function(data) {
+                    console.log(data)
                     $('.result-text').removeClass('hidden')
                     $('.home-section').empty()
                     let result = data.result

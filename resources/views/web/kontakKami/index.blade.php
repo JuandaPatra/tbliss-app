@@ -33,7 +33,7 @@
 </div>
 
 <section>
-    <div class="container-lg pb-[50px] lg:pb-[164px]">
+    <div class="container-lg pb-[50px] lg:pb-[164px] px-4 lg:px-0">
         <div id="accordion-color" class="px-0" data-accordion="collapse" data-active-classes="bg-transparent dark:bg-gray-800 text-authbutton dark:text-white">
             <h2 id="accordion-color-heading-1">
                 <button type="button" class="flex items-center justify-between w-full py-3 px-0 font-medium text-left text-[18px]  text-gray-500 border-y-2  border-gray-200   dark:focus:ring-blue-800 dark:border-gray-700 dark:text-gray-400 hover:bg-blue-100  dark:hover:bg-gray-800" data-accordion-target="#accordion-color-body-1" aria-expanded="false" aria-controls="accordion-color-body-1">

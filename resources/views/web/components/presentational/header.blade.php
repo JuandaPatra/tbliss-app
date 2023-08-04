@@ -1,5 +1,6 @@
 <header>
     <div class="header-top fixed top-0 z-50 w-full">
+
         <div class="flex flex-wrap bg-[#102448] h-[35px] lg:h-[48px] text-white text-sm ">
             <div class="basis-full lg:basis-3/12">
                 <div class="flex flex-wrap ml-0 mt-[3px] justify-center lg:justify-start lg:ml-7 lg:mt-3 pt-[4px] lg:pt-0 py-2.5">
@@ -69,28 +70,58 @@
                 </ul>
             </div>
 
-            {{--
-             <div class="hidden lg:block basis-full lg:basis-3/12 ">
-                <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
-                    <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
-            @if(Auth::user()->name )
-            <a href="" data-modal-target="authentication-modal">{{Auth::user()->name}}</a>
-            @endif
-            <span class="mr-5 ml-5">|</span>
-            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
-                {{ __('Logout') }}
-            </a>
 
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
+            @endauth
         </div>
     </div>
-    --}}
-    @endauth
+    <div class=" lg:hidden container-full pt-[25px] pb-[25px] fixed top-[35px] z-50 w-full bg-white">
+        <div class="d-flex justify-between mr-2 lg:justify-center px-[3px] lg:px-0">
+            <button type="button" class="hamburger-menu inline-flex lg:hidden items-center p-2 ml-3 text-sm text-gray-500 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600 mt-[12px]" aria-controls="navbar-hamburger" aria-expanded="false">
+                <span class="sr-only">Open main menu</span>
+                <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path>
+                </svg>
+            </button>
+            <a href="/" class="block ">
+                <img src="{{ asset('images/title/logo.png') }}" alt="" class="w-[145px] h-[40px] lg:w-[231px] lg:h-[61px]">
+            </a>
+            @guest
+            <a href="{{ route('signin.index') }}" class="block lg:hidden p-2 mt-[12px]">
+                <img src="{{ asset('images/header/user_black.png') }}" alt="" class="w-[20px] h-[20px]">
+            </a>
+
+            @endguest
+            @auth
+            <a class="block lg:hidden mt-[12px]" id="dropdownHoverButtonX" data-dropdown-toggle="dropdownHoverX">
+                <img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
+            </a>
+            <!-- Dropdown menu -->
+            <div id="dropdownHoverX" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
+                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButtonX">
+                    <li>
+                        <a href="{{route('home.profile')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profil</a>
+                    </li>
+                    <li>
+                        <a href="{{route('home.cart')}}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Pemesanan</a>
+                    </li>
+
+                    <li class="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                        <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                            {{ __('Logout') }}
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                            @csrf
+                        </form>
+                    </li>
+                </ul>
+            </div>
+
+            @endauth
+        </div>
     </div>
-    </div>
+
 
     <div class="container-full mt-[80px] mb-[57px]">
         <div class="d-flex justify-between mr-2 lg:justify-center px-[3px] lg:px-0">

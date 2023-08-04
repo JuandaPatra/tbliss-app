@@ -66,6 +66,25 @@
       </ul>
     </li>
 
+    <li class="menu-item   {{ set_active(['slider.index','slider.create', 'slider.edit']) }} {{ set_open(['slider.index','slider.create', 'slider.edit']) }} ">
+      <a href="javascript:void(0);" class="menu-link menu-toggle">
+        <i class="menu-icon bx bx-carousel"></i>
+        <div data-i18n="Layouts">Slider</div>
+      </a>
+      <ul class="menu-sub ">
+        <li class="menu-item {{ set_active('slider.index') }}">
+          <a href="{{ route('slider.index') }}" class="menu-link">
+            <div data-i18n="Without menu">List</div>
+          </a>
+        </li>
+        <li class="menu-item {{ set_active('slider.create') }}">
+          <a href="{{ route('slider.create') }}" class="menu-link">
+            <div data-i18n="Without navbar">Create</div>
+          </a>
+        </li>
+      </ul>
+    </li>
+
 
     <li class="menu-item  {{ set_active(['continent.index','continent.create', 'continent.edit']) }} {{ set_open(['continent.index','continent.create', 'continent.edit']) }}">
       <a href="javascript:void(0);" class="menu-link menu-toggle">

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class UserRegisterController extends Controller
 {
@@ -43,17 +44,13 @@ class UserRegisterController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         $validator = Validator::make(
             $request->all(),
             [
-                // 'name'      => ['required', 'string', 'max:255'],
-                // 'email'     => ['required', 'string', 'email', 'max:255', 'unique:users'],
-                // 'password'  => ['required', 'string', 'min:8', 'confirmed'],
                 'name'                 => 'required|string',
                 'password'             => 'required|min:6|same:confirmPassword',
                 'confirmPassword'      => 'required|string|min:8',
-                'email'                =>  'required|email|unique:users,email', 
+                'email'                =>  'required|email|unique:users,email',
                 'g-recaptcha-response' => 'recaptcha',
             ]
         );
@@ -61,21 +58,32 @@ class UserRegisterController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
-        // return $request;
         $findUser = User::where('email', '=', $request->email)->get();
-        if(count($findUser)==0){
+        if (count($findUser) == 0) {
             $user = User::create([
                 'name'                              => $request->name,
                 'email'                             => $request->email,
-                'password'                          => bcrypt($request->password) ,
+                'password'                          => bcrypt($request->password),
             ]);
             $user->assignRole('user');
-        }else{
-            return 'gagal';
+        } else {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
 
-        $user= User::where('email','=', $request->email)->first();
+        $user = User::where('email', '=', $request->email)->first();
         Auth::login($user);
+
+        $email = [
+            'email'         => $request->email,
+            'name'          => $request->name
+
+        ];
+
+        Mail::send('web.emails.emailGreeting', $email, function ($message) use ($email,) {
+            $message->from('patrajuanda10@gmail.com');
+            $message->to($email['email']);
+            $message->subject('Selamat bergabung dengan Tbliss');
+        });
 
         return redirect('/');
     }

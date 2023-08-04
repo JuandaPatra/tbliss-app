@@ -115,18 +115,18 @@
                                     Lunas
                                 </td>
                                 @endif
-                                <th class="pl-2">
+                                <th class="pl-2 pr-10">
                                     @if($history->trip != null && $history->status == 'Lunas' )
-                                    <a href="{{route('home.invoice', $history->invoice_id)}}" data-tooltip-target="tooltip-light-2" data-tooltip-style="light" class=" text-greyDetTbliss underline  font-medium  mx-auto text-sm  py-2   focus:outline-none  hover:text-footer" target="_blank">
+                                    <a href="{{route('home.invoice', $history->invoice_id)}}" data-tooltip-target="tooltip-light-2" data-tooltip-style="light" class=" text-greyDetTbliss underline  font-medium  mx-auto text-xs  py-2   focus:outline-none  hover:text-footer" target="_blank">
                                         Unduh <br> Invoice
                                     </a>
                                     @elseif($history->status == 'Menunggu Pembayaran')
-                                    <a href="{{route('upload', $history->encrypt_id)}}" data-tooltip-target="tooltip-light" data-tooltip-style="light" class="text-greyDetTbliss underline  font-medium  mx-auto text-sm  py-2   focus:outline-none  hover:text-footer">
-                                        Menunggu <br> Pembayaran
+                                    <a href="{{route('upload', $history->encrypt_id)}}" data-tooltip-target="tooltip-light" data-tooltip-style="light" class="text-greyDetTbliss underline  font-medium  mx-auto text-xs  py-2   focus:outline-none  hover:text-footer">
+                                        Unggah <br> bukti
                                     </a>
                                     
                                     @elseif($history->status == 'Menunggu Verifikasi')
-                                    <a href="{{route('upload', $history->encrypt_id)}}" data-tooltip-target="tooltip-light-1" data-tooltip-style="light" class="text-greyDetTbliss underline  font-medium  mx-auto text-sm  py-2   focus:outline-none  hover:text-footer">
+                                    <a href="{{route('upload', $history->encrypt_id)}}" data-tooltip-target="tooltip-light-1" data-tooltip-style="light" class="text-greyDetTbliss underline  font-medium  mx-auto text-xs  py-2   focus:outline-none  hover:text-footer">
                                     Unggah Ulang <br> Bukti Transfer
                                     </a>
                                    

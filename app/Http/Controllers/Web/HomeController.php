@@ -27,10 +27,12 @@ use App\Models\logPayments;
 use App\Models\Payment;
 use App\Models\PaymentDetails;
 use App\Models\ReviewTrip;
+use App\Models\Slider;
 use App\Models\User;
 use Carbon\Carbon;
 use DateTime;
 use Dymantic\InstagramFeed\Profile;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use PDF;
@@ -54,9 +56,11 @@ class HomeController extends Controller
      */
     public function country($id)
     {
-        
+
         $slug = $id;
 
+
+        $banners = Slider::all();
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
 
         /**
@@ -109,8 +113,7 @@ class HomeController extends Controller
          */
         $testimonies = globalData::where('categories', '=', 3)->get(['name', 'description', 'image']);
 
-
-        return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId', 'pickHiddenGems', 'testimonies'));
+        return view('web.home.index', compact('trips', 'country', 'hiddenGems', 'hiddenGemId', 'pickHiddenGems', 'testimonies', 'banners'));
     }
 
     public function detail(Request $request, $id, $trip)
@@ -163,7 +166,7 @@ class HomeController extends Controller
          * check user
          */
         if (!Auth::user()) {
-            return redirect(route('signin.index'));
+            return redirect(route('signin.index'))->with('fail', 'Silahkan masuk terlebih dahulu');
         }
         $user = Auth::user();
 
@@ -171,10 +174,10 @@ class HomeController extends Controller
          * check kembali apakah alamt dan telp. user sudah diisi
          */
         if ($user->alamat == '' || $user->phone == '') {
-            return redirect(route('home.profile'));
+            return redirect(route('home.profile'))->with('fail', 'Mohon lengkapi data anda!');
         }
         $trip = Trip_categories::where('id', '=', $request->id)->first();
-        
+
         /**
          * proses insert ke db
          */
@@ -245,10 +248,12 @@ class HomeController extends Controller
         $dateTo = str_replace('/', '-', $request->dateTo);
         $now    =   date("Y-m-d", strtotime($dateFrom));
         $to     =   date("Y-m-d", strtotime($dateTo));
-        $seat   =   $request->seats;
+        $seat   = (int) $request->seats;
 
 
         $searchByPlace = place_trip_categories_cities::where('place_categories_id', '=', $request->id)->get(['trip_categories_id'])->pluck('trip_categories_id');
+
+
 
         $reservations = Trip_categories::where('date_from', '>=', $now)
             ->where('date_to', '<=', $to)
@@ -261,6 +266,7 @@ class HomeController extends Controller
             ->where('date_to', '<=', $to)
             ->where('seat', '>=', $seat)
             ->get();
+
 
         foreach ($reservationsq as $reservation) {
             $reservation['date_from_result'] = date('d', strtotime($reservation->date_from));
@@ -288,6 +294,47 @@ class HomeController extends Controller
     public function profileUpdate(Request $request)
     {
         $user = Auth::user();
+
+        if ($request->password != '' && $request->newPassword != '' && $request->confirmPassword != '') {
+            $validator = Validator::make(
+                $request->all(),
+                [
+                    'password' => 'required',
+                    'newPassword' => 'required|same:confirmPassword',
+                    'confirmPassword' => 'required',
+
+                ]
+            );
+
+            if ($validator->fails()) {
+                return redirect()->back()->withInput($request->all())->with('fail', 'Silahkan periksa kembali form !');
+            }
+
+            if (Hash::check($request->password, $user->password)) {
+                DB::beginTransaction();
+
+                try {
+                    $user = User::whereId($user->id);
+
+
+                    $user->update([
+                        'password' => bcrypt($request->newPassword),
+                    ]);
+
+                    return redirect()->route('signin.index')->with(Auth::logout());;
+                } catch (\throwable $th) {
+                    DB::rollBack();
+                    Alert::error('Edit Slider', 'error' . $th->getMessage());
+                    return redirect()->back()->withInput($request->all());
+                } finally {
+                    DB::commit();
+                }
+            } else {
+                return redirect()->back()->with('fail', 'Silahkan periksa kembali form !');
+            }
+        }
+
+
 
         $validator = Validator::make(
             $request->all(),
@@ -522,7 +569,8 @@ class HomeController extends Controller
         $months = count($monthly);
         $pricePerMonths = 20000;
 
-        // return $monthly;
+        // return $months;
+
         return view('web.booking.index3', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
     }
 
@@ -533,8 +581,8 @@ class HomeController extends Controller
         }
         $user = Auth::user();
 
+
         $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price,dp_price,installment1,installment2,installment3,visa,tipping,total_tipping'])->where('user_id', '=', $user->id)->orderBy('created_at', 'asc')->get()->last();
-        // return $newCart;
 
         $dates1 = $newCart->trip->date_from;
         $dates2 = Carbon::today()->toDateString();
@@ -549,11 +597,11 @@ class HomeController extends Controller
         $monthly = array();
 
         if ($dayRange >= 1 and $dayRange <= 30) {
+            return $dayRange;
             $monthly = [
                 [
                     $price = $newCart->trip->installment1 + $newCart->trip->installment2 + $newCart->trip->installment3,
                     $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days'))
-                    
                 ],
             ];
             // $monthly = array();
@@ -644,7 +692,6 @@ class HomeController extends Controller
 
     public function bookingOrder(Request $request)
     {
-        // return $request;
         if (!Auth::user()) {
             redirect('/');
         }
@@ -976,7 +1023,6 @@ class HomeController extends Controller
             redirect('/');
         }
 
-        // return $request;
         $user = Auth::user();
 
         $dp_price = (int)$request->dp_price;
@@ -1014,7 +1060,10 @@ class HomeController extends Controller
         $monthRange = $diff->format('%m');
         $monthly = array();
 
-       if ($dayRange >= 31 and $dayRange <= 60) {
+        //ubah status disini jika hari kurang dari 30 hari agar tidak terjadi bug saat tanggal sekarang kurang dari 30 hari
+
+
+        if ($dayRange >= 31 and $dayRange <= 60) {
 
             //sudah betul
             $monthly = [
@@ -1024,7 +1073,7 @@ class HomeController extends Controller
                     $visaperMonth = 0,
                     $tippingPerMonth = 0,
                     $due_date_satu = date('Y-m-d', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
-                    $due_date_dua  = NULL
+                    $due_date_dua  = NULL,
                 ],
                 [
                     $price = $newCart->trip->installment2,
@@ -1210,7 +1259,7 @@ class HomeController extends Controller
             // $details['email'] = 'patrajuanda10@gmail.com';
             // dispatch(new SendEmailJob($details));
 
-            
+
             Mail::send('web.emails.emailOrder', $email, function ($message) use ($email, $pdf, $path) {
                 $message->from('patrajuanda10@gmail.com');
                 $message->to($email['email']);
@@ -1339,7 +1388,7 @@ class HomeController extends Controller
                 $message->subject('Menunggu Pembayaran BCA untuk pembayaran #' . $email['invoiceId']);
             });
 
-           
+
 
             $savePath = '-' . $paths . '.' . 'pdf';
 
@@ -1452,7 +1501,8 @@ class HomeController extends Controller
         return response()->file(storage_path('app/public/storage/uploads/' . $url), ['content-type' => 'application/pdf']);
     }
 
-    public function cobaInvoice(){
+    public function cobaInvoice()
+    {
         $newCart = Cart::with(['trip:id,title,seat,thumbnail,date_from,date_to,price'])->where('user_id', '=', 7)->orderBy('created_at', 'desc')->get()->last();
         $user = User::where('id', '=', 7)->get();
         // return $newCart;
@@ -1473,11 +1523,13 @@ class HomeController extends Controller
         return view('admin.invoice.index', compact('dataCoba'));
     }
 
-    public function cobaOrderEmail(){
+    public function cobaOrderEmail()
+    {
         return view('web.emails.emailOrder');
     }
 
-    public function successOrderEmail(){
+    public function successOrderEmail()
+    {
         return view('web.emails.emailPayment');
     }
 }

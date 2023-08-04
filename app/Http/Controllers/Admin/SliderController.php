@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use App\Models\logPayments;
+
 class SliderController extends Controller
 {
     /**
@@ -18,8 +20,10 @@ class SliderController extends Controller
      */
     public function index()
     {
+        $notifications = logPayments::where('status','=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status','=', 'belum dibaca')->count();
         $datas = Slider::all();
-        return view('admin.sliders.index', compact('datas'));
+        return view('admin.sliders.index', compact('datas', 'notifications', 'notificationsCount'));
     }
 
     /**
@@ -29,9 +33,14 @@ class SliderController extends Controller
      */
     public function create()
     {
+
+        $notifications = logPayments::where('status','=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status','=', 'belum dibaca')->count();
         return view('admin.sliders.create', [
             'statuses' => $this->statuses(),
-            'orders' => $this->orders()
+            'orders' => $this->orders(),
+            'notifications'=> $notifications,
+            'notificationsCount' => $notificationsCount 
         ]);
     }
 

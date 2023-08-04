@@ -10,7 +10,7 @@
     <div class="p-5 bg-white md:flex-1">
       @if ($errors->any())
       <div class="alert alert-danger">
-        <p>Error ! Pleasse check your form again</p>
+        <p>Silahkan periksa kembali isian anda</p>
       </div>
       @endif
       <form action="{{route('signup.store')}}" method="post" class="flex flex-col space-y-5">
@@ -22,7 +22,7 @@
               <circle cx="12" cy="7" r="4"></circle>
             </svg>
           </div>
-          <input type="text" id="input-group-1" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('name')  errorForm @enderror" placeholder="Name" name="name" value="{{ old('name') }}">
+          <input type="text" id="input-group-1" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('name')  errorForm @enderror" placeholder="Nama" name="name" value="{{ old('name') }}">
           @error('name')
           <span class="invalid-feedback" role="alert">
             <strong>{{ $message }}</strong>
@@ -39,7 +39,7 @@
           <input type="email" id="input-group-2" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('email')  errorForm @enderror" placeholder="Email" name="email" value="{{ old('email') }}">
           @error('email')
           <span class="invalid-feedback" role="alert">
-            <strong>Email Already Exist</strong>
+            <strong>Email sudah terdaftar</strong>
           </span>
           @enderror
         </div>
@@ -50,11 +50,11 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
           </div>
-          <input type="password" id="input-group-3" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Password" name="password"
+          <input type="password" id="input-group-3" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Kata Sandi" name="password"
           value="{{ old('password') }}">
           @error('password')
           <span class="invalid-feedback" role="alert">
-            <strong>Please check your password</strong>
+            <strong>Periksa kembali kata sandi </strong>
           </span>
           @enderror
         </div>
@@ -65,31 +65,25 @@
               <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
             </svg>
           </div>
-          <input type="password" id="input-group-4" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Confirm password" name="confirmPassword" value="{{ old('confirmPassword') }}">
+          <input type="password" id="input-group-4" class="bg-gray-50 border  text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 @error('password')  errorForm @enderror" placeholder="Konfirmasi Kata Sandi" name="confirmPassword" value="{{ old('confirmPassword') }}">
           @error('password')
           <span class="invalid-feedback" role="alert">
-            <strong>Please check your password</strong>
+            <strong>Periksa kembali kata sandi</strong>
           </span>
           @enderror
         </div>
-        <div class="flex justify-between">
-          <div class="flex items-center space-x-2">
-            <input type="checkbox" id="remember" class="w-4 h-4 transition duration-300 focus:ring-2 focus:ring-offset-0 focus:outline-none focus:ring-authbutton text-authbutton" checked="checked" />
-            <label class="form-check-label" for="user_receive_newletters">I would like to receive amazing travel inspirations, tips and latest deals via email.</label>
-          </div>
-
-        </div>
+        
         <div class="col-md-6"> {!! htmlFormSnippet() !!} </div>
         <div>
           <button type="submit" class="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-authbutton rounded-md shadow hover:bg-authbutton focus:outline-none focus:ring-blue-200 focus:ring-4">
-            Sign Up
+            Daftar
           </button>
         </div>
         <div class="flex flex-col space-y-4">
           <div class="pt-3 tw-border-t tw-border-grey-lighter tw-border-solid text-center">
-            Already part of our community?
-            <a href="{{route('signin.index')}}" class=" text-authbutton">Login</a>
-            here
+            Sudah punya akun?
+            <a href="{{route('signin.index')}}" class=" text-authbutton">Masuk</a>
+            disini
           </div>
         </div>
       </form>
