@@ -636,7 +636,7 @@ class HomeController extends Controller
         // }
         $months = count($monthly);
         $pricePerMonths = 20000;
-        return $monthly;
+        // return $monthly;
 
         return view('web.booking.index2', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
     }
@@ -727,7 +727,7 @@ class HomeController extends Controller
             'path'          => $paths . 'pdf'
         ];
 
-        return $email;
+        // return $email;
 
         Storage::put($path, $pdf->output());
 
