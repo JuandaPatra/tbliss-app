@@ -8,6 +8,33 @@
     <title>TBLISS</title>
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/favicon/tbliss.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+
+
+
+
+    <style>
+        @page {
+            margin: 0;
+        }
+
+        
+            @font-face {
+        font-family: 'bely';
+        font-weight: normal;
+        font-style: normal;
+        font-variant: normal;
+        src: url("{{storage_path('fonts/Bely_Display_W00_Regular.woff2')}}");
+      }
+
+      @font-face {
+        font-family: 'interRegular';
+        font-weight: normal;
+        font-style: normal;
+        font-variant: normal;
+        src: url("{{storage_path('fonts/Inter-Regular.woff2')}}");
+      }
+    </style>
+
     
     @vite(['resources/css/app.css'])
 
@@ -41,20 +68,20 @@
                         <h1 style="font-size: 14px;">Ditagihkan ke :</h1>
                     </td>
                     <td style="padding-bottom:1px" width="50%" align="right">
-                        <h1 style="font-size: 14px;">No Invoice #{{$dataCoba['invoice_id']}}</h1>
+                        <h1 style="font-size: 14px;font-weight:100">No Invoice #{{$dataCoba['invoice_id']}}</h1>
                     </td>
                 </tr>
                 <tr style="padding-top: 0px;padding-bottom:0px">
                     <td style="padding:1px" width="50%" height="10px">
-                        <h1 style="font-size: 14px;"> {{$dataCoba['title']['name']}}</h1>
+                        <h1 style="font-size: 14px;font-family:interRegular;font-weight:lighter"> {{$dataCoba['title']['name']}}</h1>
                     </td>
-                    <td style="padding:1px; font: size 14px;" width="50%" height="10px" align="right">
-                        <h1 style="font-size: 14px;"> {{$dataCoba['invoice_date']}}</h1>
+                    <td style="font-size: 14px;font-weight:100;font-family:interRegular;font-weight:lighter" width="50%" height="10px" align="right">
+                        <h1 style="font-size: 14px;font-weight:100;font-family:interRegular;font-weight:lighter"> {{$dataCoba['invoice_date']}}</h1>
                     </td>
                 </tr>
                 <tr>
                     <td style="padding:1px" width="50%">
-                        <h1 style="font-size: 14px;"> {{$dataCoba['title']['phone']}}</h1>
+                        <h1 style="font-size: 14px;font-weight:100;font-family:interRegular"> {{$dataCoba['title']['phone']}}</h1>
                     </td>
                     <td style="padding:1px" width="50%" align="right">
 
@@ -62,7 +89,7 @@
                 </tr>
                 <tr>
                     <td style="padding:1px" width="50%">
-                        <h1 style="font-size: 14px;"> {{$dataCoba['title']['email']}}</h1>
+                        <h1 style="font-size: 14px;font-weight:100;font-family:interRegular"> {{$dataCoba['title']['email']}}</h1>
                     </td>
                     <td style="padding:1px" width="50%" align="right">
                         <h1 style="color: #BF1E5F; font-weight:700;font-size: 14px;">Status : PAID</h1>
@@ -112,7 +139,7 @@
                     <td style="padding: 20px 8px;vertical-align:top">
                         Subtotal
                     </td>
-                    <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                    <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
                         {{$dataCoba['price']}}
                     </td>
                 </tr>
@@ -127,10 +154,10 @@
             <tbody>
                 <tr style="height:30px">
                     <td style="padding-left:0px;padding-top:10px" width="50%">
-                        <h1 style="color:#102448;font-size :24px;font-family:bely">
-                            Terimakasih Kak !
+                        <h1 style="color:#102448;font-size :30px;font-weight:700; font-size:bely">
+                            Terima kasih Kak !
                         </h1>
-                        <p style="font-size: 15px;">PT. Travel Blizz Trip</p>
+                        <p style="font-size: 15px;font-family:interRegular">PT. Travel Blizz Trip</p>
                     </td>
 
                 </tr>

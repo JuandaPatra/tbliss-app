@@ -32,7 +32,7 @@
             @auth
 
             <button id="dropdownHoverButton" data-dropdown-toggle="dropdownHover" data-dropdown-trigger="hover" class="text-whit bg-transparent  font-medium rounded-lg text-sm px-4 py-2.5 text-center hidden lg:inline-flex items-center ml-[5%]  " type="button"><img class="w-7 h-7 rounded-full" src="https://ui-avatars.com/api/?name={{Auth::user()->name}}" alt="Rounded avatar">
-                <span class="p-1">hi, {{Auth::user()->name}}</span></button>
+                <span class="p-1">Hi kak, {{Auth::user()->name}}</span></button>
             <!-- Dropdown menu -->
             <div id="dropdownHover" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownHoverButton">

@@ -53,7 +53,7 @@
                             <tr>
                                 <th>Tanggal Pemesanan</th>
                                 <th scope="col" class="pl-0 pr-6 py-3 ">
-                                    Invoice Number
+                                    No. Invoice
                                 </th>
                                 <th>Nama Trip</th>
                                 <th>Pax</th>
@@ -61,7 +61,7 @@
                                     Status
                                 </th>
                                 <th scope="col" class="pl-0 pr-0 py-3">
-                                    Download Invoice
+
                                 </th>
 
                             </tr>
@@ -88,30 +88,48 @@
                                 </th>
                                 <th>{{$history->qty}}</th>
                                 @if($history->status == 'Menunggu Pembayaran')
-                                <td class="pl-6 pr-0 py-4 text-footer" >
-                                    <a href="{{route('upload', $history->encrypt_id)}}" data-tooltip-target="tooltip-light" data-tooltip-style="light">
-                                        Menunggu Pembayaran
+                                <td class="pl-6 pr-0 py-4 text-footer">
+                                    <a href="{{route('upload', $history->encrypt_id)}}"  >
+                                        Menunggu <br> Pembayaran
                                     </a>
                                     <div id="tooltip-light" role="tooltip" class="absolute z-10 invisible inline-block px-3 text-xs font-small text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
                                         Unggah bukti
                                         <div class="tooltip-arrow" data-popper-arrow></div>
                                     </div>
-                                    
+                                    <div id="tooltip-light-1" role="tooltip" class="absolute z-10 invisible inline-block px-3 text-xs font-small text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                        Unggah ulang bukti
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+                                    <div id="tooltip-light-2" role="tooltip" class="absolute z-10 invisible inline-block px-3 text-xs font-small text-gray-900 bg-white border border-gray-200 rounded-lg shadow-sm opacity-0 tooltip">
+                                        Unduh Invoice
+                                        <div class="tooltip-arrow" data-popper-arrow></div>
+                                    </div>
+
                                 </td>
                                 @elseif($history->status == 'Menunggu Verifikasi')
                                 <td class="pl-6 pr-0 py-4 text-greyDetTbliss">
-                                    Menunggu Verifikasi
+                                    Menunggu <br> Verifikasi
                                 </td>
                                 @else
                                 <td class="pl-6 pr-0 py-4 text-[#5C6CEF]">
                                     Lunas
                                 </td>
                                 @endif
-                                <th>
+                                <th class="pl-2">
                                     @if($history->trip != null && $history->status == 'Lunas' )
-                                    <a href="{{route('home.invoice', $history->invoice_id)}}" class="text-white bg-footer  focus:ring-4 focus:ring-blue-300 font-medium rounded-md mx-auto text-sm px-2 py-2   focus:outline-none  hover:text-footer" target="_blank">
-                                        Download
+                                    <a href="{{route('home.invoice', $history->invoice_id)}}" data-tooltip-target="tooltip-light-2" data-tooltip-style="light" class=" text-greyDetTbliss underline  font-medium  mx-auto text-sm  py-2   focus:outline-none  hover:text-footer" target="_blank">
+                                        Unduh <br> Invoice
                                     </a>
+                                    @elseif($history->status == 'Menunggu Pembayaran')
+                                    <a href="{{route('upload', $history->encrypt_id)}}" data-tooltip-target="tooltip-light" data-tooltip-style="light" class="text-greyDetTbliss underline  font-medium  mx-auto text-sm  py-2   focus:outline-none  hover:text-footer">
+                                        Menunggu <br> Pembayaran
+                                    </a>
+                                    
+                                    @elseif($history->status == 'Menunggu Verifikasi')
+                                    <a href="{{route('upload', $history->encrypt_id)}}" data-tooltip-target="tooltip-light-1" data-tooltip-style="light" class="text-greyDetTbliss underline  font-medium  mx-auto text-sm  py-2   focus:outline-none  hover:text-footer">
+                                    Unggah Ulang <br> Bukti Transfer
+                                    </a>
+                                   
                                     @endif
                                 </th>
                             </tr>

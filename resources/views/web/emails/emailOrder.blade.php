@@ -119,6 +119,40 @@
                             {{$price_total}}
                         </td>
                     </tr>
+                    @if($visa_total != 'Rp.0')
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            Visa
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                            {{$visa}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$visa_total}}
+                        </td>
+                    </tr>
+                    @endif
+
+                    @if($total_tipping_price != 'Rp.0')
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            Tipping
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                            {{$tipping}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$total_tipping_price}}
+                        </td>
+                    </tr>
+                    @endif
+
                     <tr style="border-bottom:none;border-left:none;border-right:none;border-top:1px solid #102448; height:87px;">
                         <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
 

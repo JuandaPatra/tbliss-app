@@ -87,8 +87,6 @@ class PaymentController extends Controller
     public function show($id)
     {
         $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status', 'visa', 'total_tipping', 'grand_total', 'due_date', 'opsi_pembayaran']);
-        // return $data;
-        // $orderId = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('order_id','=', $data->order_id)->where('status','=', 'Menunggu Pembayaran')->get();
 
         $datas = substr($data->invoice_id, 0, 11);
         $middle = 5;
@@ -272,32 +270,32 @@ class PaymentController extends Controller
 
         $posts = Payment::whereId($id)->first();
 
-        DB::beginTransaction();
-        try {
-            $post = Payment::whereId($id);
-            $trip = Trip_categories::where('id', '=', $posts->trip_categories_id)->first();
-            $post->update([
-                'tanggal_pembayaran_acc' => Carbon::now(),
-                'status'                 => 'Lunas'
+        // DB::beginTransaction();
+        // try {
+        //     $post = Payment::whereId($id);
+        //     $trip = Trip_categories::where('id', '=', $posts->trip_categories_id)->first();
+        //     $post->update([
+        //         'tanggal_pembayaran_acc' => Carbon::now(),
+        //         'status'                 => 'Lunas'
 
-            ]);
+        //     ]);
 
 
-            $numseat = (int)$trip->seat;
-            $qty = $posts->qty;
+        //     $numseat = (int)$trip->seat;
+        //     $qty = $posts->qty;
 
-            $total = $numseat - $qty;
-            $trip->update([
-                'seat' => $total
-            ]);
-        } catch (\throwable $th) {
-            DB::rollBack();
-            Alert::error('Edit Pembayaran', 'error' . $th->getMessage());
-            // return redirect()->back()->withInput($request->all());
-            return redirect()->back();
-        } finally {
-            DB::commit();
-        }
+        //     $total = $numseat - $qty;
+        //     $trip->update([
+        //         'seat' => $total
+        //     ]);
+        // } catch (\throwable $th) {
+        //     DB::rollBack();
+        //     Alert::error('Edit Pembayaran', 'error' . $th->getMessage());
+        //     // return redirect()->back()->withInput($request->all());
+        //     return redirect()->back();
+        // } finally {
+        //     DB::commit();
+        // }
         
         
         $payment = Payment::with(['trip:id,title,seat'])->where('id', '=', $id)->first();
@@ -333,7 +331,7 @@ class PaymentController extends Controller
             'chroot' => '/var/www/myproject/public',
         ]);
         $pdf->setPaper('A4', 'potrait');
-        // return $pdf->stream();
+        return $pdf->stream();
 
         $paths=  '-' . rand() . '_' . time();
         $path = Storage::put('public/storage/uploads/' . $paths . '.' . 'pdf', $pdf->output());

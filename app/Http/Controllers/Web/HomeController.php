@@ -522,6 +522,7 @@ class HomeController extends Controller
         $months = count($monthly);
         $pricePerMonths = 20000;
 
+        // return $monthly;
         return view('web.booking.index3', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
     }
 
@@ -635,7 +636,7 @@ class HomeController extends Controller
         // }
         $months = count($monthly);
         $pricePerMonths = 20000;
-        // return $monthly;
+        return $monthly;
 
         return view('web.booking.index2', compact('newCart', 'months', 'pricePerMonths', 'monthly'));
     }
@@ -1196,7 +1197,12 @@ class HomeController extends Controller
                 'price_total'   =>  'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
                 'grandTotal'    => 'Rp.' . number_format(($dp_price * $qty), 0, ',', '.'),
                 'path'          => $paths . 'pdf',
-                'status'        => 'Down Payment'
+                'status'        => 'Down Payment',
+                'visa'              => 'Rp.' . number_format($newCart->trip->visa, 0, ',', '.'),
+                'visa_total'         => 'Rp.' . number_format($paymentId->visa, 0, ',', '.'),
+                'tipping'           => 'Rp.' . number_format($newCart->trip->tipping, 0, ',', '.'),
+                'total_tipping'     => 'Rp.' . number_format($newCart->trip->total_tipping, 0, ',', '.'),
+                'total_tipping_price' => 'Rp.' . number_format($totalTipping, 0, ',', '.'),
             ];
 
 
@@ -1290,6 +1296,8 @@ class HomeController extends Controller
                 'total_tipping_price' => 'Rp.' . number_format($totalTipping, 0, ',', '.'),
                 'grandTotal'        => 'Rp.' . number_format((($dp_price * $qty) + $totalTipping + $totalVisa), 0, ',', '.'),
             ];
+
+            // return $dataCoba;
 
             $pdf = PDF::loadView('admin.payment.coba', compact('dataCoba'));
             // User::sendEMail($email, $pdf);

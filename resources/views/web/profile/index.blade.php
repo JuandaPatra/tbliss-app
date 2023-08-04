@@ -19,7 +19,7 @@
                     </span>
 
                     <div class=" ml-4 align-self-center">
-                        Welcome back, <br>
+                        Selamat datang, <br>
                         <b>{{$user->name}}</b>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                             <path d="M15.3322 16.0693C17.9306 16.0693 20.0803 17.9909 20.438 20.4904H10.2266C10.5841 17.9909 12.7338 16.0693 15.3322 16.0693Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"></path>
                         </svg>
 
-                        <span class="align-middle tw-leading-none ml-4">Profile</span>
+                        <span class="align-middle tw-leading-none ml-4">Profil</span>
                     </a>
                 </div>
                 <div class="account-sidebar__item ml-[30%]">
@@ -50,7 +50,7 @@
                 <form action="{{ route('home.profileUpdate')}}" method="post">
                     @csrf
                     <div class="mb-6">
-                        <label for="name" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Name</label>
+                        <label for="name" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Nama</label>
                         <input type="text" id="name" class="bg-gray-50  border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" name="name" value="{{$user->name}}" required>
                     </div>
                     <div class="mb-6">
@@ -58,7 +58,7 @@
                         <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" value="{{$user->email}}" name="email" required>
                     </div>
                     <div class="mb-6">
-                        <label for="telephone" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">No. Telephone</label>
+                        <label for="telephone" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">No. Telepon</label>
                         <input type="number" id="telephone" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" value="{{$user->phone}}" name="phone">
                     </div>
                     <div class="mb-6">
@@ -70,20 +70,20 @@
                         Rubah Password
                     </h1>
                     <div class="mb-6">
-                        <label for="currentPassword" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Current Password</label>
+                        <label for="currentPassword" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Kata Sandi saat ini</label>
                         <input type="password" id="currentPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
                     <div class="mb-6">
-                        <label for="newPassword" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">New Password</label>
+                        <label for="newPassword" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Kata Sandi Baru</label>
                         <input type="password" id="newPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
 
                     <div class="mb-6">
-                        <label for="confirmPassword" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Confirm Password</label>
+                        <label for="confirmPassword" class="block mb-2 text-sm text-start font-medium text-gray-900 dark:text-white">Konfirmasi Kata Sandi Baru</label>
                         <input type="password" id="confirmPassword" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-[80%] p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     </div>
                     <div class="flex justify-start">
-                        <button type="submit" class="text-white bg-authbutton  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Submit</button>
+                        <button type="submit" class="text-white bg-authbutton  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium  text-sm w-full sm:w-auto px-5 py-2.5 text-center ">Kirim</button>
                     </div>
                 </form>
 

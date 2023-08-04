@@ -434,9 +434,9 @@ Sliders
         @if($isInstallmentPayment == 0)
         <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.finishPayment', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3 disabled">Selesaikan Pembayaran</a>
         @elseif($isInstallmentPayment ==1)
-        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.finishPayment', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Selesaikan Pembayaran</a>
+        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.finishPayment', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3 d-none">Selesaikan Pembayaran</a>
         @endif
-        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.invoice', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Kirim Email Invoice</a>
+        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.invoice', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Konfirmasi Pembayaran</a>
         @if($data->status == 'Lunas')
         <a onclick="return confirm('Are you sure cancel this payment');" href="{{ route('payments.cancel', ['id'=>$data->id]) }}" class="btn btn-outline-danger">Batalkan status Pembayaran {{$data->status}}</a>
         @else
@@ -472,7 +472,7 @@ Sliders
                     </p>
                     @if($data->foto_diunggah != '')
                     <div class="d-flex justify-content-end">
-                        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.confirm', ['id'=>$data->id]) }}" class="btn btn-outline-success">Pembayaran Lunas</a>
+                        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.confirm', ['id'=>$data->id]) }}" class="btn btn-outline-success d-none">Pembayaran Lunas</a>
                         <!-- <a onclick="return confirm('Are you sure cancel this payment');" href="{{ route('payments.confirm', ['id'=>$data->id]) }}"  class="btn btn-outline-danger">Batalkan status Pembayaran</a> -->
 
                     </div>
@@ -489,15 +489,7 @@ Sliders
 
 
                 <table class="table table-bordered data-table">
-                    <!-- <thead>
-                        <tr>
-                            <th>No</th>
-                            <th>Invoice Number</th>
-                            <th>Tanggal Pembayaran</th>
-                            <th>Status</th>
-                            <th>Check Detail</th>
-                        </tr>
-                    </thead> -->
+                   
                     <tbody>
                         <tr>
                             <td colspan="2">
