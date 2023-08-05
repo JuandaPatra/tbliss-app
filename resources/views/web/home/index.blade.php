@@ -9,7 +9,7 @@
         <div class="banner-slider">
             @foreach($banners as $banner)
             <div class="relative ">
-                <div class="absolute top-[150px] lg:top-[120px] left-0 right-0 text-white">
+                <div class="absolute top-[230px] lg:top-[120px] left-0 right-0 text-white">
                     <div class="flex justify-center ">
                         <h1 class="text-center text-[30px] lg:text-[60px] w-[710px] xl:w-[700px]  font-bely">
                             "Ingin punya banyak waktu kosong untuk jalan berdua"

@@ -267,6 +267,12 @@ class HomeController extends Controller
             ->where('seat', '>=', $seat)
             ->get();
 
+            $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
+            ->where('date_from', '>=', $now)
+            ->where('date_from', '<=', $to)
+            ->where('seat', '>=', $seat)
+            ->get();
+
 
         foreach ($reservationsq as $reservation) {
             $reservation['date_from_result'] = date('d', strtotime($reservation->date_from));

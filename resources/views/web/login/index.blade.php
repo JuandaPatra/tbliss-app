@@ -7,7 +7,7 @@
 </div>
 <div class="flex items-center h-[550px] px-4 py-2 bg-white lg:justify-center">
     <div class="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md w-100 md:w-auto">
-        <div class="p-5  bg-white  md:flex-1">
+        <div class="p-3 lg:p-5  bg-white  md:flex-1">
             @if ($errors->any())
             <div class="alert alert-danger">
                 <p>Silahkan periksa kembali isian anda</p>
@@ -72,8 +72,8 @@
                     </div>
                     <div class="flex flex-col space-y-4">
                         <div class="pt-3 tw-border-t tw-border-grey-lighter tw-border-solid text-center">
-                            sudah memiliki akun?
-                            <a href="{{route('signup.index')}}" class=" text-authbutton">Masuk</a>
+                            belum memiliki akun?
+                            <a href="{{route('signup.index')}}" class=" text-authbutton">Daftar</a>
                         </div>
                     </div>
                 </div>
