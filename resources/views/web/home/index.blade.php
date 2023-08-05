@@ -72,11 +72,6 @@
                             <option value="20">20</option>
                         </select>
                         <div class="relative max-w-sm">
-                            <!-- <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path>
-                                </svg>
-                            </div> -->
                             <input type="text" class="selector" placeholder="Pilih Tanggal">
                         </div>
                         <button class="focus:outline-none  text-white bg-tbliss w-[40px] rounded-r-lg px-2" id="searchTrips">
@@ -321,11 +316,14 @@
                     }
                 },
                 success: function(data) {
-                    console.log(data)
+                    // console.log(data)
                     $('.result-text').removeClass('hidden')
                     $('.home-section').empty()
                     let result = data.result
                     if (result.length === 0) {
+                        $('.result-text').text(
+                            `Trip yang tersedia pada tanggal ${data.dateReqFrom} - ${data.dateReqTo}`
+                        )
                         $('.home-section').append(
                             `<div class=" w-full flex justify-start text-[20px] text-greyDetTbliss ml-[15px]">
                             Maaf Kak, tidak ada jadwal trip pada saat ini

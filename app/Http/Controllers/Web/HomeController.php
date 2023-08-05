@@ -261,23 +261,27 @@ class HomeController extends Controller
             // ->whereIn('id',$searchByPlace)
             ->get();
 
-        $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
-            ->where('date_from', '>=', $now)
-            ->where('date_to', '<=', $to)
-            ->where('seat', '>=', $seat)
-            ->get();
+        // $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
+        //     ->where('date_from', '>=', $now)
+        //     ->where('date_to', '<=', $to)
+        //     ->where('seat', '>=', $seat)
+        //     ->get();
 
             $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
-            ->where('date_from', '>=', $now)
-            ->where('date_from', '<=', $to)
+            ->whereBetween('date_from', [$now, $to])
+            ->orWhereBetween('date_to', [$now, $to])
             ->where('seat', '>=', $seat)
             ->get();
 
 
-        foreach ($reservationsq as $reservation) {
-            $reservation['date_from_result'] = date('d', strtotime($reservation->date_from));
-            $reservation['date_to_result'] = date('d M Y', strtotime($reservation->date_to));
-        }
+            if($reservationsq->count() != 0){
+                foreach ($reservationsq as $reservation) {
+                    $reservation['date_from_result'] = date('d', strtotime($reservation->date_from));
+                    $reservation['date_to_result'] = date('d M Y', strtotime($reservation->date_to));
+                }
+            }else{
+                $reservationsq = [];
+            }
 
         $response = [
 
