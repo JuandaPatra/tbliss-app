@@ -267,21 +267,21 @@ class HomeController extends Controller
         //     ->where('seat', '>=', $seat)
         //     ->get();
 
-            $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
+        $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
             ->whereBetween('date_from', [$now, $to])
             ->orWhereBetween('date_to', [$now, $to])
             ->where('seat', '>=', $seat)
             ->get();
 
 
-            if($reservationsq->count() != 0){
-                foreach ($reservationsq as $reservation) {
-                    $reservation['date_from_result'] = date('d', strtotime($reservation->date_from));
-                    $reservation['date_to_result'] = date('d M Y', strtotime($reservation->date_to));
-                }
-            }else{
-                $reservationsq = [];
+        if ($reservationsq->count() != 0) {
+            foreach ($reservationsq as $reservation) {
+                $reservation['date_from_result'] = date('d', strtotime($reservation->date_from));
+                $reservation['date_to_result'] = date('d M Y', strtotime($reservation->date_to));
             }
+        } else {
+            $reservationsq = [];
+        }
 
         $response = [
 
@@ -1238,12 +1238,15 @@ class HomeController extends Controller
 
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
 
+            $dueDateEn = date('l-j-M-Y', strtotime($invoiceDate . ' + 2 days'));
+            $dueDateResult = $this->dueDateIndonesia($dueDateEn);
+
             $email = [
                 'email'         => $dataCoba['title']['email'],
                 'nama'          => $dataCoba['title']['name'],
                 'telephone'     => $dataCoba['title']['phone'],
                 'invoiceId'     => $invoice_id,
-                'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
+                'duedate'       => $dueDateResult,
                 'qty'           => $qty,
                 'trip_name'     => $newCart->trip->title,
                 'price'         =>  'Rp.' . number_format(($dp_price), 0, ',', '.'),
@@ -1361,12 +1364,15 @@ class HomeController extends Controller
             $paths = $dataCoba['title']['name'] . '-' . rand() . '_' . time();
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
             // return $paths;
+
+            $dueDateEn = date('l-j-M-Y', strtotime($invoiceDate . ' + 2 days'));
+            $dueDateResult = $this->dueDateIndonesia($dueDateEn);
             $email = [
                 'email'         => $dataCoba['title']['email'],
                 'nama'          => $dataCoba['title']['name'],
                 'telephone'     => $dataCoba['title']['phone'],
                 'invoiceId'     => $invoice_id,
-                'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
+                'duedate'       => $dueDateResult,
                 'qty'           => $qty,
                 'trip_name'     => $newCart->trip->title,
                 'price'         =>  'Rp.' . number_format(($dp_price), 0, ',', '.'),
@@ -1375,6 +1381,7 @@ class HomeController extends Controller
                 'visa_total'          =>  'Rp.' . number_format(($totalVisa), 0, ',', '.'),
                 'tipping'       =>  'Rp.' . number_format(($newCart->trip->total_tipping), 0, ',', '.'),
                 'total_tipping' =>  'Rp.' . number_format(($newCart->trip->total_tipping * $qty), 0, ',', '.'),
+                'total_tipping_price' =>  'Rp.' . number_format(($newCart->trip->total_tipping * $qty), 0, ',', '.'),
                 'grandTotal'    =>  'Rp.' . number_format((($dp_price * $qty) + $totalTipping + $totalVisa), 0, ',', '.'),
                 'path'          => $paths . 'pdf',
                 'status'        => 'Full Payment'
@@ -1541,5 +1548,67 @@ class HomeController extends Controller
     public function successOrderEmail()
     {
         return view('web.emails.emailPayment');
+    }
+
+    public function dueDateIndonesia($dueDateEn)
+    {
+        $bulan = array(
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $dueDateEn);
+
+        $hari = $pecahkan[0];
+
+        switch ($hari) {
+            case 'Sunday':
+                $hari_ini = "Minggu";
+                break;
+
+            case 'Monday':
+                $hari_ini = "Senin";
+                break;
+
+            case 'Tuesday':
+                $hari_ini = "Selasa";
+                break;
+
+            case 'Wednesday':
+                $hari_ini = "Rabu";
+                break;
+
+            case 'Thursday':
+                $hari_ini = "Kamis";
+                break;
+
+            case 'Friday':
+                $hari_ini = "Jumat";
+                break;
+
+            case 'Saturday':
+                $hari_ini = "Sabtu";
+                break;
+
+            default:
+                $hari_ini = "Tidak di ketahui";
+                break;
+        }
+
+        
+        $monthIndonesia = $bulan[(int)$pecahkan[1]];
+
+        $newDateIndonesia =$hari_ini . ' ' . $pecahkan[1] .' '. $monthIndonesia . ' ' . $pecahkan[3] ?? null ;
+
+        return $newDateIndonesia;
     }
 }

@@ -47,18 +47,18 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isAdmin');
 
-   Route::put('product/testimoni-per-trip/{product}/update', [ProductController::class,'updateEditTestimoni'])->name('product.updateTestimoniTrip'); 
-    Route::get('product/testimoni-per-trip/{product}/edit', [ProductController::class,'editTestimoni'])->name('product.editTestimoniTrip');
-    Route::delete('product/testimoni-per-trip/{product}/delete', [ProductController::class,'deleteTestimoni'])->name('product.destroyTestimoniTrip');
+    Route::put('product/testimoni-per-trip/{product}/update', [ProductController::class, 'updateEditTestimoni'])->name('product.updateTestimoniTrip');
+    Route::get('product/testimoni-per-trip/{product}/edit', [ProductController::class, 'editTestimoni'])->name('product.editTestimoniTrip');
+    Route::delete('product/testimoni-per-trip/{product}/delete', [ProductController::class, 'deleteTestimoni'])->name('product.destroyTestimoniTrip');
     Route::post('product/testimoni-per-trip/table', [ProductController::class, 'table'])->name('tableTestimoniTrip');
     Route::get('product/testimoni-per-trip/{id}', [ProductController::class, 'testimoni'])->name('product.testimoni');
     Route::post('product/testimoni-per-trip/{id}', [ProductController::class, 'testimoniAdd'])->name('product.testimoniAdd');
     Route::post('product/review-star/{id}', [ProductController::class, 'reviewAdd'])->name('product.reviewAdd');
-    Route::get('product/review-star/{id}', [ProductController::class,'review'])->name('product.review');
+    Route::get('product/review-star/{id}', [ProductController::class, 'review'])->name('product.review');
     Route::get('product/includes/{product}', [ProductController::class, 'include'])->name('product.include');
     Route::get('product/pickhiddengem/{product}', [ProductController::class, 'pick_hidden_gem'])->name('product.pick');
     Route::get('product/choose/{product}', [ProductController::class, 'choose'])->name('product.choose');
-    Route::post('product/images/{id}/update',[ProductController::class,'updateImages'])->name('product.updateImages');
+    Route::post('product/images/{id}/update', [ProductController::class, 'updateImages'])->name('product.updateImages');
     Route::get('product/images/{id}', [ProductController::class, 'images'])->name('product.images');
     Route::post('product/edit/{id}/update', [ProductController::class, 'updateTrip'])->name('product.updateTrip');
 
@@ -70,8 +70,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/payments/confirm/{id}', [PaymentController::class, 'paymentConfirm'])->name('payments.confirm');
     Route::get('/payments/cancel/{id}', [PaymentController::class, 'cancelSuccess'])->name('payments.cancel');
     Route::get('/payments/send-invoice/{id}', [PaymentController::class, 'emailInvoice'])->name('payments.invoice');
-    Route::get('/payments/finish-payment/{id}', [PaymentController::class,'finishPayment'])->name('payments.finishPayment');
-    Route::get('/payments/sendUnpaid/{id}', [PaymentController::class,'sendEmailUnpaid'])->name('payments.sendEmailUnpaid');
+    Route::get('/payments/finish-payment/{id}', [PaymentController::class, 'finishPayment'])->name('payments.finishPayment');
+    Route::get('/payments/sendUnpaid/{id}', [PaymentController::class, 'sendEmailUnpaid'])->name('payments.sendEmailUnpaid');
     Route::resource('payments', PaymentController::class);
 
     Route::resource('sosmed', SosmedController::class);
@@ -79,14 +79,14 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('categories', CategoriesController::class);
 
-    Route::get('/policy/syaratketentuan', [PolicyController::class,'index2'])->name('policy.syarat');
+    Route::get('/policy/syaratketentuan', [PolicyController::class, 'index2'])->name('policy.syarat');
     Route::post('/policy/syaratketentuan', [PolicyController::class, 'storeSyarat'])->name('policy.storeSyarat');
     Route::resource('policy', PolicyController::class);
 
     Route::get('/table-testimoni', [TestimoniController::class, 'table'])->name('tableTestimoni');
     Route::get('/delete-tes/{id}', [TestimoniController::class, 'destroy1'])->name('testimoni-trip.destroy1');
     Route::get('/testimoni-trip/{id}/edit', [TestimoniController::class, 'edit'])->name('testimoni-trip.edit');
-    Route::resource('testimoni-trip', TestimoniController::class );
+    Route::resource('testimoni-trip', TestimoniController::class);
 
     Route::resource('choose-hidden-gem', ChooseHiddenGemController::class);
 
@@ -103,8 +103,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('hashtag', HashtagController::class);
     Route::resource('edit-hashtag-trip', EditHashtagTripController::class);
 
-    Route::get('/activities/images/{id}', [HiddenGemController::class,'images'])->name('activities.images');
-    Route::post('/activities/images/{id}/update', [HiddenGemController::class,'updateImages'])->name('activities.updateImages');
+    Route::get('/activities/images/{id}', [HiddenGemController::class, 'images'])->name('activities.images');
+    Route::post('/activities/images/{id}/update', [HiddenGemController::class, 'updateImages'])->name('activities.updateImages');
     Route::resource('activities', HiddenGemController::class);
 
     Route::resource('includes', IncludesController::class);
@@ -128,6 +128,9 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/invoice-admin/{id}', [pdfOpenerController::class, 'invoice'])->name('invoicePDF');
 
+    Route::post('/sortByInstallment', [HomeController::class,'sortByInstallment'])->name('sortByInstallment');
+
     Route::get('/table-dashboard', [HomeController::class, 'table'])->name('tableDashboard');
-    
+
+    Route::post('/tableDashboardPost', [HomeController::class, 'dataTable'])->name('dataTable');
 });

@@ -14,7 +14,7 @@ Dashboard
           <div class="card-body">
             <h5 class="card-title text-primary">Selamat Datang {{Auth::user()->email}}</h5>
             <p class="mb-4">
-              Hari ini ada <span class="fw-bold">11 Score</span> yang belum di Update. Klik Update Score Di bawah ini
+              Hari ini ada <span class="fw-bold">11 Score</span> yang belum di Update. Klik Update Score Di bawah ini 
             </p>
             <p class="btn btn-sm btn-outline-primary updateSkor">Update Score</p>
           </div>
@@ -75,4 +75,3 @@ Dashboard
   </div>
 </div>
 @endsection
-

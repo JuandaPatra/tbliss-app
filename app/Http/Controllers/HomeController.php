@@ -45,13 +45,13 @@ class HomeController extends Controller
 
         $datas = Payment::orderBy('id', 'DESC')->get();
         $data = [];
-        
-        foreach($datas as $dt){
+
+        foreach ($datas as $dt) {
             $int = $dt->invoice_id;
             $str = (string) $int;
-            $orderId = substr($str,10,2);
-            if($orderId == '00'){
-                array_push($data,$dt);
+            $orderId = substr($str, 10, 2);
+            if ($orderId == '00') {
+                array_push($data, $dt);
             }
         }
 
@@ -59,8 +59,6 @@ class HomeController extends Controller
 
 
         return view('home', compact('countTrip', 'countHiddenGems', 'notifications', 'notificationsCount', 'data'));
-
-        
     }
 
     public function table(Request $request)
@@ -68,48 +66,143 @@ class HomeController extends Controller
         if ($request->ajax()) {
             $datas = Payment::orderBy('id', 'DESC')->get();
             $data = [];
-            
-            foreach($datas as $dt){
+
+            foreach ($datas as $dt) {
                 $int = $dt->invoice_id;
                 $str = (string) $int;
-                $orderId = substr($str,10,2);
-                if($orderId == '00'){
-                    array_push($data,$dt);
+                $orderId = substr($str, 10, 2);
+                if ($orderId == '00') {
+                    array_push($data, $dt);
                 }
             }
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('opsi_pembelian', function ($row) {
-                    if($row->opsi_pembayaran == 0){
+                    if ($row->opsi_pembayaran == 0) {
                         return 'DP Payment';
-                    }else{
+                    } else {
                         return 'Full Payment';
                     }
                 })
                 ->addColumn('due_satu', function ($due) {
-                    if($due->due_date_satu == null){
+                    if ($due->due_date_satu == null) {
                         return '-';
-                    }else{
-                        
+                    } else {
+
                         return date('d-m-Y', strtotime($due->due_date_satu));
                     }
                 })
                 ->addColumn('due_dua', function ($due) {
-                    if($due->due_date_dua == null){
+                    if ($due->due_date_dua == null) {
                         return '-';
-                    }else{
+                    } else {
                         return date('d-m-Y', strtotime($due->due_date_dua));
                     }
                 })
                 ->addColumn('invoice', function ($user) {
-                    if($user->status == "Lunas"){
+                    if ($user->status == "Lunas") {
 
                         return '
                         
-                        <a href="'.route('invoicePDF', $user->id).'" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Invoice</a>
+                        <a href="' . route('invoicePDF', $user->id) . '" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Invoice</a>
                         ';
                     }
+                })
+                ->rawColumns(['invoice'])
+                ->make(true);
+        }
+    }
 
+    public function dataTable(Request $request)
+    {
+        if ($request->ajax()) {
+
+            if ($request->input('date') != '') {
+
+                $pieces = explode(" - ", $request->date);
+
+                $dateFrom = str_replace('/', '-', $pieces[0]);
+                $dateTo = str_replace('/', '-', $pieces[1]);
+                $now    =   date("Y-m-d", strtotime($dateFrom));
+                $to     =   date("Y-m-d", strtotime($dateTo));
+            }
+
+
+
+
+
+            if ($request->input('installmentSelect') == 1) {
+                $datas = Payment::whereBetween('due_date_satu', [$now, $to])->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('installmentSelect') == 2) {
+
+                $datas = Payment::whereBetween('due_date_dua', [$now, $to])->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('paymentMethodSelect') == 1) {
+                $datas = Payment::where('opsi_pembayaran', '=', 1)->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('paymentMethodSelect') == 2) {
+                $datas = Payment::where('opsi_pembayaran', '=', 0)->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('paymentMethodSelect') == 1 and $request->input('date') != '') {
+                $datas = Payment::where('opsi_pembayaran', '=', 1)->whereBetween('created_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('paymentMethodSelect') == 2 and $request->input('date') != '') {
+
+                $datas = Payment::where('opsi_pembayaran', '=', 0)->whereBetween('created_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('statusPaymentSelect') == 1 and $request->input('date') != '') {
+
+                $datas = Payment::where('status', '=', 'Menunggu Pembayaran')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('statusPaymentSelect') == 2 and $request->input('date') != '') {
+
+                $datas = Payment::where('status', '=', 'Menunggu Verifikasi')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+            }elseif ($request->input('statusPaymentSelect') == 3 and $request->input('date') != '') {
+
+                $datas = Payment::where('status', '=', 'Lunas')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+            } 
+            else {
+                $datas = Payment::orderBy('id', 'DESC')->get();
+            }
+
+
+
+            $data = [];
+
+            foreach ($datas as $dt) {
+                $int = $dt->invoice_id;
+                $str = (string) $int;
+                $orderId = substr($str, 10, 2);
+                if ($orderId == '00') {
+                    array_push($data, $dt);
+                }
+            }
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('opsi_pembelian', function ($row) {
+                    if ($row->opsi_pembayaran == 0) {
+                        return 'DP Payment';
+                    } else {
+                        return 'Full Payment';
+                    }
+                })
+                ->addColumn('due_satu', function ($due) {
+                    if ($due->due_date_satu == null) {
+                        return '-';
+                    } else {
+
+                        return date('d-m-Y', strtotime($due->due_date_satu));
+                    }
+                })
+                ->addColumn('due_dua', function ($due) {
+                    if ($due->due_date_dua == null) {
+                        return '-';
+                    } else {
+                        return date('d-m-Y', strtotime($due->due_date_dua));
+                    }
+                })
+                ->addColumn('invoice', function ($user) {
+                    if ($user->status == "Lunas") {
+
+                        return '
+                        
+                        <a href="' . route('invoicePDF', $user->id) . '" target="_blank" name="bulk_delete" id="bulk_delete" class="btn btn-primary btn-xs">Invoice</a>
+                        ';
+                    }
                 })
                 ->rawColumns(['invoice'])
                 ->make(true);
@@ -152,7 +245,7 @@ class HomeController extends Controller
         $notification->update([
             'status' => 'sudah dibaca'
         ]);
-        
+
         $logPayment = logPayments::where('id', '=', $id)->first();
 
         $explodeText = explode(' ', $logPayment->name);
@@ -162,6 +255,7 @@ class HomeController extends Controller
         return redirect()->route('payments.show', ['payment' => $data->id]);
     }
 
+    
     private function timeAgo($time_ago)
     {
         $time_ago =  strtotime($time_ago) ? strtotime($time_ago) : $time_ago;
