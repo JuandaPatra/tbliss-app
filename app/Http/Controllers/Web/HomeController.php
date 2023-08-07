@@ -292,6 +292,7 @@ class HomeController extends Controller
             ->whereBetween('date_from', [$now, $to])
             ->orWhereBetween('date_to', [$now, $to])
             ->where('seat', '>=', $seat)
+            ->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))
             ->get();
 
 
