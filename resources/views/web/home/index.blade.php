@@ -12,24 +12,24 @@
                 <div class="absolute top-[230px] lg:top-[120px] left-0 right-0 text-white">
                     <div class="flex justify-center ">
                         <h1 class="text-center text-[30px] lg:text-[60px] w-[710px] xl:w-[700px]  font-bely">
-                            "Ingin punya banyak waktu kosong untuk jalan berdua"
+                            {{$banner->description}}
+
                         </h1>
                     </div>
                     <div class="flex justify-center mt-[20px]">
                         <h1 class="text-center text-[15px] lg:text-[20px]  w-[500px] font-normal">
-                            Trip bareng memang padat itin-nya, tapi kami paham dan #SiapBantu untuk buatin yang lebih santuy.
-
+                            {{$banner->description2}}
 
                         </h1>
                     </div>
                 </div>
 
                 <picture>
-                    <source media="(min-width:1000px)" srcset="{{ asset('images/title/korea-bg.jpg') }}">
+                    <source media="(min-width:1000px)" srcset="{{$banner->image_desktop}}">
                     <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile-2.jpg') }}">
-                    <img src="{{ asset('images/title/korea-bg.jpg') }}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
+                    <img src="{{$banner->image_desktop}}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
-                
+
             </div>
             @endforeach
 
@@ -147,7 +147,7 @@
                         <p class="text-redTbliss font-bold text-[19px] flex-1 px-[15px] pb-[20px]">
                             @currency($trip->price)
                         </p>
-                        
+
                     </div>
                 </div>
             </div>

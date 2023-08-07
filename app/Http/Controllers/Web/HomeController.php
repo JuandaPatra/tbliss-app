@@ -66,7 +66,7 @@ class HomeController extends Controller
         /**
          * mendapatkan trip berdasarkan negara
          */
-        
+
 
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
@@ -157,7 +157,7 @@ class HomeController extends Controller
         $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
 
         $syarat = globalData::where('categories', '=', 2)->first(['description']);
-        
+
 
 
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip', 'syarat'));
@@ -1243,8 +1243,13 @@ class HomeController extends Controller
 
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
 
-            $dueDateEn = date('l-j-M-Y', strtotime($invoiceDate . ' + 2 days'));
-            $dueDateResult = $this->dueDateIndonesia($dueDateEn);
+            
+            $dueDateR    = date('l-j-m-Y-H-i ', strtotime($paymentId->created_at . ' + 2 days'));
+            $res = explode('-', $dueDateR);
+
+            $resc = $this->dueDateIndonesia($dueDateR) . ' ' . $res[4] . ':' . $res[5] . 'WIB';
+
+            $dueDateResult = $resc;
 
             $email = [
                 'email'         => $dataCoba['title']['email'],
@@ -1370,8 +1375,13 @@ class HomeController extends Controller
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
             // return $paths;
 
-            $dueDateEn = date('l-j-M-Y', strtotime($invoiceDate . ' + 2 days'));
-            $dueDateResult = $this->dueDateIndonesia($dueDateEn);
+
+            $dueDateR    = date('l-j-m-Y-H-i ', strtotime($paymentId->created_at . ' + 2 days'));
+            $res = explode('-', $dueDateR);
+
+            $resc = $this->dueDateIndonesia($dueDateR) . ' ' . $res[4] . ':' . $res[5] . 'WIB';
+
+            $dueDateResult = $resc;
             $email = [
                 'email'         => $dataCoba['title']['email'],
                 'nama'          => $dataCoba['title']['name'],
@@ -1451,7 +1461,14 @@ class HomeController extends Controller
 
             return "sorry you cannot review anymore.";
         }
-        $dueDate    = date('d M Y g:i a', strtotime($payment->created_at . ' + 2 days'));
+        $dueDateR    = date('l-j-m-Y-H-i ', strtotime($payment->created_at . ' + 2 days'));
+        $res = explode('-', $dueDateR);
+
+        $resc = $this->dueDateIndonesia($dueDateR) . ' ' . $res[4] . ':' . $res[5] . 'WIB';
+
+        $dueDate = $resc;
+
+
         return view('web.payment.index', compact('payment', 'dueDate', 'id', 'status'));
     }
 
@@ -1573,6 +1590,7 @@ class HomeController extends Controller
         );
         $pecahkan = explode('-', $dueDateEn);
 
+
         $hari = $pecahkan[0];
 
         switch ($hari) {
@@ -1610,7 +1628,7 @@ class HomeController extends Controller
         }
 
 
-        $monthIndonesia = $bulan[(int)$pecahkan[1]];
+        $monthIndonesia = $bulan[(int)$pecahkan[2]];
 
         $newDateIndonesia = $hari_ini . ' ' . $pecahkan[1] . ' ' . $monthIndonesia . ' ' . $pecahkan[3] ?? null;
 

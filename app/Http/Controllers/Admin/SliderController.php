@@ -114,12 +114,16 @@ class SliderController extends Controller
      */
     public function edit($id)
     {
+        $notifications = logPayments::where('status','=', 'belum dibaca')->get();
+        $notificationsCount = logPayments::where('status','=', 'belum dibaca')->count();
         $slider = Slider::where('id', '=', $id)->get();
         // return $slider;
         return view('admin.sliders.edit', [
             'slider' => $slider[0],
             'orders' => $this->orders(),
-            'statuses' => $this->statuses()
+            'statuses' => $this->statuses(),
+            'notifications'=> $notifications,
+            'notificationsCount' => $notificationsCount 
         ]);
 
         // return $slider;
