@@ -7,6 +7,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use Alert;
+use Illuminate\Support\Facades\Mail;
 
 class UserLoginController extends Controller
 {
@@ -20,7 +24,7 @@ class UserLoginController extends Controller
         $url = url()->previous();
 
         $request->session()->put('url-prev', $url);
-        
+
         return view('web.login.index');
     }
 
@@ -100,14 +104,13 @@ class UserLoginController extends Controller
             // You should show something simple fail message
             return $this->sendFailedResponse($e->getMessage());
         }
-        
     }
 
     public function handleGoogleCallback(Request $request)
     {
         $callback = Socialite::driver('google')->stateless()->user();
         // return $callback;
-        $data= [
+        $data = [
             'name'      => $callback->getName(),
             'email'     => $callback->getEmail(),
             'password'  => bcrypt('password'),
@@ -115,11 +118,11 @@ class UserLoginController extends Controller
         ];
 
         // return $data;
-        $checkUser = User::where('email','=',$data['email'])->get();
+        $checkUser = User::where('email', '=', $data['email'])->get();
         $user = User::firstOrCreate([
-            'email' =>$data['email']
+            'email' => $data['email']
         ], $data);
-        if(count($checkUser) == 0){
+        if (count($checkUser) == 0) {
             $user->assignRole('user');
         }
 
@@ -127,8 +130,52 @@ class UserLoginController extends Controller
 
         // return redirect('/');
 
-        
-       $url= $request->session()->get('url-prev');
+
+        $url = $request->session()->get('url-prev');
         return redirect()->to($url);
+    }
+
+    public function forgetPassword()
+    {
+        return view('web.login.forgetPassword');
+    }
+
+    public function changePassword(Request $request)
+    {
+        $validator = Validator::make(
+            $request->all(),
+            [
+                
+                'password'             => 'required|min:6|same:confirmPassword',
+                'confirmPassword'      => 'required|string|min:8',
+                'email'                =>  'required|email',
+            ]
+        );
+
+        if ($validator->fails()) {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+        $findUser = User::where('email', '=', $request->email)->get();
+        if (count($findUser) == 1) {
+            $findUser[0]->update([
+                'password' => bcrypt($request->password)
+            ]);
+        } else {
+            return redirect()->back()->withInput($request->all())->withErrors($validator);
+        }
+
+        $email = [
+            'email'         => $request->email,
+            'name'          => $findUser[0]->name
+
+        ];
+
+        Mail::send('web.emails.changePassword', $email, function ($message) use ($email,$request) {
+            $message->from('patrajuanda10@gmail.com');
+            $message->to($email['email']);
+            $message->subject('Pergantian kata sandi '. $request->email );
+        });
+
+        return redirect()->route('signin.index')->with('success', 'kamu berhasil mengganti kata sandi');
     }
 }

@@ -24,9 +24,9 @@
             <div class="hidden lg:block basis-full lg:basis-3/12 ">
                 <div class="ml-0 lg:ml-[40%] mt-[3px] lg:mt-3 flex justify-center lg:justify-start">
                     <span><img src="{{ asset('images/header/login.png') }}" alt="" class="inline mr-1"></span>
-                    <a href="{{ route('signin.index') }}" data-modal-target="authentication-modal">Login</a>
+                    <a href="{{ route('signin.index') }}" data-modal-target="authentication-modal">Masuk</a>
                     <span class="mr-5 ml-5">|</span>
-                    <a href="{{ route('signup.index') }}">Register</a>
+                    <a href="{{ route('signup.index') }}">Daftar</a>
                 </div>
             </div>
             @endguest

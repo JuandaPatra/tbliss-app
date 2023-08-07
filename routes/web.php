@@ -28,6 +28,7 @@ use App\Http\Controllers\Web\pdfOpenerController;
 use App\Http\Controllers\Web\SearchTripController;
 use App\Http\Controllers\Web\UserLoginController;
 use App\Http\Controllers\Web\UserRegisterController;
+use FontLib\Table\Type\name;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,9 +77,12 @@ Route::get('/payment/{ids}', [HomeController::class, 'payment'])->name('payment'
 Route::get('/upload/{ids}', [HomeController::class, 'upload'])->name('upload');
 Route::post('/upload', [HomeController::class, 'uploadImage'])->name('uploadImages');
 
+Route::get('/forget-password', [UserLoginController::class, 'forgetPassword'])->name('forgetPassword');
+Route::post('/change-password', [UserLoginController::class, 'changePassword'])->name('changePassword');
 
 Route::resource('signup', UserRegisterController::class)->middleware('guest');
 Route::resource('signin', UserLoginController::class)->middleware('guest');
+
 
 
 Route::get('/google-sign-in', [UserLoginController::class, 'google'])->name('sign.google');
@@ -92,10 +96,8 @@ Route::get('email-test', function () {
 
 Route::get('/push', function(){
     // MessageCreated::dispatch('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores, ipsam.');
-    // MessageCreated::dispatch('Lorem');
 
     // event(new MessageCreated());
-    // dd('done');
     return view('web.login.index');
 });
 

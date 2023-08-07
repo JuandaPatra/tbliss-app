@@ -1604,10 +1604,10 @@ class HomeController extends Controller
                 break;
         }
 
-        
+
         $monthIndonesia = $bulan[(int)$pecahkan[1]];
 
-        $newDateIndonesia =$hari_ini . ' ' . $pecahkan[1] .' '. $monthIndonesia . ' ' . $pecahkan[3] ?? null ;
+        $newDateIndonesia = $hari_ini . ' ' . $pecahkan[1] . ' ' . $monthIndonesia . ' ' . $pecahkan[3] ?? null;
 
         return $newDateIndonesia;
     }

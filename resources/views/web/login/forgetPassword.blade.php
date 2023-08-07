@@ -3,7 +3,7 @@
 @section('container')
 @include('web.components.presentational.header')
 <div class="flex items-center px-4 bg-white justify-center">
-    <h1 class=" font-bely text-footer text-[45px]">Masuk</h1>
+    <h1 class=" font-bely text-footer text-[45px]">Lupa Kata Sandi</h1>
 </div>
 <div class="flex items-center h-[550px] px-4 py-2 bg-white lg:justify-center">
     <div class="flex flex-col overflow-hidden bg-white rounded-md shadow-lg max md:flex-row md:flex-1 lg:max-w-screen-md w-100 md:w-auto">
@@ -13,7 +13,7 @@
                 <p>Silahkan periksa kembali isian anda</p>
             </div>
             @endif
-            <form action="{{route('login')}}" method="post" class="flex flex-col space-y-5">
+            <form action="{{route('changePassword')}}" method="post" class="flex flex-col space-y-5">
                 @csrf
                 <div class="relative mb-6">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -36,47 +36,26 @@
                             <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
                         </svg>
                     </div>
-                    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="kata sandi" name="password">
+                    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="kata sandi baru" name="password">
                 </div>
 
-                <div class="flex justify-between">
-                    <div class="flex items-center space-x-2">
-                        <input type="checkbox" id="remember" class="w-4 h-4 transition duration-300 focus:ring-2 focus:ring-offset-0 focus:outline-none focus:ring-blue-200" />
-                        <label for="remember" class="text-sm font-semibold text-gray-500">Ingat Saya</label>
+                <div class="relative mb-6">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                        </svg>
                     </div>
-                    <a href="{{route('forgetPassword')}}" class="text-sm text-blue-600 hover:underline focus:text-blue-800">Lupa Kata Sandi</a>
+                    <input type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Konfirmasi kata sandi baru" name="confirmPassword">
                 </div>
+
+               
                 <div>
                     <button type="submit" class="w-full px-4 py-2 text-lg font-semibold text-white transition-colors duration-300 bg-[#2ec4dd] rounded-md shadow hover:bg-[#2ec4dd] focus:outline-none focus:ring-blue-200 focus:ring-4">
-                        Masuk
+                        Ganti Kata Sandi
                     </button>
                 </div>
-                <div class="flex flex-col space-y-5">
-                    <span class="flex items-center justify-center space-x-2">
-                        <span class="h-px bg-gray-400 w-14"></span>
-                        <span class="font-normal text-gray-500">atau masuk dengan</span>
-                        <span class="h-px bg-gray-400 w-14"></span>
-                    </span>
-                    <div class="flex flex-col space-y-4">
-                        <a href="{{route('sign.google')}}" class="flex items-center justify-center px-4 py-2 space-x-2 transition-colors duration-300 border border-gray-800 rounded-md group hover:bg-gray-800 focus:outline-none">
-                            <span>
-                                <svg class="fill-current w-4 h-4 mr-2" viewBox="0 0 533.5 544.3" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M533.5 278.4c0-18.5-1.5-37.1-4.7-55.3H272.1v104.8h147c-6.1 33.8-25.7 63.7-54.4 82.7v68h87.7c51.5-47.4 81.1-117.4 81.1-200.2z" fill="#4285f4" />
-                                    <path d="M272.1 544.3c73.4 0 135.3-24.1 180.4-65.7l-87.7-68c-24.4 16.6-55.9 26-92.6 26-71 0-131.2-47.9-152.8-112.3H28.9v70.1c46.2 91.9 140.3 149.9 243.2 149.9z" fill="#34a853" />
-                                    <path d="M119.3 324.3c-11.4-33.8-11.4-70.4 0-104.2V150H28.9c-38.6 76.9-38.6 167.5 0 244.4l90.4-70.1z" fill="#fbbc04" />
-                                    <path d="M272.1 107.7c38.8-.6 76.3 14 104.4 40.8l77.7-77.7C405 24.6 339.7-.8 272.1 0 169.2 0 75.1 58 28.9 150l90.4 70.1c21.5-64.5 81.8-112.4 152.8-112.4z" fill="#ea4335" />
-                                </svg>
-                            </span>
-                            <span class="text-sm font-medium text-gray-800 group-hover:text-white">Google</span>
-                        </a>
-                    </div>
-                    <div class="flex flex-col space-y-4">
-                        <div class="pt-3 tw-border-t tw-border-grey-lighter tw-border-solid text-center">
-                            belum memiliki akun?
-                            <a href="{{route('signup.index')}}" class=" text-authbutton">Daftar</a>
-                        </div>
-                    </div>
-                </div>
+                
             </form>
         </div>
     </div>
