@@ -362,7 +362,11 @@
                             <td class="text-justify pl-2 lg:pl-6 py-4">
                                 <input type="number" value="1" class="w-[60px] mt-[10px] input-qty text-center" name="qty">
                                 <input type="hidden" value="{{$months}}" name="months">
+                                @if($months != 1)
                                 <input type="hidden" value="0" name="status" class="input-status">
+                                @else
+                                <input type="hidden" value="1" name="status" class="input-status">
+                                @endif
                             </td>
                             <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
                                 @currency($monthly[0][0])

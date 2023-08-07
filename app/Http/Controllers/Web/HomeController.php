@@ -1033,6 +1033,7 @@ class HomeController extends Controller
             redirect('/');
         }
 
+
         $user = Auth::user();
 
         $dp_price = (int)$request->dp_price;

@@ -117,7 +117,6 @@ class UserLoginController extends Controller
             'google_id' => bcrypt($callback->getId())
         ];
 
-        // return $data;
         $checkUser = User::where('email', '=', $data['email'])->get();
         $user = User::firstOrCreate([
             'email' => $data['email']
@@ -128,7 +127,6 @@ class UserLoginController extends Controller
 
         Auth::login($user);
 
-        // return redirect('/');
 
 
         $url = $request->session()->get('url-prev');
