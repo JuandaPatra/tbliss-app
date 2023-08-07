@@ -70,7 +70,6 @@ class HomeController extends Controller
             $query->where('place_categories_id', $country->id);
         })->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 90))->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
 
-
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
         })->where('status', '=', 'publish')
@@ -86,6 +85,28 @@ class HomeController extends Controller
                 'thumbnail',
                 'seat',
             ]);
+
+
+        $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
+            $query->where('place_categories_id', $country->id);
+        })->where('status', '=', 'publish')->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))
+            ->get([
+                'id',
+                'title',
+                'slug',
+                'price',
+                'day',
+                'night',
+                'date_from',
+                'date_to',
+                'thumbnail',
+                'seat',
+            ]);
+
+
+
+
+
 
         /**
          * mengambil semua hidden gem yang sudah dipilih dari cms

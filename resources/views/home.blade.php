@@ -129,7 +129,6 @@ Dashboard
           <th class="sorting">Installment 1</th>
           <th class="sorting">Installment 2</th>
           <th class="sorting">See Invoice</th>
-          <!-- <th>Status</th> -->
         </tr>
 
       </thead>
