@@ -23,6 +23,8 @@
   <script src="{{ asset('vendor/my-dashboard/js/helpers.js') }}"></script>
   <script src="{{ asset('vendor/my-dashboard/js/config.js') }}"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+
   
   <style>
     .sorting_1{
@@ -34,7 +36,6 @@
   @stack('css-external')
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
   <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker.min.css" rel="stylesheet" />
 </head>
 
 <body>

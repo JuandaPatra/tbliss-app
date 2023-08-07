@@ -115,156 +115,20 @@ Dashboard
         <a class="btn btn-primary text-white" id="sortByInstallmentButton">Search</a>
       </div>
     </div>
-    <div class="d-flex justify-content-end mx-5">
-      <li class="nav-item navbar-dropdown dropdown-user dropdown px-2" style="list-style: none;">
-        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-          <div class="avatar">
-            <span>Sort <br> By Status</span>
-          </div>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end px-4" style="width: 300px;">
-          <form action="" method="post">
 
-            <li class="px-3">
-              <div class="form-check mt-3 px-2">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  Menunggu Pembayaran
-                </label>
-              </div>
-            </li>
-            <li class="px-3">
-              <div class="form-check mt-3 px-2">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  Menunggu Verifikasi
-                </label>
-              </div>
-            </li>
-            <li>
-            <li class="px-3">
-              <div class="form-check mt-3 px-2">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  Lunas
-                </label>
-              </div>
-            </li>
-            <div class="dropdown-divider"></div>
-            <li>
-              <input type="text" class="selector" placeholder="Pilih Tanggal">
-            </li>
-            <li class="mt-2">
-              <button type="submit" class="btn btn-primary">Search</button>
-            </li>
-          </form>
-      </li>
-
-      <li>
-        <div class="dropdown-divider"></div>
-      </li>
-
-      </ul>
-      </li>
-      <li class="nav-item navbar-dropdown dropdown-user dropdown px-3" style="list-style: none;">
-        <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-          <div class="avatar">
-            <span>Sort <br> by Payment Method</span>
-          </div>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end px-4" style="width: 300px;">
-          <form action="" method="post">
-            <li class="px-3">
-              <div class="form-check mt-3 px-2">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  Down Payment
-                </label>
-              </div>
-            </li>
-            <li class="px-3">
-              <div class="form-check mt-3 px-2">
-                <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
-                <label class="form-check-label" for="defaultCheck1">
-                  Full Payment
-                </label>
-              </div>
-            </li>
-            <li>
-
-              <div class="dropdown-divider"></div>
-            <li>
-              <input type="text" class="selector" placeholder="Pilih Tanggal">
-            </li>
-            <li class="mt-2">
-              <button type="submit" class="btn btn-primary">Search</button>
-            </li>
-          </form>
-      </li>
-
-      <li>
-        <div class="dropdown-divider"></div>
-      </li>
-
-      </ul>
-      </li>
-      <li class="nav-item navbar-dropdown dropdown-user dropdown px-5 " style="list-style: none;">
-        <a class="nav-link dropdown-toggle hide-arrow " href="javascript:void(0);" data-bs-toggle="dropdown">
-          <div class="avatar">
-            <span>Sort <br>by Installment</span>
-          </div>
-        </a>
-        <ul class="dropdown-menu dropdown-menu-end px-4" style="width: 300px;">
-
-
-          <li class="px-3">
-            <div class="form-check mt-3 px-2">
-              <input class="form-check-input installment1" type="checkbox" value="" id="defaultCheck1" name="installment1">
-              <label class="form-check-label" for="defaultCheck1">
-                Installment 1
-              </label>
-            </div>
-          </li>
-          <li class="px-3">
-            <div class="form-check mt-3 px-2">
-              <input class="form-check-input installment2" type="checkbox" value="" id="defaultCheck2" name="installment2">
-              <label class="form-check-label" for="defaultCheck2">
-                Installment 2
-              </label>
-            </div>
-          </li>
-          <li>
-
-            <div class="dropdown-divider"></div>
-          <li>
-            <input type="text" class="selector" placeholder="Pilih Tanggal" name="date">
-          </li>
-          <li class="mt-2">
-            <!-- <a class="btn btn-primary text-white" id="sortByInstallmentButton">Search</a> -->
-          </li>
-
-      </li>
-
-      <li>
-        <div class="dropdown-divider"></div>
-      </li>
-
-      </ul>
-      </li>
-    </div>
 
 
     <table class="table table-bordered data-table" style="width: 100%;">
       <thead>
         <tr>
-          <th>No</th>
-          <th>InvoiceID</th>
-          <th>OrderID</th>
-          <th>Opsi Pembayaran</th>
-          <th>Status Pembayaran 1</th>
-          <th>Installment 1</th>
-          <th>Installment 2</th>
-          <th>See Invoice</th>
+          <th class="sorting">No</th>
+          <th class="sorting">InvoiceID</th>
+          <th class="sorting">OrderID</th>
+          <th class="sorting">Opsi Pembayaran</th>
+          <th class="sorting">Status Pembayaran 1</th>
+          <th class="sorting">Installment 1</th>
+          <th class="sorting">Installment 2</th>
+          <th class="sorting">See Invoice</th>
           <!-- <th>Status</th> -->
         </tr>
 
