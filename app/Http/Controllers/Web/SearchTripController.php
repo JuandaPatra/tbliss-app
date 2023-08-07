@@ -70,7 +70,6 @@ class SearchTripController extends Controller
         $hashtags = $hashtag->unique();
 
 
-
         return view('web.details.index', compact('result', 'tripByCity', 'trips', 'cityArray', 'hashtags'));
     }
 
@@ -143,7 +142,7 @@ class SearchTripController extends Controller
                 if ($trip->place_trip_categories_cities->count() == 1) {
                     $citiesPick = $trip->place_trip_categories_cities[0]->place_categories->title;
                 } else {
-                    for ($i = 0; $i < $trip->place_trip_categories_cities->count(); $i++) {                       
+                    for ($i = 0; $i < $trip->place_trip_categories_cities->count(); $i++) {
                         if ($i == 0) {
                             $citiesPick =  $trip->place_trip_categories_cities[$i]->place_categories->title . '-';
                         } else if ($i == $trip->place_trip_categories_cities->count() - 1) {

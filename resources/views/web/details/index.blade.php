@@ -162,14 +162,14 @@
                     </div>
                 </div>
                 <div class="basis-full lg:basis-1/2 lg:order-last">
-                    <img src="{{ asset('images/details/korea-1.jpg') }}" alt="" class="h-[450px] w-full object-cover">
+                    <img src="{{$trip->thumbnail}}" alt="" class="h-[450px] w-full object-cover">
                 </div>
             </div>
             @else
             <div class="flex flex-wrap">
                 <!-- batas antar gambar dan tujuan perjalanan -->
                 <div class="basis-full lg:basis-1/2">
-                    <img src="{{ asset('images/details/korea-2.jpg') }}" alt="" class="h-[450px] w-full object-cover">
+                    <img src="{{$trip->thumbnail}}" alt="" class="h-[450px] w-full object-cover">
                 </div>
                 <div class="basis-full lg:basis-1/2 bg-[#FAF8ED]">
                     <div class="container-lg pl-[10%]  lg:pl-[20%] mb-[40px] lg:mb-0 ">
@@ -253,7 +253,6 @@
             <div class="basis-full lg:basis-3/12 p-3">
                 <div class="max-w-sm bg-white ">
                     <a href="#">
-                        <!-- <img class="w-full" src="{{ asset('images/details/korea-btm-1.jpg') }}" alt="" /> -->
                         <img class="w-full" src="{{$trip->place_categories->images2}}" alt="" />
                     </a>
                     <div class="pt-4">
@@ -292,27 +291,7 @@
         $('.banner-slider').not('.slick-initialized').slick();
 
 
-        // $('.destination-slider').slick({
-        //     dots: false,
-        //     infinite: true,
-        //     slidesToShow: 4,
-        //     autoplay: false,
-        //     // autoplaySpeed: 2000,
-        //     responsive: [{
-        //             breakpoint: 1024,
-        //             settings: {
-        //                 slidesToShow: 4,
-        //             }
-        //         },
-        //         {
-        //             breakpoint: 1023,
-        //             settings: {
-        //                 slidesToShow: 1,
-        //                 slidesToScroll: 1
-        //             }
-        //         },
-        //     ]
-        // });
+       
 
 
 
@@ -337,16 +316,7 @@
             }, 100);
         });
 
-        // $('.destination-slider').not('.slick-initialized').slick();
-
-        // $(".cityX").each(function (e) {
-        //     console.log($(e))
-        //     $(this).on("click", function (e) {
-        //         let id = $(e.target).attr("pickCity");
-        //         // $(this).addClass('bg-red')
-        //         console.log(id);
-        //     });
-        // });
+        
 
     });
 </script>

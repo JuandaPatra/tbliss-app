@@ -379,7 +379,6 @@
                             <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
                                 <div class="flex flex-wrap">
                                     <div class=" basis-full lg:basis-4/12">
-                                        <!-- <img src="{{$newCart->trip->thumbnail}}" alt="" class=""> -->
                                     </div>
                                     <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
                                         <div class="hidden lg:flex mb-2 text-[12px] lg:text-[14px]">

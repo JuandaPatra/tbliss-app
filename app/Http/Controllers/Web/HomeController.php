@@ -66,26 +66,7 @@ class HomeController extends Controller
         /**
          * mendapatkan trip berdasarkan negara
          */
-        $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
-            $query->where('place_categories_id', $country->id);
-        })->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 90))->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
-
-        $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
-            $query->where('place_categories_id', $country->id);
-        })->where('status', '=', 'publish')
-            ->get([
-                'id',
-                'title',
-                'slug',
-                'price',
-                'day',
-                'night',
-                'date_from',
-                'date_to',
-                'thumbnail',
-                'seat',
-            ]);
-
+        
 
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
@@ -176,6 +157,7 @@ class HomeController extends Controller
         $otherTrips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug'])->whereIn('id', $selectTrip)->where('status', '=', 'publish')->where('id', '!=', $detailTrip->id)->take(3)->get(['id', 'title', 'slug', 'price', 'day', 'night', 'date_from', 'date_to', 'thumbnail', 'seat', 'status']);
 
         $syarat = globalData::where('categories', '=', 2)->first(['description']);
+        
 
 
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip', 'syarat'));
@@ -530,7 +512,7 @@ class HomeController extends Controller
                 [
                     $price = $newCart->trip->dp_price + $newCart->trip->installment1,
                     $perMonth = 'DP / Uang Muka',
-                    $visaperMonth = $newCart->trip->visa,
+                    $visaperMonth = 0,
                     $tippingPerMonth = 0,
                     $totalPerMonth = $price + $visaperMonth + $tippingPerMonth,
                     $hari = $dayRange
