@@ -42,8 +42,9 @@
                 <div class="flex justify-between">
                     <h5 class="mb-2 text-[15px] lg:text-2xl font-bold tracking-tight text-gray-900 dark:text-white">What Guests Say</h5>
                 </div>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-[12px] lg:text-[16px]">"We came here in April 2018. We had the most wonderful time. Great accomodation,.."</p>
-                <p class="mb-3 font-normal text-gray-700 text-[12px] lg:text-[16px]">Travelswithlola, United Kingdom</p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-[12px] lg:text-[16px]">"{{$testiUser}}"</p>
+                <p class="mb-3 font-normal text-gray-700 text-[12px] lg:text-[16px]">{{$testiUserFrom}}</p>
+
             </div>
         </div>
     </div>
@@ -371,15 +372,14 @@
                 dots: false,
                 infinite: false,
                 slidesToShow: 2.5,
-                responsive: [
-                    {
+                responsive: [{
                         breakpoint: 800,
                         settings: {
                             slidesToShow: 1,
                             slidesToScroll: 1,
                         },
                     },
-                    
+
                 ],
             });
             $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();

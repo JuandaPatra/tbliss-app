@@ -126,6 +126,7 @@ class HomeController extends Controller
          */
         $detailTrip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,image_desktop,image_mobile,title', 'hashtag_place_trip', 'trip_include:title,icon_image,trip_cat_id', 'trip_exclude:title,icon_image,trip_cat_id', 'testimoniUser'])->where('slug', '=', $trip)->where('status', 'publish')->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'banner', 'trip_review', 'trip_star']);
 
+
         /**
          * mendapatkan collections hidden gems di suatu trip
          */
@@ -158,9 +159,21 @@ class HomeController extends Controller
 
         $syarat = globalData::where('categories', '=', 2)->first(['description']);
 
+        $testimonies = ReviewTrip::where('categories_trip_id', '=', $detailTrip->id)->get();
+
+        if($testimonies->count() == 0){
+            $testiUser = 'We came here in April 2018. We had the most wonderful time. Great accomodation,..';
+            $testiUserFrom = 'Travelswithlola, United Kingdom';
+
+        }else{
+            $testiUser = $testimonies[0]->description;
+            $testiUserFrom = $testimonies[0]->name;
+
+        }
 
 
-        return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip', 'syarat'));
+
+        return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip', 'syarat', 'testiUser', 'testiUserFrom'));
     }
 
     public function addToCart(Request $request)
