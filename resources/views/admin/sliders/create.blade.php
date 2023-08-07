@@ -43,7 +43,7 @@ Slider Add
                <!-- deskripsi -->
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Caption</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('title') }}" />
+                  <input id="input_post_description1" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('title') }}" />
                   @error('description')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>

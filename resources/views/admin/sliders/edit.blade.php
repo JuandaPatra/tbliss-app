@@ -46,7 +46,7 @@ Slider Edit
                 <!-- deskripsi -->
                 <div class="mb-3">
                   <label for="input_post_title" class="form-label">Caption</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title "value="{{ old('description', $slider->description) }}" />
+                  <input id="input_post_description1" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title "value="{{ old('description', $slider->description) }}" />
                   @error('description')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
