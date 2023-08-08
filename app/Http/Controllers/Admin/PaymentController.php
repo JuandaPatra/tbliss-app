@@ -270,32 +270,32 @@ class PaymentController extends Controller
 
         $posts = Payment::whereId($id)->first();
 
-        // DB::beginTransaction();
-        // try {
-        //     $post = Payment::whereId($id);
-        //     $trip = Trip_categories::where('id', '=', $posts->trip_categories_id)->first();
-        //     $post->update([
-        //         'tanggal_pembayaran_acc' => Carbon::now(),
-        //         'status'                 => 'Lunas'
+        DB::beginTransaction();
+        try {
+            $post = Payment::whereId($id);
+            $trip = Trip_categories::where('id', '=', $posts->trip_categories_id)->first();
+            $post->update([
+                'tanggal_pembayaran_acc' => Carbon::now(),
+                'status'                 => 'Lunas'
 
-        //     ]);
+            ]);
 
 
-        //     $numseat = (int)$trip->seat;
-        //     $qty = $posts->qty;
+            $numseat = (int)$trip->seat;
+            $qty = $posts->qty;
 
-        //     $total = $numseat - $qty;
-        //     $trip->update([
-        //         'seat' => $total
-        //     ]);
-        // } catch (\throwable $th) {
-        //     DB::rollBack();
-        //     Alert::error('Edit Pembayaran', 'error' . $th->getMessage());
-        //     // return redirect()->back()->withInput($request->all());
-        //     return redirect()->back();
-        // } finally {
-        //     DB::commit();
-        // }
+            $total = $numseat - $qty;
+            $trip->update([
+                'seat' => $total
+            ]);
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Edit Pembayaran', 'error' . $th->getMessage());
+            // return redirect()->back()->withInput($request->all());
+            return redirect()->back();
+        } finally {
+            DB::commit();
+        }
 
 
         $payment = Payment::with(['trip:id,title,seat,visa,price,tipping,day'])->where('id', '=', $id)->first();
