@@ -114,6 +114,9 @@ Dashboard
       <div class="mb-2 me-3" style="margin-top: 30px;">
         <a class="btn btn-primary text-white" id="sortByInstallmentButton">Search</a>
       </div>
+      <div class="mb-2 me-3" style="margin-top: 30px;">
+        <a class="btn btn-danger text-white"  id="allstatus">reset filter</a>
+      </div>
     </div>
 
 
@@ -184,7 +187,7 @@ Dashboard
 @push('javascript-internal')
 <script>
   $(document).ready(function() {
-    $(".selector").flatpickr({
+    let $flatpicker = $(".selector").flatpickr({
       dateFormat: "d/m/Y",
       minDate: "01.01.2023",
       maxDate: "31.12.2029",
@@ -196,6 +199,8 @@ Dashboard
         $(".selector").val(datestr.replace('to', '-'));
       }
     });
+
+   
 
     $('.installment1').val($(this).is(':checked'));
 
@@ -225,11 +230,11 @@ Dashboard
 
     })
 
-    $('#paymentMethodSelect').on('change', function(){
+    $('#paymentMethodSelect').on('change', function() {
       let paymentMethodSelect = $('#paymentMethodSelect').val()
     })
 
-    $('#statusPaymentSelect').on('change', function(){
+    $('#statusPaymentSelect').on('change', function() {
       let statusPaymentSelect = $('#statusPaymentSelect').val()
     })
 
@@ -305,6 +310,16 @@ Dashboard
       installment2 = $('.installment2').val()
       date = $('.selector').val()
       table.ajax.reload(null, false)
+    })
+
+    $('#allstatus').on('click', function() {
+      $("select option:first-child").attr("selected", "");
+      $("select option:first-child").removeAttr('selected').trigger('change');
+      $flatpicker.clear()
+
+
+      table.ajax.reload(null, false)
+      
     })
 
 

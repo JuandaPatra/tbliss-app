@@ -59,6 +59,8 @@ Route::get('/hidden-gem/{id}/hidden/{slug}', [HomeController::class, 'hiddemGem'
 
 Route::post('/seacrhByDate', [HomeController::class, 'searchTripByDates'])->name('home.searchTripByDates');
 
+Route::post('/resetFilter', [HomeController::class,'resetFilterHomepage'])->name('home.resetFilter');
+
 Route::get('/search', [SearchTripController::class, 'index'])->name('search');
 Route::get('/cities/{id}', [SearchTripController::class, 'getCities'])->name('search.cities');
 Route::get('/search-hashtag/{id}', [SearchTripController::class, 'getHashtag'])->name('search.hashtag');

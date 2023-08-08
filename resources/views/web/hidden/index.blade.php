@@ -99,7 +99,7 @@
                             |
                         </span>
                         <span class="ml-3 text-[16px]">
-                            23 - 28 APR 2023
+                        {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
                         </span>
                         <p class="text-[#FF5055] font-bold text-[19px]">
                             @currency($trip->price)

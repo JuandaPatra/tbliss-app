@@ -60,7 +60,7 @@ class HomeController extends Controller
         $slug = $id;
 
 
-        $banners = Slider::all();
+        $banners = Slider::orderBy('s_order')->get();
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
 
         /**
@@ -161,14 +161,12 @@ class HomeController extends Controller
 
         $testimonies = ReviewTrip::where('categories_trip_id', '=', $detailTrip->id)->get();
 
-        if($testimonies->count() == 0){
+        if ($testimonies->count() == 0) {
             $testiUser = 'We came here in April 2018. We had the most wonderful time. Great accomodation,..';
             $testiUserFrom = 'Travelswithlola, United Kingdom';
-
-        }else{
+        } else {
             $testiUser = $testimonies[0]->description;
             $testiUserFrom = $testimonies[0]->name;
-
         }
 
 
@@ -190,6 +188,9 @@ class HomeController extends Controller
          * check kembali apakah alamt dan telp. user sudah diisi
          */
         if ($user->alamat == '' || $user->phone == '') {
+            $url = url()->previous();
+
+            $request->session()->put('old_url', $url);
             return redirect(route('home.profile'))->with('fail', 'Mohon lengkapi data anda!');
         }
         $trip = Trip_categories::where('id', '=', $request->id)->first();
@@ -320,6 +321,7 @@ class HomeController extends Controller
 
     public function profileUpdate(Request $request)
     {
+
         $user = Auth::user();
 
         if ($request->password != '' && $request->newPassword != '' && $request->confirmPassword != '') {
@@ -390,7 +392,12 @@ class HomeController extends Controller
             ]);
 
             Alert::success('Edit Profile', 'Berhasil');
-            return redirect()->route('home.profile')->with('success', 'Data berhasil diupdate!');
+            $url = $request->session()->get('old_url');
+            if ($url != '') {
+                return redirect()->to($url);
+            }else{
+                return redirect()->route('home.profile')->with('success', 'Data berhasil diupdate!');
+            }
         } catch (\throwable $th) {
             DB::rollBack();
             Alert::error('Edit Slider', 'error' . $th->getMessage());
@@ -1256,7 +1263,7 @@ class HomeController extends Controller
 
             $path = Storage::put('public/storage/uploads/' . '-' . $paths . '.' . 'pdf', $pdf->output());
 
-            
+
             $dueDateR    = date('l-j-m-Y-H-i ', strtotime($paymentId->created_at . ' + 2 days'));
             $res = explode('-', $dueDateR);
 
@@ -1583,6 +1590,42 @@ class HomeController extends Controller
     public function successOrderEmail()
     {
         return view('web.emails.emailPayment');
+    }
+
+    public function resetFilterHomepage(Request $request)
+    {
+
+        $country = Place_categories::whereId($request->id)->where('status', 'publish')->first();
+        $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
+            $query->where('place_categories_id', $country->id);
+        })->where('status', '=', 'publish')->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))
+            ->get([
+                'id',
+                'title',
+                'slug',
+                'price',
+                'day',
+                'night',
+                'date_from',
+                'date_to',
+                'thumbnail',
+                'seat',
+            ]);
+
+        if ($trips->count() != 0) {
+            foreach ($trips as $trip) {
+                $trip['date_from_result'] = date('d', strtotime($trip->date_from));
+                $trip['date_to_result'] = date('d M Y', strtotime($trip->date_to));
+            }
+        } else {
+            $trips = [];
+        }
+
+        $response = [
+            'result'        => $trips
+        ];
+
+        return $response;
     }
 
     public function dueDateIndonesia($dueDateEn)

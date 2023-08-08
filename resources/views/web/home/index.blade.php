@@ -113,7 +113,13 @@
         <h1 class="text-[25px] lg:text-[30px] ml-[15px] mb-[30px]">
             Mari, pilih trip perjalanan {{$country->title}} kak!
         </h1>
-        <p class="ml-[15px] mb-[20px] text-greyDetTbliss font-interRegular result-text hidden">Trip yang tersedia pada tanggal 1 Juli 2023 - 20 Juli</p>
+        <div class="flex justify-between">
+            <p class="ml-[15px] mb-[20px] text-greyDetTbliss font-interRegular result-text hidden">Trip yang tersedia pada tanggal 1 Juli 2023 - 20 Juli</p>
+            <div  class="reset-filter cursor-pointer hidden">
+                <p class="text-greyDetTbliss hover:text-footer font-interRegular mr-10">Reset filter</p>
+            </div>
+
+        </div>
         <div class="flex flex-wrap home-section">
             @foreach($trips as $trip)
             <div class="basis-full lg:basis-4/12 px-3 pt-[50px] pb-3 hover:drop-shadow-md hover:cursor-pointer ">
@@ -268,7 +274,7 @@
     $(document).ready(function() {
 
         let base_url = window.location.origin;
-        $(".selector").flatpickr({
+      let $flatpicker = $(".selector").flatpickr({
             dateFormat: "d/m/Y",
             minDate: "today",
             maxDate: "31.12.2029",
@@ -281,6 +287,94 @@
                 $(".selector").val(datestr.replace('to', '-'));
             }
         });
+
+        $('.reset-filter').on('click', function(){
+            $("select option:first-child").attr("selected", "selected");
+            $flatpicker.clear()
+
+            
+
+            $.ajax({
+                type: "POST",
+                url: `${base_url}/resetFilter`,
+                headers: {
+                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                        "content"
+                    ),
+                },
+                data: {
+                    id :6,
+                },
+                error: function(xhr, error) {
+                    if (xhr.status === 500) {
+                        console.log(error);
+
+                        $(e.target).html("Gagal Terkirim");
+
+                        setTimeout(() => {
+                            location.reload();
+                        }, 2500);
+                    }
+                },
+                success: function(data) {
+                    $('.result-text').addClass('hidden')
+                    $('.reset-filter').addClass('hidden')
+                    $('.home-section').empty()
+                    let result = data.result
+                    if (result.length === 0) {
+                       
+                        $('.home-section').append(
+                            `<div class=" w-full flex justify-start text-[20px] text-greyDetTbliss ml-[15px]">
+                            Maaf Kak, tidak ada jadwal trip pada saat ini
+                            </div>`
+                        )
+                    } else {
+                        
+                        result.forEach(function(item, index) {
+                            $('.home-section').append(
+                                `
+                                    <div class="basis-full lg:basis-4/12 px-3 pt-[50px] pb-3 hover:drop-shadow-md hover:cursor-pointer ">
+                                        <div class="max-w-sm bg-white ">
+                                            <a href="/countries/korea/detail/${item.slug}">
+                                                <img src="${item.thumbnail}" alt="" class="w-full">
+                                            </a>
+                                            <div class="mt-3 flex flex-col ">
+                                                <div class="flex  flex-1 ">
+                                                    <h5 class="text-blueTbliss mr-3 text-[12px] pl-[15px]">
+                                                        ${item.seat} seats left
+                                                    </h5>
+                                                    <img src="{{ asset('images/trip/seat.png') }}" alt="" class="inline  h-[12px]">
+                                                </div>
+                                                <a href="/countries/korea/detail/${item.slug}">
+                                                    <h5 class="mb-2 text-2xl font-bold tracking-[1px] font-bely text-greyTbliss text-[24px] h-[130px] px-[15px]">${item.title}</h5>
+                                                </a>
+                                                <div class="flex-1 px-[15px]">
+                            <span class="text-[#6A6A6A] font-interRegular font-bold text-[22px] mr-5">
+                            ${item.day}H${item.night}M
+                            </span>
+                            <span>
+                                |
+                            </span>
+                            <span class="ml-3 text-[16px]">
+                            ${item.date_from_result} - ${item.date_to_result}
+
+                            </span>
+                        </div>
+                        <p class="text-redTbliss font-bold text-[19px] flex-1 px-[15px] pb-[20px]">
+                        ${item.price.toLocaleString("id-ID", {style:"currency", currency:"IDR",minimumFractionDigits: 0})}
+                        </p>
+                                                
+                                            </div>
+                                        </div>
+                                    </div>
+                                `
+                            )
+
+                        })
+                    }
+                },
+            });
+        })
 
         $('#searchTrips').on('click', function(e) {
             let id = $('#countries').val()
@@ -318,6 +412,7 @@
                 success: function(data) {
                     // console.log(data)
                     $('.result-text').removeClass('hidden')
+                    $('.reset-filter').removeClass('hidden')
                     $('.home-section').empty()
                     let result = data.result
                     if (result.length === 0) {
