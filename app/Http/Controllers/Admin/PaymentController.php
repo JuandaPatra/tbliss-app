@@ -402,7 +402,7 @@ class PaymentController extends Controller
             );
         });
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'pesanan telah dibuat dan email konfirmasi telah dikirim');
     }
 
     public function finishPayment(Request $request, $id)

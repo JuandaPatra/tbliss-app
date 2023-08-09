@@ -410,7 +410,7 @@
                     }
                 },
                 success: function(data) {
-                    // console.log(data)
+                    console.log(data)
                     $('.result-text').removeClass('hidden')
                     $('.reset-filter').removeClass('hidden')
                     $('.home-section').empty()

@@ -60,6 +60,8 @@ class HomeController extends Controller
         $slug = $id;
 
 
+
+
         $banners = Slider::orderBy('s_order')->get();
         $country = Place_categories::whereSlug($slug)->where('status', 'publish')->first();
 
@@ -272,6 +274,8 @@ class HomeController extends Controller
 
 
 
+
+
         $reservations = Trip_categories::where('date_from', '>=', $now)
             ->where('date_to', '<=', $to)
             ->where('seat', '>=', $seat)
@@ -284,6 +288,8 @@ class HomeController extends Controller
         //     ->where('seat', '>=', $seat)
         //     ->get();
 
+
+
         $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
             ->whereBetween('date_from', [$now, $to])
             ->orWhereBetween('date_to', [$now, $to])
@@ -291,6 +297,31 @@ class HomeController extends Controller
             ->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))
             ->get();
 
+
+            //query baru coba filter lebih dari hari ini
+            $reservationsq = Trip_categories::whereIn('id', $searchByPlace)
+            
+            ->where('seat', '>=', $seat)
+            ->whereDate('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))
+            ->WhereBetween('date_from', [$now, $to])
+            ->orWhereBetween('date_to', [$now, $to])
+            ->get();
+
+            $reservationsq1 = Trip_categories::whereIn('id', $searchByPlace)
+            
+            ->where('seat', '>=', $seat)
+            ->whereDate('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))
+            ->get(['id'])->pluck('id');
+
+            // return $reservationsq1;
+
+            $reservationsq = Trip_categories::whereIn('id', $reservationsq1)
+            ->whereBetween('date_from', [$now, $to])
+            ->WhereBetween('date_to', [$now, $to])
+            ->get();
+
+
+            //end filter query
 
         if ($reservationsq->count() != 0) {
             foreach ($reservationsq as $reservation) {
@@ -395,7 +426,7 @@ class HomeController extends Controller
             $url = $request->session()->get('old_url');
             if ($url != '') {
                 return redirect()->to($url);
-            }else{
+            } else {
                 return redirect()->route('home.profile')->with('success', 'Data berhasil diupdate!');
             }
         } catch (\throwable $th) {
