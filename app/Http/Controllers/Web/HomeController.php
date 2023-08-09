@@ -94,7 +94,7 @@ class HomeController extends Controller
         /**
          * mengambil semua hidden gem yang sudah dipilih dari cms
          */
-        $pickHiddenGems = HiddenGemHomepage::with(['hidden_gem:id,title,image_desktop,slug'])->get(['id', 'hidden_gem_id',]);
+        $pickHiddenGems = HiddenGemHomepage::with(['hidden_gem:id,title,image_desktop,slug,view'])->get(['id', 'hidden_gem_id',]);
 
         /**
          * mendapatkan list negara di halaman home
@@ -109,8 +109,10 @@ class HomeController extends Controller
             'slug',
             'image_desktop',
             'image_mobile',
-            'places_id'
+            'places_id',
+            'view'
         ]);
+
 
         /**
          * mendapatkan list testimoni di halaman home

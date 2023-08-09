@@ -181,7 +181,7 @@
                         <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->hidden_gem->slug])}}">
                             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white h-[80px]">{{$hiddenGem->hidden_gem->title}}</h5>
                         </a>
-                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">57.6 views</p>
+                        <p class="mb-10 font-normal text-gray-700 dark:text-gray-400">{{$hiddenGem->hidden_gem->view}} views</p>
 
                     </div>
 
