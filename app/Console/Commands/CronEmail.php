@@ -33,14 +33,8 @@ class CronEmail extends Command
      */
     public function handle()
     {
-        // return Command::SUCCESS;
-        // $payments = PaymentDetails::with(['user:id,email,alamat,phone', 'trip:id,title'])->get(['id', 'installment_id', 'amount', 'qty', 'total', 'due_date', 'user_id', 'trip_categories_id']);
 
-        // $current_date = Carbon::now();
-        // $current_date = $current_date->toDateString();
-
-        // $payments = PaymentDetails::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('due_date', Carbon::now()->subDays(7))->get(['id', 'installment_id', 'amount', 'qty', 'total', 'due_date', 'user_id', 'trip_categories_id']);
-        $payments = Payment::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('due_date', Carbon::now()->subDays(7))->get();
+        $payments = Payment::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('due_date_satu', Carbon::now()->subDays(7))->get();
 
         if (count($payments) >= 1) {
             foreach ($payments as $payment) {

@@ -241,7 +241,13 @@ class HomeController extends Controller
 
     public function hiddemGem($id, $slug)
     {
-        $hiddenGem = Hidden_gem::where('slug', $slug)->first(['id', 'title', 'slug', 'description1', 'image_desktop']);
+        $hiddenGem = Hidden_gem::where('slug', $slug)->first(['id', 'title', 'slug', 'description1', 'image_desktop', 'view']);
+
+
+        $hiddenGemView = $hiddenGem->view +1;
+        $hiddenGem->update([
+            'view' => $hiddenGemView
+        ]);
 
         $tripHiddenGems = Trip_cities_hidden_gem_hashtag::where('hidden_gem_id', '=', $hiddenGem->id)->get(['trip_categories_id']);
         $tripUnique = $tripHiddenGems->unique('trip_categories_id')->pluck('trip_categories_id');
