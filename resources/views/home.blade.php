@@ -115,7 +115,7 @@ Dashboard
         <a class="btn btn-primary text-white" id="sortByInstallmentButton">Search</a>
       </div>
       <div class="mb-2 me-3" style="margin-top: 30px;">
-        <a class="btn btn-danger text-white"  id="allstatus">reset filter</a>
+        <a class="btn btn-danger text-white" id="allstatus">reset filter</a>
       </div>
     </div>
 
@@ -139,6 +139,17 @@ Dashboard
 
       </tbody>
     </table>
+  </div>
+
+  <div class="bs-toast toast toast-placement-ex m-2 bg-danger top-50 start-50 translate-middle fade toast-filter " role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
+    <div class="toast-header">
+      <i class="bx bx-bell me-2"></i>
+      <div class="me-auto fw-semibold">Filter Alert</div>
+      <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+    <div class="toast-body">
+      Kamu hanya dapat memilih salah satu filter beserta tanggal saja
+    </div>
   </div>
 </div>
 @endsection
@@ -200,7 +211,7 @@ Dashboard
       }
     });
 
-   
+
 
     $('.installment1').val($(this).is(':checked'));
 
@@ -309,6 +320,25 @@ Dashboard
       installment1 = $('.installment1').val()
       installment2 = $('.installment2').val()
       date = $('.selector').val()
+
+      // 1 2 3
+      if ($('#installmentSelect').val() != '' && $('#paymentMethodSelect').val() != '' && $('#statusPaymentSelect').val() != '') {
+        $('.toast-filter').addClass('show')
+        return;
+        //1 2
+      } else if ($('#installmentSelect').val() != '' && $('#paymentMethodSelect').val() != '') {
+        $('.toast-filter').addClass('show')
+        return;
+        // 1 3
+      } else if ($('#installmentSelect').val() != '' && $('#statusPaymentSelect').val() != '') {
+
+        $('.toast-filter').addClass('show')
+        return;
+        //2 3
+      } else if ($('#paymentMethodSelect').val() != '' && $('#statusPaymentSelect').val() != '') {
+        $('.toast-filter').addClass('show')
+        return;
+      }
       table.ajax.reload(null, false)
     })
 
@@ -319,7 +349,7 @@ Dashboard
 
 
       table.ajax.reload(null, false)
-      
+
     })
 
 
