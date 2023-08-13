@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\EditHashtagTripController;
 use App\Http\Controllers\Admin\ExcludesController;
 use App\Http\Controllers\Admin\HashtagController;
 use App\Http\Controllers\Admin\HiddenGemController;
+use App\Http\Controllers\Admin\HiddenGemReviewController;
 use App\Http\Controllers\Admin\IncludesController;
 use App\Http\Controllers\Admin\PaymentController;
 use App\Http\Controllers\Admin\PickHiddenGemsController;
@@ -111,6 +112,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::resource('excludes', ExcludesController::class);
 
+    Route::get('/testimoniHiddenGem/{id}', [HiddenGemReviewController::class,'index'])->name('testimoniHiddenGem.testimoni');
+    Route::resource('testimoniHiddenGem', HiddenGemReviewController::class);
     Route::resource('pick-hidden-gem', PickHiddenGemsController::class);
 
     Route::get('/users/all', [UserAdmin::class, 'table'])->name('table');
@@ -128,7 +131,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('/invoice-admin/{id}', [pdfOpenerController::class, 'invoice'])->name('invoicePDF');
 
-    Route::post('/sortByInstallment', [HomeController::class,'sortByInstallment'])->name('sortByInstallment');
+    Route::post('/sortByInstallment', [HomeController::class, 'sortByInstallment'])->name('sortByInstallment');
 
     Route::get('/table-dashboard', [HomeController::class, 'table'])->name('tableDashboard');
 

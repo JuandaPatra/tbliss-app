@@ -1,27 +1,3 @@
-{{-- @extends('layouts.app')
-
-@section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-<div class="card-body">
-  @if (session('status'))
-  <div class="alert alert-success" role="alert">
-    {{ session('status') }}
-  </div>
-  @endif
-
-  {{ __('You are logged in!') }}
-</div>
-</div>
-</div>
-</div>
-</div>
-@endsection --}}
-
 @extends('admin.layouts.dashboard')
 @section('title')
 Dashboard
@@ -84,6 +60,15 @@ Dashboard
   <div class="col-md-12 order-3">
     <div class="d-flex">
       <div class="mb-2 me-3">
+        <label for="exampleFormControlSelect1" class="form-label">Trip</label>
+        <select class="form-select" id="tripSelect" aria-label="Default select example" fdprocessedid="ektcn9">
+          <option value="">Open this select menu</option>
+          @foreach($tripName as $trip)
+          <option value="{{$trip->id}}">{{$trip->title}}</option>
+          @endforeach
+        </select>
+      </div>
+      <div class="mb-2 me-3">
         <label for="exampleFormControlSelect1" class="form-label">Status</label>
         <select class="form-select" id="statusPaymentSelect" aria-label="Default select example" fdprocessedid="ektcn9">
           <option value="">Open this select menu</option>
@@ -115,30 +100,35 @@ Dashboard
         <a class="btn btn-primary text-white" id="sortByInstallmentButton">Search</a>
       </div>
       <div class="mb-2 me-3" style="margin-top: 30px;">
-        <a class="btn btn-danger text-white" id="allstatus">reset filter</a>
+        <a class="btn btn-danger text-white" id="allstatus">reset</a>
       </div>
     </div>
 
+    <div style="overflow-x: auto;margin-top:35px;">
+      <table class="table table-bordered data-table" style="width: 2000px;">
+        <thead>
+          <tr>
+            <th class="sorting" style="width: 300px;">No</th>
+            <th class="sorting" style="width: 300px;">Trip Name</th>
+            <th class="sorting" style="width: 300px;">Qty</th>
+            <th class="sorting" style="width: 300px;">InvoiceID</th>
+            <th class="sorting" style="width: 300px;">OrderID</th>
+            <th class="sorting" style="width: 300px;">Opsi Pembayaran</th>
+            <th class="sorting" style="width: 300px;">Status Pembayaran 1</th>
+            <th class="sorting" style="width: 300px;">Installment 1</th>
+            <th class="sorting" style="width: 300px;">Installment 2</th>
+            <th class="sorting" style="width: 300px;">See Invoice</th>
+          </tr>
+
+        </thead>
+        <tbody>
+
+        </tbody>
+      </table>
+
+    </div>
 
 
-    <table class="table table-bordered data-table" style="width: 100%;">
-      <thead>
-        <tr>
-          <th class="sorting">No</th>
-          <th class="sorting">InvoiceID</th>
-          <th class="sorting">OrderID</th>
-          <th class="sorting">Opsi Pembayaran</th>
-          <th class="sorting">Status Pembayaran 1</th>
-          <th class="sorting">Installment 1</th>
-          <th class="sorting">Installment 2</th>
-          <th class="sorting">See Invoice</th>
-        </tr>
-
-      </thead>
-      <tbody>
-
-      </tbody>
-    </table>
   </div>
 
   <div class="bs-toast toast toast-placement-ex m-2 bg-danger top-50 start-50 translate-middle fade toast-filter " role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000">
@@ -232,6 +222,8 @@ Dashboard
     let installment2 = $('.installment2').val()
     let date = $('.selector').val()
     let paymentMethodSelect = $('#paymentMethodSelect').val()
+    let tripSelect = $('#tripSelect').val();
+
 
     let installmentInput = $('#installmentSelect').val()
 
@@ -267,12 +259,15 @@ Dashboard
           d.installmentSelect = $('#installmentSelect').val();
           d.paymentMethodSelect = $('#paymentMethodSelect').val();
           d.statusPaymentSelect = $('#statusPaymentSelect').val();
+          d.tripSelect = $('#tripSelect').val();
 
           return d;
 
         }
 
       },
+
+
 
       columns: [
         //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
@@ -283,35 +278,58 @@ Dashboard
           orderable: false,
           searchable: false
         },
+        // {
+        //   data: 'trip_categories_id',
+        //   name: 'trip_categories_id'
+        // },
+        {
+          data: 'trip_name',
+          name: 'trip_name',
+          width: '500px'
+        },
+
+        {
+          data: 'qty',
+          name: 'qty',
+          width: '500px'
+        },
 
         {
           data: 'invoice_id',
-          name: 'invoice_id'
+          name: 'invoice_id',
+          width: '500px'
         },
+
         {
           data: 'order_id',
-          name: 'order_id'
+          name: 'order_id',
+          width: '500px'
         },
         {
           data: 'opsi_pembelian',
-          name: 'opsi_pembayaran'
+          name: 'opsi_pembayaran',
+          width: '500px'
         },
         {
           data: 'status',
-          name: 'status'
+          name: 'status',
+          width: '500px'
         },
         {
           data: 'due_satu',
-          name: 'due_satu'
+          name: 'due_satu',
+          width: '500px'
         },
         {
           data: 'due_dua',
-          name: 'due_dua'
+          name: 'due_dua',
+          width: '500px'
         },
 
         {
           data: 'invoice',
-          name: 'invoice'
+          name: 'invoice',
+          width: '500px'
         },
 
       ]
@@ -320,6 +338,7 @@ Dashboard
       installment1 = $('.installment1').val()
       installment2 = $('.installment2').val()
       date = $('.selector').val()
+
 
       // 1 2 3
       if ($('#installmentSelect').val() != '' && $('#paymentMethodSelect').val() != '' && $('#statusPaymentSelect').val() != '') {

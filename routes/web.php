@@ -72,8 +72,8 @@ Route::resource('checkout', CheckoutController::class);
 Route::get('/get-invoice-id/{invoiceId}', [HomeController::class, 'invoiceLunas'])->name('home.invoice');
 
 Route::post('/email-leads', [EmailsController::class, 'index'])->name('email-leads');
-// Route::get('/booking-trip', [HomeController::class, 'booking'])->name('booking');
-Route::get('/booking-trip', [HomeController::class, 'booking1'])->name('booking');
+// Route::get('/booking-trip', [HomeController::class, 'booking1'])->name('booking');
+Route::get('/booking-trip/{token}', [HomeController::class, 'booking1'])->name('booking');
 Route::post('booking-order', [HomeController::class, 'bookingOrder2'])->name('booking.order');
 Route::get('/payment/{ids}', [HomeController::class, 'payment'])->name('payment');
 Route::get('/upload/{ids}', [HomeController::class, 'upload'])->name('upload');

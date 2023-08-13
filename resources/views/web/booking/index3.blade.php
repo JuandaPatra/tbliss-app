@@ -5,6 +5,8 @@
 <div class="flex items-center px-4 bg-white justify-center">
     <h1 class=" font-bely text-footer text-[45px]">Booking Trip</h1>
 </div>
+
+<input type="hidden" value="{{$status}}" class="statusUpdate">
 <section>
     <div class="flex items-center px-4 bg-white justify-center pt-[24px]">
         <img src="{{ asset('images/header/trusted.png') }}" alt="" class="w-[40px] h-[40px] mr-[12px]">
@@ -16,9 +18,9 @@
             <h1 class="mt-[71px]">
                 Opsi Pembayaran
             </h1>
-            <div class="grid grid-cols-2 gap-x-3 mt-[16px]">
+            <div class="grid grid-cols-2 gap-x-3 mt-[16px] payment-schema">
                 @if($months != 1)
-                
+
                 <div class=" bg-blueTbliss h-[39px] py-[7px] text-[14px] border text-white flex justify-center cursor-pointer dp-button" data-price="{{$monthly[0][0]}}" data-status="0" data-grand="{{$monthly[0][4]}}">
                     <svg width="17" height="17" viewBox="0 0 17 17" class="mt-[2px] white-icon hidden " fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g clip-path="url(#clip0_466_104)">
@@ -191,57 +193,6 @@
                     </thead>
                     <tbody>
 
-                    {{-- 
-                        <tr class="border-b border-[#9F9F9F] dark:border-gray-700 cursor-pointer ">
-                            <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
-                                <div class="flex flex-wrap">
-                                    <div class=" basis-full lg:basis-4/12">
-                                        <img src="{{$newCart->trip->thumbnail}}" alt="" class="">
-                                    </div>
-                                    <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
-                                        <div class="hidden lg:flex mb-2">
-                                            <p class="w-[30%]">Nama Trip</p>
-                                            <p>:</p>
-                                            <p class="pl-1 w-[60%]">{{$newCart->trip->title}}</p>
-                                        </div>
-                                        <div class="hidden lg:flex mb-2">
-                                            <p class="w-[30%]">Tanggal</p>
-                                            <p>:</p>
-                                            <p class="pl-1 w-[60%]">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
-
-                                        </div>
-                                        <div class="hidden lg:flex mb-2">
-                                            <p class="w-[30%]">Opsi Pembayaran</p>
-                                            <p>:</p>
-                                            <p class="pl-1 w-[60%] status-payment">Bayar Uang Muka</p>
-                                            <input type="hidden" name="dp_price" value="{{$monthly[0][0]}}" class="input-payment">
-                                            <input type="hidden" name="trip_categories_id" value="{{$newCart->trip_categories_id}}">
-                                            <input type="hidden" name="seat" value="{{$newCart->trip->seat}}" class="seat-payment">
-                                        </div>
-                                        <div>
-                                            <p class="block lg:hidden text-[12px]">Nama Trip: {{$newCart->trip->title}}</p>
-                                            <p class="block lg:hidden text-[12px]">Tanggal: {{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
-                                            <p class="block lg:hidden text-[12px]">Opsi Pembayaran : <span class="status-payment">Bayar Uang Muka</span></p>
-                                        </div>
-                                    </div>
-                            </th>
-                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price">
-                                @currency($monthly[0][0])
-                                <!-- Rp.1.500.000 -->
-                            </td>
-                            <td class="text-justify pl-2 lg:pl-6 py-4">
-                                <input type="number" value="1" class="w-[60px] mt-[10px] input-qty text-center" name="qty">
-                                <input type="hidden" value="{{$months}}" name="months">
-                                <input type="hidden" value="0" name="status" class="input-status">
-                            </td>
-                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
-                                @currency($monthly[0][0])
-                                <!-- Rp.1.500.000 -->
-                            </td>
-                        </tr>
-                        --}}
-
-
 
                         <tr class=" lg:hidden cursor-pointer ">
                             <th scope="row" class="pl-0 pr-0 lg:pr-6 py-3 font-medium text-gray-900   ">
@@ -267,11 +218,11 @@
                                         <p class="w-[33%] text-[12px]">Opsi Pembayaran</p>
                                         <p>:</p>
                                         <p class="pl-1 w-[60%] text-[12px] status-payment">Bayar Uang Muka</p>
-                                        
+
                                     </div>
-                                    
+
                                 </div>
-                                
+
                             </td>
 
                         </tr>
@@ -313,12 +264,14 @@
                                 <!-- Rp.1.500.000 -->
                             </td>
                             <td class="text-justify pl-2 lg:pl-6 py-4">
-                                <input type="number" value="1" class="w-[60px] mt-[10px] input-qty text-center" name="qty">
+                                <input type="number" value="{{$newCart->qty}}" class="w-[60px] mt-[10px] input-qty text-center" name="qty">
                                 <input type="hidden" value="{{$months}}" name="months">
                                 <input type="hidden" value="0" name="status" class="input-status">
+                                <input type="hidden" value="{{$monthly[0][7]}}" class="input-qty">
+                                <input type="hidden" value="{{$uniqueToken}}" name="uniqueToken">
                             </td>
                             <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
-                                @currency($monthly[0][0])
+                                @currency($monthly[0][6])
                                 <!-- Rp.1.500.000 -->
                             </td>
                         </tr>
@@ -360,7 +313,7 @@
                                 <!-- Rp.1.500.000 -->
                             </td>
                             <td class="text-justify pl-2 lg:pl-6 py-4">
-                                <input type="number" value="1" class="w-[60px] mt-[10px] input-qty text-center" name="qty">
+                                <input type="number" value="{{$newCart->qty}}" class="w-[60px] mt-[10px] input-qty text-center" name="qty">
                                 <input type="hidden" value="{{$months}}" name="months">
                                 @if($months != 1)
                                 <input type="hidden" value="0" name="status" class="input-status">
@@ -369,7 +322,7 @@
                                 @endif
                             </td>
                             <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
-                                @currency($monthly[0][0])
+                                @currency($monthly[0][6])
                                 <!-- Rp.1.500.000 -->
                             </td>
                         </tr>
@@ -384,7 +337,7 @@
                                         <div class="hidden lg:flex mb-2 text-[12px] lg:text-[14px]">
                                             <p>Visa @currency($newCart->trip->visa)</p>
                                         </div>
-                                        
+
                                     </div>
                             </th>
                             <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price-visa">
@@ -713,6 +666,20 @@
 <script>
     $(document).ready(function() {
 
+        let updateStatus = $('.statusUpdate').val()
+        if (updateStatus == 1) {
+           
+            function clickRight() {
+                $('.full-pay-button').trigger('click');
+            }
+
+            $(function() {
+                setInterval(clickRight(), 2000);
+            });
+        }
+
+
+        let qty = $('.input-qty').val()
 
         ///// ini button dp payment
         $('.dp-button').on('click', function(e) {
@@ -737,10 +704,10 @@
             $('.caption-payment').empty()
             $('.caption-payment').append('Bayar DP per-orang, sisanya sesuai skema pembayaran')
             var subtotalPrice = $(this).data('price')
-            var totalPrice = subtotalPrice * 1
+            var totalPrice = subtotalPrice * qty
 
             var subtotalVisa = $('.input-payment-visa').val()
-            var totalPriceVisa = subtotalVisa * 1
+            var totalPriceVisa = subtotalVisa * qty
 
             var status = $(this).data('status')
             // console.log(status)
@@ -770,11 +737,11 @@
             $('.status-payment').append('Bayar Uang Muka')
             $('.input-payment').val(subtotalPrice)
             $('.input-payment').change()
-            $('.input-qty').val(1)
+            $('.input-qty').val(qty)
             $('.input-qty').change()
-            $('.input-qty-visa').val(1)
+            $('.input-qty-visa').val(qty)
             $('.input-qty-visa').change()
-            $('.input-qty-tipping').val(1)
+            $('.input-qty-tipping').val(qty)
             $('.input-qty-tipping').change()
             $('.subtotal-price').empty()
             $('.subtotal-price').append(subtotalPrice.toLocaleString("id-ID", {
@@ -808,7 +775,6 @@
             $(".button-popup-skema").addClass('text-[#6A6A6A]');
 
 
-
             $(this).removeClass('text-[#6A6A6A]')
             $(this).removeClass('bg-white')
             $(this).addClass('bg-blueTbliss')
@@ -826,16 +792,16 @@
 
             $('.installment-excludes').removeClass('hidden')
 
-            var grandTotal = $(this).data('grand')
+            var grandTotal = $(this).data('grand') * qty
 
             var subtotalPrice = $(this).data('price')
-            var totalPrice = subtotalPrice * 1
+            var totalPrice = subtotalPrice * qty
 
             var subtotalVisa = $('.input-payment-visa').val()
-            var totalPriceVisa = subtotalVisa * 1
+            var totalPriceVisa = subtotalVisa * qty
 
             var subtotalTipping = $('.input-payment-tipping').val()
-            var totalPriceTipping = subtotalTipping * 1
+            var totalPriceTipping = subtotalTipping * qty
 
             $('.total-price-grandtotal').empty()
             $('.total-price-grandtotal').append(grandTotal.toLocaleString("id-ID", {
@@ -857,11 +823,11 @@
             $('.status-payment').append('Bayar Lunas')
             $('.input-payment').val(subtotalPrice)
             $('.input-payment').change()
-            $('.input-qty').val(1)
+            $('.input-qty').val(qty)
             $('.input-qty').change()
-            $('.input-qty-visa').val(1)
+            $('.input-qty-visa').val(qty)
             $('.input-qty-visa').change()
-            $('.input-qty-tipping').val(1)
+            $('.input-qty-tipping').val(qty)
             $('.input-qty-tipping').change()
             $('.subtotal-price').empty()
             $('.subtotal-price').append(subtotalPrice.toLocaleString("id-ID", {
@@ -916,9 +882,9 @@
             $('.input-qty-tipping').change()
 
             if (numbers === '') {
-                var totalPrice = inputPayment * 1
-                var totalPriceVisa = inputPaymentVisa * 1
-                var totalPriceTipping = inputPaymentTipping * 1
+                var totalPrice = inputPayment * qty
+                var totalPriceVisa = inputPaymentVisa * qty
+                var totalPriceTipping = inputPaymentTipping * qty
             } else {
                 var totalPrice = inputPayment * numbers
                 var totalPriceVisa = inputPaymentVisa * numbers

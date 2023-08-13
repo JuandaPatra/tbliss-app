@@ -12,6 +12,7 @@ use Yajra\DataTables\Services\DataTable;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
+use App\Models\globalData;
 use App\Models\logPayments;
 use App\Models\Trip_categories;
 use App\Models\User;
@@ -270,6 +271,22 @@ class PaymentController extends Controller
 
         $posts = Payment::whereId($id)->first();
 
+        //169175046400749
+        $getInstallment1 = substr((string) $posts->invoice_id, 10, 2);  // bcd
+
+        $dueDateNextInstallment = '';
+        $dueTotalNextInstallment = '';
+
+        if ($getInstallment1 == '00') {
+            $getInstallmentUniqueId = substr((string) $posts->invoice_id, 0, 10);
+            $getInstallmentUniquePhone = substr((string) $posts->invoice_id, 12, 3);
+
+            $paymentInstallment = Payment::where('invoice_id', '=', $getInstallmentUniqueId . '01' . $getInstallmentUniquePhone)->get();
+
+            $dueDateNextInstallment = $paymentInstallment[0]->tanggal_pembayaran;
+            $dueTotalNextInstallment = $paymentInstallment[0]->total;
+        }
+
         DB::beginTransaction();
         try {
             $post = Payment::whereId($id);
@@ -305,9 +322,9 @@ class PaymentController extends Controller
 
 
         $opsiPembayaran = '';
-        if($payment->opsi_pembayaran == 0){
+        if ($payment->opsi_pembayaran == 0) {
             $opsiPembayaran = 'Down Payment';
-        }else{
+        } else {
             $opsiPembayaran = 'Full Payment';
         }
         $dataCoba = [
@@ -330,8 +347,9 @@ class PaymentController extends Controller
             'visaTotal'         => 'Rp.' . number_format($payment->visa, 0, ',', '.'),
             'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
             'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
-            'tippingCaption'    => 'Tipping '.'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') .' x '. $payment->trip->day .'hari',
-            'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.')
+            'tippingCaption'    => 'Tipping ' . 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') . ' x ' . $payment->trip->day . 'hari',
+            'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.'),
+           
         ];
 
 
@@ -367,8 +385,10 @@ class PaymentController extends Controller
             'visaTotal'         => 'Rp.' . number_format($payment->visa, 0, ',', '.'),
             'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
             'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
-            'tippingCaption'    => 'Tipping '.'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') .' x '. $payment->trip->day .'hari',
-            'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.')
+            'tippingCaption'    => 'Tipping ' . 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') . ' x ' . $payment->trip->day . 'hari',
+            'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.'),
+            'dueDateNextInstallment' =>  date('l,jS M Y', strtotime($dueDateNextInstallment)),
+            'dueTotalNextInstallment' => 'Rp.' . number_format(($dueTotalNextInstallment), 0, ',', '.') ,
         ];
 
 
@@ -382,6 +402,11 @@ class PaymentController extends Controller
         ]);
 
 
+        $urlKetentuan = globalData::where('categories', '=', 2)->first();
+
+        $parse = parse_url($urlKetentuan->description);
+        $urlVisa = globalData::where('categories', '=', 1)->first();
+        $parseUrlVisa = parse_url($urlVisa->description);
 
         // Mail::send('web.emails.successPayment', $email, function ($message) use ($email, $pdf, $path) {
         //     $message->from('patrajuanda10@gmail.com');
@@ -392,7 +417,8 @@ class PaymentController extends Controller
         //         $email['nama'] . time() . '.' . 'pdf'
         //     );
         // });
-        Mail::send('web.emails.emailPayment', $email, function ($message) use ($email, $pdf, $path) {
+
+        Mail::send('web.emails.emailPayment', $email, function ($message) use ($email, $pdf, $path, $parse, $parseUrlVisa) {
             $message->from('patrajuanda10@gmail.com');
             $message->to($email['email']);
             $message->subject('Pembayaran Sukses  #' . $email['invoiceId']);
@@ -400,6 +426,8 @@ class PaymentController extends Controller
                 $pdf->output(),
                 $email['nama'] . time() . '.' . 'pdf'
             );
+            $message->attach(public_path($parse['path']));
+            $message->attach(public_path($parseUrlVisa['path']));
         });
 
         return redirect()->back()->with('success', 'pesanan telah dibuat dan email konfirmasi telah dikirim');

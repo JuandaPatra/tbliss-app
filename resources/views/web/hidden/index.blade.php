@@ -29,7 +29,7 @@
                     <span class="block mt-[20px]">5</span>
                 </div>
                 <div class="flex ">
-                    <p>639</p>
+                    <p>{{$count}}</p>
                     <p class="ml-2">reviews</p>
                 </div>
                 <div>
@@ -60,7 +60,7 @@
                 <div class="flex justify-between">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">What Guests Say</h5>
                 </div>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">"We came here in April 2018. We had the most wonderful time. Great accomodation,.."</p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">"{{$tripReviewSatu}}"</p>
                 <p class="mb-3 font-normal text-gray-700">Travelswithlola, United Kingdom</p>
             </div>
         </div>

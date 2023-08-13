@@ -18,7 +18,9 @@ class Cart extends Model
         'tanggal_pembayaran',
         'status',
         'visa',
-        'total_tipping'
+        'total_tipping',
+        'unique_token',
+        'status_order'
     ];
 
     public function User()

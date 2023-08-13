@@ -1,5 +1,5 @@
 <header>
-    <div class="header-top fixed top-0 z-50 w-full">
+    <div class="header-top fixed top-0 z-50 w-full shadow-xl">
 
         <div class="flex flex-wrap bg-[#102448] h-[35px] lg:h-[48px] text-white text-sm ">
             <div class="basis-full lg:basis-3/12">

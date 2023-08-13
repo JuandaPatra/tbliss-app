@@ -8,7 +8,7 @@ Sliders
 @section('content')
 <div class="card">
   <h5 class="card-header">List Hidden Gems / Activities</h5>
-  <div class="table-responsive text-nowrap">
+  <div class="table-responsive text-nowrap" style="height: 100vh;">
     <table class="table">
       <thead>
         <tr>
@@ -31,6 +31,8 @@ Sliders
               </button>
               <div class="dropdown-menu">
                 {{--<a class="dropdown-item" href="{{ route('slider.edit',['slider'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>--}}
+                <!-- <a class="dropdown-item" href="{{ route('activities.images',['id'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Review Hidden Gem</a> -->
+                <a class="dropdown-item" href="{{ route('testimoniHiddenGem.testimoni', ['id' =>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Review Hidden Gem</a>
                 <a class="dropdown-item" href="{{ route('activities.edit',['activity'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
                 <a class="dropdown-item" href="{{ route('activities.images',['id'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
                 

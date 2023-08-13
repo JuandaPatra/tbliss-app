@@ -85,7 +85,13 @@ class UserRegisterController extends Controller
             $message->subject('Selamat bergabung dengan Tbliss');
         });
 
-        return redirect('/');
+
+        $url = $request->session()->get('url-prev');
+        if ($url != '') {            
+            return redirect()->route('home.profileUpdate');
+        } else {
+            return redirect('/');
+        }
     }
 
     /**

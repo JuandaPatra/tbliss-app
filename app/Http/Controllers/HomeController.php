@@ -55,16 +55,16 @@ class HomeController extends Controller
             }
         }
 
-        // return $data;
 
+        $tripName = Trip_categories::where('status', '=', 'publish')->orderBy('date_from', 'ASC')->get(['id', 'title']);
 
-        return view('home', compact('countTrip', 'countHiddenGems', 'notifications', 'notificationsCount', 'data'));
+        return view('home', compact('countTrip', 'countHiddenGems', 'notifications', 'notificationsCount', 'data', 'tripName'));
     }
 
     public function table(Request $request)
     {
         if ($request->ajax()) {
-            $datas = Payment::orderBy('id', 'DESC')->get();
+            $datas = Payment::with(['trip'])->orderBy('id', 'DESC')->get();
             $data = [];
 
             foreach ($datas as $dt) {
@@ -77,6 +77,7 @@ class HomeController extends Controller
             }
             return Datatables::of($data)
                 ->addIndexColumn()
+
                 ->addColumn('opsi_pembelian', function ($row) {
                     if ($row->opsi_pembayaran == 0) {
                         return 'DP Payment';
@@ -129,36 +130,42 @@ class HomeController extends Controller
 
 
 
-
-
             if ($request->input('installmentSelect') == 1) {
-                $datas = Payment::whereBetween('due_date_satu', [$now, $to])->orderBy('id', 'DESC')->get();
+
+                $datas = Payment::with(['trip:id,title'])->whereBetween('due_date_satu', [$now, $to])->orderBy('id', 'DESC')->get();
             } elseif ($request->input('installmentSelect') == 2) {
 
                 $datas = Payment::whereBetween('due_date_dua', [$now, $to])->orderBy('id', 'DESC')->get();
             } elseif ($request->input('paymentMethodSelect') == 1) {
-                $datas = Payment::where('opsi_pembayaran', '=', 1)->orderBy('id', 'DESC')->get();
+
+                $datas = Payment::with(['trip:id,title'])->where('opsi_pembayaran', '=', 1)->orderBy('id', 'DESC')->get();
             } elseif ($request->input('paymentMethodSelect') == 2) {
-                $datas = Payment::where('opsi_pembayaran', '=', 0)->orderBy('id', 'DESC')->get();
+
+                $datas = Payment::with(['trip:id,title'])->where('opsi_pembayaran', '=', 0)->orderBy('id', 'DESC')->get();
             } elseif ($request->input('paymentMethodSelect') == 1 and $request->input('date') != '') {
-                $datas = Payment::where('opsi_pembayaran', '=', 1)->whereBetween('created_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+
+                $datas = Payment::with(['trip:id,title'])->where('opsi_pembayaran', '=', 1)->whereBetween('created_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
             } elseif ($request->input('paymentMethodSelect') == 2 and $request->input('date') != '') {
 
-                $datas = Payment::where('opsi_pembayaran', '=', 0)->whereBetween('created_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+                $datas = Payment::with(['trip:id,title'])->where('opsi_pembayaran', '=', 0)->whereBetween('created_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
             } elseif ($request->input('statusPaymentSelect') == 1 and $request->input('date') != '') {
 
-                $datas = Payment::where('status', '=', 'Menunggu Pembayaran')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+                $datas = Payment::with(['trip:id,title'])->where('status', '=', 'Menunggu Pembayaran')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
             } elseif ($request->input('statusPaymentSelect') == 2 and $request->input('date') != '') {
 
-                $datas = Payment::where('status', '=', 'Menunggu Verifikasi')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
-            }elseif ($request->input('statusPaymentSelect') == 3 and $request->input('date') != '') {
+                $datas = Payment::with(['trip:id,title'])->where('status', '=', 'Menunggu Verifikasi')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('statusPaymentSelect') == 3 and $request->input('date') != '') {
 
-                $datas = Payment::where('status', '=', 'Lunas')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
-            } 
-            else {
-                $datas = Payment::orderBy('id', 'DESC')->get();
+                $datas = Payment::with(['trip:id,title'])->where('status', '=', 'Lunas')->whereBetween('updated_at', [$now . ' 23:59:59', $to . ' 23:59:59'])->orderBy('id', 'DESC')->get();
+            } elseif ($request->input('tripSelect') != '') {
+
+                //coba filter berdasarkan trip
+                $datas = Payment::with(['trip:id,title'])->where('trip_categories_id', '=', $request->tripSelect)->orderBy('id', 'DESC')->get();
+            } else {
+
+                
+                $datas = Payment::with(['trip:id,title'])->orderBy('id', 'DESC')->get();
             }
-
 
 
             $data = [];
@@ -180,6 +187,16 @@ class HomeController extends Controller
                         return 'Full Payment';
                     }
                 })
+
+                ->addColumn('trip_name', function ($row) {
+
+                    if($row->trip == null){
+                        return '-';
+                    }else{
+                        return $row->trip->title;
+                    }
+                })
+
                 ->addColumn('due_satu', function ($due) {
                     if ($due->due_date_satu == null) {
                         return '-';
@@ -255,7 +272,7 @@ class HomeController extends Controller
         return redirect()->route('payments.show', ['payment' => $data->id]);
     }
 
-    
+
     private function timeAgo($time_ago)
     {
         $time_ago =  strtotime($time_ago) ? strtotime($time_ago) : $time_ago;

@@ -18,8 +18,8 @@
          <tr>
           <th>No.</th>
            <th>Title</th>
-           <th>Category</th>
-           <!-- <th>Status</th> -->
+           <th>Tanggal Trip</th>
+           <th>Status</th>
            <th>Actions</th>
          </tr>
        </thead>
@@ -30,6 +30,7 @@
            {{$loop->iteration}}
          </td> 
           <td><strong>{{ $row->title }}</strong></td>
+          <td>{{$row->date_from}} - {{$row->date_to}}</td>
           <td>{{ $row->status }}</td> 
           <td>
             <div class="dropdown">

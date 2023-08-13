@@ -62,6 +62,21 @@
                         <td style="padding:10px" width="30" height="21">:</td>
                         <td style="padding:10px" width="293" height="21" align="left">Sukses - PAID</td>
                     </tr>
+
+                    @if($dueDateNextInstallment != '')
+                    <tr style="height:30px">
+                        <td style="padding:10px" width="235" height="21">Tanggal cicilan selanjutnya</td>
+                        <td style="padding:10px" width="30" height="21">:</td>
+                        <td style="padding:10px" width="293" height="21" align="left">{{$dueDateNextInstallment}}</td>
+                    </tr>
+                    @endif
+                    @if($dueTotalNextInstallment != '')
+                    <tr style="height:30px">
+                        <td style="padding:10px" width="235" height="21">total cicilan selanjutnya</td>
+                        <td style="padding:10px" width="30" height="21">:</td>
+                        <td style="padding:10px" width="293" height="21" align="left">{{$dueTotalNextInstallment}}</td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>

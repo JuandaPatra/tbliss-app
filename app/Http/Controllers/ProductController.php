@@ -29,7 +29,11 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $datas = Trip_categories::where('status', '=', 'publish')->get();
+        $datas = Trip_categories::where('status', '=', 'publish')->orderBy('date_from', 'ASC')->get();
+        foreach($datas as $data){
+            $data['date_from'] = date('d M Y', strtotime($data->date_from));
+            $data['date_to'] = date('d M Y', strtotime($data->date_to));
+        }
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
         foreach ($notifications as $notification) {
