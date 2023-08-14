@@ -34,7 +34,7 @@ class CronEmail extends Command
     public function handle()
     {
 
-        $payments = Payment::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('due_date_satu', Carbon::now()->subDays(7))->get();
+        $payments = Payment::with(['user:id,email,alamat,phone', 'trip:id,title'])->whereDate('email_reminder_date', Carbon::now())->get();
 
         if (count($payments) >= 1) {
             foreach ($payments as $payment) {
@@ -42,30 +42,107 @@ class CronEmail extends Command
                     'tes' => $payment
 
                 ];
-                Mail::to($payment->user->email)
-                    ->send(new sendEmailWithCron($payments));
-                Log::info($payment);
+
+                $dueDateR    = date('l-j-m-Y-H-i ', strtotime($payment->tanggal_pembayaran));
+
+        
+                $res = explode('-', $dueDateR);
+        
+                $resc = $this->dueDateIndonesia($dueDateR) ;
+        
+                $dueDateResult = $resc;
+                $email = [
+                    'email'         => $payment['user']['email'],
+                    'nama'          => $payment['user']['name'],
+                    'telephone'     => $payment['user']['phone'],
+                    'invoiceId'     => $payment->invoice_id,
+                    'duedate'       => $dueDateResult,
+                    'qty'           => $payment->qty,
+                    'trip_name'     => $payment->trip->title,
+                    'trip_price'        =>  'Rp.' . number_format($payment->price_dp, 0, ',', '.'),
+                    'price'         =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
+                    'opsiPembayaran'    => "Pembayaran Cicilan",
+                    
+                    'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
+                    'visaTotal'         => 'Rp.' . number_format($payment->visa, 0, ',', '.'),
+                    'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
+                    'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
+                    'tippingCaption'    => 'Tipping ' . 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') . ' x ' . $payment->trip->day . 'hari',
+                    'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.'),
+                    
+                ];
+              
+
+                Mail::send('web.emails.emailReminder', $email, function ($message) use ($email, ) {
+                    $message->from('patrajuanda10@gmail.com');
+                    $message->to($email['email']);
+                    $message->subject('Tagihan Pembayaran  #' . $email['invoiceId']);
+                   
+                });
             }
+        }
+    }
+
+    public function dueDateIndonesia($dueDateEn)
+    {
+        $bulan = array(
+            1 =>   'Januari',
+            'Februari',
+            'Maret',
+            'April',
+            'Mei',
+            'Juni',
+            'Juli',
+            'Agustus',
+            'September',
+            'Oktober',
+            'November',
+            'Desember'
+        );
+        $pecahkan = explode('-', $dueDateEn);
+
+
+        $hari = $pecahkan[0];
+
+        switch ($hari) {
+            case 'Sunday':
+                $hari_ini = "Minggu";
+                break;
+
+            case 'Monday':
+                $hari_ini = "Senin";
+                break;
+
+            case 'Tuesday':
+                $hari_ini = "Selasa";
+                break;
+
+            case 'Wednesday':
+                $hari_ini = "Rabu";
+                break;
+
+            case 'Thursday':
+                $hari_ini = "Kamis";
+                break;
+
+            case 'Friday':
+                $hari_ini = "Jumat";
+                break;
+
+            case 'Saturday':
+                $hari_ini = "Sabtu";
+                break;
+
+            default:
+                $hari_ini = "Tidak di ketahui";
+                break;
         }
 
 
-        // foreach ($payments as $payment) {
-        //     $date = date('Y-m-d', strtotime($payment->due_date . ' -' . 7 . 'days'));
+        $monthIndonesia = $bulan[(int)$pecahkan[2]];
 
-        //     if ($date == $current_date) {
-        //         // $com = array("date" => $commande->available_date, "fournisseur" => $commande->fournisseur);
-        //         $payments = [
-        //             'tes' => $payment
+        $newDateIndonesia = $hari_ini . ' ' . $pecahkan[1] . ' ' . $monthIndonesia . ' ' . $pecahkan[3] ?? null;
 
-        //         ];
-        //         Log::info($payment);
-        //         Mail::to($payment->user->email)
-        //             ->send(new sendEmailWithCron($payments));
-        //         Log::info('email sent');
-        //     } else {
-        //         $this->info("No mail to send !");
-        //         Log::warning('email not sent');
-        //     }
-        // }
+        return $newDateIndonesia;
     }
 }

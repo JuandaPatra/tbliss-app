@@ -27,7 +27,8 @@ class Payment extends Model
         'url_unpaid_invoice',
         'url_paid_invoice',
         'due_date_satu',
-        'due_date_dua'
+        'due_date_dua',
+        'email_reminder_date'
     ];
 
     public function trip()
