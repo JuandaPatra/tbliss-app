@@ -109,13 +109,13 @@
 </section>
 
 <section>
-    <div class="container-lg pb-[50px] lg:pb-[164px]">
+    <div class="container-lg pb-[50px] lg:pb-[164px]" id="hometrip">
         <h1 class="text-[25px] lg:text-[30px] ml-[15px] mb-[30px]">
             Mari, pilih trip perjalanan {{$country->title}} kak!
         </h1>
         <div class="flex justify-between">
             <p class="ml-[15px] mb-[20px] text-greyDetTbliss font-interRegular result-text hidden">Trip yang tersedia pada tanggal 1 Juli 2023 - 20 Juli</p>
-            <div  class="reset-filter cursor-pointer hidden">
+            <div class="reset-filter cursor-pointer hidden">
                 <p class="text-greyDetTbliss hover:text-footer font-interRegular mr-10">Reset filter</p>
             </div>
 
@@ -274,7 +274,7 @@
     $(document).ready(function() {
 
         let base_url = window.location.origin;
-      let $flatpicker = $(".selector").flatpickr({
+        let $flatpicker = $(".selector").flatpickr({
             dateFormat: "d/m/Y",
             minDate: "today",
             maxDate: "31.12.2029",
@@ -288,11 +288,11 @@
             }
         });
 
-        $('.reset-filter').on('click', function(){
+        $('.reset-filter').on('click', function() {
             $("select option:first-child").attr("selected", "selected");
             $flatpicker.clear()
 
-            
+
 
             $.ajax({
                 type: "POST",
@@ -303,7 +303,7 @@
                     ),
                 },
                 data: {
-                    id :6,
+                    id: 6,
                 },
                 error: function(xhr, error) {
                     if (xhr.status === 500) {
@@ -317,19 +317,20 @@
                     }
                 },
                 success: function(data) {
+                   
                     $('.result-text').addClass('hidden')
                     $('.reset-filter').addClass('hidden')
                     $('.home-section').empty()
                     let result = data.result
                     if (result.length === 0) {
-                       
+
                         $('.home-section').append(
                             `<div class=" w-full flex justify-start text-[20px] text-greyDetTbliss ml-[15px]">
                             Maaf Kak, tidak ada jadwal trip pada saat ini
                             </div>`
                         )
                     } else {
-                        
+
                         result.forEach(function(item, index) {
                             $('.home-section').append(
                                 `
@@ -410,7 +411,9 @@
                     }
                 },
                 success: function(data) {
-                    console.log(data)
+                    $('html, body').animate({
+                        scrollTop: $('#hometrip').offset().top - 128
+                    }, 500, 'swing');
                     $('.result-text').removeClass('hidden')
                     $('.reset-filter').removeClass('hidden')
                     $('.home-section').empty()

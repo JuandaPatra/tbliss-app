@@ -139,10 +139,10 @@
                      data: 'name',
                      name: 'name'
                  },
-                 //  {
-                 //      data: 'email',
-                 //      name: 'email'
-                 //  },
+                  {
+                      data: 'email',
+                      name: 'email'
+                  },
                  {
                      data: 'roles',
                      name: 'roles'

@@ -71,9 +71,3 @@ $(".dropdown-cls").each(function () {
         });
     });
 });
-
-// $('.city-7').on('click', function(){
-//     console.log(
-//         'coba'
-//     )
-// })

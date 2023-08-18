@@ -45,6 +45,9 @@ class LoginController extends Controller
             return redirect()->route('home');
         } elseif ($user->hasRole('user')) {
             $url = $request->session()->get('url-prev');
+            if($user->alamat == null && $user->phone == null){
+                return redirect()->route('home.profile');
+            }
             return redirect()->to($url);
             // return redirect('/');
         }

@@ -1043,7 +1043,9 @@ class HomeController extends Controller
         }
 
 
+
         $user = Auth::user();
+
 
         $dp_price = (int)$request->dp_price;
 
@@ -1425,16 +1427,20 @@ class HomeController extends Controller
 
             Storage::put($path, $pdf->output());
 
+            $newCartItinUrl = $newCart->trip->link_g_drive;
+            $parseItinUrl = parse_url($newCartItinUrl);
+
             $urlKetentuan = globalData::where('categories', '=', 2)->first();
 
             $parse = parse_url($urlKetentuan->description);
             $urlVisa = globalData::where('categories', '=', 1)->first();
             $parseUrlVisa = parse_url($urlVisa->description);
 
-            Mail::send('web.emails.emailOrder', $email, function ($message) use ($email, $pdf, $path, $parse, $parseUrlVisa) {
+            Mail::send('web.emails.emailOrder', $email, function ($message) use ($email, $pdf, $path, $parse, $parseUrlVisa,$parseItinUrl) {
                 $message->from('patrajuanda10@gmail.com');
                 $message->to($email['email']);
                 $message->subject('Menunggu Pembayaran BCA untuk pembayaran #' . $email['invoiceId']);
+                $message->attach(public_path($parseItinUrl['path']));
                 $message->attach(public_path($parse['path']));
                 $message->attach(public_path($parseUrlVisa['path']));
             });
