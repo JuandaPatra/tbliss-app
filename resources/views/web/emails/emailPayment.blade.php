@@ -81,6 +81,8 @@
             </table>
         </div>
 
+
+        @if($opsiPembayaran != 'Full Payment' )
         <div style="padding:15px">
             <div style="margin-bottom:12px">
                 <p style="font-size:14px;font-weight:700;margin:0 0 20px 0">Ringkasan Pemesanan</p>
@@ -98,7 +100,106 @@
                     <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
                         <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
                             {{$trip_name}}
-                            (Down Payment)
+                            (Down Payment) 
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                           {{$tripPrice}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$tripPriceTotal}}
+                        </td>
+                    </tr>
+
+                    @if($visaTotal != 'Rp.0')
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            Visa
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                           {{$visa}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$visaTotal}}
+                        </td>
+                    </tr>
+                    @endif
+
+                    @if($totalTipping != 'Rp.0')
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            {{$tippingCaption}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                           {{$tippingOne}}
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$totalTipping}}
+                        </td>
+                    </tr>
+                    @endif
+
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            Pembayaran Uang Muka 
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$qty}}
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                        </td>
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top; color:red;font-weight:bold">
+                            {{$price}}
+                        </td>
+                    </tr>
+
+
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:1px solid #102448; height:87px;">
+                        <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+
+                        </td>
+                        <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+
+                        </td>
+                        <td style="padding: 20px 8px;vertical-align:top">
+                            BALANCE
+                        </td>
+                        <td style="border-bottom:1px solid #ededed;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
+                            {{$total_sisa_pelunasan}}
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+        @else
+        <div style="padding:15px">
+            <div style="margin-bottom:12px">
+                <p style="font-size:14px;font-weight:700;margin:0 0 20px 0">Ringkasan Pemesanan</p>
+            </div>
+            <table style="border-collapse:collapse;color:black;text-align:left;width:100%">
+                <thead>
+                    <tr style="border-bottom:2px solid #102448;border-left:none;border-right:none;border-top:2px solid #102448">
+                        <th width="51%" style="padding:8px;padding-top:15px">Item</th>
+                        <th width="12%" style="padding:8px;padding-top:15px">Qty</th>
+                        <th width="25%" style="padding:8px;padding-top:15px">Unit Price</th>
+                        <th width="12%" style="padding:8px;padding-top:15px">Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:87px;">
+                        <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top;">
+                            {{$trip_name}}
+                            (Full Payment)
                         </td>
                         <td style="border-bottom:none;line-height:1.42857143;padding: 20px 8px;vertical-align:top">
                             {{$qty}}
@@ -165,6 +266,7 @@
             </table>
 
         </div>
+        @endif
         <div style="color:#5b5b5b;padding:5px 15px 30px 5px; margin-top:103px;">
             <div style="display:inline-block">
                 <div style="padding-left:8px;padding-right:8px">

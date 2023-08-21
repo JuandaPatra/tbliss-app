@@ -78,6 +78,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        // return $request;
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
         $dp_price = str_replace('.', '', $request->dp_price);
@@ -108,7 +109,8 @@ class ProductController extends Controller
                 'installment2'  =>  'required',
                 'visa'          =>  'required',
                 'tipping'       =>  'required',
-                'total_tipping' =>  'required'
+                'total_tipping' =>  'required',
+                'prices_total' => 'required'
 
                 // 'installment3'  =>  'required',
             ]
@@ -230,7 +232,7 @@ class ProductController extends Controller
 
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $hashtags = Hashtag::all(['id', 'title']);
-        $total_price = $trip->price + $trip->visa;
+        $total_price = $trip->price + $trip->visa + $trip->total_tipping;
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
         foreach ($notifications as $notification) {

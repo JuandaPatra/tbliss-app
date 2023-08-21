@@ -644,7 +644,7 @@ class HomeController extends Controller
                 ],
                 [
                     $price = $newCart->trip->installment1,
-                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
+                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 50 . 'days')),
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = 0,
                     $hari = $dayRange
@@ -658,20 +658,24 @@ class HomeController extends Controller
                 ],
             ];
         } elseif ($dayRange >= 91) {
-            $months = 4;
+            $months = 3;
 
             $monthly = [
                 [
-                    $price = $newCart->trip->dp_price,
-                    $perMonth = 'DP / Uang Muka',
-                    $visaperMonth = 0,
-                    $tippingPerMonth = 0,
-                    $totalPerMonth = $price + $visaperMonth + $tippingPerMonth,
-                    $hari = $dayRange
+                     // $price = $newCart->trip->dp_price,
+                     $price = $newCart->trip->dp_price * $newCart->qty,
+                     $perMonth = 'DP / Uang Muka',
+                     $visaperMonth = 0,
+                     $tippingPerMonth = 0,
+                     $totalPerMonth = $price + $visaperMonth + $tippingPerMonth,
+                     $hari = $dayRange,
+                     $priceDP = $newCart->trip->dp_price * 1,
+                     $qty = $newCart->qty
+                    
                 ],
                 [
                     $price = $newCart->trip->installment1,
-                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 2 * 30 . 'days')),
+                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 50 . 'days')),
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = 0,
                     $hari = $dayRange

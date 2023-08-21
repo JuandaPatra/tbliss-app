@@ -16,6 +16,7 @@ use App\Models\globalData;
 use App\Models\logPayments;
 use App\Models\Trip_categories;
 use App\Models\User;
+use Barryvdh\DomPDF\PDF as DomPDFPDF;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 
@@ -300,35 +301,36 @@ class PaymentController extends Controller
 
 
 
-        DB::beginTransaction();
-        try {
-            $post = Payment::whereId($id);
-            $trip = Trip_categories::where('id', '=', $posts->trip_categories_id)->first();
-            $post->update([
-                'tanggal_pembayaran_acc' => Carbon::now(),
-                'status'                 => 'Lunas'
+        // DB::beginTransaction();
+        // try {
+        //     $post = Payment::whereId($id);
+        //     $trip = Trip_categories::where('id', '=', $posts->trip_categories_id)->first();
+        //     $post->update([
+        //         'tanggal_pembayaran_acc' => Carbon::now(),
+        //         'status'                 => 'Lunas'
 
-            ]);
-
-
-            $numseat = (int)$trip->seat;
-            $qty = $posts->qty;
-
-            $total = $numseat - $qty;
-            $trip->update([
-                'seat' => $total
-            ]);
-        } catch (\throwable $th) {
-            DB::rollBack();
-            Alert::error('Edit Pembayaran', 'error' . $th->getMessage());
-            // return redirect()->back()->withInput($request->all());
-            return redirect()->back();
-        } finally {
-            DB::commit();
-        }
+        //     ]);
 
 
-        $payment = Payment::with(['trip:id,title,seat,visa,price,tipping,day'])->where('id', '=', $id)->first();
+        //     $numseat = (int)$trip->seat;
+        //     $qty = $posts->qty;
+
+        //     $total = $numseat - $qty;
+        //     $trip->update([
+        //         'seat' => $total
+        //     ]);
+        // } catch (\throwable $th) {
+        //     DB::rollBack();
+        //     Alert::error('Edit Pembayaran', 'error' . $th->getMessage());
+        //     // return redirect()->back()->withInput($request->all());
+        //     return redirect()->back();
+        // } finally {
+        //     DB::commit();
+        // }
+
+
+        // // $payment = Payment::with(['trip:id,title,seat,visa,price,tipping,day'])->where('id', '=', $id)->first();
+        $payment = Payment::with(['trip'])->where('id', '=', $id)->first();
         $user = User::where('id', '=', $payment->user_id)->first();
         $invoiceDate = Carbon::now();
 
@@ -354,14 +356,38 @@ class PaymentController extends Controller
                 'statusPembayaran'  =>  'Lunas',
                 'opsiPembayaran'    => $opsiPembayaran,
                 'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
-                'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
+                // 'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
                 'visaTotal'         => 'Rp.' . number_format($payment->visa, 0, ',', '.'),
                 'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
-                'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
+                // 'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
                 'tippingCaption'    => 'Tipping ' . 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') . ' x ' . $payment->trip->day . 'hari',
-                'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.'),
+                
 
+                'tripPrice'         => 'Rp.' . number_format($payment->trip->price * $payment->qty , 0, ',', '.'), 
+                'totalPrice'        =>  'Rp.' . number_format($payment->trip->price, 0, ',', '.'), 
+                'totalTipping'      => 'Rp.' . number_format($payment->trip->total_tipping, 0, ',', '.'),
+                'totalTippingQty'   => 'Rp.' . number_format($payment->trip->total_tipping * $payment->qty, 0, ',', '.'),
+                'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
+                'totalVisa'         =>    'Rp.' . number_format($payment->trip->visa * $payment->qty, 0, ',', '.'),
+                'grandTotal'        =>  number_format(($payment->trip->price + $payment->trip->total_tipping + $payment->trip->visa) * $payment->qty , 0, ',', '.'),
+
+                'due_date'     =>  date('d/m/Y ', strtotime($payment->due_date)),
+
+                'title_caption_due_date_1' => $payment->due_date_dua != null ? 'Pembayaran Installment 1': 'Pelunasan' ,
+                'total_due_date'=> 'Rp.' . number_format($payment->price_dp * $payment->qty, 0, ',', '.') ,
+
+                'due_date_payment' => date('d/m/Y ', strtotime($payment->updated_at)),
+
+                'total_due_date_satu'=> $payment->due_date_dua != null ?  'Rp.' . number_format($payment->trip->installment1 * $payment->qty, 0, ',', '.') : 'Rp.' . number_format(($payment->trip->price + $payment->trip->total_tipping + $payment->trip->visa) * $payment->qty - $payment->price_dp * $payment->qty, 0, ',', '.') ,
+                'due_date_satu' => date('d/m/Y ', strtotime($payment->due_date_satu)), 
+
+                'total_due_date_dua'=> $payment->due_date_dua != null ? 'Rp.' . number_format($payment->trip->installment2 * $payment->qty, 0, ',', '.') : '',
+                'due_date_dua'  => $payment->due_date_dua != null ?  date('d/m/Y ', strtotime($payment->due_date_dua)) : '',
+
+                'total_sisa_pelunasan' =>  'Rp.' . number_format(($payment->trip->price + $payment->trip->total_tipping + $payment->trip->visa) * $payment->qty - $payment->price_dp * $payment->qty, 0, ',', '.')
             ];
+
+
 
             // $pdf = PDF::loadView('admin.payment.coba1', compact('dataCoba'));
 
@@ -386,20 +412,33 @@ class PaymentController extends Controller
                 'invoiceId'     => $payment->invoice_id,
                 'duedate'       => date('l,jS M Y', strtotime($invoiceDate . ' + 2 days')),
                 'qty'           => $payment->qty,
-                'trip_name'     => $payment->trip->title,
+                
                 'trip_price'        =>  'Rp.' . number_format($payment->price_dp, 0, ',', '.'),
                 'price'         =>  'Rp.' . number_format(($payment->price_dp * $payment->qty), 0, ',', '.'),
                 'opsiPembayaran'    => $opsiPembayaran,
                 'invoice_date'      => date('l,jS M Y', strtotime($invoiceDate)),
-                'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
-                'visaTotal'         => 'Rp.' . number_format($payment->visa, 0, ',', '.'),
-                'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
-                'totalTipping'      => 'Rp.' . number_format($payment->total_tipping, 0, ',', '.'),
-                'tippingCaption'    => 'Tipping ' . 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') . ' x ' . $payment->trip->day . 'hari',
+                
+                
+               
+               
                 'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.'),
                 'dueDateNextInstallment' =>  $dueDateResult,
-                'dueTotalNextInstallment' => 'Rp.' . number_format(($dueTotalNextInstallment), 0, ',', '.'),
+                'dueTotalNextInstallment' => $payment->due_date_dua != null ?  'Rp.' . number_format($payment->trip->installment1 * $payment->qty, 0, ',', '.') : 'Rp.' . number_format(($payment->trip->price + $payment->trip->total_tipping + $payment->trip->visa) * $payment->qty - $payment->price_dp * $payment->qty, 0, ',', '.') ,
+                'due_date_satu' => date('d/m/Y ', strtotime($payment->due_date_satu)), 
+
+                'trip_name'         => $payment->trip->title,
+                'tripPrice'         => 'Rp.' . number_format($payment->trip->price, 0, ',', '.'),
+                'tripPriceTotal'    => 'Rp.' . number_format($payment->trip->price * $payment->qty, 0, ',', '.'),
+                'visa'              => 'Rp.' . number_format($payment->trip->visa, 0, ',', '.'),
+                'visaTotal'         => 'Rp.' . number_format($payment->trip->visa * $payment->qty, 0, ',', '.'),
+                'tipping'           => 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.'),
+                'tippingOne'        => 'Rp.' . number_format($payment->trip->total_tipping, 0, ',', '.'),
+                'totalTipping'      => 'Rp.' . number_format($payment->trip->total_tipping * $payment->qty, 0, ',', '.'),
+                'tippingCaption'    => 'Tipping ' . 'Rp.' . number_format($payment->trip->tipping, 0, ',', '.') . ' x ' . $payment->trip->day . 'hari',
+                'total_sisa_pelunasan' =>  'Rp.' . number_format(($payment->trip->price + $payment->trip->total_tipping + $payment->trip->visa) * $payment->qty - $payment->price_dp * $payment->qty, 0, ',', '.')
+
             ];
+
         } else {
             $opsiPembayaran = 'Full Payment';
 
@@ -427,11 +466,9 @@ class PaymentController extends Controller
                 'grandTotal'        =>  number_format($payment->grand_total, 0, ',', '.'),
 
             ];
-            // $pdf = PDF::loadView('admin.payment.coba1', compact('dataCoba'));
 
-            // return view('admin.invoice.index', compact('dataCoba'));
 
-            $pdf = PDF::loadView('admin.invoice.index', compact('dataCoba'));
+            $pdf = PDF::loadView('admin.invoice.indexFullPayment', compact('dataCoba'));
             // User::sendEMail($email, $pdf);
             PDF::getOptions()->set(
                 'fontDir',

@@ -110,7 +110,7 @@ Category Add
                   <div class="col-6">
                      <label for="input_post_date_from" class="form-label">Tanggal Keberangkatan</label>
                      <!-- <input id="input_post_seat" name="link" type="text" placeholder="" class="form-control @error('link') is-invalid @enderror" name="link" value="{{ old('link') }}" /> -->
-                     <input class="form-control" type="date" value="" name="date_from" id="html5-date-input">
+                     <input class="form-control" type="date" value="{{old('date_from')}}" name="date_from" id="html5-date-input">
                      @error('date_from')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -120,7 +120,7 @@ Category Add
                   <div class="col-6">
                      <label for="input_post_date_to" class="form-label">Tanggal Kedatangan</label>
                      <!-- <input id="input_post_seat" name="link" type="text" placeholder="" class="form-control @error('link') is-invalid @enderror" name="link" value="{{ old('link') }}" /> -->
-                     <input class="form-control" type="date" value="" name="date_to" id="html5-date-input">
+                     <input class="form-control" type="date" value="{{old('date_to')}}" name="date_to" id="html5-date-input">
                      @error('date_to')
                      <span class="invalid-feedback" role="alert">
                         <strong>{{ $message }}</strong>
@@ -271,7 +271,7 @@ Category Add
       <div class="card-body">
          <div class="mb-3">
             <label for="input_post_price" class="form-label">Total Price</label>
-            <input id="input_post_prices_total" name="prices_total" type="text" placeholder="" class="form-control @error('prices_total') is-invalid @enderror" name="prices_total" value="0" readonly />
+            <input id="input_post_prices_total" name="prices_total" type="text" placeholder="" class="form-control @error('prices_total') is-invalid @enderror" name="prices_total" value="{{ old('prices_total')  }}" readonly />
             @error('prices_total')
             <span class="invalid-feedback" role="alert">
                <strong>{{ $message }}</strong>
@@ -309,15 +309,7 @@ Category Add
                </span>
                @enderror
             </div>
-            {{--<div class="mb-3">
-            <label for="input_post_price" class="form-label">Installment 3</label>
-            <input id="input_post_price" name="installment3" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror" name="installment3" value="{{ old('installment3') }}" />
-            @error('installment3')
-            <span class="invalid-feedback" role="alert">
-               <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-         </div>--}}
+            
          </form>
       </div>
    </div>
