@@ -77,6 +77,11 @@
                         <td style="padding:10px" width="293" height="21" align="left">{{$dueTotalNextInstallment}}</td>
                     </tr>
                     @endif
+                    @if($dueTotalNextInstallment != '')
+                    <tr style="height:30px">
+                        <td style="padding:10px" width="235" height="21"  colspan="4">*detail tanggal pembayaran dapat kamu lihat di lampiran invoice</td>
+                    </tr>
+                    @endif
                 </tbody>
             </table>
         </div>
