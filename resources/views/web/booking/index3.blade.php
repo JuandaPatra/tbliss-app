@@ -634,7 +634,7 @@
                             </tr>
                     </tbody>
                 </table>
-                <h6>* Biaya Visa dan Tipping sudah include kedalam skema pembayaran</h6>
+                <h6>* Biaya Visa dan Tipping sudah include ke dalam skema pembayaran</h6>
             </div>
 
         </div>

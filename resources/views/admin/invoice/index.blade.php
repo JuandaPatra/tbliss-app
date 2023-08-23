@@ -38,6 +38,10 @@
         }
 
 
+        @page{
+            padding: 90px;
+        }
+
 
 
 
@@ -133,8 +137,7 @@
                 <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:27px;">
                     <td style="border-bottom:none;line-height:1.42857143;padding: 10px 8px;vertical-align:top;font-size:10px">
                         {{$dataCoba['trip_name']}}
-                        <br>
-                        ({{$dataCoba['opsiPembayaran']}})
+                        
                     </td>
                     <td style="border-bottom:none;line-height:1.42857143;padding: 10px 8px;vertical-align:top;font-size:10px">
                         {{$dataCoba['qty']}}
