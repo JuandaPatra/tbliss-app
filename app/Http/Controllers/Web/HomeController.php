@@ -622,7 +622,7 @@ class HomeController extends Controller
                 ],
                 [
                     $price = $newCart->trip->installment2,
-                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
+                    $perMonth = 'Pelunasan ('. date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')) . ')',
                     $visaperMonth = 0,
                     $tippingPerMonth = $newCart->trip->total_tipping
                 ],
@@ -644,14 +644,14 @@ class HomeController extends Controller
                 ],
                 [
                     $price = $newCart->trip->installment1,
-                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 50 . 'days')),
+                    $perMonth = 'Installment ('.date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 50 . 'days')) .')',
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = 0,
                     $hari = $dayRange
                 ],
                 [
                     $price = $newCart->trip->installment2,
-                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
+                    $perMonth ='Pelunasan ('. date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')) . ')',
                     $visaperMonth = 0,
                     $tippingPerMonth = $newCart->trip->total_tipping,
                     $hari = $dayRange
@@ -675,14 +675,14 @@ class HomeController extends Controller
                 ],
                 [
                     $price = $newCart->trip->installment1,
-                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 50 . 'days')),
+                    $perMonth = 'Installment ('. date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 50 . 'days')) .')',
                     $visaperMonth = $newCart->trip->visa,
                     $tippingPerMonth = 0,
                     $hari = $dayRange
                 ],
                 [
                     $price = $newCart->trip->installment2,
-                    $perMonth = date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')),
+                    $perMonth = 'Pelunasan ('. date('d M Y', strtotime($newCart->trip->date_from . ' -' . 1 * 30 . 'days')) . ')',
                     $visaperMonth = 0,
                     $tippingPerMonth = $newCart->trip->total_tipping,
                     $hari = $dayRange

@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-Sliders
+Payment Detail
 @endsection
 @section('breadcrumbs')
 {{-- {{ Breadcrumbs::render('sliders') }} --}}

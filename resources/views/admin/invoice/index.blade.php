@@ -140,7 +140,7 @@
                         {{$dataCoba['qty']}}
                     </td>
                     <td style="padding: 10px 8px;vertical-align:top;font-size:10px">
-                    {{$dataCoba['totalPrice']}}
+                        {{$dataCoba['totalPrice']}}
                     </td>
                     <td style="border-bottom:none;line-height:1.42857143;padding: 10px 8px;vertical-align:top;font-size:10px">
                         {{$dataCoba['tripPrice']}}
@@ -188,11 +188,15 @@
 
                 <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:27px;">
                     <td style="border-bottom:none;line-height:1.42857143;padding: 10px 8px;vertical-align:top;font-size:10px">
-                        Pembayaran Uang Muka
-                        <span style="margin-left: 145px;">
-                            Paling lambat
-                            {{$dataCoba['due_date']}}
-                        </span>
+                        <div style="display: flex;justify-content:space-between">
+                            <span>
+                                Pembayaran Uang Muka
+                            </span>
+                            <span >
+                                Paling lambat
+                                {{$dataCoba['due_date']}}
+                            </span>
+                        </div>
                     </td>
 
                     <td style="padding: 10px 8px;vertical-align:top;font-size:10px">
@@ -206,11 +210,15 @@
 
                 <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:27px;">
                     <td style="border-bottom:none;line-height:1.42857143;padding: 3px 8px;vertical-align:top;font-size:10px">
-                     {{$dataCoba['title_caption_due_date_1']}}
-                        <span style="margin-left: 140px;">
-                            Paling lambat
-                            {{$dataCoba['due_date_satu']}}
-                        </span>
+                        <div style="display: flex;justify-content:space-between">
+                            <span>
+                                {{$dataCoba['title_caption_due_date_1']}}
+                            </span>
+                            <span >
+                                Paling lambat
+                                {{$dataCoba['due_date_satu']}}
+                            </span>
+                        </div>
                     </td>
 
                     <td style="padding: 3px 8px;vertical-align:top;font-size:10px">
@@ -221,11 +229,15 @@
                 @if($dataCoba['total_due_date_dua'] != '')
                 <tr style="border-bottom:none;border-left:none;border-right:none;border-top:2px solid #ecf0f1; height:27px;">
                     <td style="border-bottom:none;line-height:1.42857143;padding: 3px 8px;vertical-align:top;font-size:10px">
+                    <div style="display: flex;justify-content:space-between">
+                    <span>
                         Pelunasan
-                        <span style="margin-left: 250px;">
-                            Paling lambat
-                            {{$dataCoba['due_date_dua']}}
-                        </span>
+                    </span>
+                    <span  >
+                        Paling lambat
+                        {{$dataCoba['due_date_dua']}}
+                    </span>
+                    </div>
                     </td>
 
                     <td style="padding: 3px 8px;vertical-align:top;font-size:10px">
@@ -278,7 +290,7 @@
                         {{$dataCoba['total_sisa_pelunasan']}}
                     </td>
                 </tr>
-                
+
             </tbody>
         </table>
 
