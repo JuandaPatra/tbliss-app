@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-Slider Edit
+Edit hidden gem
 @endsection
 @section('breadcrumbs')
 {{-- {{ Breadcrumbs::render('edit_slider',$slider) }} --}}
@@ -33,6 +33,15 @@ Slider Edit
                      <strong>{{ $message }}</strong>
                   </span>
                   @enderror
+               </div>
+               <!-- Images For banner -->
+               <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">Banner</label>
+                  <div class="input-group">
+                     <button id="button_post_imagesBanner" data-input="input_post_imagesBanner" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_imagesBanner" name="banner" value="{{ old('banner', asset($hidden_gem->banner)) }}" type="text" class="form-control" placeholder="" readonly />
+                  </div>
                </div>
                <div class="mb-3">
                   <label for="input_post_thumbnail" class="form-label">Images For Desktop</label>
@@ -84,11 +93,7 @@ Slider Edit
                               @elseif($checkbox1->hashtag_id != $checkbox->id)
                               <input class="form-check-input" type="checkbox" value="{{$checkbox->id}}" id="defaultCheck1" name="hashtag[]" > 
                               @endif
-                           {{--@if($checkbox1->hashtag_id == $checkbox->id)
-                           <input class="form-check-input" type="checkbox" value="{{$checkbox->id}}" id="defaultCheck1" name="hashtag[]" checked>
-                           @elseif($checkbox1->hashtag_id != $checkbox->id)
-                           <input class="form-check-input" type="checkbox" value="{{$checkbox->id}}" id="defaultCheck1" name="hashtag[]">
-                           @endif --}}
+                           
                            @endforeach
                            <label class="form-check-label" for="defaultCheck1">
                               {{$checkbox->title}}
@@ -108,33 +113,7 @@ Slider Edit
                      @endforeach --}}
 
                   </div>
-                  {{-- <div class="col-md">
-                        <small class="text-light fw-semibold">Radio</small>
-                        <div class="form-check mt-3">
-                           <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1">
-                           <label class="form-check-label" for="defaultRadio1">
-                              Unchecked
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2" checked="">
-                           <label class="form-check-label" for="defaultRadio2">
-                              Checked
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" value="" id="disabledRadio1" disabled="">
-                           <label class="form-check-label" for="disabledRadio1">
-                              Disabled unchecked
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" value="" id="disabledRadio2" disabled="" checked="">
-                           <label class="form-check-label" for="disabledRadio2">
-                              Disabled checkbox
-                           </label>
-                        </div>
-                     </div> --}}
+                  
                </div>
             </div>
             <div class="mb-3">
@@ -185,6 +164,7 @@ Slider Edit
       // event : input thumbnail with file manager
       $('#button_post_imagesDesktop').filemanager('image');
       $('#button_post_imagesMobile').filemanager('image');
+      $('#button_post_imagesBanner').filemanager('image');
 
       $('#select_post_status').select2({
          theme: 'bootstrap4',

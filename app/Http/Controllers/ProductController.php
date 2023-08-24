@@ -78,7 +78,6 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
         $dp_price = str_replace('.', '', $request->dp_price);
@@ -98,6 +97,7 @@ class ProductController extends Controller
                 'thumbnail'     =>  'required',
                 'itinerary'     =>  'required',
                 'price'         =>  'required',
+                'seat'          =>  'required',
                 'day'           =>  'required',
                 'night'         =>  'required',
                 'link_g_drive'  =>  'required',
@@ -110,7 +110,9 @@ class ProductController extends Controller
                 'visa'          =>  'required',
                 'tipping'       =>  'required',
                 'total_tipping' =>  'required',
-                'prices_total' => 'required'
+                'prices_total' => 'required',
+                'countries'     => 'required',
+                'cities'        => 'required',
 
                 // 'installment3'  =>  'required',
             ]
@@ -239,6 +241,7 @@ class ProductController extends Controller
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
+
         return view('admin.products.edit', [
             'statuses'      => $this->statuses(),
             'destinations'  => $negara,

@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\DB;
 use Alert;
 use App\Models\logPayments;
 use App\Models\PickHiddenGem;
+use App\Models\Place_categories;
 use App\Models\Trip_cities_hidden_gem_hashtag;
 
 class HiddenGemController extends Controller
@@ -32,6 +33,7 @@ class HiddenGemController extends Controller
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
+
         return view('admin.hidden_gem.index', compact('datas', 'notifications', 'notificationsCount'));
     }
 
@@ -48,6 +50,9 @@ class HiddenGemController extends Controller
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
+        $cities = Place_categories::with('descendants')->get();
+
+
         return view('admin.hidden_gem.create', [
             'statuses' => $this->statuses(),
             'orders' => $this->orders(),
@@ -65,13 +70,16 @@ class HiddenGemController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
                 'slug' => 'required|string|unique:hidden_gems,slug',
-                'status' => 'required'
+                'status' => 'required',
+                'image_desktop' => 'required',
+                'image_mobile'  => 'required',
+                'description'   => 'required',
+                'hashtag'       => 'required'
             ]
         );
 
@@ -79,7 +87,6 @@ class HiddenGemController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
         // proses insert
-        // return $request;
         DB::beginTransaction();
         try {
             $post = Hidden_gem::create([
@@ -90,6 +97,7 @@ class HiddenGemController extends Controller
                 'image_mobile'      => $request->image_mobile,
                 'places_id'         => $request->destination,
                 'status'            => $request->status,
+                'banner'            => $request->banner
             ]);
 
             DB::commit();
@@ -110,7 +118,6 @@ class HiddenGemController extends Controller
                     DB::commit();
                 }
             }
-            // return $hidden_gem_id;
 
 
 
@@ -145,7 +152,7 @@ class HiddenGemController extends Controller
     public function edit($id)
     {
         
-        $hiddem_gem = Hidden_gem::whereId($id)->with(['place', 'hidden_hashtag'])->get(['id','title','slug','description1','image_desktop','image_mobile', 'places_id','status']);
+        $hiddem_gem = Hidden_gem::whereId($id)->with(['place', 'hidden_hashtag'])->get(['id','title','slug','description1','image_desktop','image_mobile', 'places_id','status','banner']);
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
         foreach($notifications as $notification){
@@ -175,8 +182,13 @@ class HiddenGemController extends Controller
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                // 'slug' => 'required|string|unique:hidden_gems,slug',
-                'status' => 'required'
+                'slug' => 'required',
+                'status' => 'required',
+                'image_desktop' => 'required',
+                'image_mobile'  => 'required',
+                'description'   => 'required',
+                'hashtag'       => 'required',
+                'banner'        => 'required'
             ]
         );
 
@@ -184,7 +196,6 @@ class HiddenGemController extends Controller
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
         //// proses insert
-        // return $request;
         DB::beginTransaction();
         try {
             $post = Hidden_gem::whereId($id);

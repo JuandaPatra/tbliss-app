@@ -30,6 +30,10 @@
     .sorting_1{
       text-align: center;
     }
+
+    .error-card{
+      border: 1px solid red;
+    }
   </style>
 
   {{-- css:external --}}

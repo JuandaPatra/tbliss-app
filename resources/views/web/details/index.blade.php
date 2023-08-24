@@ -38,6 +38,7 @@
                 </p>
 
                 <div class="row-button w-[80%]">
+                    
                     @foreach($cityArray as $city)
                     <button type="button" id="city-{{$city->id}}" value="{{$city->id}}" class="cityX w-[115px] lg:w-[150px] text-gray-900 bg-transparent border border-gray-300 focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 font-medium rounded-full text-sm px-1 py-2.5 mr-0 mb-2  " data-pickCity="{{$city->id}}">{{$city->title}}</button>
                     @endforeach
@@ -87,7 +88,7 @@
 
 <div>
 
-
+ 
     <section class="container-full">
         <div class="flex justify-center">
             <h1 class="text-center w-[80%] lg:w-[35%] text-[30px] pb-10 mt-[71px]">
@@ -119,30 +120,46 @@
                         </div>
                         <div class="text-[18px] pt-3 pb-3">
                             <h1 class="font-bold uppercase">
-                                @foreach($trip->place_trip_categories_cities as $index => $city)
-                                @if($trip->place_trip_categories_cities->count() == 1)
-                                {{$city->place_categories->title}}
-
-                                @else
-                                @if($index == 0)
-                                {{$city->place_categories->title}} -
-                                @elseif($loop->count == $index+1)
-                                {{$city->place_categories->title}}
-                                @else
-                                {{$city->place_categories->title}} -
-                                @endif
-                                @endif
-                                @endforeach
+                                
+                                    @foreach($trip->place_trip_categories_cities as $index => $city)
+                                    @if($trip->place_trip_categories_cities->count() == 1)
+                                    {{$city->place_categories->title}}
+    
+                                    @else
+                                    @if($index == 0)
+                                    {{$city->place_categories->title}} -
+                                    @elseif($loop->count == $index+1)
+                                    {{$city->place_categories->title}}
+                                    @else
+                                    {{$city->place_categories->title}} -
+                                    @endif
+                                    @endif
+                                    @endforeach
+                                    
                             </h1>
 
 
 
                             <div class="h-[180px]">
-                                @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
-                                <p>
-                                    {{$hidden_gem->hidden_gems->title}}
-                                </p>
-                                @endforeach
+                                {{--
+                                    @if($trip->place_trip_categories_cities[0]->pick_hidden_gem->count !=0) 
+                                    @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
+
+                                    
+                                    <p>
+                                        {{$hidden_gem->hidden_gems->title}}
+                                    </p>
+                                    @endforeach
+                                    @endif
+                                    --}}
+
+                                    @if($trip->place_trip_categories_cities->count() !=0 )
+                                    @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
+                                    <p>
+                                        {{$hidden_gem->hidden_gems->title}}
+                                    </p>
+                                    @endforeach
+                                    @endif
                             </div>
 
 
@@ -192,29 +209,35 @@
                         </div>
                         <div class="text-[18px] pt-3 pb-3">
                             <h1 class="font-bold uppercase">
-                                @foreach($trip->place_trip_categories_cities as $index => $city)
-                                @if($trip->place_trip_categories_cities->count() == 1)
-                                {{$city->place_categories->title}}
-
-                                @else
-                                @if($index == 0)
-                                {{$city->place_categories->title}} -
-                                @elseif($loop->count == $index+1)
-                                {{$city->place_categories->title}}
-                                @else
-                                {{$city->place_categories->title}} -
-                                @endif
-                                @endif
-                                @endforeach
+                                
+                                    @foreach($trip->place_trip_categories_cities as $index => $city)
+                                    @if($trip->place_trip_categories_cities->count() == 1)
+                                    {{$city->place_categories->title}}
+    
+                                    @else
+                                    @if($index == 0)
+                                    {{$city->place_categories->title}} -
+                                    @elseif($loop->count == $index+1)
+                                    {{$city->place_categories->title}}
+                                    @else
+                                    {{$city->place_categories->title}} -
+                                    @endif
+                                    @endif
+                                    @endforeach
+                                    
                             </h1>
 
 
                             <div class="h-[180px]">
-                                @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
-                                <p>
-                                    {{$hidden_gem->hidden_gems->title}}
-                                </p>
-                                @endforeach
+                                
+                                    @if($trip->place_trip_categories_cities->count() !=0 )
+                                    @foreach($trip->place_trip_categories_cities[0]->pick_hidden_gem as $hidden_gem)
+                                    <p>
+                                        {{$hidden_gem->hidden_gems->title}}
+                                    </p>
+                                    @endforeach
+                                    @endif
+                                     
                             </div>
 
 
@@ -242,6 +265,7 @@
 
         </div>
     </section>
+
 
 
     <section class="container-lg pt-[121px]">

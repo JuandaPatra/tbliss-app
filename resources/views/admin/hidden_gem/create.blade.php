@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-Slider Add
+Add Hidden Gems
 @endsection
 @section('breadcrumbs')
 {{-- {{ Breadcrumbs::render('add_category') }} --}}
@@ -32,6 +32,15 @@ Slider Add
                   </span>
                   @enderror
                </div>
+               <!-- Images For banner -->
+               <div class="mb-3">
+                  <label for="input_post_thumbnail" class="form-label">Banner</label>
+                  <div class="input-group">
+                     <button id="button_post_imagesBanner" data-input="input_post_imagesBanner" class="btn btn-outline-primary" type="button">Browse >
+                     </button>
+                     <input id="input_post_imagesBanner" name="banner" value="{{ old('banner') }}" type="text" class="form-control" placeholder="" readonly />
+                  </div>
+               </div>
                <!-- Images For Desktop -->
                <div class="mb-3">
                   <label for="input_post_thumbnail" class="form-label">Images For Desktop</label>
@@ -54,7 +63,7 @@ Slider Add
                <!-- deskripsi -->
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Description</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('description') }}" />
+                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('description') }}" /> 
                   @error('description')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -80,44 +89,16 @@ Slider Add
                <div class="card-body">
                   <div class="row gy-3">
                      <div class="col-md">
-                        <small class="text-light fw-semibold">Checkboxes</small>
+                        <small class="text-light fw-semibold">choose related hashtag</small>
                         @foreach($checkboxes as $checkbox)
                         <div class="form-check mt-3">
-                           <input class="form-check-input" type="checkbox" value="{{$checkbox->id}}" id="defaultCheck1" name="hashtag[]">
+                           <input class="form-check-input" type="checkbox" value="{{$checkbox->id}}" id="defaultCheck1" name="hashtag[]" @if(is_array(old('hashtag')) && in_array($checkbox->id, old('hashtag'))) checked @endif>
                            <label class="form-check-label" for="defaultCheck1">
                               {{$checkbox->title}}
                            </label>
                         </div>
                         @endforeach
-                        
                      </div>
-                     {{-- <div class="col-md">
-                        <small class="text-light fw-semibold">Radio</small>
-                        <div class="form-check mt-3">
-                           <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio1">
-                           <label class="form-check-label" for="defaultRadio1">
-                              Unchecked
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input name="default-radio-1" class="form-check-input" type="radio" value="" id="defaultRadio2" checked="">
-                           <label class="form-check-label" for="defaultRadio2">
-                              Checked
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" value="" id="disabledRadio1" disabled="">
-                           <label class="form-check-label" for="disabledRadio1">
-                              Disabled unchecked
-                           </label>
-                        </div>
-                        <div class="form-check">
-                           <input class="form-check-input" type="radio" value="" id="disabledRadio2" disabled="" checked="">
-                           <label class="form-check-label" for="disabledRadio2">
-                              Disabled checkbox
-                           </label>
-                        </div>
-                     </div> --}}
                   </div>
                </div>
 
@@ -165,6 +146,7 @@ Slider Add
 
          $('#button_post_imagesDesktop').filemanager('image');
          $('#button_post_imagesMobile').filemanager('image');
+         $('#button_post_imagesBanner').filemanager('image');
          
 
          //select2 parent_category

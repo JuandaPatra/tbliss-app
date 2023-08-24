@@ -76,7 +76,7 @@ Category Add
                </div>
                <div class="mb-3">
                   <label for="input_post_seat" class="form-label">Seat</label>
-                  <input id="input_post_seat" name="seat" type="number" placeholder="" class="form-control @error('seat') is-invalid @enderror" name="seat" value="{{ old('seat') }}" />
+                  <input  min="1"  id="input_post_seat" name="seat" type="number" placeholder="" class="form-control @error('seat') is-invalid @enderror" name="seat" value="{{ old('seat') }}" />
                   @error('seat')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
@@ -96,20 +96,12 @@ Category Add
                      @enderror
                   </div>
                </div>
-               {{--<div class="mb-3">
-                  <label for="input_post_seat" class="form-label">Link Google Drive</label>
-                  <input id="input_post_seat" name="link_g_drive" type="text" placeholder="" class="form-control @error('link_g_drive') is-invalid @enderror" name="link_g_drive" value="{{ old('link_g_drive') }}" />
-               @error('link_g_drive')
-               <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-               </span>
-               @enderror
-            </div>--}}
+               
             <div class="mb-3">
                <div class="row">
                   <div class="col-6">
                      <label for="input_post_date_from" class="form-label">Tanggal Keberangkatan</label>
-                     <!-- <input id="input_post_seat" name="link" type="text" placeholder="" class="form-control @error('link') is-invalid @enderror" name="link" value="{{ old('link') }}" /> -->
+                   
                      <input class="form-control" type="date" value="{{old('date_from')}}" name="date_from" id="html5-date-input">
                      @error('date_from')
                      <span class="invalid-feedback" role="alert">
@@ -119,7 +111,7 @@ Category Add
                   </div>
                   <div class="col-6">
                      <label for="input_post_date_to" class="form-label">Tanggal Kedatangan</label>
-                     <!-- <input id="input_post_seat" name="link" type="text" placeholder="" class="form-control @error('link') is-invalid @enderror" name="link" value="{{ old('link') }}" /> -->
+                     
                      <input class="form-control" type="date" value="{{old('date_to')}}" name="date_to" id="html5-date-input">
                      @error('date_to')
                      <span class="invalid-feedback" role="alert">
@@ -203,13 +195,13 @@ Category Add
 
 </div>
 <div class="col-12 col-md-4">
-   <div class="card mb-4">
-      <h5 class="card-header">Cities</h5>
+   <div class="card mb-4 ">
+      <h5 class="card-header">Pilih Negara dan Kota</h5>
       <div class="card-body">
          <div class="accordion mt-3" id="accordionExample">
             <div class="card accordion-item">
                <h2 class="accordion-header" id="headingOne">
-                  <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="false" aria-controls="accordionOne">
+                  <button type="button" class="accordion-button collapsed @error('countries') error-card @enderror" data-bs-toggle="collapse" data-bs-target="#accordionOne" aria-expanded="false" aria-controls="accordionOne">
                      Negara
                   </button>
                </h2>
@@ -222,7 +214,7 @@ Category Add
                            @foreach($destinations as $checkbox)
                            @foreach($checkbox->descendants as $checkbox1)
                            <div class="form-check mt-3">
-                              <input class="form-check-input" type="checkbox" value="{{$checkbox1->id}}" id="defaultCheck1" name="countries[]">
+                              <input class="form-check-input" type="checkbox" value="{{$checkbox1->id}}" id="defaultCheck1" name="countries[]" @if(is_array(old('countries')) && in_array($checkbox1->id, old('countries'))) checked @endif >
                               <label class="form-check-label" for="defaultCheck1">
                                  {{$checkbox1->title}}
                               </label>
@@ -236,7 +228,7 @@ Category Add
             </div>
             <div class="card accordion-item">
                <h2 class="accordion-header" id="headingTwo">
-                  <button type="button" class="accordion-button collapsed" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
+                  <button type="button" class="accordion-button collapsed @error('cities') error-card @enderror" data-bs-toggle="collapse" data-bs-target="#accordionTwo" aria-expanded="false" aria-controls="accordionTwo">
                      Kota
                   </button>
                </h2>
@@ -248,7 +240,7 @@ Category Add
                            @foreach($checkbox->descendants as $checkbox1)
                            @foreach($checkbox1->descendants as $checkbox2)
                            <div class="form-check mt-3">
-                              <input class="form-check-input" type="checkbox" value="{{$checkbox2->id}}" id="defaultCheck1" name="cities[]">
+                              <input class="form-check-input" type="checkbox" value="{{$checkbox2->id}}" id="defaultCheck1" name="cities[]" @if(is_array(old('cities')) && in_array($checkbox2->id, old('cities'))) checked @endif>
                               <label class="form-check-label" for="defaultCheck1">
                                  {{$checkbox2->title}}
                               </label>
@@ -422,103 +414,209 @@ Category Add
          }
       });
 
-      $(".visa-input").on("input", function() {
+
+      
+      // $(".visa-input").on("input", function() {
+      //    let visaPrice = 0
+      //    let price = 0
+      //    let totalTipping = 0
+
+      //    let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+      //    visaPrice = parseInt(visaInput)
+
+      //    let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+      //    price = parseInt(priceTrip)
+      //    console.log(price);
+
+
+      //    let totalPricing = $('.total-tipping-price').val().replace(/[.]+/g, "")
+      //    totalTipping = parseInt(totalPricing)
+
+
+      //    if (priceTrip == '') {
+      //       price = 0
+
+      //    } else if (visaInput == '') {
+      //       visaPrice = 0
+      //    }
+
+      //    let total = visaPrice + price + totalPricing
+
+      //    // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
+      //    // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
+      //    // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
+
+      //    // $('.installment2-price').val(installment2Price).change()
+
+      //    // easyNumberSeparator({
+      //    //    selector: '#input_post_price',
+      //    //    separator: '.'
+      //    // })
+      //    $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+      //       style: "currency",
+      //       currency: "IDR",
+      //       minimumFractionDigits: 0
+      //    })).change()
+      // });
+
+      // $('.tourPrice').on("input", function() {
+      //    let visaPrice = 0
+      //    let price = 0
+
+
+      //    let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+      //    visaPrice = parseInt(visaInput)
+
+      //    let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+      //    price = parseInt(priceTrip)
+
+      //    if (priceTrip == '') {
+      //       price = 0
+
+      //    } else if (visaInput == '') {
+      //       visaPrice = 0
+      //    }
+
+
+
+      //    let total = visaPrice + price
+
+      //    // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
+      //    // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
+      //    // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
+
+      //    // $('.installment2-price').val(installment2Price).change()
+
+      //    // easyNumberSeparator({
+      //    //    selector: '#input_post_price',
+      //    //    separator: '.'
+      //    // })
+      //    $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+      //       style: "currency",
+      //       currency: "IDR",
+      //       minimumFractionDigits: 0
+      //    })).change()
+
+      // })
+
+
+      $('.tourPrice').on('keyup', function(){
          let visaPrice = 0
          let price = 0
+         let totalTipping = 0
 
          let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
-         visaPrice = parseInt(visaInput)
-
          let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
-         price = parseInt(priceTrip)
+         let tippingAll = $('.total-tipping-price').val().replace(/[.]+/g, "")
 
-         if (priceTrip == '') {
-            price = 0
 
-         } else if (visaInput == '') {
-            visaPrice = 0
+         if(visaInput == ''){
+            visaPrice = parseInt(0) ;
+         }else{
+            visaPrice = visaInput
          }
 
-         let total = visaPrice + price
+         if(tippingAll == ''){
+            totalTipping = 0
+         }else{
+            totalTipping = tippingAll
+         }
+         
+         if(priceTrip === ''){
+            price = 0
+         }else{
+            price = parseInt(priceTrip)
+         }
 
-         // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
-         // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
-         // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
-
-         // $('.installment2-price').val(installment2Price).change()
-
-         // easyNumberSeparator({
-         //    selector: '#input_post_price',
-         //    separator: '.'
-         // })
+         let total = parseInt(visaPrice)  + parseInt(priceTrip) + parseInt(totalTipping) ;
+         
          $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
             style: "currency",
             currency: "IDR",
             minimumFractionDigits: 0
          })).change()
-      });
 
-      $('.tourPrice').on("input", function() {
-         let visaPrice = 0
-         let price = 0
-
-         let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
-         visaPrice = parseInt(visaInput)
-
-         let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
-         price = parseInt(priceTrip)
-
-         if (priceTrip == '') {
-            price = 0
-
-         } else if (visaInput == '') {
-            visaPrice = 0
-         }
-
-
-
-         let total = visaPrice + price
-
-         // let installment1 = $('.installment1-price').val().replace(/[.]+/g, "")
-         // let input_dp_price = $('.dp-price').val().replace(/[.]+/g, "")
-         // installment2Price = total - parseInt(installment1) - parseInt(input_dp_price)
-
-         // $('.installment2-price').val(installment2Price).change()
-
-         // easyNumberSeparator({
-         //    selector: '#input_post_price',
-         //    separator: '.'
-         // })
-         $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
-            style: "currency",
-            currency: "IDR",
-            minimumFractionDigits: 0
-         })).change()
       })
 
 
-      $('.tipping-price').on("input", function(){
+
+      // $('.tipping-price').on("input", function(){
+      //    let tip = 0
+      //    let tipPrice = $(this).val().replace(/[.]+/g, "")
+      //    let days = $('.days-total').val()
+      //    if(tipPrice == ''){
+      //       tip = 0
+      //    }else{
+      //       tip = tipPrice
+      //    }
+
+      //    let visaPrice = 0
+      //    let price = 0
+      //    let totalTipping = 0
+
+      //    let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+      //    visaPrice = parseInt(visaInput)
+
+      //    let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+      //    price = parseInt(priceTrip)
+
+      //    $('.total-tipping-price').val(tip * days).change()
+      //    easyNumberSeparator({
+      //       selector: '#input_post_price',
+      //       separator: '.'
+      //    })
+
+      //    let totalTripping = $('.total-tipping-price').val().replace(/[.]+/g, "")
+
+      //    let total = visaPrice + price + parseInt(totalTripping) 
+
+      //    $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+      //       style: "currency",
+      //       currency: "IDR",
+      //       minimumFractionDigits: 0
+      //    })).change()
+      // })
+
+      $('.tipping-price').on("keyup", function(){
          let tip = 0
          let tipPrice = $(this).val().replace(/[.]+/g, "")
          let days = $('.days-total').val()
+
+
+         let daytotal = days==''? 1: days;
          if(tipPrice == ''){
             tip = 0
          }else{
             tip = tipPrice
          }
-         $('.total-tipping-price').val(tip * days).change()
+
+         let visaPrice = 0
+         let price = 0
+         let totalTipping = 0
+
+         let visaInput = $('.visa-input').val().replace(/[.]+/g, "")
+         visaPrice = parseInt(visaInput)
+
+         let priceTrip = $('.tourPrice').val().replace(/[.]+/g, "")
+         price = parseInt(priceTrip)
+
+         $('.total-tipping-price').val(tip * daytotal).change()
          easyNumberSeparator({
             selector: '#input_post_price',
             separator: '.'
          })
 
+         let totalTripping = $('.total-tipping-price').val().replace(/[.]+/g, "")
 
+         let total = visaPrice + price + parseInt(totalTripping) 
+
+         $('#input_post_prices_total').val(total.toLocaleString("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0
+         })).change()
       })
-      // $('.dp-price').on("input", function(){
-      //    let datas = $('.dp-price').val()
-      //    console.log(datas)
-         
-      // })
+
 
       $("#btn-add-post-images").click(function() {
          var hmtl = $(".clone").html();

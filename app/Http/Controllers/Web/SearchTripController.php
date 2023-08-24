@@ -22,6 +22,7 @@ class SearchTripController extends Controller
          */
         $result = Place_categories::with(['children'])->where('parent_id', '=', null)->get();
 
+
         /**
          * list trip
          */
@@ -44,8 +45,11 @@ class SearchTripController extends Controller
 
         $searchTrips = hidden_gem_hashtag::whereIn('hashtag_id', [2, 7])->get(['hidden_gem_id'])->pluck(['hidden_gem_id']);
 
+
         $findTrips = PickHiddenGem::whereIn('hidden_gem_id', $searchTrips)->whereIn('place_categories_id', [8])->get(['place_categories_categories_cities_id'])->pluck('place_categories_categories_cities_id');
 
+        // salah 
+        // return $findTrips;
 
         $results = Trip_categories::with(['place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title'])->whereIn('id', $findTrips)->get(['id', 'title', 'slug', 'thumbnail', 'price', 'day', 'night', 'seat']);
 
@@ -59,15 +63,26 @@ class SearchTripController extends Controller
 
 
 
-
-
-
         /**
          * list hashtag
          */
 
         $hashtag = PickHiddenGem::leftJoin('hidden_gem_hashtags', 'pick_hidden_gems.hidden_gem_id', '=', 'hidden_gem_hashtags.hidden_gem_id')->leftjoin('hashtags', 'pick_hidden_gems.hidden_gem_id', '=', 'hashtags.id')->where('pick_hidden_gems.place_categories_id', '=', 7)->get();
         $hashtags = $hashtag->unique();
+
+
+        foreach($trips as $trip){
+            
+            if($trip->place_trip_categories_cities->count() !=0 ){
+                
+                $trip['hitung'] = $trip->place_trip_categories_cities->count();
+
+            }else{
+                $trip['hitung'] = $trip->place_trip_categories_cities->count();
+            }
+
+        }
+
 
 
         return view('web.details.index', compact('result', 'tripByCity', 'trips', 'cityArray', 'hashtags'));

@@ -47,7 +47,7 @@ Auth::routes();
 Route::group(['middleware' => 'auth'], function () {
 
     Route::group(['middleware' => ['role:super-admin|admin']], function () {
-        //
+        
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isAdmin');
     
         Route::put('product/testimoni-per-trip/{product}/update', [ProductController::class, 'updateEditTestimoni'])->name('product.updateTestimoniTrip');

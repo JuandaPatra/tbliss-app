@@ -71,7 +71,7 @@ class HomeController extends Controller
 
         $trips = Trip_categories::with(['place_trip_categories:id,place_categories_id,trip_categories_id',])->whereHas('place_trip_categories', function (Builder $query) use ($country) {
             $query->where('place_categories_id', $country->id);
-        })->where('status', '=', 'publish')->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))
+        })->where('status', '=', 'publish')->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))->orderBy('date_from', 'ASC')
             ->get([
                 'id',
                 'title',

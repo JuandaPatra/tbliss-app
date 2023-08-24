@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-Category Add
+Edit Product
 @endsection
 @section('breadcrumbs')
 {{-- {{ Breadcrumbs::render('add_category') }} --}}
