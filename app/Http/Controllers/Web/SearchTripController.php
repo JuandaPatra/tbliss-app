@@ -71,16 +71,14 @@ class SearchTripController extends Controller
         $hashtags = $hashtag->unique();
 
 
-        foreach($trips as $trip){
-            
-            if($trip->place_trip_categories_cities->count() !=0 ){
-                
-                $trip['hitung'] = $trip->place_trip_categories_cities->count();
+        foreach ($trips as $trip) {
 
-            }else{
+            if ($trip->place_trip_categories_cities->count() != 0) {
+
+                $trip['hitung'] = $trip->place_trip_categories_cities->count();
+            } else {
                 $trip['hitung'] = $trip->place_trip_categories_cities->count();
             }
-
         }
 
 
@@ -110,15 +108,32 @@ class SearchTripController extends Controller
         }
         $resultfilter = array_unique($result);
         // return $resultfilter;
-        // return response()->json('tes');
 
         return response()->json($result);
-
-        // return $hashtag;
     }
 
     public function searchtrip(Request $request)
     {
+        // if ($request->cities and $request->post) {
+
+        //     //dapat cities
+
+        //     $tripsRes = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get()->pluck('trip_categories_id');
+
+        //     $uniqueTripsRes = $tripsRes->unique();
+        //     //
+
+        //     $tripsHash = Trip_cities_hidden_gem_hashtag::whereIn('hashtag_id', $request->post)->get()->pluck('trip_categories_id')->unique();
+
+
+        //     return $tripsHash;
+
+        //     return $tripsRes;
+
+        //     $tripHashtags = Trip_cities_hidden_gem_hashtag::whereIn('hashtag_id',$request->post)->get();
+
+        //     return $tripHashtags;
+        // }
         if ($request->cities) {
             $trips = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get();
 
@@ -172,7 +187,7 @@ class SearchTripController extends Controller
                 $trip['destinationCities'] = $citiesPick;
             }
             return $trips;
-        } else {
+        } elseif ($request->cities) {
             $trips = DB::table('trip_cities_hidden_gem_hashtags')
                 ->leftJoin('trip_categories', 'trip_cities_hidden_gem_hashtags.trip_categories_id', '=', 'trip_categories.id')
                 // ->leftJoin('place_trip_categories_cities', 'trip_categories.id', '=', 'place_trip_categories_cities.trip_categories_id')

@@ -180,9 +180,9 @@ export class DetailPages {
 
                         $(e.target).html("Gagal Terkirim");
 
-                        setTimeout(() => {
-                            location.reload();
-                        }, 2500);
+                        // setTimeout(() => {
+                        //     location.reload();
+                        // }, 2500);
                     }
                 },
                 success: function (data) {
