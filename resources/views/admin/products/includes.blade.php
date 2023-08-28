@@ -78,16 +78,18 @@ $postId = last(request()->segments());
                                 </span>
                                 @enderror
                             </div>
-                            <!-- slug -->
-                            <div class="mb-3">
-                                <label for="input_post_slug" class="form-label">Slug</label>
-                                <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                @error('slug')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
+                            {{--
+                                <!-- slug -->
+                                <div class="mb-3">
+                                    <label for="input_post_slug" class="form-label">Slug</label>
+                                    <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
+                                    @error('slug')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                 --}}
                             <!-- image -->
                             <div class="mb-3">
                                 <label for="input_post_image" class="form-label">Icon Image</label>
@@ -105,7 +107,7 @@ $postId = last(request()->segments());
                     </div>
                     <div class="card mb-4 px-3 pb-3 d-none" id="includes-edit">
                         <h5 class="card-header">Edit Includes</h5>
-                        <form id="include-update-form" method="POST" action="{{ route('includes.update',$row->id) }}">
+                        <form id="include-update-form" method="POST" action="{{ route('includes.update',$slug) }}">
                             @csrf
                             @method('PUT')
                             <input type="hidden" name="trip_cat_id" class="form-control" id="input-id">
@@ -118,16 +120,18 @@ $postId = last(request()->segments());
                                 </span>
                                 @enderror
                             </div>
-                            <!-- slug -->
-                            <div class="mb-3">
-                                <label for="input_post_slug" class="form-label">Slug</label>
-                                <input id="input-slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                @error('slug')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
+                            {{--
+                                <!-- slug -->
+                                <div class="mb-3">
+                                    <label for="input_post_slug" class="form-label">Slug</label>
+                                    <input id="input-slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
+                                    @error('slug')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                 --}}
                             <!-- image -->
                             <div class="mb-3">
                                 <label for="input_post_image" class="form-label">Icon Image</label>
@@ -207,16 +211,18 @@ $postId = last(request()->segments());
                                 </span>
                                 @enderror
                             </div>
-                            <!-- slug -->
-                            <div class="mb-3">
-                                <label for="input_post_slug" class="form-label">Slug</label>
-                                <input id="input_post_slug1" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                @error('slug')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
+                            {{--
+                                <!-- slug -->
+                                <div class="mb-3">
+                                    <label for="input_post_slug" class="form-label">Slug</label>
+                                    <input id="input_post_slug1" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
+                                    @error('slug')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                 --}}
                             <!-- image -->
                             <div class="mb-3">
                                 <label for="input_post_image" class="form-label">Icon Image</label>
@@ -234,10 +240,10 @@ $postId = last(request()->segments());
                     </div>
                     <div class="card mb-4 px-3 pb-3 d-none" id="excludes-edit">
                         <h5 class="card-header">Edit Excludes</h5>
-                        <form id="exclude-update-form" method="POST" action="{{ route('excludes.update',$row->id) }}">
+                        <form id="exclude-update-form" method="POST" action="{{ route('excludes.update',$slug) }}">
                             @csrf
                             @method('PUT')
-                            <input type="hidden" name="trip_cat_id" class="form-control" id="input-id-excludes" value="{{$row->trip_cat_id}}">
+                            <input type="hidden" name="trip_cat_id" class="form-control" id="input-id-excludes" value="{{$slug}}">
                             <div class="mb-3">
                                 <label for="input_post_title1" class="form-label">Title</label>
                                 <input id="input-title-excludes" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
@@ -248,15 +254,17 @@ $postId = last(request()->segments());
                                 @enderror
                             </div>
                             <!-- slug -->
-                            <div class="mb-3">
-                                <label for="input_post_slug" class="form-label">Slug</label>
-                                <input id="input-slug-excludes" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                @error('slug')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
+                            {{-- 
+                                <div class="mb-3">
+                                    <label for="input_post_slug" class="form-label">Slug</label>
+                                    <input id="input-slug-excludes" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
+                                    @error('slug')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                                --}}
                             <!-- image -->
                             <div class="mb-3">
                                 <label for="input_post_image" class="form-label">Icon Image</label>

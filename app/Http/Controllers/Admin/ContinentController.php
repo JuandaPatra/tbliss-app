@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
 use App\Models\logPayments;
+use Illuminate\Support\Str;
 
 class ContinentController extends Controller
 {
@@ -21,7 +22,9 @@ class ContinentController extends Controller
      */
     public function index()
     {
+
         $datas = Place_categories::onlyParent()->with('descendants')->get();
+        
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
         foreach($notifications as $notification){
@@ -34,10 +37,15 @@ class ContinentController extends Controller
     public function select(Request $request)
     {
         $categories = [];
+        $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
+        $categories = $negara;
         if ($request->has('q')) {
             $search = $request->q;
             $categories = Place_categories::select('id', 'title')->where('title', 'LIKE', "%$search%")->limit(6)->get();
         } else {
+         
+            // $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
+            // $categories = $negara;
             $categories = Place_categories::select('id', 'title')->onlyParent()->limit(6)->get();
         }
         return response()->json($categories);
@@ -75,12 +83,16 @@ class ContinentController extends Controller
      */
     public function store(Request $request)
     {
+        $request['slug'] = Str::slug($request->title);
+        
+
         $validator = Validator::make(
             $request->all(),
             [
                 'title'         => 'required|string|max:100',
                 'slug'          => 'required|string|unique:place_categories,slug',
-                'status'        => 'required'
+                'images'        => 'required',
+                'images2'       => 'required'
             ]
         );
 
@@ -99,16 +111,16 @@ class ContinentController extends Controller
                 'title'             => $request->title,
                 'slug'              => $request->slug,
                 'parent_id'         => $destination,
-                'status'            => $request->status,
+                'status'            => 'publish',
                 'images'            => $request->images,
                 'images2'           => $request->images2
             ]);
 
-            Alert::success('Tambah Benua', 'Berhasil');
+            Alert::success('Tambah Benua/Negara/Kota', 'Berhasil');
             return redirect()->route('continent.index');
         } catch (\throwable $th) {
             DB::rollBack();
-            Alert::error('Tambah Benua', 'error' . $th->getMessage());
+            Alert::error('Tambah Benua/Negara/Kota', 'error' . $th->getMessage());
             return redirect()->back()->withInput($request->all());
         } finally {
             DB::commit();
@@ -135,6 +147,7 @@ class ContinentController extends Controller
     public function edit($id)
     {
         $continent = Place_categories::where('id', '=', $id)->get();
+     
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
         foreach($notifications as $notification){
@@ -160,13 +173,17 @@ class ContinentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
+
+        $request['slug'] = Str::slug($request->title);
+
         $validator = Validator::make(
             $request->all(),
             [
                 'title'             => 'required|string|max:100',
-                'slug'              => 'required|string|',
-                'status'            => 'required'
+                'slug'              => 'required|string',
+                'images'        => 'required',
+                'images2'       => 'required'
+                
             ]
         );
         if ($validator->fails()){
@@ -181,7 +198,7 @@ class ContinentController extends Controller
                 'title'             => $request->title,
                 'slug'              => $request->slug,
                 'parent_id'         =>$request->destination,
-                'status'            => $request->status,
+                'status'            => 'publish',
                 'images'            => $request->images,
                 'images2'           => $request->images2
             ]);

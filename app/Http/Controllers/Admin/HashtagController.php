@@ -13,6 +13,7 @@ use App\Models\hidden_gem_hashtag;
 use App\Models\logPayments;
 use App\Models\Place_categories;
 use App\Models\Trip_cities_hidden_gem_hashtag;
+use Illuminate\Support\Str;
 
 class HashtagController extends Controller
 {
@@ -75,12 +76,13 @@ class HashtagController extends Controller
      */
     public function store(Request $request)
     {
+        $request['slug'] = Str::slug($request->title);
+       
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
                 'slug' => 'required|string|unique:hashtags,slug',
-                'status' => 'required'
             ]
         );
 
@@ -95,7 +97,7 @@ class HashtagController extends Controller
                 'title'         => $request->title,
                 'slug'          => $request->slug,
                 'description'   => $request->description,
-                'status'        => $request->status,
+                'status'        => 'publish',
             ]);
 
             Alert::success('Tambah Hashtag', 'Berhasil');
@@ -153,12 +155,13 @@ class HashtagController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request['slug'] = Str::slug($request->title);
+
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
                 'slug' => 'required',
-                'status' => 'required'
             ]
         );
         if ($validator->fails()){
@@ -173,7 +176,7 @@ class HashtagController extends Controller
                 'title'         => $request->title,
                 'slug'          => $request->slug,
                 'description'   => $request->description,
-                'status'        => $request->status,
+                'status'        => 'publish',
             ]);
 
             Alert::success('Edit Hashtag', 'Berhasil');

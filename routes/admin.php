@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isAdmin');
     
+        Route::get('product/table-index', [ProductController::class, 'tableProduct'])->name('product.indexTable');
         Route::put('product/testimoni-per-trip/{product}/update', [ProductController::class, 'updateEditTestimoni'])->name('product.updateTestimoniTrip');
         Route::get('product/testimoni-per-trip/{product}/edit', [ProductController::class, 'editTestimoni'])->name('product.editTestimoniTrip');
         Route::delete('product/testimoni-per-trip/{product}/delete', [ProductController::class, 'deleteTestimoni'])->name('product.destroyTestimoniTrip');
@@ -106,6 +107,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('hashtag', HashtagController::class);
         Route::resource('edit-hashtag-trip', EditHashtagTripController::class);
     
+        Route::get('/activities/table', [HiddenGemController::class, 'tableHiddenGem'])->name('activities.table');
         Route::get('/activities/images/{id}', [HiddenGemController::class, 'images'])->name('activities.images');
         Route::post('/activities/images/{id}/update', [HiddenGemController::class, 'updateImages'])->name('activities.updateImages');
         Route::resource('activities', HiddenGemController::class);

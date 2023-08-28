@@ -91,24 +91,12 @@ Slider Edit
                   </span>
                   @enderror
                </div>
-               <div class="mb-3">
-                  <label for="select_post_status" class="form-label">Status</label>
-                  <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
-                     <option value="">Please Select ..</option>
-                     @foreach ($statuses as $key =>$value)
-                     <option value="{{ $key }}" {{ old('status',  $slider->status) == $key ? "selected" : null }}> {{ $value }}</option>
-                     @endforeach
-                  </select>
-                  @error('status')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <a class="btn btn-warning px-4" href="">Back</a>
-               <button type="submit" class="btn btn-primary px-4">
-                  Save
-               </button>
+              
+              <div class="d-flex justify-content-end"> 
+                 <button type="submit" class="btn btn-primary px-4">
+                    Save
+                 </button>
+              </div>
       </form>
    </div>
 </div>

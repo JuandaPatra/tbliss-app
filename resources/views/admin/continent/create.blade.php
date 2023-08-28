@@ -14,7 +14,7 @@ Slider Add
             <h5 class="card-header">Tambah Destinasi</h5>
             <div class="card-body">
                <div class="mb-3">
-                  <label for="input_post_title" class="form-label">Title</label>
+                  <label for="input_post_title" class="form-label">Nama Benua / Negara / Kota</label>
                   <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
                   @error('title')
                   <span class="invalid-feedback" role="alert">
@@ -22,19 +22,11 @@ Slider Add
                   </span>
                   @enderror
                </div>
-               <!-- slug -->
-               <div class="mb-3">
-                  <label for="input_post_slug" class="form-label">Slug</label>
-                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                  @error('slug')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
+
+
                <!-- Images map -->
                <div class="mb-3">
-                  <label for="input_post_thumbnail" class="form-label">Map</label>
+                  <label for="input_post_thumbnail" class="form-label">Foto Peta(halaman detail trip)</label>
                   <div class="input-group">
                      <button id="button_post_images" data-input="input_post_images" class="btn btn-outline-primary" type="button">Browse >
                      </button>
@@ -60,8 +52,9 @@ Slider Add
                      @enderror
                   </div>
                </div>
+
                <div class="mb-3">
-                  <label for="exampleFormControlSelect1" class="form-label">Benua/Negara</label>
+                  <label for="exampleFormControlSelect1" class="form-label">Pilih Benua/Negara</label>
                   <select id="select_post_status" name="destination" class="form-select @error('status') is-invalid @enderror">
                      <option value="">Please Select</option>
                      <option value="">Psssst</option>
@@ -74,37 +67,30 @@ Slider Add
                      @endforeach --}}
                   </select>
                </div>
+
+
                <div class="mb-3">
-                  <label for="exampleFormControlSelect1" class="form-label">Publish</label>
+                  <label for="select_post_status" class="form-label">Pilih Kota</label>
                   <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
-                     <option value="">Please Select</option>
+                     <option value="">Please Select ..</option>
                      @foreach ($statuses as $key =>$value)
                      <option value="{{ $key }}" {{ old('status') == $key ? "selected" : null }}> {{ $value }}</option>
                      @endforeach
                   </select>
+                  @error('status')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
                </div>
-
-               <a class="btn btn-warning px-4" href="">Back</a>
-               <button type="submit" class="btn btn-primary px-4">Save</button>
+               <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary px-4">Save</button>
+               </div>
             </div>
          </div>
       </form>
    </div>
-   <!-- <div class="col-lg-4 col-md-4 order-1">
-   <div class="card mb-4">
-      <div class="card-body">
-         <div class="mb-3">
-            <label for="input_post_title" class="form-label">Order</label>
-            <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-            @error('title')
-            <span class="invalid-feedback" role="alert">
-               <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-         </div>
-      </div>
-   </div>
-</div> -->
+
    @endsection
    @push('css-external')
    <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">

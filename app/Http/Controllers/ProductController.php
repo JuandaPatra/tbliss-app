@@ -19,6 +19,7 @@ use App\Models\ReviewTrip;
 use App\Models\Trip_categories;
 use App\Models\Trip_exclude;
 use App\Models\Trip_includes;
+use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
@@ -41,6 +42,34 @@ class ProductController extends Controller
             $notification['time'] = $time;
         }
         return view('admin.products.index', compact('datas', 'notifications', 'notificationsCount'));
+    }
+
+
+    public function tableProduct(Request $request)
+    {
+        if ($request->ajax()) {
+            $datas = Trip_categories::where('status', '=', 'publish')->orderBy('date_from', 'ASC')->get();
+            foreach($datas as $data){
+                $data['date_from'] = date('d M Y', strtotime($data->date_from));
+                $data['date_to'] = date('d M Y', strtotime($data->date_to));
+            }
+            return Datatables::of($data)
+            ->addIndexColumn()
+            
+            ->addColumn('action', function ($user) {
+
+
+                return '
+                <a href="'.route('testimoni-trip.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                
+                <a href="'.route('testimoni-trip.destroy1', $user->id).'" class="btn btn-xs btn-danger deleteUser"><i class="fa fa-trash"></i> Delete</a>
+                ';
+
+                
+            })
+            ->make(true);
+
+        }
     }
 
     /**
@@ -78,6 +107,7 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $request['slug'] = Str::slug($request->title);
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
         $dp_price = str_replace('.', '', $request->dp_price);
@@ -94,6 +124,7 @@ class ProductController extends Controller
                 'title'         =>  'required|string|max:100',
                 'slug'          =>  'required|string|unique:trip_categories,slug',
                 'description'   =>  'required',
+                'banner'        => 'required',
                 'thumbnail'     =>  'required',
                 'itinerary'     =>  'required',
                 'price'         =>  'required',
@@ -103,7 +134,7 @@ class ProductController extends Controller
                 'link_g_drive'  =>  'required',
                 'date_from'     =>  'required',
                 'date_to'       =>  'required',
-                'status'        =>  'required',
+                
                 'dp_price'      =>  'required',
                 'installment1'  =>  'required',
                 'installment2'  =>  'required',
@@ -138,13 +169,14 @@ class ProductController extends Controller
                 'link_g_drive'  =>  $request->link_g_drive,
                 'date_from'     =>  $request->date_from,
                 'date_to'       =>  $request->date_to,
-                'status'        =>  $request->status,
+                'status'        =>  'publish',
                 'dp_price'      =>  (int) $dp_price,
                 'installment1'  =>  (int) $installment1,
                 'installment2'  =>  (int) $installment2,
                 'visa'          =>  (int) $visa,
                 'tipping'       =>  (int) $tipping,
-                'total_tipping' =>  (int) $total_tipping
+                'total_tipping' =>  (int) $total_tipping,
+                'banner'        => $request->banner
             ]);
             DB::commit();
             $trip = Trip_categories::where('title', '=', $request->title)->get();
@@ -228,9 +260,10 @@ class ProductController extends Controller
     public function edit($id)
     {
         //// controller edit Trip 
+        
+        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug',])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status', 'dp_price', 'installment1', 'installment2', 'installment3', 'visa', 'tipping', 'total_tipping','banner', 'trip_review', 'trip_star']);
 
-
-        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug'])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status', 'dp_price', 'installment1', 'installment2', 'installment3', 'visa', 'tipping', 'total_tipping']);
+        $tripTestimoni = ReviewTrip::where('categories_trip_id', '=', $id)->get();
 
         $negara = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
         $hashtags = Hashtag::all(['id', 'title']);
@@ -242,6 +275,7 @@ class ProductController extends Controller
             $notification['time'] = $time;
         }
 
+        
         return view('admin.products.edit', [
             'statuses'      => $this->statuses(),
             'destinations'  => $negara,
@@ -249,7 +283,8 @@ class ProductController extends Controller
             'trip'          => $trip,
             'total_price'   => $total_price,
             'notifications' => $notifications,
-            'notificationsCount' => $notificationsCount
+            'notificationsCount' => $notificationsCount,
+            'tripTestimoni' => $tripTestimoni
         ]);
     }
 
@@ -262,10 +297,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
-        // return 'tes';
-        // return $request->hashtags[0];
-
         DB::beginTransaction();
         try {
             $post = Categories::create([
@@ -311,7 +342,6 @@ class ProductController extends Controller
 
     public function include(Request $request, $slug)
     {
-        // $datas          =   Trip_categories::all();
         $datas          = Trip_categories::where('id', '=', $slug)->first();
         $includes       =   Trip_includes::where('trip_cat_id', '=', $slug)->get(['id', 'title', 'slug', 'icon_image', 'trip_cat_id']);
         $excludes       =   Trip_exclude::where('trip_cat_id', '=', $slug)->get(['id', 'title', 'slug', 'icon_image', 'trip_cat_id']);
@@ -322,6 +352,9 @@ class ProductController extends Controller
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
+
+        // return 'tes';
+
         return view('admin.products.includes', compact('datas', 'includes', 'excludes', 'slug', 'notifications', 'notificationsCount'));
     }
     public function images($id)
@@ -417,10 +450,10 @@ class ProductController extends Controller
     public function updateTrip(Request $request, $id)
     {
         //// controler update Trip
-        // return $request;
 
         //// ubah string to number price
-
+        $request['slug'] = Str::slug($request->title);
+        $request['description'] = strip_tags($request->description);
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
         $dp_price = str_replace('.', '', $request->dp_price);
@@ -438,8 +471,9 @@ class ProductController extends Controller
             [
                 'title'         =>  'required|string|max:100',
                 'slug'          =>  'required',
-                'description'     =>  'required',
+                'description'   =>  'required',
                 'thumbnail'     =>  'required',
+                'banner'        =>  'required',
                 'itinerary'     =>  'required',
                 'price'         =>  'required',
                 'day'           =>  'required',
@@ -447,7 +481,7 @@ class ProductController extends Controller
                 'link_g_drive'  =>  'required',
                 'date_from'     =>  'required',
                 'date_to'       =>  'required',
-                'status'        =>  'required',
+                
                 'dp_price'      =>  'required',
                 'installment1'  =>  'required',
                 'installment2'  =>  'required',
@@ -484,13 +518,14 @@ class ProductController extends Controller
                 'link_g_drive'  =>  $request->link_g_drive,
                 'date_from'     =>  $request->date_from,
                 'date_to'       =>  $request->date_to,
-                'status'        =>  $request->status,
+                'status'        =>  'publish',
                 'dp_price'      => (int) $dp_price,
                 'installment1'  => (int) $installment1,
                 'installment2'  => (int) $installment2,
                 'visa'          =>  (int) $visa,
                 'tipping'       =>  (int) $tipping,
-                'total_tipping' =>  (int) $total_tipping
+                'total_tipping' =>  (int) $total_tipping,
+                'banner'        => $request->banner
             ]);
 
             Alert::success('Edit Trip', 'Berhasil');
@@ -606,7 +641,9 @@ class ProductController extends Controller
 
     public function updateEditTestimoni(Request $request, $id)
     {
+
         $category = ReviewTrip::whereId($id)->first();
+        
         $validator = Validator::make(
             $request->all(),
             [
@@ -618,12 +655,14 @@ class ProductController extends Controller
         if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
+
+        $description = strip_tags($request->description);
         DB::beginTransaction();
         try {
             $testimoni = ReviewTrip::whereId($id);
             $post = $testimoni->update([
                 'name'                          =>  $request->name,
-                'description'                   =>  $request->description,
+                'description'                   =>  $description,
                 'categories_trip_id'            =>  $category->categories_trip_id,
                 
             ]);

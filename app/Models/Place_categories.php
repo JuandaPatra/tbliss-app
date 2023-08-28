@@ -9,7 +9,7 @@ class Place_categories extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'slug', 'parent_id', 'status'];
+    protected $fillable = ['title', 'slug', 'parent_id', 'status','images', 'images2'];
 
     public function scopeOnlyParent($query)
     {

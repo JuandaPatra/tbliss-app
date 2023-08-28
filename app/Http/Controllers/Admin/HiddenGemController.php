@@ -16,6 +16,9 @@ use App\Models\logPayments;
 use App\Models\PickHiddenGem;
 use App\Models\Place_categories;
 use App\Models\Trip_cities_hidden_gem_hashtag;
+use DataTables;
+use Yajra\DataTables\Services\DataTable;
+use Illuminate\Support\Str;
 
 class HiddenGemController extends Controller
 {
@@ -26,7 +29,7 @@ class HiddenGemController extends Controller
      */
     public function index()
     {
-        $datas = Hidden_gem::all();
+        $datas = Hidden_gem::orderBy('title')->get();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
         foreach($notifications as $notification){
@@ -34,7 +37,34 @@ class HiddenGemController extends Controller
             $notification['time'] = $time;
         }
 
-        return view('admin.hidden_gem.index', compact('datas', 'notifications', 'notificationsCount'));
+        
+
+        return view('admin.hidden_gem.index', compact('datas', 'notifications', 'notificationsCount',));
+    }
+
+    public function tableHiddenGem(Request $request)
+    {
+        if($request->ajax())
+        {
+            $datas = Hidden_gem::orderBy('title')->get();
+
+            return DataTables::of($datas)
+            ->addIndexColumn()
+           
+            
+            ->addColumn('action', function ($user) {
+
+
+                return '
+                <a href="'.route('activities.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                
+                <a href="'.route('activities.destroy', $user->id).'" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>';
+
+               
+            })
+           
+            ->make(true);
+        }
     }
 
     /**
@@ -52,13 +82,16 @@ class HiddenGemController extends Controller
         }
         $cities = Place_categories::with('descendants')->get();
 
+        $destinations = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
+
 
         return view('admin.hidden_gem.create', [
             'statuses' => $this->statuses(),
             'orders' => $this->orders(),
             'checkboxes' => $this->checkbox(),
             'notifications'=> $notifications,
-            'notificationsCount'=> $notificationsCount
+            'notificationsCount'=> $notificationsCount,
+            'destinations' => $destinations
         ]);
     }
 
@@ -70,16 +103,19 @@ class HiddenGemController extends Controller
      */
     public function store(Request $request)
     {
+        // $request['slug'] = Str::slug($request->title);
+        $request['description'] = strip_tags($request->description);
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
                 'slug' => 'required|string|unique:hidden_gems,slug',
-                'status' => 'required',
+                // 'status' => 'required',
                 'image_desktop' => 'required',
-                'image_mobile'  => 'required',
+                'banner'  => 'required',
                 'description'   => 'required',
-                'hashtag'       => 'required'
+                'hashtag'       => 'required',
+                'destination'   => 'required'  
             ]
         );
 
@@ -94,9 +130,9 @@ class HiddenGemController extends Controller
                 'slug'              => $request->slug,
                 'description1'      => $request->description,
                 'image_desktop'     => $request->image_desktop,
-                'image_mobile'      => $request->image_mobile,
+                'image_mobile'      => $request->image_desktop,
                 'places_id'         => $request->destination,
-                'status'            => $request->status,
+                'status'            => 'publish',
                 'banner'            => $request->banner
             ]);
 
@@ -151,7 +187,6 @@ class HiddenGemController extends Controller
      */
     public function edit($id)
     {
-        
         $hiddem_gem = Hidden_gem::whereId($id)->with(['place', 'hidden_hashtag'])->get(['id','title','slug','description1','image_desktop','image_mobile', 'places_id','status','banner']);
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
@@ -159,13 +194,15 @@ class HiddenGemController extends Controller
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
+        $destinations = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
 
         return view('admin.hidden_gem.edit',[
             'hidden_gem' => $hiddem_gem[0],
             'statuses'  => $this->statuses(),
             'checkboxes' => $this->checkbox(),
             'notifications'=> $notifications,
-            'notificationsCount'=> $notificationsCount
+            'notificationsCount'=> $notificationsCount,
+            'destinations' => $destinations
         ]);
     }
 
@@ -178,14 +215,17 @@ class HiddenGemController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request['slug'] = Str::slug($request->title);
+        // $request['description'] = strip_tags($request->description);
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
                 'slug' => 'required',
-                'status' => 'required',
+                // 'status' => 'required',
                 'image_desktop' => 'required',
-                'image_mobile'  => 'required',
+                // 'image_mobile'  => 'required',
                 'description'   => 'required',
                 'hashtag'       => 'required',
                 'banner'        => 'required'
@@ -204,9 +244,9 @@ class HiddenGemController extends Controller
                 'slug'              => $request->slug,
                 'description1'      => $request->description,
                 'image_desktop'     => $request->image_desktop,
-                'image_mobile'      => $request->image_mobile,
+                'image_mobile'      => $request->image_desktop,
                 'places_id'         => $request->destination,
-                'status'            => $request->status,
+                'status'            => 'publish',
             ]);
 
             DB::commit();

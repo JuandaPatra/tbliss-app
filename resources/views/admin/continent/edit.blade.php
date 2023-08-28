@@ -17,7 +17,7 @@ Slider Edit
             <div class="card-body">
                <!-- title -->
                <div class="mb-3">
-                  <label for="input_post_title" class="form-label">Title</label>
+                  <label for="input_post_title" class="form-label">Nama Benua/Negara/Kota</label>
                   <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title', $continent->title) }}" />
                   @error('title')
                   <span class="invalid-feedback" role="alert">
@@ -25,21 +25,10 @@ Slider Edit
                   </span>
                   @enderror
                </div>
-               <!-- slug -->
-               <div class="mb-3">
-                  <label for="input_post_slug" class="form-label">
-                     Slug
-                  </label>
-                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug', $continent->slug) }}" />
-                  @error('slug')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
+              
                <!-- Images map -->
                <div class="mb-3">
-                  <label for="input_post_thumbnail" class="form-label">Map</label>
+                  <label for="input_post_thumbnail" class="form-label">Foto Map</label>
                   <div class="input-group">
                      <button id="button_post_images" data-input="input_post_images" class="btn btn-outline-primary" type="button">Browse >
                      </button>
@@ -73,24 +62,12 @@ Slider Edit
                      @endif
                   </select>
                </div>
-               <div class="mb-3">
-                  <label for="select_post_status" class="form-label">Status</label>
-                  <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
-                     <option value="">Please Select ..</option>
-                     @foreach ($statuses as $key =>$value)
-                     <option value="{{ $key }}" {{ old('status',  $continent->status) == $key ? "selected" : null }}> {{ $value }}</option>
-                     @endforeach
-                  </select>
-                  @error('status')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+              
+               <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary px-4">
+                     Save
+                  </button>
                </div>
-               <a class="btn btn-warning px-4" href="">Back</a>
-               <button type="submit" class="btn btn-primary px-4">
-                  Save
-               </button>
       </form>
    </div>
 </div>

@@ -124,8 +124,6 @@ class HomeController extends Controller
     public function detail(Request $request, $id, $trip)
     {
 
-       
-       
         /**
          * ambil detail trip
          */
@@ -136,14 +134,34 @@ class HomeController extends Controller
          * mendapatkan collections hidden gems di suatu trip
          */
         $hidden_gem = [];
+        $allHidden_gem = [];
+
+        // foreach ($detailTrip->place_trip_categories_cities as $citiesCollections) {
+        //     if ($citiesCollections->pick_hidden_gem->count() != 0) {
+        //         foreach ($citiesCollections->pick_hidden_gem as $city) {
+        //             array_push($hidden_gem, $city->hidden_gems->title);
+        //             sort($hidden_gem) ;
+        //         }
+        //     }
+        // }
 
         foreach ($detailTrip->place_trip_categories_cities as $citiesCollections) {
             if ($citiesCollections->pick_hidden_gem->count() != 0) {
                 foreach ($citiesCollections->pick_hidden_gem as $city) {
                     array_push($hidden_gem, $city->hidden_gems->title);
+                    sort($hidden_gem) ;
                 }
+
+                foreach($hidden_gem as $hidden){
+                    array_push($allHidden_gem, $hidden);
+                }
+                $hidden_gem = [];
             }
         }
+
+
+
+        $hidden_gem = $allHidden_gem;
 
         $detailTrip['picked_hidden_gems'] = $hidden_gem;
 
@@ -173,8 +191,6 @@ class HomeController extends Controller
             $testiUser = $testimonies[0]->description;
             $testiUserFrom = $testimonies[0]->name;
         }
-
-
 
         return view('web.detailtrip.index', compact('detailTrip', 'otherTrips', 'id', 'trip', 'syarat', 'testiUser', 'testiUserFrom'));
     }

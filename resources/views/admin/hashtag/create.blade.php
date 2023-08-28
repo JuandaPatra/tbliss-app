@@ -22,56 +22,15 @@ Slider Add
                   </span>
                   @enderror
                </div>
-               <!-- slug -->
-               <div class="mb-3">
-                  <label for="input_post_slug" class="form-label">Slug</label>
-                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                  @error('slug')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+               
+               <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary px-4">Save</button>
                </div>
-               <!-- deskripsi 2 -->
-               {{--<div class="mb-3">
-                  <label for="input_post_descriptions" class="form-label">Deskripsi</label>
-                  <input id="input_post_descriptions" name="description" type="text" placeholder="" class="form-control @error('description2') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                  @error('description2')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>--}}
-               <div class="mb-3">
-                  <label for="exampleFormControlSelect1" class="form-label">Publish</label>
-                  <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
-                     <option value="">Please Select</option>
-                     @foreach ($statuses as $key =>$value)
-                     <option value="{{ $key }}" {{ old('status') == $key ? "selected" : null }}> {{ $value }}</option>
-                     @endforeach
-                  </select>
-               </div>
-               <a class="btn btn-warning px-4" href="">Back</a>
-               <button type="submit" class="btn btn-primary px-4">Save</button>
             </div>
          </div>
       </form>
    </div>
-   <!-- <div class="col-lg-4 col-md-4 order-1">
-   <div class="card mb-4">
-      <div class="card-body">
-         <div class="mb-3">
-            <label for="input_post_title" class="form-label">Order</label>
-            <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-            @error('title')
-            <span class="invalid-feedback" role="alert">
-               <strong>{{ $message }}</strong>
-            </span>
-            @enderror
-         </div>
-      </div>
-   </div>
-</div> -->
+  
    @endsection
    @push('javascript-external')
    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>

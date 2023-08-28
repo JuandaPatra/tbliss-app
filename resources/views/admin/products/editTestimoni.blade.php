@@ -133,6 +133,7 @@ Sliders
                 }
             });
 
+           
             $('#button_post_pdf').filemanager('image');
 
             var table = $('.data-table').DataTable({

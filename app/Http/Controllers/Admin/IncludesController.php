@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use Alert;
 use App\Models\Trip_includes;
+use Illuminate\Support\Str;
 
 class IncludesController extends Controller
 {
@@ -40,7 +41,8 @@ class IncludesController extends Controller
      */
     public function store(Request $request)
     {
-        // return $request;
+        $request['slug'] = Str::slug($request->title);
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -106,7 +108,7 @@ class IncludesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // return $request;
+        $request['slug'] = Str::slug($request->title);
         $validator = Validator::make(
             $request->all(),
             [

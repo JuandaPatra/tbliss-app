@@ -24,14 +24,26 @@ Category Add
                   @enderror
                </div>
                <!-- slug -->
+               {{-- 
+                  <div class="mb-3">
+                     <label for="input_post_slug" class="form-label">Slug</label>
+                     <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
+                     @error('slug')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+                  --}}
+                  <!-- banner -->
                <div class="mb-3">
-                  <label for="input_post_slug" class="form-label">Slug</label>
-                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                  @error('slug')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
+                  <label for="input_post_image" class="form-label">Banner</label>
+                  <div class="input-group">
+                     <button id="button_post_banner" data-input="input_post_banner" class="btn btn-outline-primary" type="button">
+                        Browse
+                     </button>
+                     <input id="input_post_banner" name="banner" value="{{ old('banner') }}" type="text" class="form-control" placeholder="" readonly />
+                  </div>
                </div>
                <!-- image -->
                <div class="mb-3">
@@ -174,22 +186,10 @@ Category Add
                   </div>
                </div>
             </div>
-            <div class="mb-3">
-               <label for="select_post_status" class="form-label">Status</label>
-               <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
-                  <option value="">Please Select ..</option>
-                  @foreach ($statuses as $key =>$value)
-                  <option value="{{ $key }}" {{ old('status') == $key ? "selected" : null }}> {{ $value }}</option>
-                  @endforeach
-               </select>
-               @error('status')
-               <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-               </span>
-               @enderror
+
+            <div class="d-flex justify-content-end">
+               <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
             </div>
-            <a class="btn btn-danger px-4" href=""><i class='bx bx-left-arrow-alt'></i>Back</a>
-            <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
          </div>
    </div>
 
@@ -329,6 +329,7 @@ Category Add
       // event : input thumbnail with file manager and description
       $('#button_post_thumbnail').filemanager('image');
       $('#button_post_image').filemanager('image');
+      $('#button_post_banner').filemanager('image');
       $('#button_post_pdf').filemanager('application');
       // event :  description
 

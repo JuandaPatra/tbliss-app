@@ -8,7 +8,7 @@ Slider Edit
 @section('content')
 <div class="row">
    <div class="col-md-11">
-      <form action="{{  route('hashtag.update', ['hashtag'=>$hashtag]) }}" method="POST"> 
+      <form action="{{  route('hashtag.update', ['hashtag'=>$hashtag]) }}" method="POST">
          @csrf
          @method('PUT')
          <div class="card mb-4">
@@ -24,46 +24,12 @@ Slider Edit
                   </span>
                   @enderror
                </div>
-
-               <!-- slug -->
-               <div class="mb-3">
-                  <label for="input_post_slug" class="form-label">Slug</label>
-                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug', $hashtag->slug) }}" />
-                  @error('slug')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <!-- deskripsi 2 -->
-               {{--<div class="mb-3">
-                  <label for="input_post_descriptions" class="form-label">Deskripsi</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="description" value="{{ old('description', $hashtag->description) }}" />
-                  @error('description')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>--}}
-
-               <div class="mb-3">
-                  <label for="select_post_status" class="form-label">Status</label>
-                  <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
-                     <option value="">Please Select ..</option>
-                     @foreach ($statuses as $key =>$value)
-                     <option value="{{ $key }}" {{ old('status',  $hashtag->status) == $key ? "selected" : null }}> {{ $value }}</option>
-                     @endforeach
-                  </select>
-                  @error('status')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
-               <a class="btn btn-warning px-4" href="">Back</a>
+              
+            <div class="d-flex justify-content-end">
                <button type="submit" class="btn btn-primary px-4">
                   Save
                </button>
+            </div>
       </form>
    </div>
 </div>

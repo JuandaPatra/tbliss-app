@@ -25,15 +25,18 @@ Edit hidden gem
                   </span>
                   @enderror
                </div>
-               <div class="mb-3">
-                  <label for="input_post_slug" class="form-label">Slug</label>
-                  <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug', $hidden_gem->slug) }}" />
-                  @error('slug')
-                  <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
-                  </span>
-                  @enderror
-               </div>
+
+               {{--
+                  <div class="mb-3">
+                     <label for="input_post_slug" class="form-label">Slug</label>
+                     <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug', $hidden_gem->slug) }}" />
+                     @error('slug')
+                     <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                     </span>
+                     @enderror
+                  </div>
+                   --}}
                <!-- Images For banner -->
                <div class="mb-3">
                   <label for="input_post_thumbnail" class="form-label">Banner</label>
@@ -52,15 +55,17 @@ Edit hidden gem
                      <input id="input_post_imagesDesktop" name="image_desktop" value="{{ old('image_desktop',asset($hidden_gem->image_desktop) ) }}" type="text" class="form-control" placeholder="" readonly />
                   </div>
                </div>
-               <!-- thumbnail -->
-               <div class="mb-3">
-                  <label for="input_post_imagesMobile" class="form-label">Images For Mobile</label>
-                  <div class="input-group">
-                     <button id="button_post_imagesMobile" data-input="input_post_imagesMobile" class="btn btn-outline-primary" type="button">Browse >
-                     </button>
-                     <input id="input_post_imagesMobile" name="image_mobile" value="{{ old('image_mobile',asset($hidden_gem->image_mobile) ) }}" type="text" class="form-control" placeholder="" readonly />
+               {{--
+                  <!-- thumbnail -->
+                  <div class="mb-3">
+                     <label for="input_post_imagesMobile" class="form-label">Images For Mobile</label>
+                     <div class="input-group">
+                        <button id="button_post_imagesMobile" data-input="input_post_imagesMobile" class="btn btn-outline-primary" type="button">Browse >
+                        </button>
+                        <input id="input_post_imagesMobile" name="image_mobile" value="{{ old('image_mobile',asset($hidden_gem->image_mobile) ) }}" type="text" class="form-control" placeholder="" readonly />
+                     </div>
                   </div>
-               </div>
+                   --}}
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Description</label>
                   <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description1') is-invalid @enderror" name="title" value="{{ old('description1', $hidden_gem->description1) }}" />
@@ -73,12 +78,27 @@ Edit hidden gem
 
                <div class="mb-3">
                   <label for="exampleFormControlSelect1" class="form-label">Kota</label>
-                  <select id="select_post_status" name="destination" class="form-select @error('status') is-invalid @enderror">
-                     @if (old('places_id', $hidden_gem->places_id))
-                     <option value="{{ old('places_id', $hidden_gem->place->id) }}" selected>{{ old('parent_id',$hidden_gem->place->title)}}</option>
-                     @endif
+                  <select id="select_post_status1" name="destination" class="form-select @error('destination') is-invalid @enderror">
+                     <option value="">Please Select</option>
+
+                     @foreach($destinations as $checkbox)
+                     @foreach($checkbox->descendants as $checkbox1)
+                     @foreach($checkbox1->descendants as $checkbox2)
+
+                     <option value="{{$checkbox2->id}}" {{ old('destination',$hidden_gem->place->id) == $checkbox2->id ? "selected" : null }}>{{$checkbox2->title}}</option>
+                     @endforeach
+                     @endforeach
+                     @endforeach
                   </select>
+                  @error('destination')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>Silahkan pilih kota</strong>
+                  </span>
+                  @enderror                  
                </div>
+
+
+               
                <div class="card-body">
                   <div class="row gy-3">
                      <div class="col-md">
@@ -116,24 +136,28 @@ Edit hidden gem
                   
                </div>
             </div>
-            <div class="mb-3">
-               <label for="select_post_status" class="form-label">Status</label>
-               <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
-                  <option value="">Please Select ..</option>
-                  @foreach ($statuses as $key =>$value)
-                  <option value="{{ $key }}" {{ old('status',  $hidden_gem->status) == $key ? "selected" : null }}> {{ $value }}</option>
-                  @endforeach
-               </select>
-               @error('status')
-               <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
-               </span>
-               @enderror
+            {{--
+               <div class="mb-3">
+                  <label for="select_post_status" class="form-label">Status</label>
+                  <select id="select_post_status" name="status" class="form-select @error('status') is-invalid @enderror">
+                     <option value="">Please Select ..</option>
+                     @foreach ($statuses as $key =>$value)
+                     <option value="{{ $key }}" {{ old('status',  $hidden_gem->status) == $key ? "selected" : null }}> {{ $value }}</option>
+                     @endforeach
+                  </select>
+                  @error('status')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>{{ $message }}</strong>
+                  </span>
+                  @enderror
+               </div>
+                --}}
+            <div class="d-flex justify-content-end">
+               <button type="submit" class="btn btn-primary px-4">
+                  Save
+               </button>
+
             </div>
-            <a class="btn btn-warning px-4" href="">Back</a>
-            <button type="submit" class="btn btn-primary px-4">
-               Save
-            </button>
       </form>
    </div>
 </div>

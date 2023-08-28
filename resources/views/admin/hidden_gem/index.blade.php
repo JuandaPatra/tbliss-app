@@ -1,6 +1,6 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-Sliders
+Hidden Gem / Activities
 @endsection
 @section('breadcrumbs')
 {{-- {{ Breadcrumbs::render('sliders') }} --}}
@@ -9,7 +9,7 @@ Sliders
 <div class="card">
   <h5 class="card-header">List Hidden Gems / Activities</h5>
   <div class="table-responsive text-nowrap" style="height: 100vh;">
-    <table class="table">
+    <table class="table data-table">
       <thead>
         <tr>
           <th>No.</th>
@@ -19,43 +19,52 @@ Sliders
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
-        @foreach ($datas as $row)
-        <tr>
-          <td>{{$loop->iteration}}</td>
-          <td><strong>{{ $row->title }}</strong></td>
-          <td>{{ $row->status }}</td> 
-          <td>
-            <div class="dropdown">
-              <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                <i class="bx bx-dots-vertical-rounded"></i>
-              </button>
-              <div class="dropdown-menu">
-                {{--<a class="dropdown-item" href="{{ route('slider.edit',['slider'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>--}}
-                <!-- <a class="dropdown-item" href="{{ route('activities.images',['id'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Review Hidden Gem</a> -->
-                <a class="dropdown-item" href="{{ route('testimoniHiddenGem.testimoni', ['id' =>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Review Hidden Gem</a>
-                <a class="dropdown-item" href="{{ route('activities.edit',['activity'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                <a class="dropdown-item" href="{{ route('activities.images',['id'=>$row]) }}"><i class="bx bx-edit-alt me-1"></i> Images</a>
-                
-                <form action="{{ route('activities.destroy',['activity'=>$row]) }}" method="post">
-                @csrf
-                @method('DELETE')
-                <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
-                  <i class="bx bx-trash me-1"></i>Delete
-                </a>
-                </form> 
-              </div>
-            </div>
-          </td>
-        </tr>
-        @endforeach
+        
+       
       </tbody>
     </table>
   </div>
 </div>
 @endsection
+@push('javascript-external')
+ <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+ <script src="/vendor/laravel-filemanager/js/stand-alone-button.js"></script>
+ <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+ <script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
+ @endpush
 @push('javascript-internal')
 <script>
   $(document).ready(function() {
+    var table = $('.data-table').DataTable({
+             processing: true,
+             serverSide: true,
+             ajax: "{{ route('activities.table') }}",
+             columns: [
+                 //{data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                 //  { "width": "20%" },
+                 {
+                     data: 'DT_RowIndex',
+                     name: 'DT_RowIndex',
+                     orderable: false,
+                     searchable: false
+                 },
+                 {
+                     data: 'title',
+                     name: 'title'
+                 },
+                  {
+                      data: 'status',
+                      name: 'status'
+                  },
+                
+                 {
+                     data: 'action',
+                     name: 'action'
+                 },
+               
+
+             ]
+         });
     // event delete category
     $("form[role='alert']").submit(function(event) {
       event.preventDefault();

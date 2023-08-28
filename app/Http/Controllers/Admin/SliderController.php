@@ -62,7 +62,6 @@ class SliderController extends Controller
                 's_order' => 'required|unique:sliders,s_order',
                 'description' => 'required',
                 'description2' => 'required',
-                'status' => 'required'
             ]
         );
 
@@ -80,15 +79,15 @@ class SliderController extends Controller
                 's_order' => $request->s_order,
                 'description' => $request->description,
                 'description2' => $request->description2,
-                'status' => $request->status,
+                'status' => 'publish',
                 'link' => $request->link
             ]);
 
-            Alert::success('Tambah Career', 'Berhasil');
+            Alert::success('Tambah Slider', 'Berhasil');
             return redirect()->route('slider.index');
         } catch (\throwable $th) {
             DB::rollBack();
-            Alert::error('Tambah Career', 'error' . $th->getMessage());
+            Alert::error('Tambah Slider', 'error' . $th->getMessage());
             return redirect()->back()->withInput($request->all());
         } finally {
             DB::commit();
@@ -117,7 +116,6 @@ class SliderController extends Controller
         $notifications = logPayments::where('status','=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status','=', 'belum dibaca')->count();
         $slider = Slider::where('id', '=', $id)->get();
-        // return $slider;
         return view('admin.sliders.edit', [
             'slider' => $slider[0],
             'orders' => $this->orders(),
@@ -126,7 +124,6 @@ class SliderController extends Controller
             'notificationsCount' => $notificationsCount 
         ]);
 
-        // return $slider;
     }
 
     /**
@@ -145,7 +142,6 @@ class SliderController extends Controller
                 'image_desktop' => 'required',
                 'image_mobile' => 'required',
                 // 's_order' => 'required|unique:sliders,s_order',
-                'status' => 'required'
             ]
         );
         if ($validator->fails()){
@@ -161,10 +157,9 @@ class SliderController extends Controller
                 'image_desktop' => $request->image_desktop,
                 'image_mobile' => $request->image_mobile,
                 's_order' => $request->s_order,
-                'status' => $request->status,
                 'description' => $request->description,
                 'description2' => $request->description2,
-                'status' => $request->status,
+                'status' => 'publish',
                 'link' => $request->link
             ]);
 
