@@ -18,7 +18,7 @@ Slider Add
                   <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
                   @error('title')
                   <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
+                     <strong>Wajib diisi</strong>
                   </span>
                   @enderror
                </div>

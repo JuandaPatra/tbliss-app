@@ -103,7 +103,22 @@ class HiddenGemController extends Controller
      */
     public function store(Request $request)
     {
-        // $request['slug'] = Str::slug($request->title);
+        $request['slug'] = Str::slug($request->title);
+        $slug = $request['slug'];
+
+        $latestSlug =
+            Hidden_gem::whereRaw("slug = '$request->slug' or slug LIKE '$request->slug-%'")
+            ->latest('id')
+            ->value('slug');
+        if ($latestSlug) {
+            $pieces = explode('-', $latestSlug);
+            Alert::error('Tambah Hidden Gem',  'Hidden Gem sudah tersedia');
+            return redirect()->back()->withInput($request->all());
+
+            $number = intval(end($pieces));
+
+            $slug .= '-' . ($number + 1);
+        }
         $request['description'] = strip_tags($request->description);
         $validator = Validator::make(
             $request->all(),

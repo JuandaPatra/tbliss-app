@@ -19,7 +19,7 @@ Category Add
                   <input id="input_post_title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
                   @error('title')
                   <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
+                     <strong>Wajib diisi</strong>
                   </span>
                   @enderror
                </div>
@@ -45,7 +45,7 @@ Category Add
                   <input id="input_post_banner" name="banner" value="{{ old('banner') }}" type="text" class="form-control @error('banner') is-invalid @enderror" placeholder="" readonly />
                   @error('banner')
                   <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
+                     <strong>Wajib diisi</strong>
                   </span>
                   @enderror
                </div>
@@ -60,7 +60,7 @@ Category Add
                   <input id="input_post_image" name="thumbnail" value="{{ old('thumbnail') }}" type="text" class="form-control @error('thumbnail') is-invalid @enderror" placeholder="" readonly />
                   @error('thumbnail')
                   <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
+                     <strong>Wajib diisi</strong>
                   </span>
                   @enderror
                </div>
@@ -72,7 +72,7 @@ Category Add
                </textarea>
                @error('description')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>
@@ -83,7 +83,7 @@ Category Add
                </textarea>
                @error('itinerary')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>
@@ -92,7 +92,7 @@ Category Add
                <input id="input_post_price" name="price" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror tourPrice" name="price" value="{{ old('price') }}" />
                @error('title')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>
@@ -101,7 +101,7 @@ Category Add
                <input min="1" id="input_post_seat" name="seat" type="number" placeholder="" class="form-control @error('seat') is-invalid @enderror" name="seat" value="{{ old('seat') }}" />
                @error('seat')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>
@@ -113,7 +113,7 @@ Category Add
                   <input id="input_post_pdf" name="link_g_drive" value="{{ old('link_g_drive') }}" type="text" class="form-control @error('link_g_drive') is-invalid @enderror" placeholder="" readonly />
                   @error('link_g_drive')
                   <span class="invalid-feedback" role="alert">
-                     <strong>{{ $message }}</strong>
+                     <strong>Wajib diisi</strong>
                   </span>
                   @enderror
                </div>
@@ -127,7 +127,7 @@ Category Add
                      <input class="form-control @error('date_from') is-invalid @enderror" type="date" value="{{old('date_from')}}" name="date_from" id="html5-date-input">
                      @error('date_from')
                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>Wajib diisi</strong>
                      </span>
                      @enderror
                   </div>
@@ -137,7 +137,7 @@ Category Add
                      <input class="form-control @error('date_to') is-invalid @enderror" type="date" value="{{old('date_to')}}" name="date_to" id="html5-date-input">
                      @error('date_to')
                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>Wajib diisi</strong>
                      </span>
                      @enderror
                   </div>
@@ -150,7 +150,7 @@ Category Add
                      <input id="input_days" name="day" type="number" placeholder="" class="form-control @error('day') is-invalid @enderror days-total" name="day" value="{{ old('day') }}" />
                      @error('day')
                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>Wajib diisi</strong>
                      </span>
                      @enderror
                   </div>
@@ -159,7 +159,7 @@ Category Add
                      <input id="input_nights" name="night" type="number" placeholder="" class="form-control @error('night') is-invalid @enderror" name="night" value="{{ old('night') }}" />
                      @error('night')
                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>Wajib diisi</strong>
                      </span>
                      @enderror
                   </div>
@@ -170,7 +170,7 @@ Category Add
                <input id="input_post_price" name="visa" type="text" placeholder="" class="form-control @error('visa') is-invalid @enderror visa-input" name="visa" value="{{ old('visa') }}" />
                @error('visa')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>
@@ -181,7 +181,7 @@ Category Add
                      <input id="input_post_price" name="tipping" type="text" placeholder="" class="form-control @error('tipping') is-invalid @enderror tipping-price" name="tipping" value="{{ old('tipping') }}" />
                      @error('tipping')
                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>Wajib diisi</strong>
                      </span>
                      @enderror
                   </div>
@@ -190,7 +190,7 @@ Category Add
                      <input id="input_post_price" name="total_tipping" type="text" placeholder="" class="form-control @error('total_tipping') is-invalid @enderror total-tipping-price" name="total_tipping" value="{{ old('total_tipping') }}" readonly />
                      @error('total_tipping')
                      <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
+                        <strong>Wajib diisi</strong>
                      </span>
                      @enderror
                   </div>
@@ -276,7 +276,7 @@ Category Add
             <input id="input_post_prices_total" name="prices_total" type="text" placeholder="" class="form-control @error('prices_total') is-invalid @enderror" name="prices_total" value="{{ old('prices_total')  }}" readonly />
             @error('prices_total')
             <span class="invalid-feedback" role="alert">
-               <strong>{{ $message }}</strong>
+               <strong>Wajib diisi</strong>
             </span>
             @enderror
          </div>
@@ -289,7 +289,7 @@ Category Add
                <input id="input_post_price" name="dp_price" type="text" placeholder="" class="form-control @error('dp_price') is-invalid @enderror dp-price" name="dp_price" value="{{ old('dp_price')  }}" />
                @error('dp_price')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>
@@ -298,7 +298,7 @@ Category Add
                <input id="input_post_price" name="installment1" type="text" placeholder="" class="form-control @error('installment1') is-invalid @enderror installment1-price" name="installment1" value="{{ old('installment1')  }}" />
                @error('installment1')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>
@@ -307,7 +307,7 @@ Category Add
                <input id="input_post_price" name="installment2" type="text" placeholder="" class="form-control @error('installment2') is-invalid @enderror installment2-price" name="installment2" value="{{ old('installment2') }}" />
                @error('installment2')
                <span class="invalid-feedback" role="alert">
-                  <strong>{{ $message }}</strong>
+                  <strong>Wajib diisi</strong>
                </span>
                @enderror
             </div>

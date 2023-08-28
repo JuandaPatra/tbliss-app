@@ -50,6 +50,7 @@ Route::group(['middleware' => 'auth'], function () {
         
         Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('isAdmin');
     
+        Route::post('product/copy/{product}', [ProductController::class, 'copyTrip'])->name('product.copy');
         Route::get('product/table-index', [ProductController::class, 'tableProduct'])->name('product.indexTable');
         Route::put('product/testimoni-per-trip/{product}/update', [ProductController::class, 'updateEditTestimoni'])->name('product.updateTestimoniTrip');
         Route::get('product/testimoni-per-trip/{product}/edit', [ProductController::class, 'editTestimoni'])->name('product.editTestimoniTrip');

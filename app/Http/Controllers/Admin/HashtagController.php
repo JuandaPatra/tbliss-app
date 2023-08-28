@@ -27,7 +27,7 @@ class HashtagController extends Controller
         $datas = Hashtag::all();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
@@ -56,15 +56,15 @@ class HashtagController extends Controller
     {
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
         return view('admin.hashtag.create', [
             'statuses' => $this->statuses(),
             'orders' => $this->orders(),
-            'notifications'=> $notifications,
-            'notificationsCount'=> $notificationsCount
+            'notifications' => $notifications,
+            'notificationsCount' => $notificationsCount
         ]);
     }
 
@@ -77,12 +77,29 @@ class HashtagController extends Controller
     public function store(Request $request)
     {
         $request['slug'] = Str::slug($request->title);
-       
+        $slug = $request['slug'];
+
+        $latestSlug =
+            Hashtag::whereRaw("slug = '$request->slug' or slug LIKE '$request->slug-%'")
+            ->latest('id')
+            ->value('slug');
+        if ($latestSlug) {
+            $pieces = explode('-', $latestSlug);
+            Alert::error('Tambah Hashtag',  'Hashtag sudah tersedia');
+            return redirect()->back()->withInput($request->all());
+
+            $number = intval(end($pieces));
+
+            $slug .= '-' . ($number + 1);
+        }
+
+
+
         $validator = Validator::make(
             $request->all(),
             [
                 'title' => 'required|string|max:100',
-                'slug' => 'required|string|unique:hashtags,slug',
+                'slug' => 'required|string|',
             ]
         );
 
@@ -95,7 +112,7 @@ class HashtagController extends Controller
         try {
             $post = Hashtag::create([
                 'title'         => $request->title,
-                'slug'          => $request->slug,
+                'slug'          => $slug,
                 'description'   => $request->description,
                 'status'        => 'publish',
             ]);
@@ -133,16 +150,16 @@ class HashtagController extends Controller
         $hashtag = Hashtag::whereId($id)->get();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        foreach($notifications as $notification){
+        foreach ($notifications as $notification) {
             $time = $this->timeAgo($notification->updated_at);
             $notification['time'] = $time;
         }
 
-        return view('admin.hashtag.edit',[
+        return view('admin.hashtag.edit', [
             'hashtag'   => $hashtag[0],
             'statuses'  => $this->statuses(),
-            'notifications'=>$notifications,
-            'notificationsCount'=> $notificationsCount
+            'notifications' => $notifications,
+            'notificationsCount' => $notificationsCount
         ]);
     }
 
@@ -164,7 +181,7 @@ class HashtagController extends Controller
                 'slug' => 'required',
             ]
         );
-        if ($validator->fails()){
+        if ($validator->fails()) {
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
         DB::beginTransaction();
@@ -203,17 +220,17 @@ class HashtagController extends Controller
             $findId = hidden_gem_hashtag::where('hashtag_id', $hashtag->id)->get(['id'])->pluck('id');
 
             //// jika data lebih dari 1 maka hapus list hidden_gem_hashtag
-            if(count($findId) >= 1){
+            if (count($findId) >= 1) {
                 hidden_gem_hashtag::whereIn('id', $findId)->delete();
             }
-            
+
             // selanjutnya
 
             //// temukan list trip_cities_hidden_gem_hashtag dengan id yang dikirimkan parameter
             $findTripHiddenHashtag = Trip_cities_hidden_gem_hashtag::where('hashtag_id', $hashtag->id)->get(['id'])->pluck('id');
-            
+
             ///// hapus tabel trip cities hidden_gem_hashtag yang memuat hashtag 
-            if(count($findTripHiddenHashtag) >= 1 ){
+            if (count($findTripHiddenHashtag) >= 1) {
                 $findTripHiddenHashtag->delete();
             }
 
@@ -226,10 +243,10 @@ class HashtagController extends Controller
 
             //// kirim pemberitahuan dan kembali ke halaman sebelumnya 
             Alert::success('Delete Hashtag', 'Berhasil');
-        } catch (\throwable $th){
-            
+        } catch (\throwable $th) {
+
             //// fail akses hidden gem
-            Alert::error('Delete Hashtag', 'error'.$th->getMessage()); 
+            Alert::error('Delete Hashtag', 'error' . $th->getMessage());
         }
         return redirect()->back();
     }

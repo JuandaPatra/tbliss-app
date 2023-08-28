@@ -31,7 +31,7 @@ class ProductController extends Controller
     public function index()
     {
         $datas = Trip_categories::where('status', '=', 'publish')->orderBy('date_from', 'ASC')->get();
-        foreach($datas as $data){
+        foreach ($datas as $data) {
             $data['date_from'] = date('d M Y', strtotime($data->date_from));
             $data['date_to'] = date('d M Y', strtotime($data->date_to));
         }
@@ -49,26 +49,23 @@ class ProductController extends Controller
     {
         if ($request->ajax()) {
             $datas = Trip_categories::where('status', '=', 'publish')->orderBy('date_from', 'ASC')->get();
-            foreach($datas as $data){
+            foreach ($datas as $data) {
                 $data['date_from'] = date('d M Y', strtotime($data->date_from));
                 $data['date_to'] = date('d M Y', strtotime($data->date_to));
             }
             return Datatables::of($data)
-            ->addIndexColumn()
-            
-            ->addColumn('action', function ($user) {
+                ->addIndexColumn()
+
+                ->addColumn('action', function ($user) {
 
 
-                return '
-                <a href="'.route('testimoni-trip.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                    return '
+                <a href="' . route('testimoni-trip.edit', $user->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
                 
-                <a href="'.route('testimoni-trip.destroy1', $user->id).'" class="btn btn-xs btn-danger deleteUser"><i class="fa fa-trash"></i> Delete</a>
+                <a href="' . route('testimoni-trip.destroy1', $user->id) . '" class="btn btn-xs btn-danger deleteUser"><i class="fa fa-trash"></i> Delete</a>
                 ';
-
-                
-            })
-            ->make(true);
-
+                })
+                ->make(true);
         }
     }
 
@@ -108,6 +105,22 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request['slug'] = Str::slug($request->title);
+
+        $slug = $request['slug'];
+
+        $latestSlug =
+            Trip_categories::whereRaw("slug = '$request->slug' or slug LIKE '$request->slug-%'")
+            ->latest('id')
+            ->value('slug');
+        if ($latestSlug) {
+            $pieces = explode('-', $latestSlug);
+            Alert::error('Tambah Trip',  'Trip sudah tersedia');
+            return redirect()->back()->withInput($request->all());
+
+            $number = intval(end($pieces));
+
+            $slug .= '-' . ($number + 1);
+        }
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
         $dp_price = str_replace('.', '', $request->dp_price);
@@ -134,7 +147,7 @@ class ProductController extends Controller
                 'link_g_drive'  =>  'required',
                 'date_from'     =>  'required',
                 'date_to'       =>  'required',
-                
+
                 'dp_price'      =>  'required',
                 'installment1'  =>  'required',
                 'installment2'  =>  'required',
@@ -260,8 +273,8 @@ class ProductController extends Controller
     public function edit($id)
     {
         //// controller edit Trip 
-        
-        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug',])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status', 'dp_price', 'installment1', 'installment2', 'installment3', 'visa', 'tipping', 'total_tipping','banner', 'trip_review', 'trip_star']);
+
+        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug',])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status', 'dp_price', 'installment1', 'installment2', 'installment3', 'visa', 'tipping', 'total_tipping', 'banner', 'trip_review', 'trip_star']);
 
         $tripTestimoni = ReviewTrip::where('categories_trip_id', '=', $id)->get();
 
@@ -275,7 +288,7 @@ class ProductController extends Controller
             $notification['time'] = $time;
         }
 
-        
+
         return view('admin.products.edit', [
             'statuses'      => $this->statuses(),
             'destinations'  => $negara,
@@ -481,7 +494,7 @@ class ProductController extends Controller
                 'link_g_drive'  =>  'required',
                 'date_from'     =>  'required',
                 'date_to'       =>  'required',
-                
+
                 'dp_price'      =>  'required',
                 'installment1'  =>  'required',
                 'installment2'  =>  'required',
@@ -589,10 +602,10 @@ class ProductController extends Controller
     {
 
 
-        $data = ReviewTrip::where('categories_trip_id','=',$id)->get();
+        $data = ReviewTrip::where('categories_trip_id', '=', $id)->get();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        return view('admin.products.testimoni' , compact('notifications', 'notificationsCount', 'id', 'data'));
+        return view('admin.products.testimoni', compact('notifications', 'notificationsCount', 'id', 'data'));
     }
 
     public function testimoniAdd(Request $request, $id)
@@ -615,10 +628,10 @@ class ProductController extends Controller
                 'name'                      =>  $request->name,
                 'description'               =>  $request->description,
                 'categories_trip_id'         => $id,
-                
+
             ]);
             DB::commit();
-            
+
             Alert::success('Tambah Testimoni Trip', 'Berhasil');
             return redirect()->route('product.index');
         } catch (\throwable $th) {
@@ -635,15 +648,14 @@ class ProductController extends Controller
         $testimoni = ReviewTrip::where('id', '=', $id)->first();
         $notifications = logPayments::where('status', '=', 'belum dibaca')->get();
         $notificationsCount = logPayments::where('status', '=', 'belum dibaca')->count();
-        return view('admin.products.editTestimoni',compact('testimoni', 'notifications', 'notificationsCount'));
-
+        return view('admin.products.editTestimoni', compact('testimoni', 'notifications', 'notificationsCount'));
     }
 
     public function updateEditTestimoni(Request $request, $id)
     {
 
         $category = ReviewTrip::whereId($id)->first();
-        
+
         $validator = Validator::make(
             $request->all(),
             [
@@ -664,10 +676,10 @@ class ProductController extends Controller
                 'name'                          =>  $request->name,
                 'description'                   =>  $description,
                 'categories_trip_id'            =>  $category->categories_trip_id,
-                
+
             ]);
             DB::commit();
-            
+
             Alert::success('Update Testimoni Trip', 'Berhasil');
             return redirect()->route('product.index');
         } catch (\throwable $th) {
@@ -677,7 +689,6 @@ class ProductController extends Controller
         } finally {
             DB::commit();
         }
-
     }
 
     public function deleteTestimoni($id)
@@ -692,12 +703,152 @@ class ProductController extends Controller
         return redirect()->back();
     }
 
+    public function copyTrip($id)
+    {
+        $trip = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,slug,title', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title,slug', 'hashtag_place_trip:id,hashtag_id,trip_categories_id', 'hashtag_place_trip.hashtag:id,title,slug',])->whereId($id)->first(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'link_g_drive', 'date_from', 'date_to', 'status', 'dp_price', 'installment1', 'installment2', 'installment3', 'visa', 'tipping', 'total_tipping', 'banner', 'trip_review', 'trip_star']);
+
+
+        // $hiddens = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'])->where('trip_categories_id', '=', $id)->get(['id', 'place_categories_id', 'trip_categories_id']);
+
+        
+
+
+        // $hiddenId = [];
+        // if($hiddens->count() != 0){
+        //     foreach($hiddens as $hidden){
+        //         if($hidden->pick_hidden_gem->count() != 0){
+        //             foreach($hidden->pick_hidden_gem as $hd){
+        //                 array_push($hiddenId, $hd->hidden_gem_id);
+        //             }
+        //         }
+        //     }
+            
+        // }
+
+        // return $hiddenId;
+
+        $slug = $trip->slug;
+        $newTripName = $trip->title;
+
+        $latestSlug =
+            Trip_categories::whereRaw("slug = '$trip->slug' or slug LIKE '$trip->slug-%'")
+            ->latest('id')
+            ->value('slug');
+        if ($latestSlug) {
+            $pieces = explode('-', $latestSlug);
+
+
+            $number = intval(end($pieces));
+
+            $slug .= '-' . ($number + 1);
+            $newTripName .= ' ' . ($number + 1);
+        }
+
+
+        $countries = [];
+        foreach ($trip->place_trip_categories as $tripperpices) {
+            array_push($countries, $tripperpices->place_categories_id);
+        }
+
+
+        $cities = [];
+
+        foreach ($trip->place_trip_categories_cities as $cityPerPieces) {
+            array_push($cities, $cityPerPieces->place_categories_id);
+        }
+
+
+
+        DB::beginTransaction();
+        try {
+            $post = Trip_categories::create([
+                'title'         =>  $newTripName,
+                'slug'          =>  $slug,
+                'thumbnail'     =>  $trip->thumbnail,
+                'description'   =>  $trip->description,
+                'itinerary'     =>  $trip->itinerary,
+                'price'         =>  $trip->price,
+                'day'           =>  $trip->day,
+                'night'         =>  $trip->night,
+                'seat'          =>  $trip->seat,
+                'link_g_drive'  =>  $trip->link_g_drive,
+                'date_from'     =>  $trip->date_from,
+                'date_to'       =>  $trip->date_to,
+                'status'        =>  'publish',
+                'dp_price'      =>  $trip->dp_price,
+                'installment1'  =>   $trip->installment1,
+                'installment2'  =>   $trip->installment2,
+                'visa'          =>  $trip->visa,
+                'tipping'       =>  $trip->tipping,
+                'total_tipping' =>  $trip->total_tipping,
+                'banner'        => $trip->banner,
+                'trip_review'   => $trip->trip_review,
+                'trip_star'     => $trip->trip_star
+            ]);
+            DB::commit();
+            $trip = Trip_categories::where('title', '=', $newTripName)->get();
+
+            foreach ($countries as $inputCountry) {
+                try {
+                    $post = Place_trip_categories::create([
+                        'trip_categories_id'                => $trip[0]->id,
+                        'place_categories_id'               => $inputCountry,
+                    ]);
+                } catch (\throwable $th) {
+                    DB::rollBack();
+                    Alert::error('Tambah Negara Tujuan Trip', 'error' . $th->getMessage());
+                    return redirect()->back();
+                } finally {
+                    DB::commit();
+                }
+            }
+
+            foreach ($cities as $inputCity) {
+                try {
+                    $post = place_trip_categories_cities::create([
+                        'trip_categories_id'                => $trip[0]->id,
+                        'place_categories_id'               => $inputCity,
+                    ]);
+                } catch (\throwable $th) {
+                    DB::rollBack();
+                    Alert::error('Tambah Kota Tujuan Trip', 'error' . $th->getMessage());
+                    return redirect()->back();
+                } finally {
+                    DB::commit();
+                }
+            }
+
+            // foreach($hiddenId as $hiddenPick){
+            //     try {
+            //         $post = place_trip_categories_cities::create([
+            //             'trip_categories_id'                => $trip[0]->id,
+            //             'place_categories_id'               => $inputCity,
+            //         ]);
+            //     } catch (\throwable $th) {
+            //         DB::rollBack();
+            //         Alert::error('Tambah Kota Tujuan Trip', 'error' . $th->getMessage());
+            //         return redirect()->back();
+            //     } finally {
+            //         DB::commit();
+            //     }
+            // }
+            Alert::success('Copy Trip', 'Berhasil');
+            return redirect()->route('product.index');
+        } catch (\throwable $th) {
+            DB::rollBack();
+            Alert::error('Copy Trip', 'error' . $th->getMessage());
+            return redirect()->back();
+        } finally {
+            DB::commit();
+        }
+    }
+
     public function table(Request $request)
     {
         if ($request->ajax()) {
 
 
-            $data = ReviewTrip::where('categories_trip_id','=',$request->id)->get();
+            $data = ReviewTrip::where('categories_trip_id', '=', $request->id)->get();
 
             // $data = Contact::select('*');
             return Datatables::of($data)
@@ -715,9 +866,9 @@ class ProductController extends Controller
 
 
                     return '
-                    <a href="'.route('testimoni-trip.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
+                    <a href="' . route('testimoni-trip.edit', $user->id) . '" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
                     
-                    <a href="'.route('testimoni-trip.destroy1', $user->id).'" class="btn btn-xs btn-danger deleteUser"><i class="fa fa-trash"></i> Delete</a>
+                    <a href="' . route('testimoni-trip.destroy1', $user->id) . '" class="btn btn-xs btn-danger deleteUser"><i class="fa fa-trash"></i> Delete</a>
                     ';
 
                     // return '<div class="dropdown-menu">
@@ -725,7 +876,7 @@ class ProductController extends Controller
                     //      <a class="dropdown-item" href="' . route('user-admin.destroy', $user->id) . '" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest("form").submit();return false;">
                     //         <i class="bx bx-trash me-1"></i>Delete
                     //     </a>
-                         
+
                     //  </div>';
                 })
                 // ->addColumn('roles', function($row){
