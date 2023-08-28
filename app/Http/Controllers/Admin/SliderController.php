@@ -59,7 +59,7 @@ class SliderController extends Controller
                 'title' => 'required|string|max:100',
                 'image_desktop' => 'required',
                 'image_mobile' => 'required',
-                's_order' => 'required|unique:sliders,s_order',
+                's_order' => 'required',
                 'description' => 'required',
                 'description2' => 'required',
             ]

@@ -196,6 +196,7 @@ class HiddenGemController extends Controller
         }
         $destinations = Place_categories::with(['descendants'])->onlyParent()->get(['id', 'title']);
 
+
         return view('admin.hidden_gem.edit',[
             'hidden_gem' => $hiddem_gem[0],
             'statuses'  => $this->statuses(),
@@ -247,6 +248,7 @@ class HiddenGemController extends Controller
                 'image_mobile'      => $request->image_desktop,
                 'places_id'         => $request->destination,
                 'status'            => 'publish',
+                'banner'            => $request->banner
             ]);
 
             DB::commit();
