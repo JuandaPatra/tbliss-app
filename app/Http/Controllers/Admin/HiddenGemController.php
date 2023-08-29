@@ -58,10 +58,14 @@ class HiddenGemController extends Controller
                 return '
                 <a href="'.route('activities.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
                 
-                <a href="'.route('activities.destroy', $user->id).'" class="btn btn-xs btn-danger"><i class="fa fa-trash"></i> Delete</a>';
+                <a href="'.route('activities.destroy', $user->id).'" class="btn btn-xs btn-danger "><i class="fa fa-trash"></i> Delete</a>
+
+                
+                ';
 
                
             })
+            
            
             ->make(true);
         }
@@ -310,6 +314,7 @@ class HiddenGemController extends Controller
      */
     public function destroy($id)
     {
+       
         try {
             /// temukan list hidden_gem_hashtag dengan id yang dikirimkan parameter
             $findHidden_gemHashtagId = hidden_gem_hashtag::where('hidden_gem_id', $id)->get(['id'])->pluck('id');

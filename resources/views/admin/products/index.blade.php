@@ -47,7 +47,7 @@ $postId = last(request()->segments());
                 <a class="dropdown-item" href="{{ route('product.pick',$row) }}"><i class="bx bx-edit-alt me-1"></i> Choose Hidden Gems</a>
                 <form method="POST" action="{{ route('product.copy', $row) }}">
                   @csrf
-                  <button type="submit" class="dropdown-item show_confirm" data-toggle="tooltip" title='Delete'><i class="bx bx-edit-alt me-1"></i>Copy</button>
+                  <button type="submit" class="dropdown-item show_confirm" data-toggle="tooltip" title='copy'><i class="bx bx-edit-alt me-1"></i>Copy</button>
                 </form>
                 <!-- <a class="dropdown-item" href="{{ route('product.review',$row) }}"><i class="bx bx-edit-alt me-1"></i> Review & Star</a> -->
                 <!-- <a class="dropdown-item" href="{{ route('product.testimoni',$row) }}"><i class="bx bx-edit-alt me-1"></i> Add Testimoni</a> -->
@@ -56,9 +56,7 @@ $postId = last(request()->segments());
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="dropdown-item show_confirm_delete" data-toggle="tooltip" title='Delete'><i class="bx bx-trash me-1"></i>Delete</button>
-                  <!-- <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
-                    <i class="bx bx-trash me-1"></i>Delete
-                  </a> -->
+                  
                 </form>
               </div>
             </div>

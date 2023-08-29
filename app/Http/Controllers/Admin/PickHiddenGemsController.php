@@ -67,9 +67,7 @@ class PickHiddenGemsController extends Controller
                 // return $getAllHashtag;
                 foreach ($getAllHashtag as $hashtagInput) {
                     $checkHiddenGemInTable = Trip_cities_hidden_gem_hashtag::where('hidden_gem_id', '=', $index)->where('hashtag_id','=', $hashtagInput)->where('trip_categories_id', '=', $request->trip_categories_id)->get();
-                    // return $index;
-                    // return $checkHiddenGemInTable;
-                    // return count($checkHiddenGemInTable);
+                    
                     if (count($checkHiddenGemInTable) >= 1) {
                         Alert::error('Tambah Hidden sGem', 'Hidden Gem Telah Dipilih');
                         return redirect()->back()->withInput($request->all());
