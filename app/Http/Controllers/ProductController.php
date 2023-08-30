@@ -710,22 +710,9 @@ class ProductController extends Controller
 
         $hiddens = place_trip_categories_cities::with(['place_categories:id,title', 'place_categories.hidden_gem:places_id,id,title,image_desktop', 'pick_hidden_gem:id,place_categories_id,place_categories_categories_cities_id,hidden_gem_id', 'pick_hidden_gem.hidden_gems:id,title,image_desktop', 'pick_hidden_gem.hidden_gems.hidden_hashtag:id,hidden_gem_id,hashtag_id',  'pick_hidden_gem.hidden_gems.hidden_hashtag.hashtag:id,title,slug'])->where('trip_categories_id', '=', $id)->get(['id', 'place_categories_id', 'trip_categories_id']);
 
-        // return $hiddens;
 
 
-        // $hiddenId = [];
-        // if($hiddens->count() != 0){
-        //     foreach($hiddens as $hidden){
-        //         if($hidden->pick_hidden_gem->count() != 0){
-        //             foreach($hidden->pick_hidden_gem as $hd){
-        //                 array_push($hiddenId, $hd->hidden_gem_id);
-        //             }
-        //         }
-        //     }
-            
-        // }
 
-        // return $hiddenId;
 
         $slug = $trip->slug;
         $newTripName = $trip->title;
