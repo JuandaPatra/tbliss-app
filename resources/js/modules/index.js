@@ -159,8 +159,13 @@ export class DetailPages {
 
     searchItinerary() {
         $("#searchTrip").on("click", function (e) {
-            let post = allHashtag;
+            let post = [];
+            if(post.length != 0){
+                 post = allHashtag;
+            }
             let cities = saveAllCities;
+
+            console.log(post)
 
             $.ajax({
                 type: "POST",
@@ -171,7 +176,7 @@ export class DetailPages {
                     ),
                 },
                 data: {
-                    post,
+                    post :post,
                     cities,
                 },
                 error: function (xhr, error) {

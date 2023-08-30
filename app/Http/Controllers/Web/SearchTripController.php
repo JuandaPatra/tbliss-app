@@ -114,27 +114,77 @@ class SearchTripController extends Controller
 
     public function searchtrip(Request $request)
     {
-        // if ($request->cities and $request->post) {
-
-        //     //dapat cities
-
-        //     $tripsRes = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get()->pluck('trip_categories_id');
-
-        //     $uniqueTripsRes = $tripsRes->unique();
-        //     //
-
-        //     $tripsHash = Trip_cities_hidden_gem_hashtag::whereIn('hashtag_id', $request->post)->get()->pluck('trip_categories_id')->unique();
+        //    return $request;
+        if ($request->input('post') != '') {
+            $hashtags = $request->post;
+            $countHashtag = count($hashtags);
+        } else {
+            $countHashtag = 0;
+        }
 
 
-        //     return $tripsHash;
 
-        //     return $tripsRes;
+        if ($request->cities and  $countHashtag != 0) {
+            $trips = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get();
 
-        //     $tripHashtags = Trip_cities_hidden_gem_hashtag::whereIn('hashtag_id',$request->post)->get();
+            $tripsRes = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get(['trip_categories_id', 'place_categories_id'])->pluck('trip_categories_id');
 
-        //     return $tripHashtags;
-        // }
-        if ($request->cities) {
+            $uniqueTripsRes = $tripsRes->unique();
+
+            // $trips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,title'])->whereIn('id', $uniqueTripsRes)->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
+
+            $tripsAwal = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,title'])->whereIn('id', $uniqueTripsRes)->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
+
+
+            $tripsUn = Trip_cities_hidden_gem_hashtag::whereIn('trip_categories_id', $uniqueTripsRes)->get()->pluck('trip_categories_id');
+
+            // return $tripsUn;
+
+            $trips = Trip_categories::with(['place_trip_categories:id,trip_categories_id,place_categories_id', 'place_trip_categories.place_categories:id,title,slug', 'place_trip_categories_cities:id,trip_categories_id,place_categories_id', 'place_trip_categories_cities.place_categories:id,title', 'place_trip_categories_cities.pick_hidden_gem:place_categories_categories_cities_id,hidden_gem_id', 'place_trip_categories_cities.pick_hidden_gem.hidden_gems:id,title'])->whereIn('id', $tripsUn)->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))->where('status', '=', 'publish')->get(['id', 'title', 'slug', 'thumbnail', 'description', 'itinerary', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
+
+
+
+            foreach ($trips as $trip) {
+
+                //ganti format tanggal
+                $trip['date_from'] = date('d', strtotime($trip->date_from));
+                $trip['date_to'] = date('d M Y', strtotime($trip->date_to));
+
+                if ($trip->place_trip_categories_cities->count() >= 1) {
+                    $citiesPick = '';
+                    $hidg = '';
+                    foreach ($trip->place_trip_categories_cities as $cities) {
+                        if ($cities->count() > 1) {
+                            if ($cities->pick_hidden_gem->count() >= 1) {
+                                foreach ($cities->pick_hidden_gem as $hg) {
+                                    $hidg =  $hidg . '<p>' . $hg->hidden_gems->title
+                                        . '</p>';
+                                }
+                            }
+                        }
+                    }
+                }
+
+                if ($trip->place_trip_categories_cities->count() == 1) {
+                    $citiesPick = $trip->place_trip_categories_cities[0]->place_categories->title;
+                } else {
+                    for ($i = 0; $i < $trip->place_trip_categories_cities->count(); $i++) {
+                        if ($i == 0) {
+                            $citiesPick =  $trip->place_trip_categories_cities[$i]->place_categories->title . '-';
+                        } else if ($i == $trip->place_trip_categories_cities->count() - 1) {
+                            $citiesPick = $citiesPick . $trip->place_trip_categories_cities[$i]->place_categories->title;
+                        } else if ($i != $trip->place_trip_categories_cities->count() - 1) {
+                            $citiesPick = $citiesPick . '-' . $trip->place_trip_categories_cities[$i]->place_categories->title . '-';
+                        }
+                    }
+                }
+
+                $trip['hg'] = $hidg;
+                $trip['destinationCities'] = $citiesPick;
+            }
+            return $trips;
+        } elseif ($request->cities) {
+
             $trips = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get();
 
             $tripsRes = place_trip_categories_cities::with(['place_categories',])->whereIn('place_categories_id', $request->cities)->get(['trip_categories_id', 'place_categories_id'])->pluck('trip_categories_id');
@@ -187,50 +237,11 @@ class SearchTripController extends Controller
                 $trip['destinationCities'] = $citiesPick;
             }
             return $trips;
-        } elseif ($request->cities) {
-            $trips = DB::table('trip_cities_hidden_gem_hashtags')
-                ->leftJoin('trip_categories', 'trip_cities_hidden_gem_hashtags.trip_categories_id', '=', 'trip_categories.id')
-                // ->leftJoin('place_trip_categories_cities', 'trip_categories.id', '=', 'place_trip_categories_cities.trip_categories_id')
-                // ->select(['trip_cities_hidden_gem_hashtags.*', 'trip_categories.title', 'trip_categories.slug', 'trip_categories.price','trip_categories.seat','trip_categories.day','trip_categories.night', 'trip_categories.thumbnail', 'trip_categories.itinerary'])
-                // ->select(['trip_cities_hidden_gem_hashtags.id'])
-                ->whereIn('hashtag_id', $request->post)
-                ->get();
-            $trips->unique('trip_categories_id');
-            // $getArray = (array) $trips->unique('trip_categories_id');
+
+            //     return 'tes';
+           
         }
 
-        // $allTrip = Trip_cities_hidden_gem_hashtag::whereIn('hashtag_id', $request->post)->get();
-
-        $cobaTrip = [];
-        foreach ($trips->unique('trip_categories_id') as $tes) {
-            array_push($cobaTrip, $tes->id);
-        }
-
-        $allTrip = Trip_categories::with(['place_trip_categories_cities', 'place_trip_categories_cities.place_categories'])->whereIn('id', $cobaTrip)->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))->get();
-
-
-
-
-
-        foreach ($allTrip as $trip) {
-            $trip['date_from'] = date('d', strtotime($trip->date_from));
-            $trip['date_to'] = date('d M Y', strtotime($trip->date_to));
-            $trip['cities'] =  '';
-
-
-            for ($i = 0; $i < count($trip['place_trip_categories_cities']); $i++) {
-                if (count($trip['place_trip_categories_cities']) == 1) {
-                    $trip['cities'] = $trip['cities'] . '' . $trip['place_trip_categories_cities'][$i]['place_categories']['title'];
-                } else {
-                    if ($i == count($trip['place_trip_categories_cities']) - 1) {
-                        $trip['cities'] = $trip['cities'] . '' . $trip['place_trip_categories_cities'][$i]['place_categories']['title'];
-                    } else {
-                        $trip['cities'] = $trip['cities'] . '' . $trip['place_trip_categories_cities'][$i]['place_categories']['title'] . '-';
-                    }
-                }
-            }
-        }
-
-        return response()->json($allTrip);
+        // return response()->json($allTrip);
     }
 }
