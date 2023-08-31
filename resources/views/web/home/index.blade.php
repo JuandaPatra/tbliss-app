@@ -317,7 +317,7 @@
                     }
                 },
                 success: function(data) {
-                   
+
                     $('.result-text').addClass('hidden')
                     $('.reset-filter').addClass('hidden')
                     $('.home-section').empty()
@@ -495,10 +495,9 @@
             infinite: true,
             slidesToShow: 1,
             autoplay: false,
-            arrows:false,
-            speed:300,
-
-            autoplaySpeed: 500,
+            arrows: false,
+            autoplay: true,
+            autoplaySpeed: 1500,
         });
         $('.banner-slider').not('.slick-initialized').slick();
 
