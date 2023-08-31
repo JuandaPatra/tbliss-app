@@ -197,6 +197,7 @@
                 <li>
                     <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
                 </li>
+               
                 @endforeach
             </ul>
         </div>
@@ -375,6 +376,7 @@
 
             $(`.city-slider-${dataIndex}`).slick({
                 dots: false,
+                arrow:true,
                 infinite: false,
                 slidesToShow: 2.5,
                 responsive: [{
@@ -387,6 +389,27 @@
 
                 ],
             });
+
+            var current_article = $(`.city-slider-${dataIndex}`).slick('slickCurrentSlide');
+                var total_articles = $(`.city-slider-${dataIndex}`).slideCount;
+                $(`.city-slider-${dataIndex}`).on('init reInit afterChange', function(event, slick, currentSlide, nextSlide){
+                    current_article = $(`.city-slider-${dataIndex}`).slick('slickCurrentSlide');
+                    total_articles = slick.slideCount;
+                    slickArrow();
+                });
+                slickArrow();
+                function slickArrow() {  
+                    if(current_article==0){
+                       $('.slick-prev').hide();
+                    }else{
+                       $('.slick-prev').show();
+                    }
+                    if (current_article==total_articles-3){
+                        $('.slick-next').hide();
+                    }else{
+                        $('.slick-next').show();
+                    }
+                }
             $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();
 
 

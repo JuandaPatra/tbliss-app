@@ -13,6 +13,7 @@ $postId = last(request()->segments());
 
 <!-- Basic Bootstrap Table -->
 <div class="">
+    <a href="{{route('product.index')}}" class="btn btn-warning btn-sm">Back</a>
     <h5 class="card-header">Select Hidden Gems/Activities : {{$datas->title}}</h5>
     @forelse($cities as $city)
     <div class="row">

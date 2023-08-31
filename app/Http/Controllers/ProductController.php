@@ -108,6 +108,10 @@ class ProductController extends Controller
 
         $slug = $request['slug'];
 
+        $request['description'] = strip_tags($request->description);
+
+        // return $request;
+
         $latestSlug =
             Trip_categories::whereRaw("slug = '$request->slug' or slug LIKE '$request->slug-%'")
             ->latest('id')
@@ -158,6 +162,12 @@ class ProductController extends Controller
                 'countries'     => 'required',
                 'cities'        => 'required',
 
+                'trip_review'   => 'required',
+                'trip_star'     => 'required',
+                'review_name'   => 'required',
+                'description_review'    => 'required',
+
+
                 // 'installment3'  =>  'required',
             ]
         );
@@ -189,7 +199,9 @@ class ProductController extends Controller
                 'visa'          =>  (int) $visa,
                 'tipping'       =>  (int) $tipping,
                 'total_tipping' =>  (int) $total_tipping,
-                'banner'        => $request->banner
+                'banner'        => $request->banner,
+                'trip_review'   => $request->trip_review,
+                'trip_star'     => $request->trip_star
             ]);
             DB::commit();
             $trip = Trip_categories::where('title', '=', $request->title)->get();
@@ -223,6 +235,22 @@ class ProductController extends Controller
                     DB::commit();
                 }
             }
+
+
+            try {
+                $post = ReviewTrip::create([
+                    'categories_trip_id'                => $trip[0]->id,
+                    'name'                              => $request->review_name,
+                    'description'                       => $request->description_review
+                ]);
+            } catch (\throwable $th) {
+                DB::rollBack();
+                Alert::error('Tambah Review Trip', 'error' . $th->getMessage());
+                return redirect()->back()->withInput($request->all());
+            } finally {
+                DB::commit();
+            }
+
 
             // foreach($request->hashtag as $inputHashtag){
             //     try {
@@ -804,7 +832,7 @@ class ProductController extends Controller
                     DB::commit();
                 }
             }
-            
+
 
             // foreach($hiddenId as $hiddenPick){
             //     try {

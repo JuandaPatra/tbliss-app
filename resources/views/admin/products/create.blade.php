@@ -312,10 +312,81 @@ Category Add
                @enderror
             </div>
 
-            </form>
+            <!-- </form> -->
          </div>
       </div>
    </div>
+
+   <div class="card mb-4">
+      <h5 class="card-header">Review Trip</h5>
+      <div class="card mb-4">
+         <h5 class="card-header">Total Review</h5>
+         <div class="card-body">
+            <div class="mb-3">
+               <label for="input_post_title" class="form-label">Review</label>
+               <input id="input_post_title" name="trip_review" type="number" placeholder="" class="form-control @error('trip_review') is-invalid @enderror" name="name" value="{{ old('trip_review') }}" />
+               @error('trip_review')
+               <span class="invalid-feedback" role="alert">
+                  <strong>Wajib diisi</strong>
+               </span>
+               @enderror
+            </div>
+
+            <div class="mb-3">
+               <label for="input_post_title" class="form-label">Total Star</label>
+               <select id="select_post_status" name="trip_star" class="form-select @error('trip_star') is-invalid @enderror">
+                  <option value="">Please Select ..</option>
+
+                  <option value="1" {{ old('trip_star') == 1 ? "selected" : null }}> 1</option>
+                  <option value="2" {{ old('trip_star') == 2 ? "selected" : null }}> 2</option>
+                  <option value="3" {{ old('trip_star') == 3 ? "selected" : null }}> 3</option>
+                  <option value="4" {{ old('trip_star') == 4 ? "selected" : null }}> 4</option>
+                  <option value="5" {{ old('trip_star') == 5 ? "selected" : null }}> 5</option>
+
+               </select>
+               @error('trip_star')
+               <span class="invalid-feedback" role="alert">
+                  <strong>Wajib diisi</strong>
+               </span>
+               @enderror
+            </div>
+         </div>
+      </div>
+
+
+   </div>
+
+   <div class="card mb-4">
+      <h5 class="card-header">Testimoni Trip</h5>
+      <div class="card mb-4">
+
+         <div class="card-body">
+            <div class="mb-3">
+               <label for="input_post_title" class="form-label">Nama</label>
+               <input id="input_post_title" name="review_name" type="text" placeholder="" class="form-control @error('review_name') is-invalid @enderror" name="name" value="{{ old('review_name') }}" />
+               @error('review_name')
+               <span class="invalid-feedback" role="alert">
+                  <strong>Wajib diisi</strong>
+               </span>
+               @enderror
+            </div>
+
+            <div class="mb-3">
+               <label for="input_post_content" class="form-label">Description</label>
+               <textarea id="input_post_content" name="description_review" class="form-control @error('description_review') is-invalid @enderror" rows="20">{{ old('description_review') }}
+               </textarea>
+               @error('description_review')
+               <span class="invalid-feedback" role="alert">
+                  <strong>Wajib diisi</strong>
+               </span>
+               @enderror
+            </div>
+         </div>
+      </div>
+
+
+   </div>
+   </form>
    @endsection
    @push('javascript-external')
    <script src="{{ asset('vendor/laravel-filemanager/js/stand-alone-button.js') }}"></script>
