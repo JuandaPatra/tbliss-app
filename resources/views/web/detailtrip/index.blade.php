@@ -197,6 +197,7 @@
                 <li>
                     <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
                 </li>
+                
                
                 @endforeach
             </ul>
@@ -394,7 +395,7 @@
                 var total_articles = $(`.city-slider-${dataIndex}`).slideCount;
                 $(`.city-slider-${dataIndex}`).on('init reInit afterChange', function(event, slick, currentSlide, nextSlide){
                     current_article = $(`.city-slider-${dataIndex}`).slick('slickCurrentSlide');
-                    total_articles = slick.slideCount;
+                    total_articles = $(`.city-slider-${dataIndex}`).slideCount;
                     slickArrow();
                 });
                 slickArrow();

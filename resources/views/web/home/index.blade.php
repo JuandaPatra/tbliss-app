@@ -495,7 +495,9 @@
             infinite: true,
             slidesToShow: 1,
             autoplay: false,
-            // autoplaySpeed: 2000,
+            arrow:false,
+
+            autoplaySpeed: 2000,
         });
         $('.banner-slider').not('.slick-initialized').slick();
 
