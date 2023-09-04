@@ -128,7 +128,7 @@
                             Syarat Penting
                         </h1>
                         <p class="text-[16px] mb-3">
-                            Seputar visa, tiket pesawat dan lainny
+                            Seputar visa, tiket pesawat dan lainnya
                         </p>
                         <a href="/teskirimpdf" target="_blank" class="underline text-blue-500 ">Pelajari detail</a>
                     </div>
@@ -194,11 +194,21 @@
         <div class="col-span-9">
             <ul class="city-slider-{{$city->place_categories->id}} slider" data-slider="{{$city->place_categories->id}}">
                 @foreach($city->pick_hidden_gem as $hidden_gem)
-                <li>
-                    <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
+                <li >
+                    <!-- <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]"> -->
+                    <a href="{{route('home.hiddenGems' ,['id'=>$hidden_gem->place_categories_id,'slug'=>$hidden_gem->hidden_gems->slug])}}" class="slider-images">
+                        <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
+                        <div class=" relative">
+                            <div class=" absolute top-[-83px]  w-[98%] text-center translate-y-[50%] slider-text">
+                                <h1 class=" text-white">{{$hidden_gem->hidden_gems->title}}</h1>
+
+                            </div>
+
+                        </div>
+                    </a>
                 </li>
-                
-               
+
+
                 @endforeach
             </ul>
         </div>
@@ -343,13 +353,13 @@
                 </div>
                 <div class="basis-full lg:basis-1/2 text-[15px]">
                     <button type="button" class="text-white bg-transparent border hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Tanya Kami <span class="ml-2"><img src="{{ asset('images/header/whatsapp.png') }}" alt="" class="h-[20px] w-[20px] inline"></span></button>
-                    
+
                     @if($detailTrip->seat = 0)
                     <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 " disabled> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
                     @else
-                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 " > Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
+                    <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:outline-none focus:ring-4 focus:ring-blue-300 font-interRegular rounded-full text-sm px-[1rem] lg:px-5 py-2.5 text-center mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 "> Pesan Sekarang <span class="ml-2"><img src="{{ asset('images/detailtrip/arrow.png') }}" alt="" class="h-[10px] w-[15px] inline"></span></button>
                     @endif
-                    
+
                 </div>
             </div>
         </div>
@@ -377,7 +387,7 @@
 
             $(`.city-slider-${dataIndex}`).slick({
                 dots: false,
-                arrow:true,
+                arrow: true,
                 infinite: false,
                 slidesToShow: 2.5,
                 responsive: [{
@@ -392,25 +402,26 @@
             });
 
             var current_article = $(`.city-slider-${dataIndex}`).slick('slickCurrentSlide');
-                var total_articles = $(`.city-slider-${dataIndex}`).slideCount;
-                $(`.city-slider-${dataIndex}`).on('init reInit afterChange', function(event, slick, currentSlide, nextSlide){
-                    current_article = $(`.city-slider-${dataIndex}`).slick('slickCurrentSlide');
-                    total_articles = $(`.city-slider-${dataIndex}`).slideCount;
-                    slickArrow();
-                });
+            var total_articles = $(`.city-slider-${dataIndex}`).slideCount;
+            $(`.city-slider-${dataIndex}`).on('init reInit afterChange', function(event, slick, currentSlide, nextSlide) {
+                current_article = $(`.city-slider-${dataIndex}`).slick('slickCurrentSlide');
+                total_articles = $(`.city-slider-${dataIndex}`).slideCount;
                 slickArrow();
-                function slickArrow() {  
-                    if(current_article==0){
-                       $('.slick-prev').hide();
-                    }else{
-                       $('.slick-prev').show();
-                    }
-                    if (current_article==total_articles-3){
-                        $('.slick-next').hide();
-                    }else{
-                        $('.slick-next').show();
-                    }
+            });
+            slickArrow();
+
+            function slickArrow() {
+                if (current_article == 0) {
+                    $('.slick-prev').hide();
+                } else {
+                    $('.slick-prev').show();
                 }
+                if (current_article == total_articles - 3) {
+                    $('.slick-next').hide();
+                } else {
+                    $('.slick-next').show();
+                }
+            }
             $(`.city-slider-${dataIndex}`).not('.slick-initialized').slick();
 
 
@@ -424,6 +435,8 @@
             }],
         };
         // $('.hg-slider').not('.slick-initialized').slick();
+
+       
 
         var slicky = '';
         if ($(window).width() < 750) {

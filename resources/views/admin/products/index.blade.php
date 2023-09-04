@@ -9,6 +9,10 @@ $postId = last(request()->segments());
 @endsection
 @section('content')
 
+<div class="admin-toast-seat">
+
+</div>
+
 <!-- Basic Bootstrap Table -->
 <div class="card">
   <h5 class="card-header">List Product</h5>
@@ -16,11 +20,12 @@ $postId = last(request()->segments());
     <table class="table">
       <thead>
         <tr>
-          <th>No.</th>
-          <th>Title</th>
-          <th>Tanggal Trip</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th style="width: 5%;">No.</th>
+          <th style="width: 10%;">Title</th>
+          <th style="width: 5%;">Tanggal Trip</th>
+          <!-- <th style="width: 10%;">Status</th> -->
+          <th style="width:4%">Seat</th>
+          <th style="width: 10%;">Actions</th>
         </tr>
       </thead>
       <tbody class="table-border-bottom-0">
@@ -32,9 +37,11 @@ $postId = last(request()->segments());
           <td>
             {{$loop->iteration}}
           </td>
-          <td><strong>{{ $row->title }}</strong></td>
-          <td>{{$row->date_from}} - {{$row->date_to}}</td>
-          <td>{{ $row->status }}</td>
+          <td style="padding: 21px 1px;"><strong>{{ $row->title }}</strong></td>
+          <td style="padding: 21px 1px;">{{$row->date_from}} - {{$row->date_to}}</td>
+          <!-- <td style="padding: 21px 1px;">{{ $row->status }}</td> -->
+          <td><input min="1" id="input_post_seat" name="seat" type="number" placeholder="" class="form-control @error('seat') is-invalid @enderror seat-form" name="seat" value="{{$row->seat}}" data-seat="{{$row->id}}" />
+          </td>
           <td>
             <div class="dropdown">
               <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
@@ -56,7 +63,7 @@ $postId = last(request()->segments());
                   @csrf
                   @method('DELETE')
                   <button type="submit" class="dropdown-item show_confirm_delete" data-toggle="tooltip" title='Delete'><i class="bx bx-trash me-1"></i>Delete</button>
-                  
+
                 </form>
               </div>
             </div>
@@ -86,6 +93,24 @@ $postId = last(request()->segments());
     background-position: center;
     background-size: cover;
   }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  .seat-form {
+    text-align: center;
+    width: 70px;
+  }
 </style>
 @endpush
 @push('javascript-internal')
@@ -93,40 +118,93 @@ $postId = last(request()->segments());
   $(document).ready(function() {
 
     $('.show_confirm_delete').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          event.preventDefault();
-          swal({
-              title: `Are you sure you want to delete this trip?`,
-              text: "If you delete this, it will be gone forever.",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              form.submit();
-            }
-          });
-      });
+      var form = $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Are you sure you want to delete this trip?`,
+          text: "If you delete this, it will be gone forever.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            form.submit();
+          }
+        });
+    });
 
+
+    $('.seat-form').on('keyup', function() {
+      let seat = $(this).val();
+      let input = $(this).attr('data-seat')
+      // alert(input)
+      // alert(seat)
+
+      $.ajax({
+        type: "POST",
+        url: `${base_url}/product/update/seat/${input}`,
+        headers: {
+          "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+            "content"
+          ),
+        },
+        data: {
+
+          seat,
+        },
+        error: function(xhr, error) {
+          if (xhr.status === 500) {
+            console.log(error);
+
+            $(e.target).html("Gagal Terkirim");
+
+            setTimeout(() => {
+              location.reload();
+            }, 2500);
+          }
+        },
+        success: function(data) {
+          $('.admin-toast-seat').empty()
+          if (data === 'success') {
+            $('.admin-toast-seat').append(
+              `
+              <div class="bs-toast toast toast-placement-ex m-2 fade bg-success top-0 start-50 translate-middle-x show" role="alert" aria-live="assertive" aria-atomic="true" data-delay="150">
+              <div class="toast-header">
+                <i class="bx bx-bell me-2"></i>
+                <div class="me-auto fw-semibold">Tbliss Admin</div>
+                <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+              </div>
+              <div class="toast-body">
+                trip seat updated
+              </div>
+            </div>
+            `
+            )
+
+          }
+        }
+
+      })
+    })
     $('.show_confirm').click(function(event) {
-          var form =  $(this).closest("form");
-          var name = $(this).data("name");
-          event.preventDefault();
-          swal({
-              title: `Are you sure you want to copy this trip?`,
-              text: "If you delete this, it will be duplicate this one.",
-              icon: "warning",
-              buttons: true,
-              dangerMode: true,
-          })
-          .then((willDelete) => {
-            if (willDelete) {
-              form.submit();
-            }
-          });
-      });
+      var form = $(this).closest("form");
+      var name = $(this).data("name");
+      event.preventDefault();
+      swal({
+          title: `Are you sure you want to copy this trip?`,
+          text: "If you delete this, it will be duplicate this one.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            form.submit();
+          }
+        });
+    });
 
 
     var table = $('.data-table').DataTable({
@@ -146,44 +224,11 @@ $postId = last(request()->segments());
           data: 'name',
           name: 'name'
         },
-        //   {
-        //       data: 'email',
-        //       name: 'email'
-        //   },
-        //  {
-        //      data: 'roles',
-        //      name: 'roles'
-        //  },
         {
           data: 'action',
           name: 'action'
         },
-        //  {
-        //      data: 'finish_date',
-        //      name: 'finish_date'
-        //  },
-        // {
-        //    data: 'created_at',
-        //    render: function(d) {
-        //       return moment(d).format("DD/MM/YYYY HH:mm");
-        //    }
-        // },
-        // {
-        //    data: 'email',
-        //    name: 'subject'
-        // },
-        // {
-        //    data: 'email',
-        //    name: 'address'
-        // },
-        // {
-        //    data: 'email',
-        //    name: 'phone'
-        // },
-        // {
-        //    data: 'email',
-        //    name: 'message'
-        // }
+
 
       ]
     });

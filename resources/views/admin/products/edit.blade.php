@@ -6,6 +6,7 @@ Edit Product
 {{-- {{ Breadcrumbs::render('add_category') }} --}}
 @endsection
 @section('content')
+<a href="{{route('product.index')}}" class="btn btn-warning btn-sm mb-3">Back</a>
 <div class="row">
     <div class="col-12 col-md-8">
         <form action="{{route('product.updateTrip', ['id'=>$trip->id])}}" method="POST">
@@ -68,16 +69,18 @@ Edit Product
                     @enderror
                 </div>
                 <!-- itinerary -->
-                <div class="mb-3">
-                    <label for="input_post_content1" class="form-label">itinerary</label>
-                    <textarea id="input_post_content1" name="itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="20">{{ old('itinerary', $trip->itinerary) }}
-                    </textarea>
-                    @error('content')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                    @enderror
-                </div>
+                {{--
+                    <div class="mb-3">
+                        <label for="input_post_content1" class="form-label">itinerary</label>
+                        <textarea id="input_post_content1" name="itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="20">{{ old('itinerary', $trip->itinerary) }}
+                        </textarea>
+                        @error('content')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+                     --}}
                 <div class="mb-3">
                     <label for="input_post_price" class="form-label">Price</label>
                     <input id="input_post_price" name="price" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror tourPrice" name="price" value="{{ old('price', $trip->price) }}" />

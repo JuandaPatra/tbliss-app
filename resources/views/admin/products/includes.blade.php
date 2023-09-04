@@ -13,6 +13,7 @@ $postId = last(request()->segments());
 
 <!-- Basic Bootstrap Table -->
 <div class="">
+    <a href="{{route('product.index')}}" class="btn btn-warning btn-sm">Back</a>
     <h5 class="card-header">Includes/Excludes : <span>{{$datas->title}}</span></h5>
     <div class="row">
         <div class="col-12">
@@ -83,207 +84,207 @@ $postId = last(request()->segments());
                                 <div class="mb-3">
                                     <label for="input_post_slug" class="form-label">Slug</label>
                                     <input id="input_post_slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                    @error('slug')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                 --}}
-                            <!-- image -->
-                            <div class="mb-3">
-                                <label for="input_post_image" class="form-label">Icon Image</label>
-                                <div class="input-group">
-                                    <button id="button_post_image1" data-input="input_post_image" class="btn btn-outline-primary" type="button">
-                                        Browse
-                                    </button>
-                                    <input id="input_post_image" name="thumbnail" value="{{ old('thumbnail') }}" type="text" class="form-control" placeholder="" readonly />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
-                            </div>
-                        </form>
+                            @error('slug')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                     </div>
-                    <div class="card mb-4 px-3 pb-3 d-none" id="includes-edit">
-                        <h5 class="card-header">Edit Includes</h5>
-                        <form id="include-update-form" method="POST" action="{{ route('includes.update',$slug) }}">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="trip_cat_id" class="form-control" id="input-id">
-                            <div class="mb-3">
-                                <label for="input_post_title" class="form-label">Title</label>
-                                <input id="input-title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                                @error('title')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            {{--
+                    --}}
+                    <!-- image -->
+                    <div class="mb-3">
+                        <label for="input_post_image" class="form-label">Icon Image</label>
+                        <div class="input-group">
+                            <button id="button_post_image1" data-input="input_post_image" class="btn btn-outline-primary" type="button">
+                                Browse
+                            </button>
+                            <input id="input_post_image" name="thumbnail" value="{{ old('thumbnail') }}" type="text" class="form-control" placeholder="" readonly />
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                        <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
+                    </div>
+                    </form>
+                </div>
+                <div class="card mb-4 px-3 pb-3 d-none" id="includes-edit">
+                    <h5 class="card-header">Edit Includes</h5>
+                    <form id="include-update-form" method="POST" action="{{ route('includes.update',$slug) }}">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="trip_cat_id" class="form-control" id="input-id">
+                        <div class="mb-3">
+                            <label for="input_post_title" class="form-label">Title</label>
+                            <input id="input-title" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
+                            @error('title')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
+                        </div>
+                        {{--
                                 <!-- slug -->
                                 <div class="mb-3">
                                     <label for="input_post_slug" class="form-label">Slug</label>
                                     <input id="input-slug" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                    @error('slug')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                 --}}
-                            <!-- image -->
-                            <div class="mb-3">
-                                <label for="input_post_image" class="form-label">Icon Image</label>
-                                <div class="input-group">
-                                    <button id="button_edit_include" data-input="edit-post-images" class="btn btn-outline-primary" type="button">
-                                        Browse
-                                    </button>
-                                    <input id="edit-post-images" name="thumbnail" value="{{ old('thumbnail') }}" type="text" class="form-control" placeholder="" readonly />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <!-- <button id="back-edit-include" class="btn btn-danger px-4"><i class="menu-icon bx bx-save"></i>Cancel</button> -->
-                                <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
-                            </div>
-                        </form>
+                        @error('slug')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                </div>
+                --}}
+                <!-- image -->
+                <div class="mb-3">
+                    <label for="input_post_image" class="form-label">Icon Image</label>
+                    <div class="input-group">
+                        <button id="button_edit_include" data-input="edit-post-images" class="btn btn-outline-primary" type="button">
+                            Browse
+                        </button>
+                        <input id="edit-post-images" name="thumbnail" value="{{ old('thumbnail') }}" type="text" class="form-control" placeholder="" readonly />
                     </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                    <!-- <button id="back-edit-include" class="btn btn-danger px-4"><i class="menu-icon bx bx-save"></i>Cancel</button> -->
+                    <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-12">
+    <h5 class="card-header">Excludes</h5>
+    <div class="row">
+        <div class="col-8">
+            <div class="card mb-4 pt-3">
+                <div class="table-responsive text-nowrap" style="height:500px">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Icon</th>
+                                <th>Title</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-border-bottom-0">
+                            @forelse ($excludes as $row)
+                            <tr>
+                                <td><img src="{{$row->icon_image}}" alt=""></td>
+                                <td><strong>{{ $row->title }}</strong></td>
+                                <td>
+                                    <div class="dropdown">
+                                        <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                            <i class="bx bx-dots-vertical-rounded"></i>
+                                        </button>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" role="button" id="edit-item2" data-item-id="{{ $row->id }}" data-item-images="{{ $row->icon_image }}" data-item-title="{{ $row->title }}" data-item-slug="{{ $row->slug }}"></i> Edit</a>
+
+                                            <form action="{{ route('excludes.destroy',$row->id) }}" method="post">
+                                                @csrf
+                                                @method('DELETE')
+                                                <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
+                                                    <i class="bx bx-trash me-1"></i>Delete
+                                                </a>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
+                                @empty
+                                <td>Excludes Tidak Tersedia</td>
+                                @endforelse
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <div class="col-12">
-            <h5 class="card-header">Excludes</h5>
-            <div class="row">
-                <div class="col-8">
-                    <div class="card mb-4 pt-3">
-                        <div class="table-responsive text-nowrap" style="height:500px">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Icon</th>
-                                        <th>Title</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="table-border-bottom-0">
-                                    @forelse ($excludes as $row)
-                                    <tr>
-                                        <td><img src="{{$row->icon_image}}" alt=""></td>
-                                        <td><strong>{{ $row->title }}</strong></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                                                    <i class="bx bx-dots-vertical-rounded"></i>
-                                                </button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" role="button" id="edit-item2" data-item-id="{{ $row->id }}" data-item-images="{{ $row->icon_image }}" data-item-title="{{ $row->title }}" data-item-slug="{{ $row->slug }}"></i> Edit</a>
-
-                                                    <form action="{{ route('excludes.destroy',$row->id) }}" method="post">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        <a class="dropdown-item" href="#" , role="alert" alert-text="{{ $row->title }}" onclick="this.closest('form').submit();return false;">
-                                                            <i class="bx bx-trash me-1"></i>Delete
-                                                        </a>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        @empty
-                                        <td>Excludes Tidak Tersedia</td>
-                                        @endforelse
-                                </tbody>
-                            </table>
-                        </div>
+        <div class="col-4">
+            <div class="card mb-4 px-3 pb-3" id="excludes-add">
+                <h5 class="card-header">Add Excludes</h5>
+                <form action="{{route('excludes.store', ['product'=>1])}}" method="POST">
+                    @csrf
+                    <input type="hidden" name="trip_cat_id" class="form-control" value="{{ $slug }}">
+                    <div class="mb-3">
+                        <label for="input_post_title1" class="form-label">Title</label>
+                        <input id="input_post_title1" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
+                        @error('title')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
                     </div>
-                </div>
-                <div class="col-4">
-                    <div class="card mb-4 px-3 pb-3" id="excludes-add">
-                        <h5 class="card-header">Add Excludes</h5>
-                        <form action="{{route('excludes.store', ['product'=>1])}}" method="POST">
-                            @csrf
-                            <input type="hidden" name="trip_cat_id" class="form-control" value="{{ $slug }}">
-                            <div class="mb-3">
-                                <label for="input_post_title1" class="form-label">Title</label>
-                                <input id="input_post_title1" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                                @error('title')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            {{--
+                    {{--
                                 <!-- slug -->
                                 <div class="mb-3">
                                     <label for="input_post_slug" class="form-label">Slug</label>
                                     <input id="input_post_slug1" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                    @error('slug')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                 --}}
-                            <!-- image -->
-                            <div class="mb-3">
-                                <label for="input_post_image" class="form-label">Icon Image</label>
-                                <div class="input-group">
-                                    <button id="button_post_image" data-input="input_post_image1" class="btn btn-outline-primary" type="button">
-                                        Browse
-                                    </button>
-                                    <input id="input_post_image1" name="thumbnail2" value="{{ old('thumbnail2') }}" type="text" class="form-control" placeholder="" readonly />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="card mb-4 px-3 pb-3 d-none" id="excludes-edit">
-                        <h5 class="card-header">Edit Excludes</h5>
-                        <form id="exclude-update-form" method="POST" action="{{ route('excludes.update',$slug) }}">
-                            @csrf
-                            @method('PUT')
-                            <input type="hidden" name="trip_cat_id" class="form-control" id="input-id-excludes" value="{{$slug}}">
-                            <div class="mb-3">
-                                <label for="input_post_title1" class="form-label">Title</label>
-                                <input id="input-title-excludes" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
-                                @error('title')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                            <!-- slug -->
-                            {{-- 
+                    @error('slug')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+            </div>
+            --}}
+            <!-- image -->
+            <div class="mb-3">
+                <label for="input_post_image" class="form-label">Icon Image</label>
+                <div class="input-group">
+                    <button id="button_post_image" data-input="input_post_image1" class="btn btn-outline-primary" type="button">
+                        Browse
+                    </button>
+                    <input id="input_post_image1" name="thumbnail2" value="{{ old('thumbnail2') }}" type="text" class="form-control" placeholder="" readonly />
+                </div>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
+            </div>
+            </form>
+        </div>
+        <div class="card mb-4 px-3 pb-3 d-none" id="excludes-edit">
+            <h5 class="card-header">Edit Excludes</h5>
+            <form id="exclude-update-form" method="POST" action="{{ route('excludes.update',$slug) }}">
+                @csrf
+                @method('PUT')
+                <input type="hidden" name="trip_cat_id" class="form-control" id="input-id-excludes" value="{{$slug}}">
+                <div class="mb-3">
+                    <label for="input_post_title1" class="form-label">Title</label>
+                    <input id="input-title-excludes" name="title" type="text" placeholder="" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ old('title') }}" />
+                    @error('title')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                    @enderror
+                </div>
+                <!-- slug -->
+                {{--
                                 <div class="mb-3">
                                     <label for="input_post_slug" class="form-label">Slug</label>
                                     <input id="input-slug-excludes" name="slug" type="text" class="form-control @error('slug') is-invalid @enderror" readonly value="{{ old('slug') }}" />
-                                    @error('slug')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                    @enderror
-                                </div>
-                                --}}
-                            <!-- image -->
-                            <div class="mb-3">
-                                <label for="input_post_image" class="form-label">Icon Image</label>
-                                <div class="input-group">
-                                    <button id="button_post_image_edit" data-input="edit-post-images-excludes" class="btn btn-outline-primary" type="button">
-                                        Browse
-                                    </button>
-                                    <input id="edit-post-images-excludes" name="thumbnail2" value="{{ old('thumbnail2') }}" type="text" class="form-control" placeholder="" readonly />
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-end">
-                                <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+                @error('slug')
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $message }}</strong>
+                </span>
+                @enderror
+        </div>
+        --}}
+        <!-- image -->
+        <div class="mb-3">
+            <label for="input_post_image" class="form-label">Icon Image</label>
+            <div class="input-group">
+                <button id="button_post_image_edit" data-input="edit-post-images-excludes" class="btn btn-outline-primary" type="button">
+                    Browse
+                </button>
+                <input id="edit-post-images-excludes" name="thumbnail2" value="{{ old('thumbnail2') }}" type="text" class="form-control" placeholder="" readonly />
             </div>
         </div>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-success px-4"><i class="menu-icon bx bx-save"></i>Save</button>
+        </div>
+        </form>
     </div>
+</div>
+</div>
+</div>
+</div>
 
 </div>
 

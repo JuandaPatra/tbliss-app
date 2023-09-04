@@ -58,13 +58,13 @@ class HiddenGemController extends Controller
                 return '
                 <a href="'.route('activities.edit', $user->id).'" class="btn btn-xs btn-primary"><i class="fa fa-edit"></i> Edit</a>
                 
-                <a href="'.route('activities.destroy', $user->id).'" class="btn btn-xs btn-danger "><i class="fa fa-trash"></i> Delete</a>
+                <button id="bulk_delete" data-deleteHiddenGem="'.$user->id.'" class="btn btn-danger btn-xs bulk_delete"> <i class="fa fa-trash"></i> Delete</button>
 
                 
                 ';
 
-               
             })
+            
             
            
             ->make(true);
@@ -314,6 +314,7 @@ class HiddenGemController extends Controller
      */
     public function destroy($id)
     {
+
        
         try {
             /// temukan list hidden_gem_hashtag dengan id yang dikirimkan parameter
@@ -362,7 +363,10 @@ class HiddenGemController extends Controller
             //// jika gagal kirim alert error
             Alert::error('Delete Hidden Gem /Activity', 'error'.$th->getMessage()); 
         }
-        return redirect()->back();
+        // return redirect()->back()->withSuccess('IT WORKS!');
+        return 'success';
+        
+        // return redirect()->back();
     }
 
     public function images($id)

@@ -77,16 +77,18 @@ Category Add
                @enderror
             </div>
             <!-- itinerary -->
-            <div class="mb-3">
-               <label for="input_post_content1" class="form-label">itinerary</label>
-               <textarea id="input_post_content1" name="itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="20">{{ old('itinerary') }}
-               </textarea>
-               @error('itinerary')
-               <span class="invalid-feedback" role="alert">
-                  <strong>Wajib diisi</strong>
-               </span>
-               @enderror
-            </div>
+            {{--
+               <div class="mb-3">
+                  <label for="input_post_content1" class="form-label">itinerary</label>
+                  <textarea id="input_post_content1" name="itinerary" class="form-control @error('itinerary') is-invalid @enderror" rows="20">{{ old('itinerary') }}
+                  </textarea>
+                  @error('itinerary')
+                  <span class="invalid-feedback" role="alert">
+                     <strong>Wajib diisi</strong>
+                  </span>
+                  @enderror
+               </div>
+               --}}
             <div class="mb-3">
                <label for="input_post_price" class="form-label">Price</label>
                <input id="input_post_price" name="price" type="text" placeholder="" class="form-control @error('price') is-invalid @enderror tourPrice" name="price" value="{{ old('price') }}" />

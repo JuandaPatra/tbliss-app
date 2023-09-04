@@ -105,6 +105,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request['slug'] = Str::slug($request->title);
+        $request['itinerary'] = '-';
 
         $slug = $request['slug'];
 
@@ -270,11 +271,11 @@ class ProductController extends Controller
 
 
 
-            Alert::success('Tambah Benua', 'Berhasil');
+            Alert::success('Tambah Trip', 'Berhasil');
             return redirect()->route('product.index');
         } catch (\throwable $th) {
             DB::rollBack();
-            Alert::error('Tambah Benua', 'error' . $th->getMessage());
+            Alert::error('Tambah Trip', 'error' . $th->getMessage());
             return redirect()->back()->withInput($request->all());
         } finally {
             DB::commit();
@@ -495,6 +496,7 @@ class ProductController extends Controller
         //// ubah string to number price
         $request['slug'] = Str::slug($request->title);
         $request['description'] = strip_tags($request->description);
+        $request['itinerary'] = '-';
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;
         $dp_price = str_replace('.', '', $request->dp_price);
@@ -901,6 +903,19 @@ class ProductController extends Controller
                 // })
                 ->make(true);
         }
+    }
+
+    public function updateSeat(Request $request, $id)
+    {
+        $trip = Trip_categories::whereId($id);
+
+        $trip->update([
+            'seat'  => $request->seat
+        ]);
+
+
+
+        return 'success';
     }
 
 

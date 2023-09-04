@@ -147,7 +147,7 @@
                             </span>
                             <span class="ml-3 text-[16px]">
 
-                                {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
+                                {{ date('d M Y', strtotime($trip->date_from)) }}
                             </span>
                         </div>
                         <p class="text-redTbliss font-bold text-[19px] flex-1 px-[15px] pb-[20px]">
@@ -357,7 +357,7 @@
                                 |
                             </span>
                             <span class="ml-3 text-[16px]">
-                            ${item.date_from_result} - ${item.date_to_result}
+                            ${item.date_from_result} 
 
                             </span>
                         </div>
@@ -457,7 +457,7 @@
                                 |
                             </span>
                             <span class="ml-3 text-[16px]">
-                            ${item.date_from_result} - ${item.date_to_result}
+                            ${item.date_from_result} 
 
                             </span>
                         </div>

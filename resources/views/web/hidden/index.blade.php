@@ -16,15 +16,13 @@
 <section class="container-lg mb-20">
     <div class="flex flex-col lg:flex-row justify-between mt-[42px]">
         <div class="w-full lg:w-1/2">
-            {{--<h1 class="text-[15px] lg:text-[18px]">
-                {{$hiddenGem->description1}}
-            </h1>--}}
+            
             {!! $hiddenGem->description1 !!}
         </div>
         <div class="flex flex-row lg:flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl mt-[30px] lg:mt-0  ">
             <div class="flex flex-col justify-start px-4 py-1 leading-normal border-l-2 border-gray-200 w-1/2 mt-[-55px]">
                 <div class="flex">
-                    <span class="font-bold text-[30px] inline-block">5.0</span>
+                    <span class="font-bold text-[30px] inline-block">5</span>
                     <span class="mx-2 block mt-[20px]">/</span>
                     <span class="block mt-[20px]">5</span>
                 </div>
@@ -99,7 +97,7 @@
                             |
                         </span>
                         <span class="ml-3 text-[16px]">
-                        {{ date('d', strtotime($trip->date_from)) }} - {{ date('d M Y', strtotime($trip->date_to)) }}
+                        {{ date('d M Y', strtotime($trip->date_from)) }} 
                         </span>
                         <p class="text-[#FF5055] font-bold text-[19px]">
                             @currency($trip->price)

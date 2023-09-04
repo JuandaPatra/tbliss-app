@@ -63,6 +63,11 @@
             height: auto !important;
         }
 
+        .slider-text{
+            display: none;
+        }
+
+
         /* .j-overlay-text.j-gallery {
             height: 300px !important;
         } */

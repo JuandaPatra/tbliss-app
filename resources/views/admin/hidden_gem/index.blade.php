@@ -67,6 +67,51 @@ Hidden Gem / Activities
       ]
     });
 
+
+    $(document).on('click', '.bulk_delete', function() {
+      var id = $(this).attr('data-deleteHiddenGem')
+
+      // console.log(id);
+      event.preventDefault();
+      swal({
+          title: `Are you sure you want to delete this slider?`,
+          text: "If you delete this, it will be gone forever.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: true,
+        })
+        .then((willDelete) => {
+          if (willDelete) {
+            var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
+            $.ajax({
+              type: "POST",
+              url: "{{ route('activities.destroy','') }}" + '/' + id,
+              data: {
+                _token: CSRF_TOKEN,
+                _method: 'DELETE'
+              },
+              dataType: 'JSON',
+              success: function(results) {
+                console.log(results)
+                if (results == 'success') {
+                  table.ajax.reload()
+                  swal("Done!", results.message, "success");
+                } else {
+                  swal("Error!", results.message, "error");
+                }
+              }
+            });
+            // form.submit();
+            setTimeout(function() {
+              location.reload()
+            }, 100);
+          }
+        });
+
+    })
+
+
+
     $('.show_confirm_delete').click(function(event) {
       var form = $(this).closest("form");
       var name = $(this).data("name");
