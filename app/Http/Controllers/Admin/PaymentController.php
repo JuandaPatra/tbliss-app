@@ -90,6 +90,7 @@ class PaymentController extends Controller
     {
         $data = Payment::with(['trip:id,title,dp_price,visa,total_tipping', 'user:id,name,email,phone,alamat'])->where('id', '=', $id)->first(['id', 'user_id', 'order_id', 'invoice_id', 'qty', 'price', 'trip_categories_id', 'price_dp', 'total', 'tanggal_pembayaran', 'foto_diunggah', 'tanggal_pembayaran_acc', 'status', 'visa', 'total_tipping', 'grand_total', 'due_date', 'opsi_pembayaran']);
 
+
         $datas = substr($data->invoice_id, 0, 11);
         $middle = 5;
 
@@ -267,6 +268,7 @@ class PaymentController extends Controller
     {
 
         $posts = Payment::whereId($id)->first();
+
 
         //169175046400749
         $getInstallment1 = substr((string) $posts->invoice_id, 10, 2);  // bcd

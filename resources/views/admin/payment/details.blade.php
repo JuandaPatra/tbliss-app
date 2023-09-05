@@ -9,7 +9,11 @@ Payment Detail
 <div class="card">
     <h5 class="card-header">List Payment</h5>
     <div class="d-flex justify-content-end px-4 mb-4">
+        @if($data->trip  != null)
         <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.invoice', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Konfirmasi Pembayaran</a>
+        @else
+        <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.invoice', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3 disabled">Konfirmasi Pembayaran</a>
+        @endif
         {{--
             @if($finishInstallment == 1)
             <a onclick="return confirm('Are you sure finish this payment');" href="{{ route('payments.sendEmailUnpaid', ['id'=>$data->id]) }}" class="btn btn-outline-success me-3">Kirim Invoice unpaid</a>

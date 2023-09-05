@@ -37,8 +37,9 @@
                   </div>
                </div>
                
-               <a class="btn btn-warning px-4" href="">Back</a>
-               <button type="submit" class="btn btn-primary px-4">Save</button>
+               <div class="d-flex justify-content-end">
+                   <button type="submit" class="btn btn-primary px-4">Save</button>
+               </div>
             </div>
          </div>
       </form>
