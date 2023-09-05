@@ -73,7 +73,12 @@
         <h1 class="text-[30px]">
             Eksplor Trip Lainnya
         </h1>
-        <div class="flex flex-wrap hg-slider">
+        <div class="flex flex-wrap ">
+            @if($tripHiddenGemsResult->count() == 0)
+            <div class=" mt-10"> 
+                <h1 class=" text-[30px]">No Data</h1>
+            </div>
+            @else
             @foreach($tripHiddenGemsResult as $trip)
             <div class="basis-full lg:basis-4/12 px-0 py-3 lg:p-3">
                 <div class="max-w-md lg:max-w-sm bg-white ">
@@ -107,6 +112,7 @@
             </div>
 
             @endforeach
+            @endif
 
         </div>
     </div>

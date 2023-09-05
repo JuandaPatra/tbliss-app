@@ -121,6 +121,7 @@
 
         </div>
         <div class="flex flex-wrap home-section">
+            @if($trips->count() != 0)
             @foreach($trips as $trip)
             <div class="basis-full lg:basis-4/12 px-3 pt-[50px] pb-3 hover:drop-shadow-md hover:cursor-pointer ">
                 <div class="max-w-sm bg-white ">
@@ -158,6 +159,11 @@
                 </div>
             </div>
             @endforeach
+            @else
+            <div class=" ml-[15px]">
+                <h1 class=" text-[30px] text-greyTbliss">No Trip</h1>
+            </div>
+            @endif
 
         </div>
     </div>

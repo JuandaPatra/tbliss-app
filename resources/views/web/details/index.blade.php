@@ -13,7 +13,6 @@
                     </h1>
                     <div class="flex">
                         <select id="countries" class="bg-gray-50 border border-gray-300 rounded-l-lg text-greyDetTbliss font-interRegular text-[13px]  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <!-- <option value="">Pilih Negara</option> -->
                             <option value="6">Korea</option>
 
                             {{--
@@ -96,6 +95,11 @@
             </h1>
         </div>
         <div class="trip-search">
+            @if($trips->count() == 0)
+            <div class="flex justify-center">
+                <h1 class=" text-[30px] text-greyTbliss">No Trips</h1>
+            </div>
+            @else
             @foreach($trips as $trip)
             @if($loop->iteration % 2 == 0)
             <div class="flex flex-wrap flex-col-reverse md:flex-row">
@@ -260,6 +264,7 @@
             </div>
             @endif
             @endforeach
+            @endif
 
 
 
