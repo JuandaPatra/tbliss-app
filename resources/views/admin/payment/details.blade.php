@@ -103,7 +103,11 @@ Payment Detail
                                 Trip
                             </td>
                             <td>
+                                @if($data->trip != null)
                                 {{$data->trip->title}}
+                                @else
+                                -
+                                @endif
                             </td>
                         </tr>
                         <tr>
