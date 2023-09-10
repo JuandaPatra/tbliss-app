@@ -3,7 +3,7 @@
 Slider Add
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('add_category') }} --}}
+ {{ Breadcrumbs::render('destinasi-create') }} 
 @endsection
 @section('content')
 <div class="row">

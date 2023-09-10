@@ -1,11 +1,9 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-@php
-$postId = last(request()->segments());
-@endphp
+Choose Hidden Gems
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render() }} --}}
+ {{ Breadcrumbs::render('pick-hidden-gem') }} 
 @endsection
 @section('content')
 

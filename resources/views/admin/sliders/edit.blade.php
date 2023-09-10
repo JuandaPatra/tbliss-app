@@ -3,7 +3,7 @@
 Slider Edit
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('edit_slider',$slider) }} --}}
+ {{ Breadcrumbs::render('slider-edit',$slider) }} 
 @endsection
 @section('content')
 <div class="row">

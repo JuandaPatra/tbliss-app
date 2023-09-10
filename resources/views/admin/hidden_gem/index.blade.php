@@ -3,7 +3,7 @@
 Hidden Gem / Activities
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('sliders') }} --}}
+ {{ Breadcrumbs::render('activities') }} 
 @endsection
 @section('content')
 <div class="card">

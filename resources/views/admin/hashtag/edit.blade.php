@@ -3,7 +3,7 @@
 Slider Edit
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('edit_slider',$slider) }} --}}
+{{ Breadcrumbs::render('hashtag-edit',$hashtag) }}
 @endsection
 @section('content')
 <div class="row">
@@ -24,12 +24,12 @@ Slider Edit
                   </span>
                   @enderror
                </div>
-              
-            <div class="d-flex justify-content-end">
-               <button type="submit" class="btn btn-primary px-4">
-                  Save
-               </button>
-            </div>
+
+               <div class="d-flex justify-content-end">
+                  <button type="submit" class="btn btn-primary px-4">
+                     Save
+                  </button>
+               </div>
       </form>
    </div>
 </div>

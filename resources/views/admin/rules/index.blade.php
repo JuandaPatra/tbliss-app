@@ -1,9 +1,9 @@
 @extends('admin.layouts.dashboard')
  @section('title')
- Sliders
+ Visa & Ketentuan
  @endsection
  @section('breadcrumbs')
- {{-- {{ Breadcrumbs::render('sliders') }} --}}
+  {{ Breadcrumbs::render('visa') }} 
  @endsection
  @section('content')
  <div class="row">

@@ -3,7 +3,7 @@
 Dashboard
 @endsection
 @section('breadcrumbs')
-{{ Breadcrumbs::render('home') }}
+{{-- {{ Breadcrumbs::render('home') }}--}} 
 @endsection
 @section('content')
 <div class="row">

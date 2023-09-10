@@ -3,7 +3,7 @@
 Dashboard
 @endsection
 @section('breadcrumbs')
-{{--{{ Breadcrumbs::render('categories') }}--}}
+{{ Breadcrumbs::render('contact-user') }}
 @endsection
 @section('content')
 <!-- content -->

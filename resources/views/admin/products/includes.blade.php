@@ -5,7 +5,7 @@ $postId = last(request()->segments());
 @endphp
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render() }} --}}
+ {{ Breadcrumbs::render('trip-include', $datas) }}
 @endsection
 @section('content')
 

@@ -1,9 +1,9 @@
 @extends('admin.layouts.dashboard')
  @section('title')
- Sliders
+ Syarat
  @endsection
  @section('breadcrumbs')
- {{-- {{ Breadcrumbs::render('sliders') }} --}}
+  {{ Breadcrumbs::render('syarat') }} 
  @endsection
  @section('content')
  <div class="row">

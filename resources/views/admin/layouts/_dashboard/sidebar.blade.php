@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
   <div class="app-brand demo">
-    <a href="index.html" class="app-brand-link">
+    <a href="{{route('home')}}" class="app-brand-link">
       <span class="app-brand-logo demo">
 
       </span>
@@ -400,7 +400,7 @@
       </ul>
     </li>
     --}}
-  <li class="menu-item active">
+  <li class="menu-item ">
     <a href="{{ route('choose-hidden-gem.index') }}" class="menu-link">
       <i class="menu-icon bx bx-envelope"></i>
       <div data-i18n="Tables">Choose Hidden Gem </div>

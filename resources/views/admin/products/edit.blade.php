@@ -3,7 +3,7 @@
 Edit Product
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('add_category') }} --}}
+ {{ Breadcrumbs::render('trip-edit', $trip) }} 
 @endsection
 @section('content')
 <a href="{{route('product.index')}}" class="btn btn-warning btn-sm mb-3">Back</a>

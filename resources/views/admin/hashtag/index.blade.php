@@ -3,7 +3,7 @@
 Sliders
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('sliders') }} --}}
+ {{ Breadcrumbs::render('hashtag') }} 
 @endsection
 @section('content')
 <div class="card">

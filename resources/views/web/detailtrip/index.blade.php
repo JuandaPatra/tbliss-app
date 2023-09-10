@@ -51,7 +51,7 @@
     <div class="flex flex-wrap mt-20 pb-4">
         <div class="basis-full lg:basis-1/2">
             <h3 class="text-[18px] text-[#414141]">
-                {{$detailTrip->description}}
+                Open Trip {{$detailTrip->day}}H{{$detailTrip->night}}M
             </h3>
 
             <h1 class="text-[#102448] text-[40px] font-bely">

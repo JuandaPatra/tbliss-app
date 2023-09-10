@@ -1,9 +1,9 @@
 @extends('admin.layouts.dashboard')
 @section('title')
-Slider Add
+User-Admin Create
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('add_category') }} --}}
+ {{ Breadcrumbs::render('admin-create') }} 
 @endsection
 @section('content')
 <div class="row">

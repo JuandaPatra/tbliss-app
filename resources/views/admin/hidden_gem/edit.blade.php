@@ -3,7 +3,7 @@
 Edit hidden gem
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('edit_slider',$slider) }} --}}
+ {{ Breadcrumbs::render('activities-edit',$hidden_gem) }} 
 @endsection
 @section('content')
 <div class="row">

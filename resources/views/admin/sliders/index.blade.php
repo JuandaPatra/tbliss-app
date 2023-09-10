@@ -3,7 +3,7 @@
 Sliders
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('sliders') }} --}}
+ {{ Breadcrumbs::render('slider') }}
 @endsection
 @section('content')
 <div class="card">

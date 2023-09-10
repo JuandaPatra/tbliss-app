@@ -3,7 +3,7 @@
 Add Hidden Gems
 @endsection
 @section('breadcrumbs')
-{{-- {{ Breadcrumbs::render('add_category') }} --}}
+{{ Breadcrumbs::render('activities-create') }} 
 @endsection
 @section('content')
 <div class="row">
