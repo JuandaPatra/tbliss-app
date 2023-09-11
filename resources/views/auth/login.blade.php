@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('title')
+Login Admin
 @endsection
 @section('content')
  
@@ -33,15 +34,10 @@
                             </div>
                             <div class="input-group input-group-merge">
                                 <input type="password" id="password" class="form-control" name="password" placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;" aria-describedby="password" required />
-                                <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+                                <span class="input-group-text cursor-pointer password-hide"><i class="bx bx-hide"></i></span>
                             </div>
                         </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="remember-me" />
-                                <label class="form-check-label" for="remember-me"> Remember Me </label>
-                            </div>
-                        </div>
+                       
                         <div class="mb-3">
                             <!-- <button class="btn btn-primary d-grid w-100" type="submit">{{ __('Login') }}</button> -->
                             <button type="submit" class="btn btn-primary d-grid w-100">
@@ -57,3 +53,20 @@
     </div>
 </div>
 @endsection
+
+@push('javascript-external')
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+@endpush
+
+
+
+@push('javascript-internal')
+<script>
+  $(document).ready(function() {
+
+    $('.password-hide').on('click', function(){
+        alert('tes');
+    });
+  });
+</script>
+@endpush

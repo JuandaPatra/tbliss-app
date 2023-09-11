@@ -110,6 +110,8 @@
       })
     })
 
+    
+
     $('.close-notif').on('click', function() {
       let close = $(this).attr('data-close');
 
