@@ -291,7 +291,9 @@ class HomeController extends Controller
 
     public function hiddemGem($id, $slug)
     {
-        $hiddenGem = Hidden_gem::where('slug', $slug)->first(['id', 'title', 'slug', 'description1', 'image_desktop', 'view']);
+        $hiddenGem = Hidden_gem::where('slug', $slug)->first(['id', 'title', 'slug', 'description1', 'image_desktop', 'view', 'banner']);
+
+        // return $hiddenGem;
 
 
         $hiddenGemView = $hiddenGem->view + 1;

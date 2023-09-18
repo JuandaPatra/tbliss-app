@@ -7,9 +7,9 @@
         <h1 class=" font-interRegular font-bold text-[24px]">{{$hiddenGem->title}}</h1>
     </div>
     <picture>
-        <source media="(min-width:1000px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">
-        <source media="(min-width:320px)" srcset="{{ asset('images/detailtrip/top-full.jpg') }}">
-        <img src="{{ asset('images/detailtrip/top-full.jpg') }}" alt="Flowers" class="w-full">
+        <source media="(min-width:1000px)" srcset="{{$hiddenGem->image_desktop}}">
+        <source media="(min-width:320px)" srcset="{{$hiddenGem->image_desktop}}">
+        <img src="{{$hiddenGem->image_desktop}}" alt="Flowers" class="w-full">
     </picture>
 </div>
 
