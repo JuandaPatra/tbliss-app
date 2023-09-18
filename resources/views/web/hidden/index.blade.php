@@ -74,7 +74,7 @@
             Eksplor Trip Lainnya
         </h1>
         <div class="flex flex-wrap ">
-            @if($tripHiddenGemsResult->count() == 0)
+            @if(count($tripHiddenGemsResult) == 0)
             <div class=" mt-10"> 
                 <h1 class=" text-[30px]">No Data</h1>
             </div>

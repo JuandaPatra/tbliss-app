@@ -318,6 +318,7 @@ class HomeController extends Controller
             $tripHiddenGemsResult = [];
         } else if (count($tripHiddenGems) >= 1) {
             $tripHiddenGemsResult = Trip_categories::whereIn('id', $tripUnique)->where('date_from', '>', date("Y-m-d", time() + 3600 * 24 * 1))->get(['slug', 'title', 'thumbnail', 'price', 'day', 'night', 'seat', 'date_from', 'date_to']);
+
         }
 
         return view('web.hidden.index', compact('tripHiddenGemsResult', 'hiddenGem', 'count', 'tripReviewSatu'));
