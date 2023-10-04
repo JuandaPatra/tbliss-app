@@ -14,7 +14,7 @@
     <div class="flex flex-col lg:flex-row justify-between mt-[42px]">
         <div class="w-full lg:w-1/2">
             <h1 class="text-[15px] lg:text-[18px]">
-                {{$detailTrip->description}}
+                {!!$detailTrip->description!!}
             </h1>
         </div>
         <div class="flex flex-row lg:flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl mt-[30px] lg:mt-0  ">
@@ -59,7 +59,7 @@
             </h1>
 
             <p class="text-[#4A5CED] text-[20px] mt-2">
-                {{ date('d', strtotime($detailTrip->date_from)) }} - {{ date('d M Y', strtotime($detailTrip->date_to)) }}
+                {{ date('d F Y', strtotime($detailTrip->date_from)) }} 
             </p>
 
             <p class="text-[#BF1E5F] text-[20px] mt-2">
@@ -152,7 +152,7 @@
                 <div class="mb-3">
                     <div class="flex">
                         <img src="{{$include->icon_image}}" alt="" class="mr-12 inline h-[30px] lg:h-auto">
-                        <h1 class=" inline-block mt-[10px]">{{$include->title}}</h1>
+                        <h1 class=" inline-block mt-[10px]">{!!$include->title!!}</h1>
                     </div>
                 </div>
                 @endforeach
@@ -165,7 +165,7 @@
                 <div class="mb-3">
                     <div class="flex">
                         <img src="{{$exclude->icon_image}}" alt="" class="mr-12 inline h-[30px] lg:h-auto">
-                        <h1 class=" inline-block mt-[10px]">{{$exclude->title}}</h1>
+                        <h1 class=" inline-block mt-[10px]">{!!$exclude->title!!}</h1>
                     </div>
                 </div>
                 @endforeach

@@ -495,7 +495,7 @@ class ProductController extends Controller
 
         //// ubah string to number price
         $request['slug'] = Str::slug($request->title);
-        $request['description'] = strip_tags($request->description);
+        // $request['description'] = strip_tags($request->description);
         $request['itinerary'] = '-';
         $b = str_replace('.', '', $request->price);
         $int_value = (int) $b;

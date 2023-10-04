@@ -351,7 +351,7 @@
                     </thead> -->
                     <tbody>
                         <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" width="30%" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[16px]">
+                            <th scope="row" width="30%" class="px-2 lg:px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[12px] lg:text-[16px]">
                                 <span class="hidden lg:block">Bayar DP / Uang Muka</span>
 
                                 <span class="block lg:hidden">Bayar DP / <br>Uang Muka</span>
@@ -362,7 +362,7 @@
 
                         </tr>
                         @for ($i = count($monthly); $i >= 1; $i--) <tr class="bg-white dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" width="30%" class="px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                            <th scope="row" width="30%" class="px-2 lg:px-6 py-4  border-2 font-bold text-gray-900 whitespace-nowrap dark:text-white text-center text-[12px] lg:text-[16px]">
                                 {{$monthly[$i-1][1]}}
                             </th>
                             <td class="px-6 py-4 border-2 text-[16px]">

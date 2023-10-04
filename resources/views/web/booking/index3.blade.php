@@ -613,22 +613,22 @@
                 <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <tbody>
                         @for($i=0;$i<$months;$i++) <tr class="bg-white  dark:bg-gray-800 dark:border-gray-700">
-                            <th scope="row" width="30%" class="px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[16px]">
+                            <th scope="row" width="30%" class="px-2 lg:px-6 py-4 font-bold text-gray-900 whitespace-nowrap dark:text-white border-2 text-center text-[12px] lg:text-[16px]">
                                 <span class="block">{{$monthly[$i][1]}}</span>
 
                                 <!-- <span class="block lg:hidden">Bayar DP / <br>Uang Muka</span> -->
                             </th>
-                            <td class="px-6 py-4 border-2 text-[16px]">
+                            <td class="px-2 lg:px-6 py-4 border-2 text-[12px] lg:text-[16px]">
                                 @currency($monthly[$i][0])
                             </td>
 
                             </tr>
                             @endfor
                             <tr class="bg-white  dark:bg-gray-800">
-                                <th scope="row" width="30%" class="px-6 py-4 border-2 font-bold  text-gray-900 whitespace-nowrap dark:text-white text-center text-[16px]">
+                                <th scope="row" width="30%" class="px-2 lg:px-6 py-4 border-2 font-bold  text-gray-900 whitespace-nowrap dark:text-white text-center text-[12px] lg:text-[16px]">
                                     Reminder
                                 </th>
-                                <td class="px-6 py-4 border-2 text-[16px]">
+                                <td class="px-2 lg:px-6 py-4 border-2 text-[12px] lg:text-[16px]">
                                     Dikirimkan ke whatsapp atau email peserta
                                 </td>
                             </tr>
