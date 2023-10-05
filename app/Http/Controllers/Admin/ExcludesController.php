@@ -128,7 +128,7 @@ class ExcludesController extends Controller
                 'title' => $request->title,
                 'slug' => $request->slug,
                 'icon_image' => $request->thumbnail2,
-                'trip_cat_id' => $request->trip_cat_id,
+                // 'trip_cat_id' => $request->trip_cat_id,
             ]);
             Alert::success('Edit excludes', 'Berhasil');
             return redirect()->back();

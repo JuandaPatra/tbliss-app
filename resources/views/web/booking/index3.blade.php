@@ -173,8 +173,8 @@
         @csrf
         <div class="container-lg px-4">
             <div class="relative overflow-x-auto">
-                <table class="w-full text-sm text-left text-greyTbliss dark:text-gray-400">
-                    <thead class=" font-interRegular text-sm border-y border-[#9F9F9F]">
+                <table class="w-full text-xs lg:text-sm text-left text-greyTbliss dark:text-gray-400">
+                    <thead class=" font-interRegular text-[10px] lg:text-sm border-y border-[#9F9F9F]">
                         <tr>
                             <th scope="col" class="pl-0 pr-6 py-3 w-[55%]">
                                 Item Pembayaran
@@ -204,20 +204,20 @@
                             <td class=" pl-0 lg:pl-6 pr-0 py-4 font-medium" colspan="3">
                                 <div class=" basis-full lg:basis-8/12 pl-3 mt-8">
                                     <div class="flex mb-2">
-                                        <p class="w-[33%] text-[12px]">Nama Trip</p>
+                                        <p class="w-[33%] text-[10px]">Nama Trip</p>
                                         <p>:</p>
-                                        <p class="pl-1 w-[60%] text-[12px]">{{$newCart->trip->title}}</p>
+                                        <p class="pl-1 w-[60%] text-[10px]">{{$newCart->trip->title}}</p>
                                     </div>
                                     <div class="flex mb-2">
-                                        <p class="w-[33%] text-[12px]">Tanggal</p>
+                                        <p class="w-[33%] text-[10px]">Tanggal</p>
                                         <p>:</p>
-                                        <p class="pl-1 w-[60%] text-[12px]">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
+                                        <p class="pl-1 w-[60%] text-[10px]">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
 
                                     </div>
                                     <div class="flex mb-2">
-                                        <p class="w-[33%] text-[12px]">Opsi Pembayaran</p>
+                                        <p class="w-[33%] text-[10px]">Opsi Pembayaran</p>
                                         <p>:</p>
-                                        <p class="pl-1 w-[60%] text-[12px] status-payment">Bayar Uang Muka</p>
+                                        <p class="pl-1 w-[60%] text-[10px] status-payment">Bayar Uang Muka</p>
 
                                     </div>
 
@@ -259,7 +259,7 @@
                                         </div>
                                     </div>
                             </th>
-                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price">
+                            <td class=" text-[10px] pl-0 lg:pl-6 pr-0 py-4 subtotal-price">
                                 @currency($monthly[0][0])
                                 <!-- Rp.1.500.000 -->
                             </td>
@@ -270,7 +270,7 @@
                                 <input type="hidden" value="{{$monthly[0][7]}}" class="input-qty">
                                 <input type="hidden" value="{{$uniqueToken}}" name="uniqueToken">
                             </td>
-                            <td class="pl-2 lg:pl-6 pr-0 py-4 total-price">
+                            <td class=" text-[10px] pl-1 lg:pl-6 pr-0 py-4 total-price">
                                 @currency($monthly[0][6])
                                 <!-- Rp.1.500.000 -->
                             </td>
@@ -438,13 +438,13 @@
                                         </div>
                                     </div>
                             </th>
-                            <td class=" pl-0 lg:pl-6 pr-0 py-4 subtotal-price-qty font-bold uppercase">
+                            <td class="text-[10px] lg:text-sm pl-0 lg:pl-6 pr-0 py-4 subtotal-price-qty font-semibold lg:font-bold uppercase">
                                 GrandTotal
                             </td>
                             <td class="text-justify pl-2 lg:pl-6 py-4">
 
                             </td>
-                            <td class="pl-0 lg:pl-6 pr-0 py-4 total-price-grandtotal text-[12px] lg:text-[14px] font-bold">
+                            <td class="pl-0 lg:pl-6 pr-0 py-4 total-price-grandtotal text-[10px] lg:text-[14px] font-semibold lg:font-bold">
                                 @currency($monthly[0][4])
                             </td>
                         </tr>

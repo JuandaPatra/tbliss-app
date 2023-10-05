@@ -108,6 +108,11 @@ class IncludesController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        // return $request->id;
+
+        // return $id;
+
         $request['slug'] = Str::slug($request->title);
         $validator = Validator::make(
             $request->all(),
@@ -129,7 +134,7 @@ class IncludesController extends Controller
                 'title' => $request->title,
                 'slug' => $request->slug,
                 'icon_image' => $request->thumbnail,
-                'trip_cat_id' => $request->trip_cat_id,
+                // 'trip_cat_id' => $request->trip_cat_id,
             ]);
             Alert::success('Update Includes', 'Berhasil');
             // return redirect()->route('product.index');
