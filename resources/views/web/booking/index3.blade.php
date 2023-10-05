@@ -241,7 +241,7 @@
                                         <div class="hidden lg:flex mb-2">
                                             <p class="w-[30%]">Tanggal</p>
                                             <p>:</p>
-                                            <p class="pl-1 w-[60%]">{{ date('d', strtotime($newCart->trip->date_from)) }} - {{ date('d M Y', strtotime($newCart->trip->date_to)) }}</p>
+                                            <p class="pl-1 w-[60%]">{{ date('d F Y', strtotime($newCart->trip->date_from)) }} </p>
 
                                         </div>
                                         <div class="hidden lg:flex mb-2">
