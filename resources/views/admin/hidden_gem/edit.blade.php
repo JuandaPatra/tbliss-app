@@ -38,14 +38,17 @@ Edit hidden gem
                   </div>
                    --}}
                <!-- Images For banner -->
-               <div class="mb-3">
-                  <label for="input_post_thumbnail" class="form-label">Banner</label>
-                  <div class="input-group">
-                     <button id="button_post_imagesBanner" data-input="input_post_imagesBanner" class="btn btn-outline-primary" type="button">Browse >
-                     </button>
-                     <input id="input_post_imagesBanner" name="banner" value="{{ old('banner', asset($hidden_gem->banner)) }}" type="text" class="form-control" placeholder="" readonly />
+
+               {{--
+                  <div class="mb-3">
+                     <label for="input_post_thumbnail" class="form-label">Banner</label>
+                     <div class="input-group">
+                        <button id="button_post_imagesBanner" data-input="input_post_imagesBanner" class="btn btn-outline-primary" type="button">Browse >
+                        </button>
+                        <input id="input_post_imagesBanner" name="banner" value="{{ old('banner', asset($hidden_gem->banner)) }}" type="text" class="form-control" placeholder="" readonly />
+                     </div>
                   </div>
-               </div>
+                   --}}
                <div class="mb-3">
                   <label for="input_post_thumbnail" class="form-label">Images For Desktop</label>
                   <div class="input-group">
@@ -68,8 +71,8 @@ Edit hidden gem
                    --}}
                <div class="mb-3">
                   <label for="input_post_title" class="form-label">Description</label>
-                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description1') is-invalid @enderror" name="title" value="{{ old('description1', $hidden_gem->description1) }}" />
-                  @error('description1')
+                  <input id="input_post_description" name="description" type="text" placeholder="" class="form-control @error('description') is-invalid @enderror" name="title" value="{{ old('description', $hidden_gem->description1) }}" />
+                  @error('description')
                   <span class="invalid-feedback" role="alert">
                      <strong>{{ $message }}</strong>
                   </span>

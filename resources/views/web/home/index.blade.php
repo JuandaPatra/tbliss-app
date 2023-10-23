@@ -179,7 +179,7 @@
             <div class="basis-full lg:basis-3/12 gap-8 p-3 hover:drop-shadow-lg hover:cursor-pointer">
                 <div class="max-w-sm  mb-3 bg-white border border-gray-200 rounded-lg shadow-md dark:bg-gray-800 dark:border-gray-700">
                     <a href="{{route('home.hiddenGems' ,['id'=>$country->slug,'slug'=>$hiddenGem->hidden_gem->slug])}}">
-                        <img class=" w-full" src="{{$hiddenGem->hidden_gem->image_desktop}}" alt="" />
+                        <img class=" w-full h-[173px] object-cover" src="{{$hiddenGem->hidden_gem->image_desktop}}" alt="" />
                     </a>
 
                     <div class="p-3 h-[150px]">

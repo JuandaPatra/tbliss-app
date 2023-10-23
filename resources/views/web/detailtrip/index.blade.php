@@ -197,7 +197,7 @@
                 <li >
                     <!-- <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]"> -->
                     <a href="{{route('home.hiddenGems' ,['id'=>$hidden_gem->place_categories_id,'slug'=>$hidden_gem->hidden_gems->slug])}}" class="slider-images">
-                        <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%]">
+                        <img src="{{$hidden_gem->hidden_gems->image_desktop}}" alt="" class="w-[98%] h-[263px] object-cover">
                         <div class=" relative">
                             <div class=" absolute top-[-83px]  w-[98%] text-center translate-y-[50%] slider-text">
                                 <h1 class=" text-white">{{$hidden_gem->hidden_gems->title}}</h1>
