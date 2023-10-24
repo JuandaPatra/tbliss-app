@@ -38,7 +38,6 @@ Edit hidden gem
                   </div>
                    --}}
                <!-- Images For banner -->
-
                {{--
                   <div class="mb-3">
                      <label for="input_post_thumbnail" class="form-label">Banner</label>
@@ -49,6 +48,7 @@ Edit hidden gem
                      </div>
                   </div>
                    --}}
+                   
                <div class="mb-3">
                   <label for="input_post_thumbnail" class="form-label">Images For Desktop</label>
                   <div class="input-group">

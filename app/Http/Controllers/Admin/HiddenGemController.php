@@ -236,23 +236,28 @@ class HiddenGemController extends Controller
     public function update(Request $request, $id)
     {
 
+
         $request['slug'] = Str::slug($request->title);
         // $request['description'] = strip_tags($request->description);
+
+        // return $request;
         $validator = Validator::make(
             $request->all(),
             [
-                'title' => 'required|string|max:100',
-                'slug' => 'required',
+                'title' => 'required|string',
+                // 'slug' => 'required',
                 // 'status' => 'required',
                 'image_desktop' => 'required',
                 // 'image_mobile'  => 'required',
                 'description'   => 'required',
                 'hashtag'       => 'required',
-                'banner'        => 'required'
+                // 'banner'        => 'required'
             ]
         );
 
         if ($validator->fails()) {
+            // return $validator->fails();
+            // Alert::error('Tambah Hidden Gem', 'error' . $validator->fails());
             return redirect()->back()->withInput($request->all())->withErrors($validator);
         }
         //// proses insert
