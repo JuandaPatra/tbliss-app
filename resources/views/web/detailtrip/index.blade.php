@@ -122,7 +122,7 @@
 
                 </div>
                 <div class="flex justify-between w-full lg:w-1/2 border-b-4 pb-4 mb-5">
-                    <img src="{{ asset('images/detailtrip/visa.png') }}" alt="" class=" inline-block h-[50px] w-[50px]">
+                    <img src="{{ asset('images/detailtrip/visa.png') }}" alt="" class=" inline-block h-[60px] w-[60px]">
                     <div class="ml-5">
                         <h1 class="text-[#414141] text-[18px] font-bold mb-1">
                             Syarat Penting
@@ -187,7 +187,7 @@
         <div class="col-span-1"></div>
         <div class="col-span-2">
             <div class="ml-[70px] mt-[60px]">
-                <img src="{{ asset('images/detailtrip/busan-map.png') }}" alt="">
+                <img src="{{$city->place_categories->images}}" alt="">
                 <h1 class="mt-4 uppercase font-bold text-[16px]">{{$city->place_categories->title}}</h1>
             </div>
         </div>

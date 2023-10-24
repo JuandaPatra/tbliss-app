@@ -26,8 +26,8 @@
 
                 <picture>
                     <source media="(min-width:1000px)" srcset="{{$banner->image_desktop}}">
-                    <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile-2.jpg') }}">
-                    <img src="{{$banner->image_desktop}}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
+                    <source media="(min-width:320px)" srcset="{{$banner->image_mobile}}">
+                    <img src="{{$banner->image_mobile}}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
 
             </div>
