@@ -72,7 +72,7 @@
                             <option value="19">19</option>
                             <option value="20">20</option>
                         </select>
-                        <div class="relative max-w-sm">
+                        <div class="relative max-w-sm h-auto" >
                             <input type="text" class="selector" placeholder="Pilih Tanggal">
                         </div>
                         <button class="focus:outline-none  text-white bg-tbliss w-full lg:w-[40px] rounded-none lg:rounded-r-lg px-2" id="searchTrips">
@@ -80,7 +80,7 @@
                             <div class="flex justify-center">
                                 <h3 class=" lg:hidden h-[35px] text-[14px] py-2 tracking-normal">Cari Sekarang</h3>
 
-                                <img src="{{ asset('images/header/search.png') }}" alt="" class=" w-[30px] h-[20px] ml-[8px] mt-[7px]">
+                                <img src="{{ asset('images/header/search.png') }}" alt="" class=" lg:hidden w-[30px] h-[20px] ml-[8px] mt-[7px]">
                             </div>
                         </button>
                     </div>
