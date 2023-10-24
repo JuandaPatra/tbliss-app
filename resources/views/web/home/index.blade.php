@@ -9,9 +9,9 @@
         <div class="banner-slider">
             @foreach($banners as $banner)
             <div class="relative ">
-                <div class="absolute top-[270px] lg:top-[120px] left-0 right-0 text-white">
+                <div class="absolute top-[230px] lg:top-[120px] left-0 right-0 text-white">
                     <div class="flex justify-center ">
-                        <h1 class="text-center text-[25px] lg:text-[55px] w-[290px] xl:w-[700px]  font-bely">
+                        <h1 class="text-center text-[31px] lg:text-[55px] w-[290px] xl:w-[700px]  font-bely">
                             {{$banner->description}}
 
                         </h1>
