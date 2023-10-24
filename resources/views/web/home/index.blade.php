@@ -9,15 +9,15 @@
         <div class="banner-slider">
             @foreach($banners as $banner)
             <div class="relative ">
-                <div class="absolute top-[230px] lg:top-[120px] left-0 right-0 text-white">
+                <div class="absolute top-[350px] lg:top-[120px] left-0 right-0 text-white">
                     <div class="flex justify-center ">
-                        <h1 class="text-center text-[30px] lg:text-[55px] w-[710px] xl:w-[700px]  font-bely">
+                        <h1 class="text-center text-[15px] lg:text-[55px] w-[300px] xl:w-[700px]  font-bely">
                             {{$banner->description}}
 
                         </h1>
                     </div>
                     <div class="flex justify-center mt-[20px]">
-                        <h1 class="text-center text-[15px] lg:text-[20px]  w-[500px] font-normal">
+                        <h1 class="text-center text-[12px] lg:text-[20px] w-[300px]  lg:w-[500px] font-normal">
                             {{$banner->description2}}
 
                         </h1>
@@ -26,6 +26,7 @@
 
                 <picture>
                     <source media="(min-width:1000px)" srcset="{{$banner->image_desktop}}">
+                    <!-- <source media="(min-width:320px)" srcset="{{ asset('images/title/banner-mobile-2.jpg') }}"> -->
                     <source media="(min-width:320px)" srcset="{{$banner->image_mobile}}">
                     <img src="{{$banner->image_mobile}}" alt="Flowers" class="w-full lg:h-[624px] object-cover">
                 </picture>
@@ -35,20 +36,20 @@
 
         </div>
 
-        <div class="absolute search-box  left-0 right-0 top-[430px] text-white">
+        <div class="absolute search-box  left-0 right-0 top-[470px] lg:top-[430px] text-white">
             <div class="flex flex-wrap justify-center">
-                <div class="w-[90%] lg:w-[650px] h-[97px] bg-[#4A5CEDcc] pt-2.5 px-[10px] lg:px-0 rounded-xl ">
+                <div class="w-[80%] lg:w-[650px] h-[225px] lg:h-[97px] bg-[#5b6cee] pt-2.5  px-[35px] lg:px-0 rounded-md lg:rounded-xl ">
                     <h3 class="text-center mb-2">
                         Langsung cek jadwal trip :
                     </h3>
-                    <div class="flex justify-center mx-auto">
-                        <select id="countries" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class=" flex-col lg:flex-row lg:flex justify-center mx-auto">
+                        <select id="countries" class="  bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-1/4 lg:w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>Pilih Kota</option>
                             @foreach($hiddenGemId as $cities)
                             <option value="{{$cities->id}}">{{$cities->title}}</option>
                             @endforeach
                         </select>
-                        <select id="seats" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-25 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select id="seats" class="bg-gray-50 border border-gray-300 border-transparent text-gray-900 text-sm  focus:ring-blue-500 focus:border-blue-500 block w-full lg:w-1/4 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option>Peserta</option>
                             <option value="1">1</option>
                             <option value="2">2</option>
@@ -74,8 +75,13 @@
                         <div class="relative max-w-sm">
                             <input type="text" class="selector" placeholder="Pilih Tanggal">
                         </div>
-                        <button class="focus:outline-none  text-white bg-tbliss w-[40px] rounded-r-lg px-2" id="searchTrips">
-                            <img src="{{ asset('images/title/search.png') }}" alt="" class="">
+                        <button class="focus:outline-none  text-white bg-tbliss w-full lg:w-[40px] rounded-none lg:rounded-r-lg px-2" id="searchTrips">
+                            <img src="{{ asset('images/title/search.png') }}" alt="" class=" hidden lg:block">
+                            <div class="flex justify-center">
+                                <h3 class=" lg:hidden h-[35px] text-[14px] py-2 tracking-normal">Cari Sekarang</h3>
+
+                                <img src="{{ asset('images/header/search.png') }}" alt="" class=" w-[30px] h-[20px] ml-[8px] mt-[7px]">
+                            </div>
                         </button>
                     </div>
                 </div>
@@ -83,7 +89,7 @@
         </div>
     </div>
 
-    <div class="container mt-[53px]">
+    <div class="container mt-[200px] lg:mt-[53px]">
         <div class="flex justify-center">
             <h3 class=" text-center text-[20px] lg:text-[30px] w-full lg:w-[50%] font-normal font-interRegular">
                 Masih bingung milih trip yang tepat?
